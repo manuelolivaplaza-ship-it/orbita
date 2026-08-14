@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /propuesta
+Disallow: /propuestas
+Disallow: /admin

@@ -1,0 +1,12 @@
+Mi apoyo/
+Nueva carpeta/
+node_modules/
+build/
+dist/
+propuestas/**/node_modules
+propuestas/**/dist
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example

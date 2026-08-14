@@ -1,0 +1,509 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Light cosmic starfield background */
+.starfield-bg {
+  position: relative;
+}
+
+.starfield-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 10% 20%, rgba(11, 11, 18, 0.12) 100%, transparent),
+    radial-gradient(1px 1px at 30% 65%, rgba(11, 11, 18, 0.09) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 55% 15%, rgba(107, 114, 128, 0.18) 100%, transparent),
+    radial-gradient(1px 1px at 70% 80%, rgba(11, 11, 18, 0.1) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 85% 35%, rgba(11, 11, 18, 0.12) 100%, transparent),
+    radial-gradient(1px 1px at 92% 75%, rgba(161, 161, 170, 0.22) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 42% 90%, rgba(11, 11, 18, 0.08) 100%, transparent);
+  background-size: 550px 550px;
+}
+
+.starfield-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  background: 
+    radial-gradient(circle at 5% 10%, rgba(161, 161, 170, 0.1) 0%, transparent 35%),
+    radial-gradient(circle at 95% 20%, rgba(212, 212, 216, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 50% 85%, rgba(228, 228, 231, 0.18) 0%, transparent 45%);
+}
+
+/* Footer sale de debajo de la página: el main (z-20) se desliza y lo revela */
+.footer-reveal__veil {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(38vh, 18rem);
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    #f7f8fc 0%,
+    rgba(247, 248, 252, 0.72) 22%,
+    rgba(247, 248, 252, 0.22) 58%,
+    transparent 100%
+  );
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 100%);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(15, 15, 25, 0.06);
+  box-shadow: 0 8px 32px rgba(15, 15, 40, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Liquid glass — blur + saturate + borde especular + sheen (Apple-style) */
+.liquid-glass {
+  --lg-radius: 1.75rem;
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--lg-radius);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 42%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+  backdrop-filter: blur(28px) saturate(190%) brightness(1.08) contrast(1.04);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.08) contrast(1.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 24px 64px rgba(0, 0, 0, 0.32);
+}
+
+.liquid-glass--pill {
+  --lg-radius: 999px;
+  border-radius: 999px;
+}
+
+.liquid-glass--light {
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.64) 0%,
+      rgba(255, 255, 255, 0.34) 48%,
+      rgba(255, 255, 255, 0.22) 100%
+    );
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.06);
+  -webkit-backdrop-filter: blur(22px) saturate(180%) brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    inset 0 -14px 28px rgba(15, 15, 40, 0.05),
+    0 10px 28px rgba(15, 15, 40, 0.08);
+}
+
+.liquid-glass__edge,
+.liquid-glass__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.liquid-glass__edge {
+  padding: 1px;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.14) 26%,
+    rgba(255, 255, 255, 0.04) 58%,
+    rgba(255, 255, 255, 0.32) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.liquid-glass__shine {
+  background:
+    radial-gradient(120% 80% at 18% -10%, rgba(255, 255, 255, 0.28) 0%, transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, transparent 42%);
+  mix-blend-mode: soft-light;
+}
+
+.liquid-glass__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+@supports (backdrop-filter: url(#orbita-liquid)) {
+  .liquid-glass {
+    backdrop-filter: url(#orbita-liquid) blur(22px) saturate(190%) brightness(1.08);
+    -webkit-backdrop-filter: url(#orbita-liquid) blur(22px) saturate(190%) brightness(1.08);
+  }
+}
+
+/* —— Spotlight cards (borde que sigue el cursor; sin sombra gris / 3D opcional) —— */
+.spotlight-card {
+  --mx: 50%;
+  --my: 50%;
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  display: block;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(15, 15, 25, 0.08);
+  /* Sin box-shadow: el tilt 3D + sombra dejaba un “bloque gris” detrás */
+  box-shadow: none;
+  transition: border-color 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.spotlight-card--tilt {
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
+  transition:
+    transform 0.18s ease-out,
+    border-color 0.25s ease;
+  will-change: transform;
+}
+
+.spotlight-card--dark {
+  background: #18181b;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.spotlight-card--active {
+  border-color: rgba(15, 15, 25, 0.16);
+  z-index: 2;
+}
+
+.spotlight-card--dark.spotlight-card--active {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.spotlight-card__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: radial-gradient(
+    200px circle at var(--mx) var(--my),
+    rgba(11, 11, 18, 0.75) 0%,
+    rgba(11, 11, 18, 0.25) 32%,
+    transparent 58%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.spotlight-card--dark .spotlight-card__border {
+  background: radial-gradient(
+    200px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.25) 32%,
+    transparent 58%
+  );
+}
+
+.spotlight-card--active .spotlight-card__border {
+  opacity: 1;
+}
+
+.spotlight-card__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  /* Por encima del body: solo brillo sutil, no un velo gris opaco */
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: soft-light;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 50%
+  );
+}
+
+.spotlight-card--dark .spotlight-card__glare {
+  background: radial-gradient(
+    480px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 45%
+  );
+}
+
+.spotlight-card--active .spotlight-card__glare {
+  opacity: 1;
+}
+
+.spotlight-card__body {
+  position: relative;
+  z-index: 2;
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  /* Hereda el fondo del shell para no dejar huecos en las esquinas */
+  background: inherit;
+  /* Evita que capas internas (blur/filtros) se vean “grises” al aplicar tilt 3D */
+  isolation: isolate;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Sistema capas: expansión suave al hover */
+.orbit-expand-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 28rem;
+}
+
+@media (min-width: 1024px) {
+  .orbit-expand-row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.orbit-expand-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 50%;
+  min-height: 0;
+}
+
+.orbit-expand-right {
+  flex: 1 1 50%;
+  min-height: 14rem;
+  display: flex;
+}
+
+.orbit-layer {
+  flex: 1 1 0;
+  min-height: 10rem;
+  transition:
+    flex 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    min-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+.orbit-layer--expanded {
+  flex: 2.2 1 0;
+  min-height: 16rem;
+}
+
+.orbit-layer--shrunk {
+  flex: 0.55 1 0;
+  min-height: 6.5rem;
+}
+
+.orbit-layer-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    margin 0.3s ease;
+  margin-top: 0;
+}
+
+.orbit-layer--expanded .orbit-layer-detail {
+  max-height: 12rem;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+.orbit-layer-media {
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.orbit-layer--expanded .orbit-layer-media {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.glass-light-hover {
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.glass-light-hover:hover {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(107, 114, 128, 0.35);
+  box-shadow: 0 12px 40px rgba(15, 15, 40, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track-slow {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-y {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.animate-float-y-delayed {
+  animation: floatY 8s ease-in-out 2s infinite;
+}
+
+@keyframes clipReveal {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.animate-clip-reveal {
+  animation: clipReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.04); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes planMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-plan-menu {
+  animation: planMenuIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
+}
+
+/* Miniatura de portfolio: solo el hero, sin botones flotantes */
+.preview-card-shot .fixed {
+  display: none !important;
+}
+.preview-card-shot {
+  overflow: hidden;
+}
+
+html.preview-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 130, 0.45) transparent;
+}
+html.preview-scroll::-webkit-scrollbar {
+  width: 7px;
+}
+html.preview-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.preview-scroll::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 130, 0.4);
+  border-radius: 999px;
+}
+html.preview-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(90, 90, 100, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-clip-reveal,
+  .animate-float-y,
+  .animate-float-y-delayed,
+  .animate-pulse-glow,
+  .animate-plan-menu,
+  .marquee-track,
+  .marquee-track-slow {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
