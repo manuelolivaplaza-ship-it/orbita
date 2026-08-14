@@ -23,7 +23,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
 
   useEffect(() => {
     setHidden(false);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     lastY.current = window.scrollY;
@@ -71,8 +79,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
   };
 
   return (
+    <>
     <header
-      className={`fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 py-4 pointer-events-none transition-transform duration-300 ease-out will-change-transform motion-reduce:transition-none ${
+      className={`fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 py-4 pointer-events-none transition-transform duration-300 ease-out motion-reduce:transition-none ${
         hidden && !mobileMenuOpen ? '-translate-y-[120%]' : 'translate-y-0'
       }`}
     >
@@ -148,75 +157,74 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
         </div>
       </div>
 
+    </header>
+
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex justify-end pointer-events-auto">
-          <div
-            className="fixed inset-0 bg-[#0B0B12]/25 backdrop-blur-sm transition-opacity"
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-[#0B0B12]/40 backdrop-blur-sm"
+            aria-label="Cerrar menú"
             onClick={() => setMobileMenuOpen(false)}
           />
-
-          <div className="relative w-full max-w-xs h-full p-3 z-10">
-            <LiquidGlass className="h-full" tone="light">
-              <div className="h-full p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between pb-6 border-b border-zinc-200/60">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-full bg-[#0B0B12] text-white">
-                      <Sparkles className="w-4 h-4 text-[#D4D4D8]" />
-                    </div>
-                    <span className="text-lg font-medium text-[#0B0B12]">Órbita</span>
-                  </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-full hover:bg-white/40 text-zinc-600"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+          <div className="absolute inset-x-3 top-3 bottom-3 sm:left-auto sm:w-[22rem] flex flex-col rounded-[1.75rem] bg-white border border-zinc-200/80 shadow-[0_24px_60px_-20px_rgba(15,15,40,0.35)] overflow-hidden">
+            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-zinc-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white">
+                  <Sparkles className="w-4 h-4 text-[#D4D4D8]" />
                 </div>
-
-                <nav className="flex flex-col gap-2 py-8">
-                  {navLinks.map((link) => (
-                    <button
-                      key={link.label}
-                      type="button"
-                      onClick={() => goTo(link)}
-                      className="text-left text-lg font-medium text-zinc-800 hover:text-[#6B7280] transition-colors py-1"
-                    >
-                      {link.label}
-                    </button>
-                  ))}
-                </nav>
+                <span className="text-lg font-medium text-[#0B0B12] tracking-tight">Órbita</span>
               </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 rounded-full bg-zinc-100 text-zinc-700 flex items-center justify-center"
+                aria-label="Cerrar menú"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              <div className="pt-6 border-t border-zinc-200/60 space-y-3">
-                <p className="text-xs text-zinc-500">Estudio de diseño web orbital</p>
+            <nav className="flex-1 overflow-y-auto px-3 py-3">
+              {navLinks.map((link) => (
                 <button
+                  key={link.label}
                   type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenSchedule();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-white/50 text-[#0B0B12] py-3 px-6 rounded-full font-medium text-sm hover:bg-white/70 transition-colors"
+                  onClick={() => goTo(link)}
+                  className="w-full text-left text-base font-medium text-[#0B0B12] px-4 py-3.5 rounded-2xl hover:bg-zinc-50 active:bg-zinc-100"
                 >
-                  <CalendarDays className="w-4 h-4" />
-                  <span>Agendar reunión</span>
+                  {link.label}
                 </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenQuoteModal();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-[#0B0B12] text-white py-3 px-6 rounded-full font-medium text-sm hover:bg-zinc-800 transition-colors"
-                >
-                  <span>Pedir presupuesto</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-              </div>
-            </LiquidGlass>
+              ))}
+            </nav>
+
+            <div className="px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 border-t border-zinc-100 space-y-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenSchedule();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-zinc-100 text-[#0B0B12] py-3.5 px-6 rounded-full font-medium text-sm"
+              >
+                <CalendarDays className="w-4 h-4" />
+                <span>Agendar reunión</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenQuoteModal();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-[#0B0B12] text-white py-3.5 px-6 rounded-full font-medium text-sm"
+              >
+                <span>Pedir presupuesto</span>
+                <ArrowRight className="w-4 h-4 text-zinc-400" />
+              </button>
+            </div>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 };

@@ -1,3 +1,10 @@
 {
-  "items": []
+  "items": [
+    {
+      "slug": "minimayorista",
+      "title": "Sitio web y tienda online",
+      "client": "MiniMayorista",
+      "kind": "app"
+    }
+  ]
 }

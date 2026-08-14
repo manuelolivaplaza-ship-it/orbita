@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { submitLead } from '../lib/leads';
@@ -11,8 +11,51 @@ export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [loadVideo, setLoadVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const currentYear = new Date().getFullYear();
   const reducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const update = () => {
+      const main = document.querySelector('main');
+      if (!main) return;
+      setInView(main.getBoundingClientRect().bottom < window.innerHeight - 48);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (inView && !reducedMotion) setLoadVideo(true);
+  }, [inView, reducedMotion]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !loadVideo) return;
+    if (!inView) {
+      video.pause();
+      return;
+    }
+    let cancelled = false;
+    const playFromStart = () => {
+      if (cancelled) return;
+      video.currentTime = 0;
+      void video.play();
+    };
+    if (video.readyState >= 2) playFromStart();
+    else video.addEventListener('loadeddata', playFromStart, { once: true });
+    return () => {
+      cancelled = true;
+      video.removeEventListener('loadeddata', playFromStart);
+    };
+  }, [inView, loadVideo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,10 +73,10 @@ export const Footer: React.FC = () => {
   return (
     <footer className="footer-reveal sticky bottom-0 z-0 min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0C14] text-white">
       {/* 1) BACKGROUND LAYER: Video Loop + Soft Vignette */}
-      {!reducedMotion && (
+      {!reducedMotion && loadVideo && (
         <video
+          ref={videoRef}
           src={VIDEO_SOFT}
-          autoPlay
           muted
           playsInline
           preload="auto"
