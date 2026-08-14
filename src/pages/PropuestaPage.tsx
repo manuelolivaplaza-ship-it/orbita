@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { PageMeta } from '../components/PageMeta';
+import { PreviewReturnPopup } from '../components/cases/PreviewReturnPopup';
 
 const SLUG = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,80}$/;
 
@@ -106,33 +107,23 @@ export default function PropuestaPage() {
   }
 
   return (
-    <div className="h-svh flex flex-col bg-[#0B0B12]">
+    <div className="h-svh w-full bg-[#0B0B12] relative overflow-hidden">
       <PageMeta
         title={`${label} | Propuesta Órbita`}
         description={meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Órbita.'}
       />
-      <header className="h-12 shrink-0 px-3 sm:px-5 flex items-center gap-3 text-white">
-        <Link to="/" className="text-sm font-medium tracking-tight hover:text-white/80">
-          Órbita
-        </Link>
-        <span className="h-4 w-px bg-white/15" />
-        <span className="text-xs text-white/70 truncate">
-          Propuesta{kind !== 'loading' ? ` · ${label}` : ''}
-        </span>
-      </header>
-      <div className="flex-1 min-h-0 bg-zinc-200">
-        {kind === 'loading' ? (
-          <div className="h-full flex items-center justify-center text-sm text-zinc-500">
-            Cargando propuesta…
-          </div>
-        ) : (
-          <iframe
-            title={label}
-            src={src}
-            className="w-full h-full border-0 bg-white"
-          />
-        )}
-      </div>
+      {kind === 'loading' ? (
+        <div className="h-full flex items-center justify-center text-sm text-zinc-500">
+          Cargando propuesta…
+        </div>
+      ) : (
+        <iframe
+          title={label}
+          src={src}
+          className="w-full h-full border-0 bg-white"
+        />
+      )}
+      <PreviewReturnPopup name={label} labelTag="Propuesta Órbita" backUrl="/" />
     </div>
   );
 }

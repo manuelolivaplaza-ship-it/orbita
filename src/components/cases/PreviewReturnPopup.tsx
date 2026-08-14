@@ -30,9 +30,13 @@ function defaultPos(w: number, h: number): Pos {
 export function PreviewReturnPopup({
   name,
   caseSlug,
+  backUrl,
+  labelTag = 'Preview Órbita',
 }: {
   name: string;
-  caseSlug: string;
+  caseSlug?: string;
+  backUrl?: string;
+  labelTag?: string;
 }) {
   const nodeRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number } | null>(null);
@@ -118,12 +122,12 @@ export function PreviewReturnPopup({
         </div>
         <div className="px-3.5 pb-3.5">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-white/45 mb-0.5">
-            Preview Órbita
+            {labelTag}
           </p>
           <p className="text-sm font-medium tracking-tight truncate mb-3">{name}</p>
           <div className="flex gap-2">
             <Link
-              to={`/creaciones/${caseSlug}`}
+              to={backUrl ?? (caseSlug ? `/creaciones/${caseSlug}` : '/')}
               className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white text-[#0B0B12] text-xs font-medium px-3 py-2 hover:bg-zinc-200"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
