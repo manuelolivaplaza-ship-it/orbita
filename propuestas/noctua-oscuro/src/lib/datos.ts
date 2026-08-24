@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Trazabilidad", texto: "Producto y lote por escrito, siempre. Lo que entra a su cara está documentado." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "hero.jpg", marco: false, caption: "" };

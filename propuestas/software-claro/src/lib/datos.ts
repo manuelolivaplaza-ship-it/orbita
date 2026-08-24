@@ -277,3 +277,6 @@ export const textoNosotros = {
     { titulo: "Pocos proyectos", texto: "Los necesarios para mantener el equipo sin rotación. La continuidad es parte de la calidad." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "pasillo.png", marco: false, caption: "" };

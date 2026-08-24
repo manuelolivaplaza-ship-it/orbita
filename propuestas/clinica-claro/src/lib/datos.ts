@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Región primero", texto: "La salud del Maule no debería exigir un viaje a Santiago." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "hall.png", marco: false, caption: "" };

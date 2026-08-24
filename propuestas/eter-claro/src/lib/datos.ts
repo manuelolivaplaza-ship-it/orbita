@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Sin paquetes eternos", texto: "Planes que se pueden congelar, pausar y cerrar. La lealtad se gana, no se ata." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "room.jpg", marco: false, caption: "" };

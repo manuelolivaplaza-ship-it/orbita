@@ -277,3 +277,6 @@ export const textoNosotros = {
     { titulo: "Todo se entrega", texto: "Fuentes, archivos y licencias. La marca es del cliente, no del estudio." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "papel-macro.png", marco: false, caption: "" };

@@ -361,3 +361,80 @@ export function Chips({ items }: { items: { k: string; v: string }[] }) {
     </ul>
   );
 }
+
+// — Hero de portada con el patrón original del sitio —
+import { marca, hero, heroHud, comunas as comunasHero } from "../lib/datos";
+
+export function HeroPrincipal() {
+  const figRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (hero.tipo !== "split") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = figRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = Math.min(window.scrollY, window.innerHeight);
+        el.style.transform = "translateY(" + (y * 0.05).toFixed(1) + "px)";
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+
+  const url = `${import.meta.env.BASE_URL}media/${hero.foto}`;
+  const contenido = (
+    <>
+      <p className="kicker hb-in">{marca.kicker}</p>
+      <h1 className="hb-titulo">
+        {marca.claim.map((l, i) => (
+          <span className="hero-linea" style={{ animationDelay: i * 0.12 + "s" }} key={i}>{l}</span>
+        ))}
+      </h1>
+      <p className="hero-sub hb-in">{marca.sub}</p>
+      <div className="hero-ctas hb-in">
+        <Btn a={marca.ctaPrimario.a}>{marca.ctaPrimario.texto}</Btn>
+        <Btn a={marca.ctaSecundario.a} variante="sec">{marca.ctaSecundario.texto}</Btn>
+      </div>
+      <ul className="hero-hud hb-in">
+        {heroHud.map((h) => (
+          <li key={h.k}><span>{h.k}</span><strong>{h.v}</strong></li>
+        ))}
+      </ul>
+    </>
+  );
+
+  if (hero.tipo === "fullbleed") {
+    return (
+      <section className="hero-fb" id="inicio">
+        <div className="hero-fb-media"><img src={url} alt="" fetchPriority="high" /></div>
+        <div className="hero-contenido" style={{ width: "100%", maxWidth: "var(--ancho)", margin: "0 auto" }}>
+          {contenido}
+          <p className="hero-hint" aria-hidden="true">Desliza</p>
+        </div>
+      </section>
+    );
+  }
+  if (hero.tipo === "tipografico") {
+    return (
+      <section className="hero-typo" id="inicio">
+        <div className="hero-typo-cont">{contenido}</div>
+        <div className="hero-typo-banda">
+          <span>{comunasHero.slice(0, 4).join(" · ")}</span>
+          <span>{marca.telefono}</span>
+        </div>
+      </section>
+    );
+  }
+  return (
+    <section className="hero-sp" id="inicio">
+      <div className="hero-sp-texto">{contenido}</div>
+      <figure className={"hero-sp-figure" + (hero.marco ? " con-marco" : "")} ref={figRef}>
+        <div className="hero-sp-imgwrap"><img src={url} alt={marca.nombre + " " + marca.sufijo} /></div>
+        {hero.caption ? <figcaption>{hero.caption}</figcaption> : null}
+      </figure>
+    </section>
+  );
+}

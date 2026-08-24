@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Coach siempre", texto: "Grupos chicos con corrección nominal. Nunca un circuito a solas con un parlante." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "barra.png", marco: false, caption: "" };

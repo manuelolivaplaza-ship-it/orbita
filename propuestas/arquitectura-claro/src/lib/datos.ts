@@ -403,3 +403,6 @@ export const textoNosotros = {
     { titulo: "Documentación completa", texto: "Todo queda escrito: encargo, partidas, libro de obras y entrega." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "esquina.png", marco: false, caption: "Obra del estudio" };

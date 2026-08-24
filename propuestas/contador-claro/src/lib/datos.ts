@@ -295,3 +295,6 @@ export const textoNosotros = {
     { titulo: "Problemas primero", texto: "La auditoría inicial cuenta lo que está mal antes de cobrar por arreglarlo." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "archivo.png", marco: false, caption: "" };

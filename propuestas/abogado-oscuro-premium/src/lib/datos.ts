@@ -378,3 +378,6 @@ export const textoNosotros = {
     { titulo: "Honestidad de viabilidad", texto: "Si la causa se pierde, se pierde en la primera consulta. Gratis." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "sala.png", marco: false, caption: "" };

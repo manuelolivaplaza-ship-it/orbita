@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Continuidad", texto: "Control de 48 horas y derivación documentada cuando el caso sigue afuera." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "corridor.jpg", marco: false, caption: "Atención de urgencia" };

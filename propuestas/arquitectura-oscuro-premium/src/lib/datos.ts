@@ -403,3 +403,6 @@ export const textoNosotros = {
     { titulo: "Nada sin muestra", texto: "Cada material y cada color se aprueba con muestra física en obra." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "hormigon.png", marco: false, caption: "" };

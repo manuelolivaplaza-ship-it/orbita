@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Sin miedo heredado", texto: "Los papás con miedo al dentista se lo pasan a los hijos. Acá se corta la cadena." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "basin.jpg", marco: false, caption: "" };

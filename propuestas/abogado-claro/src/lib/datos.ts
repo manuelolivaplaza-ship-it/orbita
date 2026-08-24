@@ -404,3 +404,6 @@ export const textoNosotros = {
     { titulo: "Pocos casos, bien llevados", texto: "Preferimos rechazar un caso que llevarlo mal." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "biblioteca.png", marco: false, caption: "" };

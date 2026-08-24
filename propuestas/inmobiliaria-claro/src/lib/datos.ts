@@ -398,3 +398,6 @@ export const textoNosotros = {
     { titulo: "Precio con fundamento", texto: "Tasación escrita con comparables. Ni optimismo ni pesimismo: datos." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "casa.png", marco: false, caption: "" };

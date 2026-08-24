@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Medir como negocio", texto: "Los likes van en el anexo. Arriba va lo que el directorio mira." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "proyector.png", marco: false, caption: "" };

@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Velocidad con criterio", texto: "Laboratorio en 30 minutos e imágenes el mismo día, siempre explicadas." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "hero.jpg", marco: false, caption: "" };

@@ -402,3 +402,6 @@ export const textoNosotros = {
     { titulo: "Ampliable siempre", texto: "Toda casa NORTE puede crecer por diseño: módulos que se suman sin cirugía." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "hero.jpg", marco: false, caption: "Casa Modelo A · Las Condes" };

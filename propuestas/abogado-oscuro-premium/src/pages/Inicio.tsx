@@ -1,5 +1,4 @@
-import Hero3D from "../components/Hero3D";
-import { Revelar, Contador, Tilt, Marquesina, Btn } from "../components/widgets";
+import { Revelar, Contador, Tilt, Marquesina, Btn, HeroPrincipal } from "../components/widgets";
 import { Enlace } from "../lib/router";
 import {
   marca,
@@ -22,38 +21,7 @@ export function Inicio() {
 
   return (
     <>
-      <section className="hero" id="inicio">
-        <Hero3D />
-        <div className="hero-velo" aria-hidden="true" />
-        <div className="hero-contenido">
-          <p className="kicker revelar is-in">{marca.kicker}</p>
-          <h1 className="hero-titulo">
-            {marca.claim.map((linea, i) => (
-              <span className="hero-linea" key={i}>
-                {linea}
-              </span>
-            ))}
-          </h1>
-          <p className="hero-sub">{marca.sub}</p>
-          <div className="hero-ctas">
-            <Btn a={marca.ctaPrimario.a}>{marca.ctaPrimario.texto}</Btn>
-            <Btn a={marca.ctaSecundario.a} variante="sec">
-              {marca.ctaSecundario.texto}
-            </Btn>
-          </div>
-          <ul className="hero-hud" aria-label="Datos del estudio">
-            {heroHud.map((h) => (
-              <li key={h.k}>
-                <span>{h.k}</span>
-                <strong>{h.v}</strong>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="hero-hint" aria-hidden="true">
-          Desliza
-        </p>
-      </section>
+            <HeroPrincipal />
 
       <Marquesina items={comunas} />
 

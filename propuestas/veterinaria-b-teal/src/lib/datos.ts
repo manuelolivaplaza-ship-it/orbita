@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Presupuesto preventivo", texto: "Planes de precio fijo: la prevención se puede planificar, la urgencia no." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "recepcion.jpg", marco: false, caption: "" };

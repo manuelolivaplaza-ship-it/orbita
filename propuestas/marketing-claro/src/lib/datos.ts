@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Honestidad primero", texto: "Si el problema no es marketing, se lo decimos en la reunión gratis." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "mesa.png", marco: false, caption: "" };

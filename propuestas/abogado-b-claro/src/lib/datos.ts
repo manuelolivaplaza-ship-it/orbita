@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "De barrio, completos", texto: "Casos del barrio con el mismo estándar del centro." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "biblioteca.png", marco: false, caption: "" };

@@ -334,3 +334,6 @@ export const textoNosotros = {
     { titulo: "Prevenir es más barato", texto: "Calendario preventivo por paciente. El mejor tratamiento es el que no se necesitó." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "facade.jpg", marco: false, caption: "Clínica Casa Norte" };

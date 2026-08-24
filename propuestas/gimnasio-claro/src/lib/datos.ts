@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Constancia sobre intensidad", texto: "Preferimos que vengas ocho meses seguidos a que hagas un mes heroico." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "estudio.png", marco: false, caption: "" };

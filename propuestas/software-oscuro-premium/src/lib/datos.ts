@@ -277,3 +277,6 @@ export const textoNosotros = {
     { titulo: "Responder de verdad", texto: "Guardia 24/7 para clientes SLA. A las 3 AM también." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "monolito.png", marco: false, caption: "" };

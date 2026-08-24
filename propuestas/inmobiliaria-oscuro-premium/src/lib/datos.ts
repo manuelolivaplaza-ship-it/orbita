@@ -398,3 +398,6 @@ export const textoNosotros = {
     { titulo: "El precio lo pone el mercado", texto: "Tasamos con ventas reales. Nunca presionamos a bajar solo para cerrar rápido." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "casa.png", marco: false, caption: "" };

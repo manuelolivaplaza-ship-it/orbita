@@ -402,3 +402,6 @@ export const textoNosotros = {
     { titulo: "Precisión como respeto", texto: "Plazos y presupuestos se prometen poco y se cumplen mucho." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "hero.jpg", marco: false, caption: "" };

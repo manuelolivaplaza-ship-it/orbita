@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Áreas coordinadas", texto: "Un interlocutor, toda la especialización del estudio." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "escritorio.png", marco: false, caption: "" };

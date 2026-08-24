@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Cerca, aunque lejos", texto: "Clientes de todo Chile atendidos por video y poderes." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "fullbleed", foto: "pasillo.png", marco: false, caption: "" };

@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Barrio, con estándar", texto: "Precios de barrio con laboratorio y quirófano propios." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "sala.jpg", marco: false, caption: "" };

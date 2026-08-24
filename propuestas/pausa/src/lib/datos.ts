@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Pausa, no prisa", texto: "Los tratamientos siguen el ritmo de la boca y del bolsillo." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "tipografico", foto: "", marco: false, caption: "" };

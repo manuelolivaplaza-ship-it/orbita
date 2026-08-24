@@ -296,3 +296,6 @@ export const textoNosotros = {
     { titulo: "Tecnología que ahorra", texto: "Menos moldes y repeticiones = menos costo y menos sillas." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "object.jpg", marco: false, caption: "" };

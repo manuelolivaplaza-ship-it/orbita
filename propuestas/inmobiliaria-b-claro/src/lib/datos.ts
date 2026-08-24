@@ -398,3 +398,6 @@ export const textoNosotros = {
     { titulo: "Precio con datos", texto: "Tasación escrita con comparables. Sin redondeos al alto." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "tipografico", foto: "", marco: false, caption: "" };

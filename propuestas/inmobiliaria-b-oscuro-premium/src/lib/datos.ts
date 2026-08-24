@@ -398,3 +398,6 @@ export const textoNosotros = {
     { titulo: "Pocos mandatos", texto: "Cartera limitada para que cada propiedad reciba campaña real." },
   ],
 };
+
+// Hero de portada — patrón original del sitio (split | fullbleed | tipografico).
+export const hero = { tipo: "split", foto: "fachada.png", marco: true, caption: "Fotografía nocturna de cartera" };
