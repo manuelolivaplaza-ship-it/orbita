@@ -24,16 +24,32 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
             {privacy ? (
               <>
                 <p>
-                  Si nos escribes por el formulario, WhatsApp o el newsletter, usamos tu nombre, email y el detalle del
-                  proyecto solo para responderte y armar una propuesta.
-                </p>
-                <p>
-                  No vendemos listas. No hacemos remarketing con los datos del formulario. El número de WhatsApp y el
-                  correo de contacto están en el sitio:{' '}
+                  Responsable: Órbita, {site.city}. Contacto:{' '}
                   <a className="underline" href={`mailto:${site.email}`}>
                     {site.email}
                   </a>
                   .
+                </p>
+                <p>
+                  Si nos escribís por el formulario, WhatsApp, la agenda o el newsletter, usamos tu nombre, email,
+                  teléfono y el detalle del proyecto para responderte, armar una propuesta y coordinar una reunión.
+                </p>
+                <p>
+                  Esos datos se guardan en Supabase (infraestructura en la nube). Supabase actúa como encargado del
+                  tratamiento. Puede haber transferencia internacional según la región del proyecto.
+                </p>
+                <p>
+                  Conservamos consultas y reservas mientras el intercambio esté activo y, como máximo, 24 meses después
+                  del último contacto, salvo que la ley pida más tiempo. El newsletter se guarda hasta que te des de
+                  baja.
+                </p>
+                <p>
+                  La sesión del panel interno usa almacenamiento local del navegador. No usamos cookies de publicidad
+                  ni remarketing con los datos del formulario. No vendemos listas.
+                </p>
+                <p>
+                  En Chile aplican tus derechos de la Ley 19.628: acceso, rectificación, cancelación y oposición.
+                  Escribinos a {site.email} o a {site.supportEmail}.
                 </p>
                 <p>
                   Los sitios de ejemplo en /preview son piezas de demostración: sus formularios no envían datos reales.
@@ -48,6 +64,10 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
                 </p>
                 <p>
                   ProgramBI y Maverlang son proyectos reales en producción; sus sitios viven en sus propios dominios.
+                </p>
+                <p>
+                  Las propuestas en /propuesta son enlaces privados de trabajo. No constituyen un sitio publicado del
+                  cliente hasta que se acuerde lo contrario.
                 </p>
                 <p>Órbita opera desde {site.city}. Para cualquier reclamo: {site.email}.</p>
               </>

@@ -54,9 +54,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
     return () => window.removeEventListener('scroll', onScroll);
   }, [mobileMenuOpen]);
 
+  const isNavItemActive = (item: NavItem) => {
+    if (!item.to || item.hash) return false;
+    if (item.to === '/') return location.pathname === '/';
+    return location.pathname === item.to || location.pathname.startsWith(`${item.to}/`);
+  };
+
   const navLinks: NavItem[] = [
     { label: 'Inicio', to: '/' },
     { label: 'Creaciones', to: '/creaciones' },
+    { label: 'Galería', to: '/galeria' },
     { label: 'Servicios', to: '/servicios' },
     { label: 'Método', to: '/', hash: 'metodo' },
     { label: 'Precios', to: '/', hash: 'precios' },
@@ -107,16 +114,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
         <nav className="hidden lg:block">
           <LiquidGlass pill tone="light">
             <div className="flex items-center gap-1 px-2 py-1.5">
-              {navLinks.map((link) => (
-                <button
-                  key={link.label}
-                  type="button"
-                  onClick={() => goTo(link)}
-                  className="text-sm font-medium text-zinc-700 hover:text-[#0B0B12] transition-colors duration-200 relative group px-3.5 py-1.5 rounded-full hover:bg-white/40"
-                >
-                  {link.label}
-                </button>
-              ))}
+              {navLinks.map((link) => {
+                const active = isNavItemActive(link);
+                return (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => goTo(link)}
+                    aria-current={active ? 'page' : undefined}
+                    className={`text-sm font-medium transition-colors duration-200 relative group px-3.5 py-1.5 rounded-full ${
+                      active
+                        ? 'text-[#0B0B12] bg-white/70 shadow-xs'
+                        : 'text-zinc-700 hover:text-[#0B0B12] hover:bg-white/40'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
             </div>
           </LiquidGlass>
         </nav>
@@ -191,7 +206,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
                   key={link.label}
                   type="button"
                   onClick={() => goTo(link)}
-                  className="w-full text-left text-base font-medium text-[#0B0B12] px-4 py-3.5 rounded-2xl hover:bg-zinc-50 active:bg-zinc-100"
+                  aria-current={isNavItemActive(link) ? 'page' : undefined}
+                  className={`w-full text-left text-base font-medium text-[#0B0B12] px-4 py-3.5 rounded-2xl hover:bg-zinc-50 active:bg-zinc-100 ${
+                    isNavItemActive(link) ? 'bg-zinc-100' : ''
+                  }`}
                 >
                   {link.label}
                 </button>

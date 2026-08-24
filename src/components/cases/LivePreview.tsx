@@ -90,6 +90,8 @@ export function LivePreview({ caseStudy }: { caseStudy: CaseStudy }) {
                   title={`Preview de ${caseStudy.name}`}
                   src={embedSrc}
                   className="w-full flex-1 border-0 bg-white min-h-0"
+                  sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                  referrerPolicy="same-origin"
                 />
               </div>
             </div>
@@ -109,6 +111,8 @@ export function LivePreview({ caseStudy }: { caseStudy: CaseStudy }) {
                 title={`Preview de ${caseStudy.name}`}
                 src={embedSrc}
                 className="w-full h-full border-0"
+                sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                referrerPolicy="same-origin"
               />
             </div>
           </div>

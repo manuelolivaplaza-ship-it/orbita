@@ -9,6 +9,8 @@ import PreviewSitePage from './pages/PreviewSitePage';
 import PropuestaPage from './pages/PropuestaPage';
 import AdminPage from './pages/AdminPage';
 import LegalPage from './pages/LegalPage';
+import GaleriaPage from './pages/GaleriaPage';
+import GaleriaSectorPage from './pages/GaleriaSectorPage';
 
 function RedirectTrabajo() {
   const { slug } = useParams();
@@ -25,6 +27,8 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path="creaciones" element={<CreacionesPage />} />
         <Route path="creaciones/:slug" element={<CaseStudyPage />} />
+        <Route path="galeria" element={<GaleriaPage />} />
+        <Route path="galeria/:sector" element={<GaleriaSectorPage />} />
         <Route path="trabajo" element={<Navigate to="/creaciones" replace />} />
         <Route path="trabajo/:slug" element={<RedirectTrabajo />} />
         <Route path="servicios" element={<ServiciosPage />} />

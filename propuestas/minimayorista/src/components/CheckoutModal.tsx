@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { COMUNAS_DESPACHO, formatCLP } from "../lib/productos";
+import { COMUNAS_DESPACHO, formatCLP, PRODUCTOS } from "../lib/productos";
 import { enviarPedidoSupabase, PedidoPayload } from "../lib/supabase";
 import { X, CheckCircle2, AlertCircle, ShoppingBag, Truck, MessageCircle, ShieldCheck } from "lucide-react";
 
@@ -27,8 +27,8 @@ export const CheckoutModal: React.FC = () => {
   if (!isCheckoutOpen) return null;
 
   const generateOrderCode = () => {
-    const num = Math.floor(10000 + Math.random() * 90000);
-    return `MM-${num}`;
+    const rand = crypto.getRandomValues(new Uint32Array(1))[0].toString(36).toUpperCase();
+    return `MM-${Date.now().toString(36).toUpperCase()}-${rand}`;
   };
 
   const handleConfirmOrder = async (e: React.FormEvent) => {
@@ -44,50 +44,54 @@ export const CheckoutModal: React.FC = () => {
     setErrorMessage("");
 
     const orderNum = generateOrderCode();
-    const itemsFormatted = cart.map((item) => ({
-      id: item.producto.id,
-      nombre: item.producto.nombre,
-      unidad: item.producto.unidad,
-      precio: item.producto.precio,
-      cantidad: item.cantidad,
-      subtotal: item.producto.precio * item.cantidad,
-    }));
+    const itemsFormatted = cart.map((item) => {
+      const catalog = PRODUCTOS.find((p) => p.id === item.producto.id);
+      const precio = catalog?.precio ?? 0;
+      const cantidad = Math.min(Math.max(Math.floor(item.cantidad) || 0, 1), 99);
+      return {
+        id: item.producto.id,
+        nombre: catalog?.nombre ?? item.producto.nombre,
+        unidad: catalog?.unidad ?? item.producto.unidad,
+        precio,
+        cantidad,
+        subtotal: precio * cantidad,
+      };
+    });
+    const total = itemsFormatted.reduce((sum, row) => sum + row.subtotal, 0);
 
     const payload: PedidoPayload = {
       numero_pedido: orderNum,
-      cliente: cliente.trim(),
-      telefono: telefono.trim(),
-      direccion: direccion.trim(),
+      cliente: cliente.trim().slice(0, 120),
+      telefono: telefono.trim().slice(0, 40),
+      direccion: direccion.trim().slice(0, 200),
       comuna,
-      notas: notas.trim() || "Sin observaciones adicionales",
+      notas: (notas.trim() || "Sin observaciones adicionales").slice(0, 500),
       items: itemsFormatted,
-      total: cartSubtotal,
+      total,
       estado: "nuevo",
       created_at: new Date().toISOString(),
     };
 
     // Store in context for the confirmation screen
-    setLastOrder({
-      numeroPedido: orderNum,
-      cliente: cliente.trim(),
-      telefono: telefono.trim(),
-      direccion: direccion.trim(),
-      comuna,
-      total: cartSubtotal,
-      items: [...cart],
-    });
-
     const res = await enviarPedidoSupabase(payload);
 
-    if (res.success) {
-      clearCart();
-      setStatus("confirmed");
-    } else {
-      // Si el servidor Supabase no está disponible, aun así confirmamos el pedido localmente para no frustrar la compra
-      console.warn("Supabase rest devolvió error. Confirmando pedido en modo contingencia:", res.error);
-      clearCart();
-      setStatus("confirmed");
+    if (!res.success) {
+      setErrorMessage(res.error || "No se pudo confirmar el pedido. Escribinos por WhatsApp.");
+      setStatus("error");
+      return;
     }
+
+    setLastOrder({
+      numeroPedido: orderNum,
+      cliente: payload.cliente,
+      telefono: payload.telefono,
+      direccion: payload.direccion,
+      comuna,
+      total,
+      items: [...cart],
+    });
+    clearCart();
+    setStatus("confirmed");
   };
 
   const handleClose = () => {

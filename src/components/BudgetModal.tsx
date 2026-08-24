@@ -19,7 +19,9 @@ import {
 } from 'lucide-react';
 import { BASE_PRICES, formatCLP, planKeyFromName, type PlanId } from '../data/pricing';
 import { submitLead } from '../lib/leads';
+import { FIELD_MAX } from '../lib/formLimits';
 import { whatsappUrl } from '../data/site';
+import { HoneypotField } from './HoneypotField';
 
 interface BudgetModalProps {
   isOpen: boolean;
@@ -197,6 +199,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
   const [plazo, setPlazo] = useState('flexible');
   const [objetivo, setObjetivo] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const [honey, setHoney] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -283,10 +286,11 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
         plan: selectedPlan,
         extras: selectedAddonList.map((a) => a.name).join(', ') || 'Sin extras',
         total: formatCLP(calculateTotal()),
+        honey,
       });
       setSubmitted(true);
-    } catch {
-      setError('No se pudo enviar. Prueba el botón de WhatsApp.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo enviar. Prueba el botón de WhatsApp.');
     } finally {
       setSending(false);
     }
@@ -558,12 +562,14 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     Detalles del proyecto
                   </h4>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 relative">
+                  <HoneypotField value={honey} onChange={setHoney} />
                   <input
                     type="text"
                     required
                     placeholder="Nombre *"
                     value={nombre}
+                    maxLength={FIELD_MAX.nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none"
                   />
@@ -572,6 +578,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     required
                     placeholder="Email *"
                     value={email}
+                    maxLength={FIELD_MAX.email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none"
                   />
@@ -579,6 +586,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     type="tel"
                     placeholder="WhatsApp / teléfono"
                     value={telefono}
+                    maxLength={FIELD_MAX.telefono}
                     onChange={(e) => setTelefono(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none"
                   />
@@ -586,6 +594,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     type="text"
                     placeholder="Empresa o marca"
                     value={empresa}
+                    maxLength={FIELD_MAX.empresa}
                     onChange={(e) => setEmpresa(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none"
                   />
@@ -593,6 +602,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     type="text"
                     placeholder="Rubro (ej. clínica, SaaS, retail)"
                     value={rubro}
+                    maxLength={FIELD_MAX.rubro}
                     onChange={(e) => setRubro(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none sm:col-span-2"
                   />
@@ -631,6 +641,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     type="text"
                     placeholder="Objetivo principal (más leads, lanzamiento, rediseño…)"
                     value={objetivo}
+                    maxLength={FIELD_MAX.objetivo}
                     onChange={(e) => setObjetivo(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none sm:col-span-2"
                   />
@@ -638,6 +649,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     rows={4}
                     placeholder="Cuéntanos más: qué ofreces, referencias visuales, páginas que te gustan, integraciones, etc."
                     value={mensaje}
+                    maxLength={FIELD_MAX.mensaje}
                     onChange={(e) => setMensaje(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:border-zinc-400 outline-none resize-none sm:col-span-2"
                   />

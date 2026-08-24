@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronLeft, ChevronRight, 
 import {
   BOOKING,
   buildMonthGrid,
+  canGoNextMonth,
   canGoPrevMonth,
   formatAppointment,
   formatLongDate,
@@ -12,6 +13,8 @@ import {
   slotPeriod,
   slotsForDay,
 } from '../data/booking';
+import { HoneypotField } from './HoneypotField';
+import { FIELD_MAX } from '../lib/formLimits';
 import { createBooking, fetchTakenMinutes } from '../lib/bookings';
 
 const WEEK_HEAD = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
@@ -33,6 +36,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
   const [telefono, setTelefono] = useState('');
   const [tema, setTema] = useState('descubrimiento');
   const [nota, setNota] = useState('');
+  const [honey, setHoney] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [taken, setTaken] = useState<Set<number>>(new Set());
@@ -51,6 +55,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
       setTelefono('');
       setTema('descubrimiento');
       setNota('');
+      setHoney('');
       setError(null);
       return;
     }
@@ -95,6 +100,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
   }, [selectedYmd, taken]);
   const openSlots = slots.filter((s) => s.available);
   const canPrev = canGoPrevMonth(year, monthIndex);
+  const canNext = canGoNextMonth(year, monthIndex);
 
   const grouped = useMemo(() => {
     const groups: { label: string; items: typeof slots }[] = [];
@@ -109,6 +115,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
 
   const shiftMonth = (dir: -1 | 1) => {
     if (dir < 0 && !canPrev) return;
+    if (dir > 0 && !canNext) return;
     const next = monthIndex + dir;
     if (next < 0) {
       setYear((y) => y - 1);
@@ -141,6 +148,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
         nota,
         ymd: selectedYmd,
         minutes: selectedMin,
+        honey,
       });
       setTaken((prev) => new Set(prev).add(selectedMin));
       setStep('done');
@@ -246,7 +254,8 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                         <button
                           type="button"
                           onClick={() => shiftMonth(1)}
-                          className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-700 hover:bg-zinc-50"
+                          disabled={!canNext}
+                          className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-700 hover:bg-zinc-50 disabled:opacity-30 disabled:pointer-events-none"
                           aria-label="Mes siguiente"
                         >
                           <ChevronRight className="w-4 h-4" />
@@ -294,7 +303,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                       })}
                     </div>
                     <p className="mt-4 text-[11px] text-zinc-400">
-                      Sábados y domingos no están disponibles. Punto = hoy.
+                      Sábados y domingos no están disponibles. Hasta {BOOKING.horizonDays} días. Punto = hoy.
                     </p>
                   </div>
 
@@ -368,11 +377,13 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                   </h3>
                   <p className="text-sm text-zinc-500 capitalize mb-6">{summary}</p>
 
-                  <div className="space-y-3">
+                  <div className="space-y-3 relative">
+                    <HoneypotField value={honey} onChange={setHoney} />
                     <input
                       required
                       placeholder="Nombre *"
                       value={nombre}
+                      maxLength={FIELD_MAX.nombre}
                       onChange={(e) => setNombre(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm outline-none focus:border-zinc-400"
                     />
@@ -381,6 +392,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                       type="email"
                       placeholder="Email *"
                       value={email}
+                      maxLength={FIELD_MAX.email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm outline-none focus:border-zinc-400"
                     />
@@ -388,6 +400,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                       type="tel"
                       placeholder="WhatsApp / teléfono"
                       value={telefono}
+                      maxLength={FIELD_MAX.telefono}
                       onChange={(e) => setTelefono(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm outline-none focus:border-zinc-400"
                     />
@@ -405,6 +418,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
                       rows={3}
                       placeholder="Contexto breve (opcional)"
                       value={nota}
+                      maxLength={FIELD_MAX.nota}
                       onChange={(e) => setNota(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm outline-none focus:border-zinc-400 resize-none"
                     />

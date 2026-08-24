@@ -2,17 +2,23 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { submitLead } from '../lib/leads';
+import { FIELD_MAX } from '../lib/formLimits';
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion';
+import { HoneypotField } from './HoneypotField';
 import { LiquidGlass } from './LiquidGlass';
 
-const VIDEO_SOFT = 'https://mail.programbi.com/uploads/Astronaut_looking_at_Earth_1080p_202608102055.mp4';
+const VIDEO_SOFT = '/video/footer-loop.mp4';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [honey, setHoney] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [inView, setInView] = useState(false);
   const [loadVideo, setLoadVideo] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const currentYear = new Date().getFullYear();
   const reducedMotion = usePrefersReducedMotion();
@@ -32,9 +38,27 @@ export const Footer: React.FC = () => {
     };
   }, []);
 
+  // Precarga del video en segundo plano apenas la página queda ociosa,
+  // para que ya esté bufferado cuando el usuario llegue al footer.
   useEffect(() => {
-    if (inView && !reducedMotion) setLoadVideo(true);
-  }, [inView, reducedMotion]);
+    if (reducedMotion) return;
+    let timer: number | undefined;
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    let idleHandle: number | undefined;
+    const start = () => setLoadVideo(true);
+    if (typeof w.requestIdleCallback === 'function') {
+      idleHandle = w.requestIdleCallback(start, { timeout: 4000 });
+    } else {
+      timer = window.setTimeout(start, 2000);
+    }
+    return () => {
+      if (typeof idleHandle === 'number' && w.cancelIdleCallback) w.cancelIdleCallback(idleHandle);
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -47,7 +71,7 @@ export const Footer: React.FC = () => {
     const playFromStart = () => {
       if (cancelled) return;
       video.currentTime = 0;
-      void video.play();
+      void video.play().catch(() => {});
     };
     if (video.readyState >= 2) playFromStart();
     else video.addEventListener('loadeddata', playFromStart, { once: true });
@@ -60,11 +84,19 @@ export const Footer: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
+    if (!consent) {
+      setError('Marcá el consentimiento para suscribirte.');
+      return;
+    }
     setSending(true);
+    setError(null);
     try {
-      await submitLead({ source: 'newsletter', email: email.trim() });
+      await submitLead({ source: 'newsletter', email: email.trim(), honey });
       setSubmitted(true);
       setEmail('');
+      setConsent(false);
+    } catch {
+      setError('No se pudo suscribir. Probá de nuevo.');
     } finally {
       setSending(false);
     }
@@ -79,8 +111,19 @@ export const Footer: React.FC = () => {
           src={VIDEO_SOFT}
           muted
           playsInline
+          loop
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+          disablePictureInPicture
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={(e) => {
+            setVideoReady(true);
+            if (inView) void e.currentTarget.play().catch(() => {});
+          }}
+          onError={(e) => {
+            e.currentTarget.remove();
+          }}
+          className={`absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transition-opacity duration-1000 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
         />
       )}
 
@@ -113,12 +156,14 @@ export const Footer: React.FC = () => {
               </div>
             </LiquidGlass>
           ) : (
-            <form onSubmit={handleSubmit} className="w-full">
+            <form onSubmit={handleSubmit} className="w-full relative">
+              <HoneypotField value={honey} onChange={setHoney} />
               <LiquidGlass pill>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-1.5 pl-5">
                   <input
                     type="email"
                     value={email}
+                    maxLength={FIELD_MAX.email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="¿Tu mejor email?"
                     required
@@ -126,7 +171,7 @@ export const Footer: React.FC = () => {
                   />
                   <button
                     type="submit"
-                    disabled={sending}
+                    disabled={sending || !consent}
                     className="rounded-full bg-[#0B0B12]/80 hover:bg-black text-white px-6 py-2.5 text-sm font-medium tracking-wide transition-all shrink-0 flex items-center justify-center gap-2 border border-white/15 disabled:opacity-70"
                   >
                     <span>{sending ? 'Enviando…' : 'AVÍSAME'}</span>
@@ -134,6 +179,21 @@ export const Footer: React.FC = () => {
                   </button>
                 </div>
               </LiquidGlass>
+              <label className="mt-3 flex items-start gap-2 text-left text-[11px] text-white/55 max-w-lg mx-auto">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 shrink-0"
+                />
+                <span>
+                  Acepto que Órbita use este email para novedades. Podés darte de baja cuando quieras.{' '}
+                  <Link to="/privacidad" className="underline text-white/75 hover:text-white">
+                    Privacidad
+                  </Link>
+                </span>
+              </label>
+              {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
             </form>
           )}
         </div>
@@ -167,6 +227,7 @@ export const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-2 text-sm text-white/85">
                 <li><Link to="/creaciones" className="hover:text-white transition-colors">Creaciones</Link></li>
+                <li><Link to="/galeria" className="hover:text-white transition-colors">Galería de propuestas</Link></li>
                 <li><Link to="/servicios" className="hover:text-white transition-colors">Servicios</Link></li>
                 <li><Link to="/#metodo" className="hover:text-white transition-colors">Método</Link></li>
                 <li><Link to="/#precios" className="hover:text-white transition-colors">Precios</Link></li>

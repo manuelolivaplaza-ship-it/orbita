@@ -507,3 +507,14 @@ html.preview-scroll::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* Galería de propuestas: entrada escalonada de las cards */
+.galeria-card {
+  animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria-card {
+    animation: none !important;
+  }
+}
+

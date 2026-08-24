@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 interface PageMetaProps {
   title: string;
   description?: string;
+  /** URL absoluta de la imagen para og:image / twitter:image */
+  image?: string;
 }
 
 function setMeta(selector: string, attr: string, value: string, create = true) {
@@ -16,7 +18,7 @@ function setMeta(selector: string, attr: string, value: string, create = true) {
   el?.setAttribute(attr, value);
 }
 
-export function PageMeta({ title, description }: PageMetaProps) {
+export function PageMeta({ title, description, image }: PageMetaProps) {
   useEffect(() => {
     document.title = title;
     setMeta('meta[property="og:title"]', 'content', title);
@@ -26,7 +28,11 @@ export function PageMeta({ title, description }: PageMetaProps) {
       setMeta('meta[name="twitter:title"]', 'content', title);
       setMeta('meta[name="twitter:description"]', 'content', description);
     }
-  }, [title, description]);
+    if (image) {
+      setMeta('meta[property="og:image"]', 'content', image);
+      setMeta('meta[name="twitter:image"]', 'content', image);
+    }
+  }, [title, description, image]);
 
   return null;
 }

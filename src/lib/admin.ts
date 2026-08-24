@@ -1,3 +1,4 @@
+import { clip, FIELD_MAX } from './formLimits';
 import { getSupabase } from './supabase';
 
 export type LeadRow = {
@@ -62,10 +63,10 @@ export async function upsertProposal(input: {
 }): Promise<void> {
   const { error } = await getSupabase().from('proposals').upsert(
     {
-      slug: input.slug.trim(),
-      title: input.title || null,
-      client: input.client || null,
-      notes: input.notes || null,
+      slug: clip(input.slug, FIELD_MAX.slug),
+      title: clip(input.title, FIELD_MAX.title) || null,
+      client: clip(input.client, FIELD_MAX.client) || null,
+      notes: clip(input.notes, FIELD_MAX.notes) || null,
       status: input.status ?? 'draft',
     },
     { onConflict: 'slug' },
@@ -73,15 +74,9 @@ export async function upsertProposal(input: {
   if (error) throw error;
 }
 
+/** Las carpetas no se listan en un JSON público. El admin ve lo cargado en `proposals`. */
 export async function fetchFolderProposals(): Promise<FolderProposal[]> {
-  try {
-    const res = await fetch('/propuestas-index.json', { cache: 'no-store' });
-    if (!res.ok) return [];
-    const json = (await res.json()) as { items?: FolderProposal[] };
-    return json.items ?? [];
-  } catch {
-    return [];
-  }
+  return [];
 }
 
 export async function isAdminUser(): Promise<boolean> {

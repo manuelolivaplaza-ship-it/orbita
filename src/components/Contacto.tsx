@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle2, MessageCircle, Sparkles, CalendarDays, ArrowRight } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { submitLead } from '../lib/leads';
+import { FIELD_MAX } from '../lib/formLimits';
 import { whatsappUrl } from '../data/site';
+import { HoneypotField } from './HoneypotField';
 import { PlanSelect, normalizeContactPlan } from './PlanSelect';
 
 interface ContactoProps {
@@ -23,6 +25,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [honey, setHoney] = useState('');
 
   useEffect(() => {
     if (preselectedPlan) {
@@ -42,10 +45,11 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
         telefono: formData.telefono,
         mensaje: formData.mensaje,
         plan: formData.plan,
+        honey,
       });
       setSubmitted(true);
-    } catch {
-      setError('No se pudo enviar. Prueba por WhatsApp o escríbenos directo.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo enviar. Prueba por WhatsApp o escríbenos directo.');
     } finally {
       setLoading(false);
     }
@@ -162,7 +166,8 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               </button>
             </div>
           ) : (
-            <form id="contact-form" onSubmit={handleSubmit} className="space-y-5">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-5 relative">
+              <HoneypotField value={honey} onChange={setHoney} />
               <div>
                 <label htmlFor="contacto-nombre" className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
                   Nombre completo *
@@ -171,6 +176,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                   id="contacto-nombre"
                   type="text"
                   required
+                  maxLength={FIELD_MAX.nombre}
                   value={formData.nombre}
                   onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                   placeholder="Tu nombre o empresa"
@@ -187,6 +193,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                     id="contacto-email"
                     type="email"
                     required
+                    maxLength={FIELD_MAX.email}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="hola@tumarca.com"
@@ -200,6 +207,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                   </label>
                   <input
                     type="tel"
+                    maxLength={FIELD_MAX.telefono}
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                     placeholder="+56 9 1234 5678"
@@ -229,6 +237,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                 <textarea
                   required
                   rows={4}
+                  maxLength={FIELD_MAX.mensaje}
                   value={formData.mensaje}
                   onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
                   placeholder="¿Qué vendes, cuál es tu objetivo y para cuándo quieres lanzar?"

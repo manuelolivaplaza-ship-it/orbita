@@ -1,70 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import type { CaseStudy } from '../../data/cases';
 import { getPreviewPath } from '../../data/cases';
-
-const SHOT_WIDTH = 1440;
-const SHOT_HEIGHT = 980;
-
-function PreviewHeroShot({ src, fallback, name }: { src: string; fallback: string; name: string }) {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.4);
-  const [active, setActive] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const el = hostRef.current;
-    if (!el) return;
-
-    const ro = new ResizeObserver(([entry]) => {
-      setScale(entry.contentRect.width / SHOT_WIDTH);
-    });
-    ro.observe(el);
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setActive(true);
-      },
-      { rootMargin: '240px' },
-    );
-    io.observe(el);
-
-    return () => {
-      ro.disconnect();
-      io.disconnect();
-    };
-  }, []);
-
-  return (
-    <div ref={hostRef} className="absolute inset-0 overflow-hidden bg-zinc-100">
-      <img
-        src={fallback}
-        alt=""
-        aria-hidden
-        className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
-          ready ? 'opacity-0' : 'opacity-100'
-        }`}
-      />
-      {active && (
-        <iframe
-          src={src}
-          title={`Hero de ${name}`}
-          tabIndex={-1}
-          loading="lazy"
-          onLoad={() => setReady(true)}
-          className="pointer-events-none border-0 absolute top-0 left-0"
-          style={{
-            width: SHOT_WIDTH,
-            height: SHOT_HEIGHT,
-            transform: `scale(${scale})`,
-            transformOrigin: 'top left',
-          }}
-        />
-      )}
-    </div>
-  );
-}
+import { PreviewHeroShot } from './PreviewHeroShot';
 
 interface CaseCardProps {
   caseStudy: CaseStudy;
@@ -110,7 +49,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseStudy, variant = 'defaul
           <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
             <PreviewHeroShot
               src={`${getPreviewPath(caseStudy, true)}&card=1`}
-              fallback={caseStudy.cover}
+              fallbackImage={caseStudy.cover}
               name={caseStudy.name}
             />
           </div>

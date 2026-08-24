@@ -60,10 +60,8 @@ export async function enviarPedidoSupabase(payload: PedidoPayload): Promise<{ su
   try {
     const url = `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/pedidos`;
     
-    // Si sigue con el placeholder predeterminado, simulamos respuesta exitosa para no bloquear la UX
     if (SUPABASE_URL.includes("TU_SUPABASE_URL") || SUPABASE_ANON_KEY.includes("TU_SUPABASE_ANON_KEY")) {
-      console.warn("Supabase configurado con placeholders predeterminados (TU_SUPABASE_URL). Se simula guardado local.");
-      return { success: true };
+      return { success: false, error: "El pedido no se pudo registrar. Escribinos por WhatsApp." };
     }
 
     const response = await fetch(url, {
@@ -98,8 +96,7 @@ export async function enviarContactoSupabase(payload: ContactoPayload): Promise<
     const url = `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/contactos`;
 
     if (SUPABASE_URL.includes("TU_SUPABASE_URL") || SUPABASE_ANON_KEY.includes("TU_SUPABASE_ANON_KEY")) {
-      console.warn("Supabase configurado con placeholders predeterminados (TU_SUPABASE_URL). Se simula envío de contacto.");
-      return { success: true };
+      return { success: false, error: "No se pudo enviar el mensaje. Escribinos por WhatsApp." };
     }
 
     const response = await fetch(url, {

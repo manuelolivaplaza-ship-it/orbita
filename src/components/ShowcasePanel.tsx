@@ -92,7 +92,7 @@ export const ShowcasePanel: React.FC<ShowcasePanelProps> = ({ onOpenQuoteModal }
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               className="absolute inset-0 w-full h-full object-cover"
             />
           )}

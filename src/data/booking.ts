@@ -6,6 +6,7 @@ export const BOOKING = {
   durationMin: 30,
   slotMin: 30,
   bufferMin: 30,
+  horizonDays: 60,
 } as const;
 
 const WEEKDAYS_ES = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'] as const;
@@ -147,6 +148,7 @@ function makeCell(
   const isWeekend = weekday >= 5;
   const isPast = ymd < today.ymd;
   const isToday = ymd === today.ymd;
+  const tooFar = ymd > addDaysYmd(today.ymd, BOOKING.horizonDays);
   return {
     ymd,
     day,
@@ -155,8 +157,14 @@ function makeCell(
     isWeekend,
     isPast,
     isToday,
-    bookable: inMonth && !isWeekend && !isPast,
+    bookable: inMonth && !isWeekend && !isPast && !tooFar,
   };
+}
+
+function addDaysYmd(ymd: string, days: number): string {
+  const [y, m, d] = ymd.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return toYmd(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate());
 }
 
 export function slotsForDay(ymd: string): TimeSlot[] {
@@ -166,6 +174,7 @@ export function slotsForDay(ymd: string): TimeSlot[] {
   for (let m = BOOKING.startHour * 60; m <= lastStart; m += BOOKING.slotMin) {
     let available = true;
     if (ymd < today.ymd) available = false;
+    if (ymd > addDaysYmd(today.ymd, BOOKING.horizonDays)) available = false;
     if (ymd === today.ymd && m < today.minutes + BOOKING.bufferMin) available = false;
     slots.push({ minutes: m, label: formatMinutes(m), available });
   }
@@ -181,4 +190,11 @@ export function slotPeriod(minutes: number): 'Mañana' | 'Tarde' | 'Final del d�
 export function canGoPrevMonth(year: number, monthIndex: number): boolean {
   const t = santiagoNow();
   return year > t.year || (year === t.year && monthIndex > t.monthIndex);
+}
+
+export function canGoNextMonth(year: number, monthIndex: number): boolean {
+  const t = santiagoNow();
+  const last = addDaysYmd(t.ymd, BOOKING.horizonDays);
+  const [ly, lm] = last.split('-').map(Number);
+  return year < ly || (year === ly && monthIndex + 1 < lm);
 }

@@ -58,7 +58,7 @@ if (cmd === 'dev') {
   console.log(`→ Dev aislado de ${slug} en http://localhost:3010`);
   console.log(`  Cuando esté lista: npm run propuestas:build -- ${slug}`);
   console.log(`  Luego ábrela en Órbita: /propuesta/${slug}`);
-  run('npx', ['vite', '--port', '3010', '--host', '0.0.0.0', '--base', `/propuestas/${slug}/`], dir);
+  run('npx', ['vite', '--port', '3010', '--base', `/propuestas/${slug}/`], dir);
   process.exit(0);
 }
 

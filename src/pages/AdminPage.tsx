@@ -133,7 +133,7 @@ export default function AdminPage() {
     setSigning(true);
     setAuthError(null);
     const { error } = await getSupabase().auth.signInWithPassword({ email, password });
-    if (error) setAuthError(error.message);
+    if (error) setAuthError('No se pudo entrar. Revisá el email y la contraseña.');
     setSigning(false);
   };
 
@@ -170,7 +170,9 @@ export default function AdminPage() {
             <input
               type="email"
               required
+              autoComplete="username"
               placeholder="Email"
+              maxLength={254}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm outline-none focus:border-zinc-400"
@@ -178,6 +180,7 @@ export default function AdminPage() {
             <input
               type="password"
               required
+              autoComplete="current-password"
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -364,24 +367,28 @@ export default function AdminPage() {
               <input
                 required
                 placeholder="slug (carpeta)"
+                maxLength={80}
                 value={draft.slug}
                 onChange={(e) => setDraft({ ...draft, slug: e.target.value })}
                 className="px-3 py-2.5 rounded-xl border border-zinc-200 text-sm outline-none"
               />
               <input
                 placeholder="Cliente"
+                maxLength={160}
                 value={draft.client}
                 onChange={(e) => setDraft({ ...draft, client: e.target.value })}
                 className="px-3 py-2.5 rounded-xl border border-zinc-200 text-sm outline-none"
               />
               <input
                 placeholder="Título"
+                maxLength={200}
                 value={draft.title}
                 onChange={(e) => setDraft({ ...draft, title: e.target.value })}
                 className="px-3 py-2.5 rounded-xl border border-zinc-200 text-sm outline-none sm:col-span-2"
               />
               <textarea
                 placeholder="Notas internas"
+                maxLength={4000}
                 value={draft.notes}
                 onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
                 className="px-3 py-2.5 rounded-xl border border-zinc-200 text-sm outline-none sm:col-span-2 resize-none"
@@ -405,7 +412,7 @@ export default function AdminPage() {
 
           <Card>
             {mergedProposals.length === 0 ? (
-              <Empty text="No hay carpetas en /propuestas ni registros en la base." />
+              <Empty text="No hay propuestas registradas en la base." />
             ) : (
               <ul className="divide-y divide-zinc-100">
                 {mergedProposals.map((item) => (

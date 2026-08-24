@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import catalogo from 'virtual:propuestas-catalogo';
+import { getSector } from '../data/sectores';
 import { PageMeta } from '../components/PageMeta';
 import { PreviewReturnPopup } from '../components/cases/PreviewReturnPopup';
 
@@ -28,9 +31,39 @@ async function exists(url: string): Promise<boolean> {
 
 export default function PropuestaPage() {
   const { slug = '' } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [kind, setKind] = useState<Kind>('loading');
   const [src, setSrc] = useState('');
   const [meta, setMeta] = useState<Meta>({});
+
+  const rawFrom = searchParams.get('from');
+  const backUrl = rawFrom && rawFrom.startsWith('/galeria') ? rawFrom : '/';
+
+  const current = useMemo(() => catalogo.find((e) => e.slug === slug), [slug]);
+  const siblings = useMemo(
+    () => (current ? catalogo.filter((e) => e.sector === current.sector) : []),
+    [current],
+  );
+  const idx = siblings.findIndex((e) => e.slug === slug);
+  const hasSiblings = idx >= 0 && siblings.length > 1;
+  const prev = hasSiblings ? siblings[(idx - 1 + siblings.length) % siblings.length] : undefined;
+  const next = hasSiblings ? siblings[(idx + 1) % siblings.length] : undefined;
+
+  const goSibling = (target: typeof prev) => {
+    if (!target) return;
+    const from = rawFrom ?? (current ? `/galeria/${current.sector}` : '/');
+    navigate(`/propuesta/${target.slug}?from=${encodeURIComponent(from)}`);
+  };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goSibling(prev);
+      if (e.key === 'ArrowRight') goSibling(next);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
 
   useEffect(() => {
     if (!SLUG.test(slug)) {
@@ -58,11 +91,11 @@ export default function PropuestaPage() {
         [`${base}/propuesta.pdf`, 'pdf'],
       ] as const;
 
-      for (const [url, next] of candidates) {
+      for (const [url, nextKind] of candidates) {
         if (await exists(url)) {
           if (!cancelled) {
             setSrc(url);
-            setKind(next);
+            setKind(nextKind);
           }
           return;
         }
@@ -76,8 +109,8 @@ export default function PropuestaPage() {
     };
   }, [slug]);
 
-  const title = meta.title || meta.client || slug;
-  const label = meta.client && meta.title ? `${meta.client} · ${meta.title}` : title;
+  const title = current?.brand || meta.title || meta.client || slug;
+  const label = meta.client && meta.title && !current ? `${meta.client} · ${meta.title}` : title;
 
   if (kind === 'missing') {
     return (
@@ -106,11 +139,15 @@ export default function PropuestaPage() {
     );
   }
 
+  const sectorInfo = current ? getSector(current.sector) : undefined;
+
   return (
     <div className="h-svh w-full bg-[#0B0B12] relative overflow-hidden">
       <PageMeta
         title={`${label} | Propuesta Órbita`}
-        description={meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Órbita.'}
+        description={
+          current?.description ?? (meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Órbita.')
+        }
       />
       {kind === 'loading' ? (
         <div className="h-full flex items-center justify-center text-sm text-zinc-500">
@@ -121,9 +158,48 @@ export default function PropuestaPage() {
           title={label}
           src={src}
           className="w-full h-full border-0 bg-white"
+          sandbox={
+            kind === 'pdf'
+              ? 'allow-popups allow-popups-to-escape-sandbox'
+              : 'allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox'
+          }
+          referrerPolicy="no-referrer"
         />
       )}
-      <PreviewReturnPopup name={label} labelTag="Propuesta Órbita" backUrl="/" />
+      <PreviewReturnPopup name={label} labelTag="Propuesta Órbita" backUrl={backUrl} />
+
+      {/* Navegación entre propuestas del mismo sector */}
+      {prev && (
+        <button
+          type="button"
+          onClick={() => goSibling(prev)}
+          aria-label={`Propuesta anterior: ${prev.brand}`}
+          className="hidden sm:flex fixed left-5 top-1/2 -translate-y-1/2 z-[70] items-center gap-2 rounded-full border border-white/15 bg-[#0B0B12]/90 text-white pl-3 pr-3.5 py-3 backdrop-blur-md shadow-[0_14px_40px_-14px_rgba(0,0,0,0.6)] hover:bg-[#0B0B12] transition-colors"
+        >
+          <ChevronLeft className="w-5 h-5 text-zinc-300" />
+          <span className="max-w-[8.5rem] truncate text-sm font-medium hidden lg:inline text-white/85">
+            {prev.brand}
+          </span>
+        </button>
+      )}
+      {next && (
+        <button
+          type="button"
+          onClick={() => goSibling(next)}
+          aria-label={`Propuesta siguiente: ${next.brand}`}
+          className="hidden sm:flex fixed right-5 top-1/2 -translate-y-1/2 z-[70] items-center gap-2 rounded-full border border-white/15 bg-[#0B0B12]/90 text-white pl-3.5 pr-3 py-3 backdrop-blur-md shadow-[0_14px_40px_-14px_rgba(0,0,0,0.6)] hover:bg-[#0B0B12] transition-colors"
+        >
+          <span className="max-w-[8.5rem] truncate text-sm font-medium hidden lg:inline text-white/85">
+            {next.brand}
+          </span>
+          <ChevronRight className="w-5 h-5 text-zinc-300" />
+        </button>
+      )}
+      {hasSiblings && sectorInfo && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[70] rounded-full border border-white/15 bg-[#0B0B12]/85 text-white/75 text-xs font-medium px-4 py-1.5 backdrop-blur-md pointer-events-none">
+          {sectorInfo.label} · {idx + 1} / {siblings.length} · usa ← → para cambiar
+        </div>
+      )}
     </div>
   );
 }

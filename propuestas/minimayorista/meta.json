@@ -1,4 +1,5 @@
 {
   "title": "Sitio web y tienda online",
-  "client": "MiniMayorista"
+  "client": "MiniMayorista",
+  "hidden": true
 }

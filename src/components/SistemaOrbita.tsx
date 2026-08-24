@@ -104,6 +104,8 @@ export const SistemaOrbita: React.FC<SistemaOrbitaProps> = ({ onOpenQuoteModal }
               <img
                 src={IMAGE_BENTO}
                 alt={layers['01'].title}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover z-0"
               />
               <div
