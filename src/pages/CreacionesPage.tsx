@@ -1,13 +1,14 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { cases } from '../data/cases';
+import { getFeaturedCases } from '../data/cases';
 import { CaseCard } from '../components/cases/CaseCard';
 import { PageMeta } from '../components/PageMeta';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function CreacionesPage() {
   const { onOpenQuoteModal } = useOutletContext<LayoutOutletContext>();
+  const featured = getFeaturedCases();
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function CreacionesPage() {
               Creaciones.
             </h1>
             <p className="text-zinc-600 text-lg sm:text-xl max-w-xl leading-relaxed">
-              Proyectos en producción y demos que puedes recorrer: entra a un caso y navega el sitio como lo haría un cliente.
+              Sitios en producción. Entra a un caso y recorre el resultado como lo haría un cliente.
             </p>
           </div>
         </div>
@@ -37,9 +38,9 @@ export default function CreacionesPage() {
 
       <section className="relative z-10 px-6 pb-24 sm:pb-28">
         <div className="max-w-[88rem] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {cases.map((c) => (
-              <CaseCard key={c.slug} caseStudy={c} variant="tall" />
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
+            {featured.map((c) => (
+              <CaseCard key={c.slug} caseStudy={c} />
             ))}
           </div>
         </div>

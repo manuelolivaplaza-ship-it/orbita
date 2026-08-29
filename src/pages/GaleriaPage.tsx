@@ -81,7 +81,7 @@ export default function GaleriaPage() {
         <section className="relative z-10 px-6 pt-10 pb-24 sm:pb-28">
           <div className="max-w-[88rem] mx-auto">
             {filtered.length > 0 ? (
-              <div key={selected} className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+              <div key={selected} className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
                 {filtered.map((entry, i) => (
                   <PropuestaCard key={entry.slug} {...entry} index={i} variantProp={i === 0 ? 'wide' : 'default'} />
                 ))}
@@ -138,7 +138,7 @@ export default function GaleriaPage() {
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                  <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
                     {entries.map((entry, i) => (
                       <PropuestaCard
                         key={entry.slug}
@@ -165,7 +165,7 @@ export default function GaleriaPage() {
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
                   {extras.map((entry, i) => (
                     <PropuestaCard key={entry.slug} {...entry} index={i} />
                   ))}

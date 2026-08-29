@@ -13,6 +13,8 @@ export function PreviewHeroShot({
   shotWidth = 1440,
   shotHeight = 980,
   iframeSandbox,
+  eager = false,
+  scale: scaleProp,
 }: {
   src: string;
   name: string;
@@ -21,20 +23,35 @@ export function PreviewHeroShot({
   shotWidth?: number;
   shotHeight?: number;
   iframeSandbox?: string;
+  /** Carga el iframe de inmediato, sin esperar IntersectionObserver. */
+  eager?: boolean;
+  /** Si viene de afuera, no hace falta ResizeObserver. */
+  scale?: number;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.4);
-  const [active, setActive] = useState(false);
+  const [scaleState, setScaleState] = useState(0.4);
+  const [active, setActive] = useState(eager);
   const [ready, setReady] = useState(false);
+  /** Un poco más grande que el marco: recorta la scrollbar nativa del iframe. */
+  const CLIP = 1.045;
+  const scale = (scaleProp ?? scaleState) * CLIP;
 
   useEffect(() => {
     const el = hostRef.current;
     if (!el) return;
 
-    const ro = new ResizeObserver(([entry]) => {
-      setScale(entry.contentRect.width / shotWidth);
-    });
-    ro.observe(el);
+    let ro: ResizeObserver | undefined;
+    if (scaleProp == null) {
+      ro = new ResizeObserver(([entry]) => {
+        setScaleState(entry.contentRect.width / shotWidth);
+      });
+      ro.observe(el);
+    }
+
+    if (eager) {
+      setActive(true);
+      return () => ro?.disconnect();
+    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -45,10 +62,10 @@ export function PreviewHeroShot({
     io.observe(el);
 
     return () => {
-      ro.disconnect();
+      ro?.disconnect();
       io.disconnect();
     };
-  }, [shotWidth]);
+  }, [shotWidth, eager, scaleProp]);
 
   return (
     <div ref={hostRef} className="absolute inset-0 overflow-hidden bg-zinc-100">
@@ -74,14 +91,16 @@ export function PreviewHeroShot({
           src={src}
           title={`Hero de ${name}`}
           tabIndex={-1}
-          loading="lazy"
+          loading={eager ? 'eager' : 'lazy'}
           onLoad={() => setReady(true)}
           sandbox={iframeSandbox}
           referrerPolicy="no-referrer"
-          className="pointer-events-none border-0 absolute top-0 left-0"
+          scrolling="no"
+          className="pointer-events-none absolute top-0 left-0 border-0"
           style={{
             width: shotWidth,
             height: shotHeight,
+            overflow: 'hidden',
             transform: `scale(${scale})`,
             transformOrigin: 'top left',
           }}

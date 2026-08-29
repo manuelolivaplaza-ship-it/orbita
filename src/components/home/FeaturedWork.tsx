@@ -8,37 +8,42 @@ export const FeaturedWork: React.FC = () => {
   const featured = getFeaturedCases();
 
   return (
-    <section id="creaciones" className="bg-white px-6 py-24 sm:py-28 relative z-10">
-      <div className="max-w-[88rem] mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12 sm:mb-16">
-          <div className="max-w-2xl">
-            <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-3">
+    <section
+      id="creaciones"
+      className="relative z-10 scroll-mt-24 border-t border-zinc-200/80 bg-white px-6 py-24 sm:py-32"
+    >
+      <div className="mx-auto max-w-[88rem]">
+        <div className="mb-12 grid gap-8 lg:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10">
+          <div className="lg:col-span-7">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
               Creaciones
             </p>
             <h2
-              className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#0B0B12] leading-[1.05]"
+              className="text-4xl font-medium leading-[1.02] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
               style={{ letterSpacing: '-0.04em' }}
             >
-              Sitios que ya están<br className="hidden sm:block" /> en órbita.
+              Sitios que ya están
+              <br className="hidden sm:block" /> en órbita.
             </h2>
           </div>
-          <div className="md:max-w-sm md:text-right">
-            <p className="text-zinc-600 text-base leading-relaxed mb-4">
-              No vendemos promesas en abstracto. Aquí se ve el resultado: claridad, media y conversión.
+          <div className="max-w-md lg:col-span-5 lg:justify-self-end lg:pb-1">
+            <p className="text-base leading-relaxed text-zinc-600">
+              Trabajo en producción, no maquetas. Entra a cada caso y recorre el sitio como lo
+              haría un cliente.
             </p>
             <Link
               to="/creaciones"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#0B0B12] hover:text-[#6B7280] transition-colors group"
+              className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-[#0B0B12] transition-colors hover:text-[#6B7280]"
             >
-              Ver todas las creaciones
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              Ver las creaciones
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-          {featured.map((c, i) => (
-            <CaseCard key={c.slug} caseStudy={c} variant={i === 0 ? 'tall' : 'tall'} />
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
+          {featured.map((c) => (
+            <CaseCard key={c.slug} caseStudy={c} />
           ))}
         </div>
       </div>

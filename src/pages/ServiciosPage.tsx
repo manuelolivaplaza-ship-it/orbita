@@ -145,9 +145,9 @@ export default function ServiciosPage() {
               Ver todas las creaciones →
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
             {featured.map((c) => (
-              <CaseCard key={c.slug} caseStudy={c} variant="tall" />
+              <CaseCard key={c.slug} caseStudy={c} />
             ))}
           </div>
         </div>

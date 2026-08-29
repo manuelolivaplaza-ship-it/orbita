@@ -20,8 +20,17 @@ export const Footer: React.FC = () => {
   const [loadVideo, setLoadVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const endedRef = useRef(false);
   const currentYear = new Date().getFullYear();
   const reducedMotion = usePrefersReducedMotion();
+
+  const freezeLastFrame = (video: HTMLVideoElement) => {
+    const dur = video.duration;
+    if (Number.isFinite(dur) && dur > 0) {
+      video.currentTime = Math.max(0, dur - 0.04);
+    }
+    video.pause();
+  };
 
   useEffect(() => {
     const update = () => {
@@ -67,17 +76,20 @@ export const Footer: React.FC = () => {
       video.pause();
       return;
     }
+    if (endedRef.current) {
+      freezeLastFrame(video);
+      return;
+    }
     let cancelled = false;
-    const playFromStart = () => {
-      if (cancelled) return;
-      video.currentTime = 0;
+    const play = () => {
+      if (cancelled || endedRef.current) return;
       void video.play().catch(() => {});
     };
-    if (video.readyState >= 2) playFromStart();
-    else video.addEventListener('loadeddata', playFromStart, { once: true });
+    if (video.readyState >= 2) play();
+    else video.addEventListener('loadeddata', play, { once: true });
     return () => {
       cancelled = true;
-      video.removeEventListener('loadeddata', playFromStart);
+      video.removeEventListener('loadeddata', play);
     };
   }, [inView, loadVideo]);
 
@@ -104,26 +116,38 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="footer-reveal sticky bottom-0 z-0 min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0C14] text-white">
-      {/* 1) BACKGROUND LAYER: Video Loop + Soft Vignette */}
+      {/* Fondo: se reproduce una vez y queda en el último frame */}
       {!reducedMotion && loadVideo && (
         <video
           ref={videoRef}
           src={VIDEO_SOFT}
           muted
           playsInline
-          loop
           preload="auto"
           disablePictureInPicture
           aria-hidden="true"
           tabIndex={-1}
           onCanPlay={(e) => {
             setVideoReady(true);
-            if (inView) void e.currentTarget.play().catch(() => {});
+            if (inView && !endedRef.current) void e.currentTarget.play().catch(() => {});
+          }}
+          onTimeUpdate={(e) => {
+            if (endedRef.current) return;
+            const video = e.currentTarget;
+            if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+            if (video.currentTime >= video.duration - 0.08) {
+              endedRef.current = true;
+              freezeLastFrame(video);
+            }
+          }}
+          onEnded={(e) => {
+            endedRef.current = true;
+            freezeLastFrame(e.currentTarget);
           }}
           onError={(e) => {
             e.currentTarget.remove();
           }}
-          className={`absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transition-opacity duration-1000 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 z-0 h-full w-full object-cover pointer-events-none transition-opacity duration-1000 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
         />
       )}
 

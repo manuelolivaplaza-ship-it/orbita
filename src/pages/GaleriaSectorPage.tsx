@@ -108,7 +108,7 @@ export default function GaleriaSectorPage() {
       <section className="relative z-10 px-6 pb-20 sm:pb-24">
         <div className="max-w-[88rem] mx-auto">
           {entries.length > 0 ? (
-            <div key={sector.slug} className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            <div key={sector.slug} className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
               {entries.map((entry, i) => (
                 <PropuestaCard
                   key={entry.slug}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Hero } from '../components/Hero';
-import { TrustStrip } from '../components/TrustStrip';
 import { FeaturedWork } from '../components/home/FeaturedWork';
 import { GaleriaTeaser } from '../components/home/GaleriaTeaser';
 import { WhatWeBuild } from '../components/home/WhatWeBuild';
@@ -25,7 +24,6 @@ export default function HomePage() {
         image="https://orbita.studio/og-image.jpg"
       />
       <Hero onOpenQuoteModal={onOpenQuoteModal} onOpenSchedule={onOpenSchedule} />
-      <TrustStrip />
       <GaleriaTeaser />
       <FeaturedWork />
       <WhatWeBuild />

@@ -4,9 +4,12 @@ import { ArrowUpRight } from 'lucide-react';
 import { PreviewHeroShot } from '../cases/PreviewHeroShot';
 import { getSector, VARIANT_LABELS } from '../../data/sectores';
 
+const SHOT_W = 1440;
+const SHOT_H = 900;
+
 /**
- * Card de la galería de propuestas: preview en vivo (iframe escalado del sitio
- * real servido en /propuestas/<slug>/) dentro de un marco de navegador.
+ * Card de la galería: el sitio en vivo, sin marco de navegador.
+ * La captura es la pieza; marca y rubro van como ficha debajo.
  */
 export const PropuestaCard: React.FC<{
   slug: string;
@@ -15,89 +18,99 @@ export const PropuestaCard: React.FC<{
   variant: string;
   description?: string;
   variantProp?: 'default' | 'wide';
+  size?: 'default' | 'featured';
   index?: number;
-}> = ({ slug, brand, sector, variant, description, variantProp = 'default', index = 0 }) => {
+}> = ({
+  slug,
+  brand,
+  sector,
+  variant,
+  description,
+  variantProp = 'default',
+  size = 'default',
+  index = 0,
+}) => {
   const sectorInfo = getSector(sector);
   const accent = sectorInfo?.accent ?? '#6B7280';
   const backTo = sector ? `/galeria/${sector}` : '/galeria';
   const variantLabel = VARIANT_LABELS[variant];
+  const featured = size === 'featured';
+  const wide = variantProp === 'wide';
 
   return (
     <Link
       to={`/propuesta/${slug}?from=${encodeURIComponent(backTo)}`}
-      className={`galeria-card group flex flex-col overflow-hidden rounded-2xl border border-zinc-200/90 bg-white shadow-sm hover:shadow-lg hover:border-zinc-300 transition-all duration-300 min-h-[24rem] md:min-h-[30rem] ${
-        variantProp === 'wide' ? 'md:col-span-2' : ''
-      }`}
-      style={{ animationDelay: `${Math.min(index, 8) * 60}ms` }}
+      className={`galeria-card group flex flex-col outline-none ${wide ? 'md:col-span-2' : ''}`}
+      style={{ animationDelay: `${Math.min(index, 8) * 70}ms` }}
     >
-      {/* Marco de navegador */}
-      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-zinc-100 bg-zinc-50 shrink-0">
-        <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-        <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-        <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-        <div className="ml-2 flex-1 min-w-0">
-          <div className="h-6 rounded-md bg-white border border-zinc-200/90 px-3 flex items-center max-w-full">
-            <span className="text-[11px] text-zinc-500 truncate font-medium">
-              preview.orbita.studio/{slug}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="relative flex-1 min-h-0 bg-zinc-100 overflow-hidden">
-        <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+      <div
+        className={`galeria-shot relative overflow-hidden bg-zinc-100 ${
+          wide ? 'aspect-[16/10] md:aspect-[2/1]' : 'aspect-[16/10]'
+        }`}
+      >
+        <div className="absolute inset-0 origin-top-left transition-transform duration-700 ease-out group-hover:scale-[1.06]">
           <PreviewHeroShot
             src={`/propuestas/${slug}/index.html`}
             name={brand}
+            shotWidth={SHOT_W}
+            shotHeight={SHOT_H}
             iframeSandbox="allow-scripts"
             fallbackNode={
               <div
                 className="absolute inset-0 animate-pulse"
                 style={{
-                  background: `linear-gradient(135deg, ${accent}14 0%, #F7F8FC 45%, ${accent}0C 100%)`,
+                  background: `linear-gradient(135deg, ${accent}14 0%, #F4F5F8 42%, ${accent}0A 100%)`,
                 }}
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm font-medium tracking-tight text-zinc-400">
-                    Cargando {brand}…
-                  </span>
-                </div>
-              </div>
+              />
             }
           />
         </div>
+      </div>
 
-        {/* Scrim inferior para legibilidad */}
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#0B0B12]/85 via-[#0B0B12]/35 to-transparent pointer-events-none" />
-
-        <div className="absolute top-4 left-4 right-4 z-10 flex items-start justify-between gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-700 bg-white/95 border border-zinc-200/80 px-3 py-1 rounded-full shadow-sm">
-            {sectorInfo?.label ?? sector}
-          </span>
-          {variantLabel && (
-            <span
-              className="text-[11px] font-semibold text-white px-3 py-1 rounded-full shadow-sm"
-              style={{ backgroundColor: accent }}
-            >
-              {variantLabel}
-            </span>
-          )}
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 z-10 p-5 sm:p-6">
-          <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-white mb-1.5">
+      <div
+        className={`flex items-start justify-between gap-4 ${
+          featured ? 'mt-5 sm:mt-6' : 'mt-4'
+        }`}
+      >
+        <div className="min-w-0">
+          <p className="flex flex-wrap items-center gap-x-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+            <span>{sectorInfo?.label ?? sector}</span>
+            {variantLabel && (
+              <>
+                <span className="text-zinc-300" aria-hidden>
+                  ·
+                </span>
+                <span>{variantLabel}</span>
+              </>
+            )}
+          </p>
+          <h3
+            className={`mt-1.5 font-medium tracking-tight text-[#0B0B12] ${
+              featured ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'
+            }`}
+            style={{ letterSpacing: '-0.03em' }}
+          >
             {brand}
           </h3>
           {description && (
-            <p className="text-white/80 text-sm leading-relaxed line-clamp-2 mb-3 max-w-md">
+            <p
+              className={`mt-1.5 text-sm leading-relaxed text-zinc-600 ${
+                featured ? 'line-clamp-2 max-w-lg' : 'line-clamp-1 max-w-md'
+              }`}
+            >
               {description}
             </p>
           )}
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-white group-hover:gap-2.5 transition-all">
-            Recorrer la propuesta
-            <ArrowUpRight className="w-4 h-4 text-zinc-300" />
-          </span>
         </div>
+
+        <span
+          className={`mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border border-zinc-200/90 bg-white text-[#0B0B12] shadow-sm transition-all duration-300 group-hover:border-[#0B0B12] group-hover:bg-[#0B0B12] group-hover:text-white ${
+            featured ? 'h-10 w-10' : 'h-9 w-9'
+          }`}
+          aria-hidden
+        >
+          <ArrowUpRight className={featured ? 'h-4 w-4' : 'h-3.5 w-3.5'} />
+        </span>
       </div>
     </Link>
   );

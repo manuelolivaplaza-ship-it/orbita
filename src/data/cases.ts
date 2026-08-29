@@ -123,7 +123,7 @@ export const cases: CaseStudy[] = [
       'Hero fotográfico, especialidades en lenguaje llano, equipo presentado con sobriedad y un bloque de reserva siempre a la vista. Paleta sage/crema, lejos del azul médico de plantilla.',
     result:
       'Una web de ejemplo que se puede recorrer completa: el visitante entiende la oferta en 10 segundos y llega al formulario sin perderse.',
-    featured: true,
+    featured: false,
     kind: 'preview',
     previewSlug: 'clinica-aurora',
   },
@@ -151,7 +151,7 @@ export const cases: CaseStudy[] = [
       'Composición editorial, carta corta de temporada, bloque de reserva y una sola dirección. Tipografía serif de menú y acento terracota sobre carbón.',
     result:
       'Preview navegable de punta a punta. Sirve para mostrar cómo se ve un Sonda gastronómico cuando el brief es “premium, no ruidoso”.',
-    featured: true,
+    featured: false,
     kind: 'preview',
     previewSlug: 'solsticio',
   },
@@ -222,11 +222,12 @@ export function getFeaturedCases(): CaseStudy[] {
 }
 
 export function getAdjacentCases(slug: string): { prev?: CaseStudy; next?: CaseStudy } {
-  const idx = cases.findIndex((c) => c.slug === slug);
+  const list = getFeaturedCases();
+  const idx = list.findIndex((c) => c.slug === slug);
   if (idx < 0) return {};
   return {
-    prev: cases[idx - 1],
-    next: cases[idx + 1] ?? cases[0],
+    prev: list[idx - 1],
+    next: list[idx + 1] ?? list[0],
   };
 }
 

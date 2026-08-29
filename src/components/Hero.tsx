@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Sparkles } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import { OrbitCarousel } from './home/OrbitCarousel';
 
 interface HeroProps {
@@ -8,35 +8,28 @@ interface HeroProps {
   onOpenSchedule: () => void;
 }
 
-const clientTypes = [
-  { name: 'Startups', style: 'font-semibold tracking-wider text-[#0B0B12]' },
-  { name: 'Clínicas', style: 'font-serif italic text-zinc-800' },
-  { name: 'SaaS', style: 'font-mono uppercase tracking-widest text-zinc-800 text-xs' },
-  { name: 'Estudios', style: 'font-medium tracking-tight text-zinc-900' },
-  { name: 'Ecommerce', style: 'font-bold text-[#0B0B12]' },
-  { name: 'Consultoras', style: 'font-sans font-medium text-zinc-700' },
-  { name: 'Restaurantes', style: 'font-serif text-zinc-900' },
-  { name: 'Academias', style: 'font-medium underline decoration-[#6B7280]/40 text-zinc-800' },
-];
-
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) => {
   return (
-    <section id="hero" className="relative flex min-h-screen items-center px-4 pt-24 pb-14 sm:px-6 sm:pt-28">
-      {/* Glow ambiental detrás del carrusel */}
+    <section
+      id="hero"
+      className="relative isolate min-h-[100svh] overflow-hidden px-4 pt-24 pb-16 sm:px-6 sm:pt-28 lg:px-6 lg:pt-0 lg:pb-0"
+    >
+      {/* Glow ambiental detrás del arco */}
       <div
-        className="pointer-events-none absolute right-[-10%] top-[8%] hidden h-[36rem] w-[36rem] rounded-full lg:block"
-        style={{ background: 'radial-gradient(circle, rgba(107,114,128,0.13) 0%, rgba(107,114,128,0) 65%)' }}
+        className="pointer-events-none absolute right-[-8%] top-[6%] h-[28rem] w-[28rem] rounded-full sm:h-[42rem] sm:w-[42rem]"
+        style={{ background: 'radial-gradient(circle, rgba(107,114,128,0.11) 0%, rgba(107,114,128,0) 68%)' }}
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[88rem] grid-cols-1 items-center gap-12 lg:grid-cols-[1.02fr_1fr] lg:gap-6">
-        {/* Copy */}
-        <div className="max-w-xl">
-          <div className="glass-light mb-6 flex animate-fade-in-up items-center gap-2 rounded-full border border-white/80 px-3.5 py-1 text-xs font-medium text-zinc-800 shadow-xs">
-            <Sparkles className="h-3.5 w-3.5 text-[#6B7280]" />
-            <span>Estudio web · diseño orbital</span>
-          </div>
+      {/* Veladura suave a la izquierda: el copy se lee, las cards siguen viéndose */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-[2] w-[72%] bg-gradient-to-r from-[#F7F8FC] from-15% via-[#F7F8FC]/70 to-transparent lg:hidden"
+        aria-hidden
+      />
 
+      <div className="pointer-events-none relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] w-full max-w-[88rem] items-start lg:min-h-[100svh] lg:items-center">
+        {/* Copy */}
+        <div className="pointer-events-auto max-w-xl lg:max-w-[30rem] xl:max-w-xl">
           <h1
             className="mb-6 text-5xl font-medium leading-[0.95] tracking-tight text-[#0B0B12] sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
@@ -89,30 +82,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
               Agendar reunión →
             </button>
           </div>
-
-          <div className="mt-auto w-full max-w-md shrink-0 pt-12">
-            <p className="mb-3 text-[11px] font-medium uppercase tracking-wider text-zinc-500">
-              Para marcas en aceleración:
-            </p>
-            <div className="relative w-full overflow-hidden">
-              <div className="marquee-track flex items-center gap-8 py-1">
-                {[...clientTypes, ...clientTypes].map((item, index) => (
-                  <span
-                    key={`${item.name}-${index}`}
-                    className={`whitespace-nowrap text-sm opacity-80 transition-opacity hover:opacity-100 ${item.style}`}
-                  >
-                    {item.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
+      </div>
 
-        {/* Carrusel orbital */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <OrbitCarousel />
-        </div>
+      {/* Arco de propuestas: de fondo a la derecha, también en móvil */}
+      <div
+        className="absolute inset-y-0 right-0 z-[1] left-[28%] animate-fade-in-up sm:left-[36%] lg:left-[50%] xl:left-[42%] 2xl:left-[38%]"
+        style={{ animationDelay: '0.2s' }}
+      >
+        <OrbitCarousel />
       </div>
     </section>
   );
