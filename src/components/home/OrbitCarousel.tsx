@@ -66,7 +66,7 @@ export const OrbitCarousel: React.FC = () => {
   const boxRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef(new Map<string, HTMLDivElement>());
   const angleRef = useRef(Math.PI);
-  const geoRef = useRef({ w: 560, h: 560, cardW: 300, cardH: 192, r: 420, cx: 520, cy: 280 });
+  const geoRef = useRef({ w: 560, h: 560, cardW: 300, cardH: 192, r: 420, cx: 520, cy: 280, phone: false });
   const liveKeyRef = useRef('');
   const liveSetRef = useRef<Set<number>>(new Set());
   const hoverRef = useRef(false);
@@ -83,18 +83,18 @@ export const OrbitCarousel: React.FC = () => {
   liveSetRef.current = new Set(liveIdx);
 
   const geo = useMemo(() => {
-    const compact = box.w < 520;
+    const phone = box.w < 520;
     const cardW = Math.min(
-      compact ? 200 : box.w < 640 ? 260 : 348,
-      Math.max(160, box.w * (compact ? 0.58 : 0.4)),
+      phone ? 228 : box.w < 640 ? 260 : 348,
+      Math.max(168, box.w * (phone ? 0.6 : 0.4)),
     );
     const cardH = cardW * 0.64;
-    const cx = box.w * (compact ? 1.28 : 1.38);
-    const cy = box.h * (compact ? 0.62 : 0.5);
-    const rWant = Math.max(box.h * (compact ? 0.9 : 0.92), 260);
-    const rMax = cx - box.w * (compact ? 0.06 : 0.12);
-    const r = Math.max(200, Math.min(rWant, rMax));
-    return { w: box.w, h: box.h, cardW, cardH, r, cx, cy };
+    const cx = box.w * (phone ? 1.2 : 1.38);
+    const cy = box.h * 0.5;
+    const rWant = Math.max(box.h * (phone ? 0.86 : 0.92), 220);
+    const rMax = cx - box.w * (phone ? 0.12 : 0.12);
+    const r = Math.max(180, Math.min(rWant, rMax));
+    return { w: box.w, h: box.h, cardW, cardH, r, cx, cy, phone };
   }, [box]);
 
   geoRef.current = geo;
@@ -112,8 +112,9 @@ export const OrbitCarousel: React.FC = () => {
       const θ = θ0 + (i / n) * TAU;
       const signed = shortest(θ - Math.PI);
       const dist = Math.abs(signed);
+      const fade = g.phone ? 0.72 : VISIBLE;
 
-      if (dist > VISIBLE + 0.18) {
+      if (dist > fade + (g.phone ? 0.1 : 0.18)) {
         el.style.visibility = 'hidden';
         el.style.pointerEvents = 'none';
         el.style.opacity = '0';
@@ -125,7 +126,7 @@ export const OrbitCarousel: React.FC = () => {
       const x = g.cx + g.r * Math.cos(θ);
       const y = g.cy + g.r * Math.sin(θ);
       const rot = signed * (180 / Math.PI);
-      const t = Math.min(1, dist / VISIBLE);
+      const t = Math.min(1, dist / fade);
       const opacity = t < 0.5 ? 1 : Math.max(0, 1 - (t - 0.5) / 0.5);
       const scale = 1 - t * 0.07;
 
