@@ -47,6 +47,7 @@ const VIRTUAL_CATALOGO_RESOLVED = '\0' + VIRTUAL_CATALOGO;
 // (p. ej. de otro agente) entra a la galería sin editar su meta.json.
 const SECTOR_BY_PREFIX: Record<string, string> = {
   abogado: 'legal',
+  dentista: 'dental',
   arquitectura: 'arquitectura',
   inmobiliaria: 'inmobiliaria',
   veterinaria: 'veterinaria',
@@ -56,19 +57,46 @@ const SECTOR_BY_PREFIX: Record<string, string> = {
   software: 'software',
   ecommerce: 'ecommerce',
   diseno: 'diseno',
+  'centro-medico': 'centro-medico',
+  'salud-mental': 'salud-mental',
+  kinesiologia: 'kinesiologia',
+  laboratorio: 'laboratorio',
+  concesionaria: 'concesionaria',
+  neumaticos: 'neumaticos',
+  repuestos: 'repuestos',
+  ferreteria: 'ferreteria',
+  distribuidora: 'distribuidora',
+  minimayorista: 'mayorista',
+  universidad: 'universidad',
+  vinedo: 'vinedo',
 };
+
+const SECTOR_ALIASES: Record<string, string> = {
+  dentista: 'dental',
+  abogado: 'legal',
+  abogados: 'legal',
+  gym: 'bienestar',
+  fitness: 'bienestar',
+  contador: 'contabilidad',
+  'centro medico': 'centro-medico',
+  minimayorista: 'mayorista',
+};
+
+const KNOWN_VARIANTS = new Set(['claro', 'oscuro', 'teal', 'azul']);
 
 // Carpetas con nombre de marca: el sector no se deduce del slug.
 const SECTOR_BY_FOLDER: Record<string, string> = {
-  alba: 'dental',
+  alba: 'gastronomia',
   bruma: 'dental',
   casonorte: 'dental',
-  lumen: 'dental',
-  pausa: 'dental',
+  lumen: 'diseno',
+  pausa: 'gastronomia',
   'clinica-claro': 'dental',
-  'eter-claro': 'estetica',
-  'noctua-oscuro': 'estetica',
+  minimayorista: 'mayorista',
 };
+
+/** Demos del lenguaje visual, no propuestas de cliente. */
+const HIDDEN_SLUGS = new Set(['eter-claro', 'noctua-oscuro']);
 
 function inferVariant(slug: string): string {
   if (slug.endsWith('-oscuro-premium') || slug.endsWith('-oscuro')) return 'oscuro';
@@ -80,8 +108,33 @@ function inferVariant(slug: string): string {
 
 function inferSector(slug: string): string {
   if (SECTOR_BY_FOLDER[slug]) return SECTOR_BY_FOLDER[slug];
-  const prefix = Object.keys(SECTOR_BY_PREFIX).find((p) => slug === p || slug.startsWith(`${p}-`));
+  const prefix = Object.keys(SECTOR_BY_PREFIX)
+    .sort((a, b) => b.length - a.length)
+    .find((p) => slug === p || slug.startsWith(`${p}-`));
   return prefix ? SECTOR_BY_PREFIX[prefix] : 'otros';
+}
+
+const KNOWN_SECTORS = new Set([
+  ...Object.values(SECTOR_BY_PREFIX),
+  ...Object.values(SECTOR_BY_FOLDER),
+  ...Object.values(SECTOR_ALIASES),
+  'estetica',
+]);
+
+function resolveSector(slug: string, metaSector: unknown): string {
+  if (typeof metaSector === 'string' && metaSector.trim()) {
+    const raw = metaSector.trim().toLowerCase();
+    if (SECTOR_ALIASES[raw]) return SECTOR_ALIASES[raw];
+    if (KNOWN_SECTORS.has(raw)) return raw;
+  }
+  return inferSector(slug);
+}
+
+function resolveVariant(slug: string, metaVariant: unknown): string {
+  if (typeof metaVariant === 'string' && KNOWN_VARIANTS.has(metaVariant.trim())) {
+    return metaVariant.trim();
+  }
+  return inferVariant(slug);
 }
 
 function sanitizeBrand(raw: string): string {
@@ -129,7 +182,7 @@ function readCatalogo(root: string): CatalogEntry[] {
         /* meta inválido: se cae a inferencia */
       }
     }
-    if (meta.hidden === true) continue;
+    if (meta.hidden === true || HIDDEN_SLUGS.has(slug)) continue;
     const title = typeof meta.title === 'string' && meta.title.trim() ? meta.title : slug;
     const client = typeof meta.client === 'string' ? meta.client : '';
     entries.push({
@@ -139,8 +192,8 @@ function readCatalogo(root: string): CatalogEntry[] {
           ? meta.brand.trim()
           : inferBrand(title, client, slug),
       title,
-      sector: typeof meta.sector === 'string' && meta.sector.trim() ? meta.sector : inferSector(slug),
-      variant: typeof meta.variant === 'string' && meta.variant.trim() ? meta.variant : inferVariant(slug),
+      sector: resolveSector(slug, meta.sector),
+      variant: resolveVariant(slug, meta.variant),
       ...(typeof meta.description === 'string' && meta.description.trim()
         ? { description: meta.description }
         : {}),
@@ -236,6 +289,7 @@ function propuestasPlugin(): Plugin {
         // Las propuestas se embeben en iframes con sandbox (origen opaco):
         // sin CORS los assets módulo/CSS no cargan.
         res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Cache-Control', 'no-cache, must-revalidate');
         if (req.method === 'HEAD') {
           res.statusCode = 200;
           res.end();

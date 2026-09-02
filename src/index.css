@@ -287,24 +287,66 @@
 }
 
 /* Sistema capas: expansión suave al hover */
-/* Arco del hero: recorte de círculo, fade en extremos */
+/* Arco del hero: recorte de círculo.
+   En celular el fade inferior es mínimo para no dejar un hueco vacío. */
 .orbit-arc {
   outline: none;
   touch-action: pan-y;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 10%,
-    #000 90%,
+    #000 6%,
+    #000 97%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    #000 10%,
-    #000 90%,
+    #000 6%,
+    #000 97%,
     transparent 100%
   );
+}
+
+@media (min-width: 1024px) {
+  .orbit-arc {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
+}
+
+/* Capa de lectura del hero móvil: tipo a la izquierda, arco visible a la derecha/abajo. */
+.hero-mobile-veil {
+  background:
+    linear-gradient(
+      180deg,
+      #f7f8fc 0%,
+      #f7f8fc 14%,
+      rgba(247, 248, 252, 0.88) 28%,
+      rgba(247, 248, 252, 0.42) 46%,
+      rgba(247, 248, 252, 0.08) 64%,
+      transparent 82%
+    ),
+    linear-gradient(
+      108deg,
+      #f7f8fc 0%,
+      rgba(247, 248, 252, 0.94) 32%,
+      rgba(247, 248, 252, 0.55) 52%,
+      rgba(247, 248, 252, 0.12) 72%,
+      transparent 88%
+    );
 }
 
 .orbit-card {

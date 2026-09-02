@@ -1,711 +1,586 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "motion";
 
-const media = (file: string) => `${import.meta.env.BASE_URL}media/${file}`;
-const FONO = "+56 9 8765 4321";
-const FONO_HREF = "tel:+56987654321";
+const BASE = import.meta.env.BASE_URL;
 
-/* ---------------------------------- datos --------------------------------- */
+export function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [interiorError, setInteriorError] = useState(false);
+  const [tile01Error, setTile01Error] = useState(false);
+  const [tile02Error, setTile02Error] = useState(false);
+  const [tile03Error, setTile03Error] = useState(false);
+  const [tile04Error, setTile04Error] = useState(false);
+  const [proofError, setProofError] = useState(false);
 
-const TRATAMIENTOS = [
-  { n: "01", nombre: "Evaluación y diagnóstico", duracion: "30 min", desde: 25000 },
-  { n: "02", nombre: "Limpieza y profilaxis", duracion: "45 min", desde: 35000 },
-  { n: "03", nombre: "Restauraciones en resina", duracion: "60 min", desde: 45000 },
-  { n: "04", nombre: "Odontopediatría", duracion: "40 min", desde: 30000 },
-  { n: "05", nombre: "Endodoncia", duracion: "90 min", desde: 320000 },
-  { n: "06", nombre: "Ortodoncia y alineadores", duracion: "45 min", desde: 780000 },
-];
+  const [accordionOpen, setAccordionOpen] = useState<number | null>(0);
+  const [stickyVisible, setStickyVisible] = useState(false);
 
-const VALORES = [
-  { nombre: "Evaluación y diagnóstico", detalle: "Con plan y presupuesto por escrito", desde: 25000 },
-  { nombre: "Limpieza y profilaxis", detalle: "Con pulido y aplicación de flúor", desde: 35000 },
-  { nombre: "Restauración en resina", detalle: "Por pieza, color natural", desde: 45000 },
-  { nombre: "Urgencia y control del dolor", detalle: "El mismo día, dentro de horario", desde: 30000 },
-  { nombre: "Endodoncia (un conducto)", detalle: "Con control incluido", desde: 320000 },
-  { nombre: "Blanquimiento", detalle: "En consulta, dos sesiones", desde: 220000 },
-];
+  const [nombre, setNombre] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [email, setEmail] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [detalle, setDetalle] = useState("");
+  const [acepta, setAcepta] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-const PASOS = [
-  {
-    n: "01",
-    titulo: "Agendas tu hora",
-    texto:
-      "En línea o por teléfono, con horas reales dentro del día. Confirmamos por llamada o WhatsApp, sin esperas ciegas.",
-  },
-  {
-    n: "02",
-    titulo: "Diagnóstico explicado en simple",
-    texto:
-      "Evaluación completa y presupuesto por escrito. Te contamos qué es urgente, qué puede esperar y cuánto cuesta, en palabras claras.",
-  },
-  {
-    n: "03",
-    titulo: "Tratamiento y control",
-    texto:
-      "Partimos solo con tu aprobación. Los mismos dentistas te acompañan del inicio al control final.",
-  },
-];
+  const hero16 = `${BASE}media/lago-azul-hero-16x9.png`;
+  const hero9 = `${BASE}media/lago-azul-hero-9x16.png`;
+  const heroVideo = `${BASE}media/lago-azul-hero-loop.mp4`;
+  const interiorSrc = `${BASE}media/lago-azul-interior-16x9.png`;
+  const tile01Src = `${BASE}media/lago-azul-tile-01-1x1.png`;
+  const tile02Src = `${BASE}media/lago-azul-tile-02-3x4.png`;
+  const tile03Src = `${BASE}media/lago-azul-tile-03-1x1.png`;
+  const tile04Src = `${BASE}media/lago-azul-tile-04-3x4.png`;
+  const proofSrc = `${BASE}media/lago-azul-proof-16x9.png`;
 
-const VOCES = [
-  {
-    cita:
-      "Me explicaron el presupuesto antes de empezar y no cambió ni un peso. Ahora viene toda la familia.",
-    autor: "Javiera, paciente desde 2020 · La Florida",
-  },
-  {
-    cita:
-      "Llegué con un dolor terrible un viernes en la tarde. Me recibieron igual, y salí caminando sin dolor.",
-    autor: "Cecilia, paciente desde 2019 · San Joaquín",
-  },
-  {
-    cita:
-      "Son los mismos tres dentistas desde que llego. Mis hijos los reciben por su nombre y sin miedo.",
-    autor: "Rodrigo, paciente desde 2021 · La Florida",
-  },
-];
-
-const FAQ = [
-  {
-    q: "¿Atienden urgencias el mismo día?",
-    a: "Sí. Todos los días reservamos horas para urgencias dentro del horario de atención. Llámanos al " +
-      FONO +
-      " y te damos la primera hora disponible. La urgencia parte con evaluación y control del dolor (desde $30.000).",
-  },
-  {
-    q: "¿Cuánto cuesta la evaluación?",
-    a: "Desde $25.000. Incluye diagnóstico completo, radiografía si corresponde y presupuesto por escrito. Si partes un tratamiento dentro de la misma semana, el valor de la evaluación se descuenta.",
-  },
-  {
-    q: "¿Atienden niños?",
-    a: "Sí. Odontopediatría desde los 3 años, con primeras consultas pensadas para que la experiencia sea tranquila: sin apuro, sin lenguaje técnico y con los padres presentes en el box.",
-  },
-  {
-    q: "¿Trabajan con isapres o bonos?",
-    a: "Emitimos boleta y factura electrónica (SII) para que reembolses con tu isapre o uses bono Fonasa en modalidad de libre elección. Te ayudamos a armar los formularios antes de partir.",
-  },
-  {
-    q: "¿El presupuesto puede cambiar?",
-    a: "Solo si el diagnóstico lo amerita, y siempre se confirma antes de continuar. Nunca partimos ni extendemos un tratamiento sin tu aprobación explícita.",
-  },
-  {
-    q: "¿Qué formas de pago aceptan?",
-    a: "Débito, crédito y transferencia. En tratamientos sobre $100.000 puedes pagar en hasta 3 cuotas sin interés, con factura electrónica si necesitas reembolso.",
-  },
-];
-
-const clp = (n: number) => "$" + n.toLocaleString("es-CL");
-
-/* ---------------------------------- hooks --------------------------------- */
-
-function useRevealOnce() {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>(".rv"));
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      els.forEach((el) => el.classList.add("in"));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-}
-
-function useCountUp(target: number, activo: boolean, duracion = 1200) {
-  const [valor, setValor] = useState(0);
-  useEffect(() => {
-    if (!activo) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setValor(target);
-      return;
-    }
-    let raf = 0;
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const p = Math.min((t - t0) / duracion, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setValor(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [activo, target, duracion]);
-  return valor;
-}
-
-/* ----------------------------------- nav ---------------------------------- */
-
-function Nav() {
-  const [oculto, setOculto] = useState(false);
-  const [compacto, setCompacto] = useState(false);
-  const [progreso, setProgreso] = useState(0);
-  const ultimo = useRef(0);
+    if (imgError) console.warn("media falta: lago-azul-hero-16x9.png");
+  }, [imgError]);
+  useEffect(() => { if (interiorError) console.warn("media falta: lago-azul-interior-16x9.png"); }, [interiorError]);
+  useEffect(() => { if (tile01Error) console.warn("media falta: lago-azul-tile-01-1x1.png"); }, [tile01Error]);
+  useEffect(() => { if (tile02Error) console.warn("media falta: lago-azul-tile-02-3x4.png"); }, [tile02Error]);
+  useEffect(() => { if (tile03Error) console.warn("media falta: lago-azul-tile-03-1x1.png"); }, [tile03Error]);
+  useEffect(() => { if (tile04Error) console.warn("media falta: lago-azul-tile-04-3x4.png"); }, [tile04Error]);
+  useEffect(() => { if (proofError) console.warn("media falta: lago-azul-proof-16x9.png"); }, [proofError]);
 
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-      setCompacto(y > 8);
-      setOculto(y > 140 && y > ultimo.current);
-      ultimo.current = y;
-      const alto = document.documentElement.scrollHeight - window.innerHeight;
-      setProgreso(alto > 0 ? Math.min(y / alto, 1) : 0);
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY;
+      const docHeight = doc.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? scrollTop / docHeight : 0;
+      setStickyVisible(pct > 0.4);
     };
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (stickyVisible) document.body.style.paddingBottom = "72px";
+    else document.body.style.paddingBottom = "";
+    return () => { document.body.style.paddingBottom = ""; };
+  }, [stickyVisible]);
+
+  const arancelRows: { prest: string; price: string; desde?: boolean; note: string }[] = [
+    { prest: "Evaluación con scanner + fotos", price: "$32.900", note: "45 min · scanner + radiografía + informe impreso" },
+    { prest: "Limpieza y profilaxis", price: "$44.900", desde: true, note: "40 min · higiene + pulido + flúor + fotos" },
+    { prest: "Tapadura resina (1 cara)", price: "$64.900", desde: true, note: "45 min · resina + pulido espejo" },
+    { prest: "Endodoncia 1 conducto", price: "$138.000", desde: true, note: "90 min · microscopio + control rx" },
+    { prest: "Extracción simple", price: "$54.900", desde: true, note: "30 min · anestesia + control 7 días" },
+    { prest: "Blanqueamiento clínico", price: "$98.900", desde: true, note: "60 min · peróxido + protector gingival" },
+    { prest: "Implante (tornillo + corona)", price: "$445.000", desde: true, note: "2 fases · provisorio + controles" },
+    { prest: "Alineadores transparentes", price: "$49.900/mes", desde: true, note: "12–18 meses · control mensual" },
+  ];
+
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (nombre.trim().length < 2) e.nombre = "Ingresa tu nombre (mín. 2 caracteres)";
+    const normalized = telefono.replace(/\s+/g, " ").trim();
+    const telCompact = telefono.replace(/\s/g, "");
+    const isValidTel = /^\+56\s?9\s?\d{8}$/.test(normalized) || /^\+569\d{8}$/.test(telCompact);
+    if (!isValidTel) e.telefono = "Formato +56 9 1234 5678";
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Email inválido";
+    if (!motivo) e.motivo = "Selecciona un motivo";
+    return e;
+  };
+
+  const handleSubmit = (ev: React.FormEvent) => {
+    ev.preventDefault();
+    const v = validate();
+    setErrors(v);
+    if (Object.keys(v).length > 0) return;
+    setLoading(true);
+    setSuccess(false);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+      try {
+        localStorage.setItem("lago-azul-lead", JSON.stringify({ nombre, telefono, email, motivo, detalle, fecha: Date.now() }));
+      } catch {}
+      const msg = `Hola LAGO AZUL, quiero agendar: ${nombre} ${motivo}${detalle ? " — " + detalle : ""} Tel: ${telefono}`;
+      const url = `https://wa.me/56981234567?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    }, 800);
+  };
+
   return (
     <>
-      <div className="progreso" aria-hidden="true">
-        <span style={{ transform: `scaleX(${progreso})` }} />
-      </div>
-      <header className={`nav${oculto ? " nav-oculto" : ""}${compacto ? " nav-compacto" : ""}`}>
-        <div className="wrap nav-fila">
-          <a className="nav-marca" href="#inicio">
-            LAGO AZUL <span>DENTAL</span>
+      <header className="tl-top">
+        <div className="tl-top__inner">
+          <a href="#portada-dentista-b-teal" className="tl-brand" aria-label="LAGO AZUL inicio">
+            LAGO AZUL
           </a>
-          <nav className="nav-links" aria-label="Secciones">
-            <a href="#tratamientos">Tratamientos</a>
-            <a href="#valores">Valores</a>
-            <a href="#metodo">Método</a>
-            <a href="#faq">Preguntas</a>
+
+          <nav className="tl-nav" aria-label="Navegación principal">
+            <a href="#arancel-lago">Arancel</a>
+            <a href="#ficha-45">Ficha 45&apos;</a>
+            <a href="#reembolso-fonasa">Fonasa</a>
+            <a href="#cajas-clinicas">Cajas</a>
           </nav>
-          <div className="nav-acciones">
-            <a className="nav-urgencia" href={FONO_HREF}>
-              ¿Dolor ahora? Llámanos <strong>{FONO}</strong>
+
+          <div className="tl-actions">
+            <a href="tel:+56981234567" className="tl-phone" aria-label="Llamar +56 9 8123 4567">
+              +56 9 8123 4567
             </a>
-            <a className="btn btn-nav" href="#reserva">
-              Agendar
+            <a href="tel:+56981234567" className="tl-icon" aria-label="Llamar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
             </a>
-          </div>
-        </div>
-      </header>
-    </>
-  );
-}
-
-/* ---------------------------------- hero ---------------------------------- */
-
-function Hero() {
-  const [montado, setMontado] = useState(false);
-  useEffect(() => {
-    const t = window.setTimeout(() => setMontado(true), 60);
-    return () => window.clearTimeout(t);
-  }, []);
-
-  return (
-    <section id="inicio" className="hero">
-      <div className="wrap hero-grid">
-        <div className="hero-texto">
-          <p className={`kicker${montado ? " in" : ""}`}>Clínica dental · La Florida</p>
-          <h1 className={`h1${montado ? " in" : ""}`}>
-            <span className="h1-linea">
-              <span className="h1-inner" style={{ "--i": 0 } as CSSProperties}>
-                Odontología fresca
-              </span>
-            </span>
-            <span className="h1-linea">
-              <span className="h1-inner" style={{ "--i": 1 } as CSSProperties}>
-                para toda la familia.
-              </span>
-            </span>
-          </h1>
-          <p className={`subhead${montado ? " in" : ""}`}>
-            Consulta, limpieza y tratamientos con dentistas titulados.
-            <br />
-            Valores claros desde la primera visita y horas sin esperas.
-          </p>
-          <div className={`hero-ctas${montado ? " in" : ""}`}>
-            <a className="btn" href="#reserva">
+            <a href="#hora-lago" className="tl-btn tl-btn--primary tl-cta">
               Agendar hora
             </a>
-            <a className="link-subrayado" href="#tratamientos">
-              Ver tratamientos
-            </a>
+            <button
+              className="tl-burger"
+              aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+              type="button"
+            >
+              <span aria-hidden="true" />
+            </button>
           </div>
         </div>
-        <figure className={`hero-figura${montado ? " in" : ""}`}>
-          <img
-            src={media("recepcion.jpg")}
-            alt="Recepción de la clínica: mostrador blanco, pared verde-agua pálida y luz natural entrando por la izquierda"
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-          />
-          <figcaption>Recepción · mostrador blanco, pared verde-agua y luz lateral</figcaption>
-        </figure>
-      </div>
-      <div className="wrap">
-        <p className={`hero-banda rv`}>
-          <span>Horas puntuales sin esperas</span>
-          <span className="hero-banda-sep" aria-hidden="true">
-            ·
-          </span>
-          <span>
-            Urgencias dentales durante horario ·{" "}
-            <a className="link-subrayado link-fuerte" href={FONO_HREF}>
-              {FONO}
-            </a>
-          </span>
-        </p>
-      </div>
-    </section>
-  );
-}
 
-/* ------------------------------ tratamientos ------------------------------ */
+        <div className={`tl-drawer ${menuOpen ? "open" : ""}`}>
+          <nav aria-label="Navegación móvil">
+            <a href="#arancel-lago" onClick={() => setMenuOpen(false)}>Arancel</a>
+            <a href="#ficha-45" onClick={() => setMenuOpen(false)}>Ficha 45&apos;</a>
+            <a href="#reembolso-fonasa" onClick={() => setMenuOpen(false)}>Fonasa</a>
+            <a href="#cajas-clinicas" onClick={() => setMenuOpen(false)}>Cajas</a>
+            <a href="tel:+56981234567" onClick={() => setMenuOpen(false)}>+56 9 8123 4567</a>
+          </nav>
+        </div>
+      </header>
 
-function Tratamientos() {
-  const [abierto, setAbierto] = useState<number | null>(null);
+      <main>
+        {/* HERO — portada */}
+        <section id="portada-dentista-b-teal" className="tl-hero">
+          <div className="tl-hero__inner">
+            <motion.div
+              className="tl-hero__copy"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="tl-eyebrow">CLÍNICA DENTAL · PROVIDENCIA</p>
+              <h1 className="tl-h1">Sonrisa sana, sin sustos ni letra chica.</h1>
+              <p className="tl-lead">
+                Revisamos con fotos, te mostramos en pantalla y te damos el presupuesto por escrito. Tú decides en casa, no en el sillón.
+              </p>
+              <div className="tl-hero__ctas">
+                <a href="#hora-lago" className="tl-btn tl-btn--primary">Agendar hora</a>
+                <a href="#arancel-lago" className="tl-btn tl-btn--ghost">Ver arancel</a>
+              </div>
+              <motion.div
+                className="tl-strip"
+                aria-label="Información de atención"
+                initial="hidden"
+                animate="visible"
+                variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
+              >
+                {["Hora exacta o urgencia hoy", "Boleta reembolsable", "Mismo especialista siempre"].map((txt, i) => (
+                  <motion.span
+                    key={i}
+                    className="tl-strip__item"
+                    variants={{
+                      hidden: { opacity: 0, y: 6 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.18, ease: "easeOut" as const } }
+                    }}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 10 }}
+                  >
+                    {i !== 0 && <span className="tl-strip__dot" aria-hidden="true" />}
+                    {txt}
+                  </motion.span>
+                ))}
+              </motion.div>
+              <p className="tl-micro">Si algo cambia tras la evaluación, te avisamos antes de partir. Nunca iniciamos sin tu firma.</p>
+              <div className="tl-sig">
+                <div className="tl-sig__line" aria-hidden="true" />
+                <p className="tl-sig__txt">Ficha nº 2026 — LAGO AZUL, Providencia</p>
+              </div>
+            </motion.div>
 
-  return (
-    <section id="tratamientos" className="sec">
-      <div className="wrap">
-        <header className="sec-cab rv">
-          <p className="kicker">Tratamientos</p>
-          <h2>Un índice claro, sin letra chica.</h2>
-        </header>
-        <ul className="indice rv">
-          {TRATAMIENTOS.map((t, i) => {
-            const open = abierto === i;
-            return (
-              <li key={t.n} className={`indice-fila${open ? " abierta" : ""}`}>
-                <button
-                  type="button"
-                  className="indice-btn"
-                  aria-expanded={open}
-                  onClick={() => setAbierto(open ? null : i)}
-                >
-                  <span className="indice-num">{t.n}</span>
-                  <span className="indice-nombre">{t.nombre}</span>
-                  <span className="indice-flecha" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-                <div className="indice-extra">
-                  <div className="indice-extra-inner">
-                    <dl className="indice-datos">
-                      <div>
-                        <dt>Duración típica</dt>
-                        <dd>{t.duracion}</dd>
-                      </div>
-                      <div>
-                        <dt>Valor desde</dt>
-                        <dd className="num">{clp(t.desde)}</dd>
-                      </div>
-                    </dl>
-                    <p className="indice-agendar">
-                      <a className="link-subrayado" href="#reserva">
-                        Agendar esta consulta
-                      </a>
-                    </p>
+            <motion.div
+              className="tl-hero__visual"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.18, ease: "easeOut", delay: 0.08 }}
+            >
+              {!imgError ? (
+                <div className="tl-frame">
+                  <div className="tl-frame__media">
+                    {!videoError ? (
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        poster={hero16}
+                        onError={() => setVideoError(true)}
+                        aria-label="Bandeja LAGO AZUL hero video"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      >
+                        <source src={heroVideo} type="video/mp4" />
+                      </video>
+                    ) : null}
+                    <img
+                      src={hero16}
+                      alt="Bandeja de vidrio esmerilado teal sobre niebla, ficha perforada y pinza, luz lago difusa"
+                      className="tl-media--desktop"
+                      loading="eager"
+                      decoding="async"
+                      onError={() => setImgError(true)}
+                      style={videoError ? undefined : { display: "none" }}
+                    />
+                    <img
+                      src={hero9}
+                      alt="Bandeja de vidrio esmerilado teal sobre niebla, ficha perforada y pinza, vista vertical"
+                      className="tl-media--mobile"
+                      loading="eager"
+                      decoding="async"
+                      onError={() => setImgError(true)}
+                      style={videoError ? undefined : { display: "none" }}
+                    />
                   </div>
                 </div>
-              </li>
-            );
-          })}
-        </ul>
-        <p className="nota rv">
-          Todos los tratamientos parten con evaluación y presupuesto por escrito. El valor final se
-          confirma antes de comenzar.
-        </p>
-      </div>
-    </section>
-  );
-}
+              ) : (
+                <div className="tl-missing" data-falta="lago-azul-hero-16x9.png" style={{ aspectRatio: "16/9" }}>
+                  falta: lago-azul-hero-16x9.png
+                </div>
+              )}
+              <p className="tl-caption">Bandeja 01 · vidrio esmerilado · luz lago</p>
+            </motion.div>
+          </div>
+        </section>
 
-/* --------------------------------- cifras --------------------------------- */
+        {/* 2 — ARANCEL (sube a 2º lugar para diferenciar flujo: precio primero) */}
+        <section id="arancel-lago" className="tl-tariff">
+          <div className="tl-wrap">
+            <p className="tl-kicker">ARANCEL A LA VISTA</p>
+            <h2 className="tl-h2">Precios con nombre y apellido</h2>
+            <p className="tl-intro">Cada fila es precio desde. El definitivo se confirma con scanner en la ficha 45&apos;. Nunca por WhatsApp.</p>
+          </div>
 
-function Cifra({
-  target,
-  prefijo,
-  sufijo,
-  etiqueta,
-  activo,
-}: {
-  target: number;
-  prefijo?: string;
-  sufijo?: string;
-  etiqueta: string;
-  activo: boolean;
-}) {
-  const v = useCountUp(target, activo);
-  return (
-    <div className="cifra">
-      <p className="cifra-num num">
-        {prefijo}
-        {v.toLocaleString("es-CL")}
-        {sufijo}
-      </p>
-      <p className="cifra-etiqueta">{etiqueta}</p>
-    </div>
-  );
-}
-
-function Cifras() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [activo, setActivo] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setActivo(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.35 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <section id="cifras" className="sec sec-filete">
-      <div className="wrap cifras-grid">
-        <div ref={ref} className="cifras-stats rv">
-          <Cifra target={11} prefijo="+" etiqueta="años en la comuna" activo={activo} />
-          <Cifra target={8000} prefijo="+" etiqueta="pacientes atendidos" activo={activo} />
-          <Cifra target={96} sufijo="%" etiqueta="recomienda la clínica" activo={activo} />
-          <Cifra target={3} etiqueta="dentistas titulados, siempre los mismos" activo={activo} />
-        </div>
-        <figure className="cifras-figura rv">
-          <img
-            src={media("detalle.jpg")}
-            alt="Macro de una superficie cerámica verde-agua bajo luz suave"
-            width={1400}
-            height={1400}
-            loading="lazy"
-          />
-          <figcaption>Superficies lisas, fáciles de limpiar: higiene que se ve</figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
-/* --------------------------------- valores -------------------------------- */
-
-function Valores() {
-  return (
-    <section id="valores" className="sec sec-filete">
-      <div className="wrap valores-grid">
-        <div className="valores-tabla-wrap rv">
-          <header className="sec-cab">
-            <p className="kicker">Valores claros</p>
-            <h2>Valores claros desde la primera visita.</h2>
-          </header>
-          <table className="tabla">
-            <caption className="sr-only">
-              Valores de referencia por tratamiento, en pesos chilenos
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Tratamiento</th>
-                <th scope="col">Detalle</th>
-                <th scope="col" className="td-der">
-                  Desde
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {VALORES.map((v) => (
-                <tr key={v.nombre}>
-                  <th scope="row">{v.nombre}</th>
-                  <td>{v.detalle}</td>
-                  <td className="td-der num">{clp(v.desde)}</td>
-                </tr>
+          <div className="tl-tariff__layout">
+            <div className="tl-sheet">
+              <div className="tl-sheet__head">
+                <span>Prestación</span>
+                <span>Desde CLP</span>
+              </div>
+              {arancelRows.map((r, idx) => (
+                <div key={idx} className="tl-row">
+                  <div className="tl-row__main">
+                    <span className="tl-row__name">{r.prest}</span>
+                    <span className="tl-row__note">{r.note}</span>
+                  </div>
+                  <div className="tl-row__price">
+                    {r.desde && <span className="tl-row__from">desde</span>}
+                    <span className="tl-row__amount">{r.price}</span>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-          <p className="nota nota-honesta">
-            El valor final se confirma después del diagnóstico. Nunca partimos un tratamiento sin tu
-            aprobación.
-          </p>
-        </div>
-        <figure className="valores-figura rv">
-          <img
-            src={media("instrumental.jpg")}
-            alt="Frascos de algodón y instrumental dental alineados sobre una bandeja blanca"
-            width={1200}
-            height={1500}
-            loading="lazy"
-          />
-          <figcaption>Instrumental esterilizado y preparado por consulta</figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-}
+              <p className="tl-sheet__foot">Valores referenciales; se confirma tras diagnóstico. Sin sorpresas. Fonasa e Isapre con boleta reembolsable.</p>
+            </div>
 
-/* --------------------------------- método --------------------------------- */
+            <aside className="tl-side">
+              <h3 className="tl-side__title">¿Dolor hoy?</h3>
+              <p className="tl-side__text">Urgencia el mismo día según cupo. Llámanos y te damos hora real, no &apos;te llamamos&apos;.</p>
+              <a href="tel:+56981234567" className="tl-side__tel">+56 9 8123 4567</a>
+              <a href="#hora-lago" className="tl-btn tl-btn--primary tl-side__cta">Agendar hora</a>
+              <p className="tl-side__micro">Boleta reembolsable · Fonasa nivel 3 · Isapre todas</p>
+            </aside>
+          </div>
+        </section>
 
-function Metodo() {
-  return (
-    <section id="metodo" className="sec sec-filete">
-      <div className="wrap">
-        <figure className="metodo-figura rv">
-          <img
-            src={media("box.jpg")}
-            alt="Box dental ordenado con sillón vacío y luz natural lateral"
-            width={1920}
-            height={1080}
-            loading="lazy"
-          />
-          <figcaption>Box de atención · un paciente a la vez, sin apuro</figcaption>
-        </figure>
-        <header className="sec-cab rv">
-          <p className="kicker">Cómo funciona</p>
-          <h2>Tres pasos, cero sorpresas.</h2>
-        </header>
-        <ol className="pasos rv">
-          {PASOS.map((p) => (
-            <li key={p.n} className="paso">
-              <p className="paso-num num" aria-hidden="true">
-                {p.n}
-              </p>
-              <h3>{p.titulo}</h3>
-              <p>{p.texto}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
+        {/* 3 — FICHA 45 (rail vertical con numeración circular) */}
+        <section id="ficha-45" className="tl-eval">
+          <div className="tl-eval__grid">
+            <div className="tl-eval__content">
+              <p className="tl-kicker">PRIMERA VISITA</p>
+              <h2 className="tl-h2">45 minutos para dejar todo claro</h2>
+              <p className="tl-intro">No es limpieza express. Es una cita para entender tu boca sin venderte nada.</p>
 
-/* ---------------------------------- voces --------------------------------- */
-
-function Voces() {
-  const [idx, setIdx] = useState(0);
-  const [pausa, setPausa] = useState(false);
-
-  useEffect(() => {
-    if (pausa) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setIdx((i) => (i + 1) % VOCES.length), 6000);
-    return () => window.clearInterval(id);
-  }, [pausa]);
-
-  return (
-    <section
-      id="voces"
-      className="sec sec-filete"
-      onMouseEnter={() => setPausa(true)}
-      onMouseLeave={() => setPausa(false)}
-      onFocusCapture={() => setPausa(true)}
-      onBlurCapture={() => setPausa(false)}
-    >
-      <div className="wrap voces-wrap rv">
-        <p className="kicker">Lo que dicen los pacientes</p>
-        <div className="voces-escenario" aria-live="polite">
-          {VOCES.map((v, i) => (
-            <blockquote key={i} className={`voz${i === idx ? " voz-activa" : ""}`} aria-hidden={i !== idx}>
-              <p className="voz-cita">“{v.cita}”</p>
-              <footer className="voz-autor">— {v.autor}</footer>
-            </blockquote>
-          ))}
-        </div>
-        <div className="voces-puntos" role="tablist" aria-label="Testimonios">
-          {VOCES.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === idx}
-              aria-label={`Testimonio ${i + 1} de ${VOCES.length}`}
-              className={`punto${i === idx ? " punto-activo" : ""}`}
-              onClick={() => setIdx(i)}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ----------------------------------- faq ---------------------------------- */
-
-function Faq() {
-  const [abierto, setAbierto] = useState<number | null>(0);
-  return (
-    <section id="faq" className="sec sec-filete">
-      <div className="wrap faq-wrap">
-        <header className="sec-cab rv">
-          <p className="kicker">Preguntas frecuentes</p>
-          <h2>Lo que todos preguntan antes de la primera hora.</h2>
-        </header>
-        <div className="faq-lista rv">
-          {FAQ.map((f, i) => {
-            const open = abierto === i;
-            return (
-              <div key={i} className={`faq${open ? " abierta" : ""}`}>
-                <button type="button" className="faq-btn" aria-expanded={open} onClick={() => setAbierto(open ? null : i)}>
-                  <span>{f.q}</span>
-                  <span className="faq-icono" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-                <div className="faq-resp">
-                  <div className="faq-resp-inner">
-                    <p>{f.a}</p>
+              <div className="tl-steps">
+                <div className="tl-step">
+                  <p className="tl-step__n">1</p>
+                  <div>
+                    <h3 className="tl-step__title">Fotos y scanner</h3>
+                    <p className="tl-step__text">Scanner intraoral y radiografía en el mismo box. Ves lo que vemos, en pantalla grande.</p>
+                  </div>
+                </div>
+                <div className="tl-step">
+                  <p className="tl-step__n">2</p>
+                  <div>
+                    <h3 className="tl-step__title">Diagnóstico en simple</h3>
+                    <p className="tl-step__text">Qué es urgente, qué puede esperar y qué no hace falta. Preguntas todo.</p>
+                  </div>
+                </div>
+                <div className="tl-step">
+                  <p className="tl-step__n">3</p>
+                  <div>
+                    <h3 className="tl-step__title">Presupuesto por escrito</h3>
+                    <p className="tl-step__text">Hoja con valores por pieza, alternativas y reembolso. Decides en casa.</p>
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* --------------------------------- reserva -------------------------------- */
+              <ul className="tl-checks" aria-label="Qué te llevas">
+                <li><i aria-hidden="true">✓</i> Informe impreso</li>
+                <li><i aria-hidden="true">✓</i> Presupuesto firmado</li>
+                <li><i aria-hidden="true">✓</i> Fotos de tu caso</li>
+                <li><i aria-hidden="true">✓</i> WhatsApp directo</li>
+              </ul>
 
-function Reserva() {
-  return (
-    <section id="reserva" className="sec sec-filete reserva">
-      <div className="wrap reserva-grid">
-        <div className="reserva-texto rv">
-          <p className="kicker">Reserva tu hora</p>
-          <h2>¿Agendamos tu hora?</h2>
-          <a className="reserva-fono num" href={FONO_HREF}>
-            {FONO}
-          </a>
-          <div className="reserva-ctas">
-            <a className="btn" href={FONO_HREF}>
-              Agendar hora
-            </a>
-            <a className="link-subrayado" href="mailto:hola@lagoazuldental.cl">
-              hola@lagoazuldental.cl
-            </a>
+              <div className="tl-tag">Evaluación completa $32.900 — se abona al tratamiento si sigues.</div>
+            </div>
+            <div className="tl-eval__figure">
+              {!interiorError ? (
+                <div className="tl-eval__shot">
+                  <img
+                    src={interiorSrc}
+                    alt="Box clínico claro con bandeja vidrio y ficha abierta, luz pareja sin ventana"
+                    loading="lazy"
+                    onError={() => setInteriorError(true)}
+                  />
+                </div>
+              ) : (
+                <div className="tl-missing" data-falta="lago-azul-interior-16x9.png" style={{ aspectRatio: "4/3" }}>
+                  falta: lago-azul-interior-16x9.png
+                </div>
+              )}
+              <p className="tl-caption">Ficha 45&apos; · box 2 · Providencia</p>
+            </div>
           </div>
-          <dl className="reserva-datos">
-            <div>
-              <dt>Horario</dt>
-              <dd className="num">Lun–Sáb 9:30–20:00</dd>
+        </section>
+
+        {/* 4 — REEMBOLSO FONASA (grilla 3x1 uniforme) */}
+        <section id="reembolso-fonasa" className="tl-pay">
+          <div className="tl-wrap">
+            <p className="tl-kicker">CÓMO PAGAS</p>
+            <h2 className="tl-h2">Fonasa, Isapre o particular. Sin letra chica.</h2>
+            <p className="tl-intro">Boleta reembolsable. Te decimos antes cuánto cubre tu plan y cuánto pagas tú.</p>
+
+            <div className="tl-pay__grid">
+              <article className="tl-payCard">
+                <h3 className="tl-payCard__head">FONASA</h3>
+                <dl className="tl-payCard__dl">
+                  <div><dt>Cómo funciona</dt><dd>Bono nivel 3 en sucursal o web</dd></div>
+                  <div><dt>Qué traes</dt><dd>Carnet + bono</dd></div>
+                  <div><dt>Reembolso</dt><dd>Directo en Fonasa</dd></div>
+                  <div><dt>Facilidades</dt><dd>3 cuotas sin interés</dd></div>
+                </dl>
+              </article>
+              <article className="tl-payCard tl-payCard--accent">
+                <h3 className="tl-payCard__head">ISAPRE (todas)</h3>
+                <dl className="tl-payCard__dl">
+                  <div><dt>Cómo funciona</dt><dd>Pagas y reembolsas con boleta</dd></div>
+                  <div><dt>Qué traes</dt><dd>Credencial + plan</dd></div>
+                  <div><dt>Reembolso</dt><dd>50–80% según plan*</dd></div>
+                  <div><dt>Facilidades</dt><dd>6 cuotas sin interés</dd></div>
+                </dl>
+              </article>
+              <article className="tl-payCard">
+                <h3 className="tl-payCard__head">PARTICULAR</h3>
+                <dl className="tl-payCard__dl">
+                  <div><dt>Cómo funciona</dt><dd>Pago directo con facilidades</dd></div>
+                  <div><dt>Qué traes</dt><dd>Carnet</dd></div>
+                  <div><dt>Reembolso</dt><dd>—</dd></div>
+                  <div><dt>Facilidades</dt><dd>Hasta 12 cuotas</dd></div>
+                </dl>
+              </article>
             </div>
-            <div>
-              <dt>Urgencias</dt>
-              <dd>
-                Durante horario, <a className="link-subrayado" href={FONO_HREF}>llámanos</a>
-              </dd>
+            <p className="tl-pay__note">* Depende de tu plan. Lo verificamos en la ficha y te damos cálculo por escrito.</p>
+
+            <div className="tl-acc">
+              {[
+                { q: "¿Atienden Fonasa?", a: "Sí, nivel 3. Compras el bono antes y te atendemos sin copago extra en prestaciones bonificables." },
+                { q: "¿Qué Isapres?", a: "Todas con reembolso. Emitimos boleta y reembolsas donde te convenga. No hay convenio cerrado." },
+                { q: "¿Cuotas?", a: "Tarjeta hasta 12 cuotas. Sin interés hasta 6 con Fonasa/Isapre. Total por escrito." },
+              ].map((item, idx) => (
+                <div key={idx} className={`tl-acc__item ${accordionOpen === idx ? "open" : ""}`}>
+                  <button className="tl-acc__btn" onClick={() => setAccordionOpen(accordionOpen === idx ? null : idx)} aria-expanded={accordionOpen === idx} type="button">
+                    <span>{item.q}</span>
+                    <span className="tl-acc__chev" aria-hidden="true">›</span>
+                  </button>
+                  <div className="tl-acc__panel">
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </dl>
-        </div>
-        <div className="reserva-mapa rv" aria-hidden="true">
-          <svg viewBox="0 0 520 220" role="img" aria-label="">
-            <line x1="10" y1="150" x2="510" y2="150" className="mapa-linea" />
-            <line x1="150" y1="150" x2="150" y2="60" className="mapa-linea" />
-            <line x1="380" y1="150" x2="380" y2="60" className="mapa-linea" />
-            <circle cx="150" cy="150" r="7" className="mapa-punto mapa-punto-teal" />
-            <text x="150" y="184" className="mapa-texto" textAnchor="middle">
-              Metro
-            </text>
-            <circle cx="380" cy="150" r="7" className="mapa-punto" />
-            <text x="380" y="184" className="mapa-texto mapa-texto-fuerte" textAnchor="middle">
-              Lago Azul
-            </text>
-            <text x="265" y="46" className="mapa-texto" textAnchor="middle">
-              Av. Vicuña Mackenna
-            </text>
-          </svg>
-          <p className="reserva-direccion">
-            Av. Vicuña Mackenna 7110, La Florida — a 4 min caminando del metro, con estacionamiento
-            para pacientes.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
+          </div>
+        </section>
 
-/* ---------------------------------- footer -------------------------------- */
+        {/* 5 — CAJAS — patrón ledger: grilla 2x2 uniforme vertical (otro patrón vs bento horizontal previo) */}
+        <section id="cajas-clinicas" className="tl-works">
+          <div className="tl-works__head">
+            <p className="tl-kicker">LO QUE HACEMOS BIEN</p>
+            <h2 className="tl-h2">Cuatro cajas, los mismos especialistas siempre</h2>
+            <p className="tl-intro">No rotamos tu caso. Cada plan lo sigue quien lo diagnosticó.</p>
+          </div>
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="wrap footer-fila">
-        <p className="footer-marca">
-          LAGO AZUL <span>DENTAL</span>
-        </p>
-        <p className="footer-legal">
-          LAGO AZUL DENTAL SpA · Av. Vicuña Mackenna 7110, La Florida, Santiago · hola@lagoazuldental.cl
-        </p>
-        <p className="footer-legal">© 2026 · Valores referenciales sujetos a diagnóstico · Facturación electrónica SII</p>
-      </div>
-    </footer>
-  );
-}
+          <div className="tl-bento">
+            <div className="tl-card">
+              <div className="tl-card__media">
+                {!tile01Error ? (
+                  <img src={tile01Src} alt="Pinza y espejo dental sobre vidrio esmerilado teal" loading="lazy" onError={() => setTile01Error(true)} />
+                ) : (
+                  <div className="tl-missing" data-falta="lago-azul-tile-01-1x1.png" style={{ aspectRatio: "4/3" }}>falta: lago-azul-tile-01-1x1.png</div>
+                )}
+              </div>
+              <div className="tl-card__body">
+                <p className="tl-card__num">01</p>
+                <h3 className="tl-card__title">Endodoncia con microscopio</h3>
+                <p className="tl-card__text">Un diente a la vez. Microscopio y control rx. Sin apuro.</p>
+                <p className="tl-card__meta">Desde $138.000 · 90 min</p>
+              </div>
+            </div>
 
-/* ------------------------------- sticky CTA ------------------------------- */
+            <div className="tl-card">
+              <div className="tl-card__media">
+                {!tile02Error ? (
+                  <img src={tile02Src} alt="Radiografía retroiluminada sobre bandeja vidrio" loading="lazy" onError={() => setTile02Error(true)} />
+                ) : (
+                  <div className="tl-missing" data-falta="lago-azul-tile-02-3x4.png" style={{ aspectRatio: "4/3" }}>falta: lago-azul-tile-02-3x4.png</div>
+                )}
+              </div>
+              <div className="tl-card__body">
+                <p className="tl-card__num">02</p>
+                <h3 className="tl-card__title">Implantología</h3>
+                <p className="tl-card__text">Tornillo + corona en 2 fases, planificación digital y provisorio.</p>
+                <p className="tl-card__meta">Desde $445.000 · 2 fases</p>
+              </div>
+            </div>
 
-function StickyCta() {
-  const [visible, setVisible] = useState(false);
+            <div className="tl-card">
+              <div className="tl-card__media">
+                {!tile03Error ? (
+                  <img src={tile03Src} alt="Ficha perforada con lápiz técnico sobre niebla" loading="lazy" onError={() => setTile03Error(true)} />
+                ) : (
+                  <div className="tl-missing" data-falta="lago-azul-tile-03-1x1.png" style={{ aspectRatio: "4/3" }}>falta: lago-azul-tile-03-1x1.png</div>
+                )}
+              </div>
+              <div className="tl-card__body">
+                <p className="tl-card__num">03</p>
+                <h3 className="tl-card__title">Alineadores transparentes</h3>
+                <p className="tl-card__text">Controles mensuales, mismo ortodoncista siempre.</p>
+                <p className="tl-card__meta">Desde $49.900/mes</p>
+              </div>
+            </div>
 
-  useEffect(() => {
-    const hero = document.getElementById("inicio");
-    const reserva = document.getElementById("reserva");
-    if (!hero || !reserva) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.target.id === "inicio") setVisible(!e.isIntersecting && window.scrollY > 200);
-          else if (e.target.id === "reserva" && e.isIntersecting) setVisible(false);
-        });
-      },
-      { threshold: 0.05 },
-    );
-    obs.observe(hero);
-    obs.observe(reserva);
-    return () => obs.disconnect();
-  }, []);
+            <div className="tl-card">
+              <div className="tl-card__media">
+                {!tile04Error ? (
+                  <img src={tile04Src} alt="Macro cerámica dental sobre vidrio esmerilado teal" loading="lazy" onError={() => setTile04Error(true)} />
+                ) : (
+                  <div className="tl-missing" data-falta="lago-azul-tile-04-3x4.png" style={{ aspectRatio: "4/3" }}>falta: lago-azul-tile-04-3x4.png</div>
+                )}
+              </div>
+              <div className="tl-card__body">
+                <p className="tl-card__num">04</p>
+                <h3 className="tl-card__title">Estética adhesiva</h3>
+                <p className="tl-card__text">Carillas que parecen tuyas, no postizas. Menos es más.</p>
+                <p className="tl-card__meta">Desde $64.900</p>
+              </div>
+            </div>
+          </div>
 
-  return (
-    <div className={`sticky-cta${visible ? " visible" : ""}`} aria-hidden={!visible}>
-      <a className="sticky-tel" href={FONO_HREF} tabIndex={visible ? 0 : -1}>
-        ¿Dolor ahora? <span>Llámanos</span>
-      </a>
-      <a className="btn btn-sticky" href="#reserva" tabIndex={visible ? 0 : -1}>
-        Agendar hora
-      </a>
-    </div>
-  );
-}
+          <p className="tl-works__trust">+12 años en Providencia · +6.800 pacientes · 96% nos recomienda · 3 especialistas fijos</p>
+        </section>
 
-/* ----------------------------------- app ---------------------------------- */
+        {/* 6 — HORA LAGO */}
+        <section id="hora-lago" className="tl-book">
+          <div className="tl-book__grid">
+            <div className="tl-book__formCol">
+              <p className="tl-kicker">AGENDA</p>
+              <h2 className="tl-h2">Agenda tu ficha. Te responden hoy.</h2>
+              <p className="tl-intro">Elige día y te confirmamos por WhatsApp el mismo día. Si es urgencia, llama directo.</p>
 
-export function App() {
-  useRevealOnce();
-  return (
-    <>
-      <a className="saltar" href="#inicio">
-        Saltar al contenido
-      </a>
-      <Nav />
-      <main>
-        <Hero />
-        <Tratamientos />
-        <Cifras />
-        <Valores />
-        <Metodo />
-        <Voces />
-        <Faq />
-        <Reserva />
+              <form className="tl-formCard" onSubmit={handleSubmit} noValidate>
+                <div className="tl-field">
+                  <label htmlFor="f-nombre-dentista-b-teal">Nombre</label>
+                  <input id="f-nombre-dentista-b-teal" type="text" placeholder="Tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+                  {errors.nombre && <span className="tl-err">{errors.nombre}</span>}
+                </div>
+
+                <div className="tl-field">
+                  <label htmlFor="f-telefono-dentista-b-teal">Teléfono</label>
+                  <input id="f-telefono-dentista-b-teal" type="tel" placeholder="+56 9 1234 5678" value={telefono} onChange={(e) => setTelefono(e.target.value)} required />
+                  {errors.telefono && <span className="tl-err">{errors.telefono}</span>}
+                </div>
+
+                <div className="tl-field">
+                  <label htmlFor="f-email-dentista-b-teal">Email</label>
+                  <input id="f-email-dentista-b-teal" type="email" placeholder="hola@email.cl" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  {errors.email && <span className="tl-err">{errors.email}</span>}
+                </div>
+
+                <div className="tl-field">
+                  <label htmlFor="f-motivo-dentista-b-teal">Motivo</label>
+                  <select id="f-motivo-dentista-b-teal" value={motivo} onChange={(e) => setMotivo(e.target.value)} required>
+                    <option value="">Selecciona</option>
+                    <option>Evaluación general</option>
+                    <option>Dolor/urgencia</option>
+                    <option>Limpieza</option>
+                    <option>Ortodoncia</option>
+                    <option>Implante</option>
+                    <option>Estética</option>
+                    <option>Otro</option>
+                  </select>
+                  {errors.motivo && <span className="tl-err">{errors.motivo}</span>}
+                </div>
+
+                <div className="tl-field">
+                  <label htmlFor="f-detalle-dentista-b-teal">Cuéntanos en una línea</label>
+                  <textarea id="f-detalle-dentista-b-teal" rows={3} placeholder="Cuéntanos en una línea" value={detalle} onChange={(e) => setDetalle(e.target.value)} />
+                </div>
+
+                <label className="tl-check">
+                  <input type="checkbox" checked={acepta} onChange={(e) => setAcepta(e.target.checked)} />
+                  <span>Acepto que me contacten por WhatsApp</span>
+                </label>
+
+                <button type="submit" className="tl-btn tl-btn--primary tl-submit" disabled={loading}>
+                  {loading ? "Enviando…" : "Agendar hora"}
+                </button>
+                {success && <p className="tl-success">✓ Te escribimos hoy · revisa tu WhatsApp</p>}
+              </form>
+            </div>
+
+            <div className="tl-book__aside">
+              <a href="tel:+56981234567" className="tl-book__phone">+56 9 8123 4567</a>
+              <a href="mailto:hola@lagoazul.cl" className="tl-book__mail">hola@lagoazul.cl</a>
+              <p className="tl-book__addr">Av. Providencia 1208, Providencia, Santiago</p>
+              <p className="tl-book__hours"><span className="tl-dot" aria-hidden="true" /> Lun–Vie 9:00–19:30 · Sáb 10:00–14:00</p>
+              <div className="tl-rail"><span className="tl-dot" aria-hidden="true" /> Metro Los Leones · 3 min a pie</div>
+
+              <div className="tl-proof">
+                {!proofError ? (
+                  <img src={proofSrc} alt="Pasillo recepción vacía luminosa con vidrio y madera clara, luz lago difusa" loading="lazy" onError={() => setProofError(true)} />
+                ) : (
+                  <div className="tl-missing" data-falta="lago-azul-proof-16x9.png" style={{ aspectRatio: "16/9" }}>falta: lago-azul-proof-16x9.png</div>
+                )}
+              </div>
+              <p className="tl-confidence">Boleta reembolsable · Fonasa nivel 3 · Isapre todas</p>
+            </div>
+          </div>
+
+          <footer className="tl-foot">
+            <p>LAGO AZUL SpA · Av. Providencia 1208, Providencia · hola@lagoazul.cl · +56 9 8123 4567</p>
+            <p>© 2026 LAGO AZUL. Todos los derechos reservados. Valores referenciales.</p>
+          </footer>
+        </section>
       </main>
-      <Footer />
-      <StickyCta />
+
+      <div className={`tl-sticky ${stickyVisible ? "visible" : ""}`} aria-hidden={!stickyVisible}>
+        <a href="#hora-lago" className="tl-btn tl-btn--primary tl-sticky__btn">Agendar hora</a>
+      </div>
     </>
   );
 }

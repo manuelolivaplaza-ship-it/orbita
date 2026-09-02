@@ -7,7 +7,7 @@ import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
 
 const TAU = Math.PI * 2;
 const SPEED = TAU / 90_000;
-const TARGET = 18;
+const TARGET = 24;
 const VISIBLE = 1.02;
 const WARM = VISIBLE + 0.55; // precarga las que entran por abajo
 const KEEP = VISIBLE + 0.3; // no suelta el iframe hasta que ya no se ve
@@ -77,25 +77,30 @@ export const OrbitCarousel: React.FC = () => {
   const n = anillo.length;
 
   const [box, setBox] = useState({ w: 560, h: 560 });
+  const [mobileStage, setMobileStage] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches,
+  );
   const [liveIdx, setLiveIdx] = useState<number[]>(() => liveForAngle(Math.PI, anillo.length, new Set()));
 
   reducedRef.current = reducedMotion;
   liveSetRef.current = new Set(liveIdx);
 
   const geo = useMemo(() => {
-    const phone = box.w < 520;
+    const phone = mobileStage;
     const cardW = Math.min(
-      phone ? 228 : box.w < 640 ? 260 : 348,
-      Math.max(168, box.w * (phone ? 0.6 : 0.4)),
+      phone ? 204 : box.w < 640 ? 260 : 348,
+      Math.max(168, box.w * (phone ? 0.54 : 0.4)),
     );
     const cardH = cardW * 0.64;
-    const cx = box.w * (phone ? 1.2 : 1.38);
-    const cy = box.h * 0.5;
-    const rWant = Math.max(box.h * (phone ? 0.86 : 0.92), 220);
-    const rMax = cx - box.w * (phone ? 0.12 : 0.12);
+    // Celular: centro más a la derecha y un poco abajo, para que el arco
+    // recorra el fondo sin atravesar el título.
+    const cx = box.w * (phone ? 1.56 : 1.38);
+    const cy = box.h * (phone ? 0.62 : 0.5);
+    const rWant = Math.max(box.h * (phone ? 0.56 : 0.92), 220);
+    const rMax = cx - box.w * (phone ? 0.5 : 0.12);
     const r = Math.max(180, Math.min(rWant, rMax));
     return { w: box.w, h: box.h, cardW, cardH, r, cx, cy, phone };
-  }, [box]);
+  }, [box, mobileStage]);
 
   geoRef.current = geo;
   const shotScale = geo.cardW / SHOT_W;
@@ -112,7 +117,7 @@ export const OrbitCarousel: React.FC = () => {
       const θ = θ0 + (i / n) * TAU;
       const signed = shortest(θ - Math.PI);
       const dist = Math.abs(signed);
-      const fade = g.phone ? 0.72 : VISIBLE;
+      const fade = g.phone ? 0.6 : VISIBLE;
 
       if (dist > fade + (g.phone ? 0.1 : 0.18)) {
         el.style.visibility = 'hidden';
@@ -152,6 +157,14 @@ export const OrbitCarousel: React.FC = () => {
       setLiveIdx(next);
     }
   }, [anillo, n]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const sync = () => setMobileStage(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   useEffect(() => {
     const el = boxRef.current;
@@ -288,11 +301,11 @@ export const OrbitCarousel: React.FC = () => {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 bg-gradient-to-b from-[#F7F8FC] to-transparent sm:h-24"
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 h-20 bg-gradient-to-b from-[#F7F8FC] to-transparent lg:h-16"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 bg-gradient-to-t from-[#F7F8FC] to-transparent sm:h-24"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-8 bg-gradient-to-t from-[#F7F8FC] to-transparent lg:h-16"
         aria-hidden
       />
     </div>

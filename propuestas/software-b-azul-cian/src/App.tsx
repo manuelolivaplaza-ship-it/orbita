@@ -1,783 +1,1119 @@
-import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties, ReactNode, RefObject } from 'react';
-import { Figura, MapaLinea } from './media';
-import {
-  hayHover,
-  useCountUp,
-  useInView,
-  useNavScroll,
-  useReducedMotion,
-  useSeccionActiva,
-} from './hooks';
+import { useState, useEffect, useRef } from "react";
 
-const TELEFONO = '+56 2 2965 4821';
-const TELEFONO_ENLACE = 'tel:+56229654821';
-const CORREO = 'contacto@altiva.cl';
-const CORREO_EVALUACION = 'mailto:contacto@altiva.cl?subject=Solicitar%20evaluaci%C3%B3n%20%E2%80%94%20ALTIVA';
-const media = (nombre: string) => `${import.meta.env.BASE_URL}media/${nombre}`;
+const base = import.meta.env.BASE_URL;
+const mediaBase = `${base}media/`;
 
-const LINEAS_H1 = ['La tecnología', 'de tu empresa,', 'sin sobresaltos.'];
+function Header() {
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
-const SECCIONES_NAV = [
-  { id: 'servicios', texto: 'Servicios' },
-  { id: 'planes', texto: 'Planes' },
-  { id: 'metodo', texto: 'Método' },
-  { id: 'faq', texto: 'Preguntas' },
-];
-const IDS_SPY = ['inicio', ...SECCIONES_NAV.map((s) => s.id), 'reserva'];
-
-const SERVICIOS = [
-  {
-    titulo: 'Soporte HelpDesk',
-    incluye:
-      'Mesa de ayuda por teléfono, correo y WhatsApp, con tickets numerados y cierre documentado. Técnicos que conocen tu parque de equipos, no lecturas de guion.',
-    tamano: 'Empresas de 10 a 50 personas con servidor o red propia',
-  },
-  {
-    titulo: 'Redes y conectividad',
-    incluye:
-      'Switching administrable, Wi-Fi con cobertura medida en planta, VPN entre sucursales y teletrabajo, y cableado etiquetado que el próximo técnico sí va a entender.',
-    tamano: 'Oficinas desde 15 personas o con más de una sede',
-  },
-  {
-    titulo: 'Ciberseguridad básica empresarial',
-    incluye:
-      'Firewall administrado, filtro antiphishing en el correo, doble factor en accesos críticos y un protocolo de incidentes de una página, no un manual de 80.',
-    tamano: 'Pymes que manejan facturación y datos de clientes',
-  },
-  {
-    titulo: 'Respaldo y continuidad',
-    incluye:
-      'Copias diarias locales y fuera de sitio, con prueba de restauración mensual documentada y firmada. El respaldo que nunca se probó no existe.',
-    tamano: 'Empresas que no pueden detenerse ni un día',
-  },
-  {
-    titulo: 'Microsoft 365 / Google Workspace',
-    incluye:
-      'Licencias, migración de correo sin perder historial, políticas de acceso y una capacitación corta para que el equipo use la herramienta de verdad.',
-    tamano: 'Equipos de 5 a 100 usuarios migrando desde correos gratuitos',
-  },
-  {
-    titulo: 'Equipos y arriendo de hardware',
-    incluye:
-      'PCs, notebooks y arriendo con reemplazo ante falla, inventario con número de serie y vida útil proyectada por escrito para tu próxima renovación.',
-    tamano: 'Empresas con personal en terreno o que proyectan CAPEX',
-  },
-];
-
-const CIFRAS = [
-  { destino: 16, prefijo: '+', etiqueta: 'años operando en Chile' },
-  { destino: 140, prefijo: '+', etiqueta: 'empresas atendidas' },
-  { destino: 97, sufijo: '%', etiqueta: 'de tickets resueltos el mismo día' },
-  { destino: 2, prefijo: '< ', sufijo: ' hrs', etiqueta: 'de respuesta, garantizada por SLA' },
-];
-
-const PLANES = [
-  {
-    nombre: 'Esencial',
-    usuarios: 'Hasta 15 usuarios',
-    incluye:
-      '20 horas de soporte al mes, respuesta en menos de 2 hrs hábiles, monitoreo de servidores, respaldo diario verificado y 1 visita preventiva mensual.',
-    valor: '4,5 UF',
-  },
-  {
-    nombre: 'Corporativo',
-    usuarios: 'Hasta 50 usuarios',
-    incluye:
-      '45 horas de soporte al mes, respuesta prioritaria en menos de 1 hr hábil, administración de red y firewall, ciberseguridad básica y 2 visitas preventivas al mes.',
-    valor: '9,8 UF',
-  },
-  {
-    nombre: 'A medida',
-    usuarios: 'Multi-sede o reguladas',
-    incluye:
-      'Diseñamos horas, SLA y visitas sobre tu inventario real. La propuesta completa llega por escrito en menos de 5 días hábiles.',
-    valor: 'según diagnóstico',
-  },
-];
-
-const PASOS = [
-  {
-    numero: '01',
-    titulo: 'Diagnóstico gratuito',
-    plazo: 'Semana 1',
-    detalle:
-      'Visita a tu oficina e inventario completo de equipos, red y licencias. Sales con un informe de riesgos priorizados, sin costo ni compromiso.',
-  },
-  {
-    numero: '02',
-    titulo: 'Plan y prioridades por escrito',
-    plazo: 'Semana 2',
-    detalle:
-      'Propuesta con alcance, horas, SLA y valor mensual. Lo urgente primero, lo demás calendarizado. Nada se cobra antes de que lo apruebes por correo.',
-  },
-  {
-    numero: '03',
-    titulo: 'Operación con reporte mensual',
-    plazo: 'Siempre',
-    detalle:
-      'Soporte, monitoreo y visitas según tu plan. Cada mes: reporte de tickets, tiempos de respuesta y estado de respaldos. Si falla el SLA, ese mes se descuenta.',
-  },
-];
-
-const VOCES = [
-  {
-    cita:
-      'Llevábamos años con un proveedor que respondía «mañana». ALTIVA respondió en 40 minutos un viernes a las 17:00 y dejó el sistema funcionando el mismo día.',
-    autor: '— Rodrigo, jefe de administración · importadora en Estación Central',
-  },
-  {
-    cita:
-      'Inventariaron la red completa antes de cobrarnos un peso. Cuando el diagnóstico es de verdad, el plan que viene después se entiende solo.',
-    autor: '— Claudia, gerenta general · clínica dental en Providencia',
-  },
-  {
-    cita:
-      'Se cayó un switch un sábado en la mañana y la guardia técnica lo reemplazó antes de que abriera el local. Perdimos cero ventas.',
-    autor: '— Patricio, dueño · cadena de minimercados en Maipú',
-  },
-];
-
-const PREGUNTAS = [
-  {
-    q: '¿Cuánto demoran en responder un problema?',
-    a: 'Los tickets entran por teléfono, correo o WhatsApp y quedan numerados. El compromiso escrito es respuesta en menos de 2 horas hábiles; el promedio real del último semestre fue 47 minutos. Con plan Corporativo, la respuesta baja a menos de 1 hora.',
-  },
-  {
-    q: '¿Trabajan con contrato o mes a mes?',
-    a: 'Mes a mes, con contrato de prestación de servicios y SLA firmado. Sin permanencia obligatoria: si no cumplimos el SLA, ese mes se descuenta del valor. Para salir pedimos 30 días de aviso y te entregamos toda la documentación de tu operación.',
-  },
-  {
-    q: '¿Atienden en terreno o remoto?',
-    a: 'Ambos. Cerca del 70% de los casos se resuelve en remoto en menos de una hora. Si el problema requiere presencia, un técnico llega a tu oficina dentro de las 4 horas hábiles siguientes en toda Santiago urbana. Las visitas preventivas son presenciales y agendadas con anticipación.',
-  },
-  {
-    q: '¿Qué cubre la ciberseguridad básica?',
-    a: 'Firewall administrado, filtro antiphishing y antimalware en el correo, bloqueo de sitios riesgosos, doble factor en accesos críticos y un protocolo de incidentes de una página. No vendemos humo: si tu operación exige monitoreo 24/7, te lo decimos antes y te ayudamos a contratarlo.',
-  },
-  {
-    q: '¿Pueden tomar el soporte de otro proveedor a medias?',
-    a: 'Sí, aunque preferimos no hacerlo: los soportes a medias terminan con dos proveedores culpándose cuando algo falla. Si es la única salida, lo hacemos con un inventario firmado por ambas partes, accesos documentados y un plazo de traspaso definido por escrito.',
-  },
-  {
-    q: '¿Qué pasa con nuestros datos si nos cambiamos?',
-    a: 'Son tuyos. Al término del servicio entregamos inventarios, claves de administración, respaldos completos y las configuraciones de tus equipos, en formatos que cualquier otro proveedor puede leer. Sin costos de salida ni datos de rehén.',
-  },
-];
-
-function Revelar({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
-  const { ref, visible } = useInView<HTMLDivElement>(0.16);
-  const reducido = useReducedMotion();
-  const mostrado = visible || reducido;
-  return (
-    <div
-      ref={ref}
-      className={`reveal${mostrado ? ' reveal--visible' : ''}${className ? ` ${className}` : ''}`}
-      style={reducido ? undefined : ({ transitionDelay: `${delay}ms` } as CSSProperties)}
-    >
-      {children}
-    </div>
-  );
-}
-
-function BarraProgreso() {
-  const barra = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    let raf = 0;
-    const medir = () => {
-      raf = 0;
-      const doc = document.documentElement;
-      const total = doc.scrollHeight - window.innerHeight;
-      const p = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
-      if (barra.current) barra.current.style.transform = `scaleX(${p})`;
-    };
-    const alDesplazar = () => {
-      if (!raf) raf = requestAnimationFrame(medir);
-    };
-    window.addEventListener('scroll', alDesplazar, { passive: true });
-    window.addEventListener('resize', alDesplazar);
-    medir();
-    return () => {
-      window.removeEventListener('scroll', alDesplazar);
-      window.removeEventListener('resize', alDesplazar);
-      if (raf) cancelAnimationFrame(raf);
-    };
+    let lastY = window.scrollY;
+    function onScroll() {
+      const y = window.scrollY;
+      const diff = y - lastY;
+      if (y < 80) {
+        setHidden(false);
+      } else if (diff > 6 && y > 100) {
+        setHidden(true);
+      } else if (diff < -6) {
+        setHidden(false);
+      }
+      lastY = y;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  return (
-    <div className="progreso" aria-hidden="true">
-      <div className="progreso-barra" ref={barra} />
-    </div>
-  );
-}
 
-function EncabezadoSeccion({ kicker, titulo, intro }: { kicker: string; titulo: string; intro?: string }) {
+  // close on resize >900
+  useEffect(() => {
+    function onResize() {
+      if (window.innerWidth > 900 && open) setOpen(false);
+    }
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open]);
+
   return (
-    <header className="seccion-encabezado">
-      <Revelar>
-        <p className="kicker">{kicker}</p>
-        <h2 className="seccion-titulo">{titulo}</h2>
-        {intro ? <p className="seccion-intro">{intro}</p> : null}
-      </Revelar>
+    <header className={`site-header ${hidden && !open ? "header-hidden" : ""}`}>
+      <div className="header-inner">
+        <a href="#continuidad" className="header-logo" aria-label="ALTIVA inicio">
+          <span className="logo-altiva">
+            ALTIVA<span className="logo-dot">·</span>
+          </span>
+          <span className="logo-descriptor">TECNOLOGÍA CORPORATIVA · SANTIAGO</span>
+        </a>
+
+        <nav className="header-nav" aria-label="Principal">
+          <a href="#parque-instalado">Parque</a>
+          <a href="#cobertura-sla">Cobertura</a>
+          <a href="#planes-soporte">Planes</a>
+          <a href="#pase-a-produccion">Pase</a>
+          <a href="#guardia-tecnica">Guardia</a>
+        </nav>
+
+        <div className="header-tel-wrap" aria-label="Teléfono">
+          <span className="header-tel-etiqueta">¿Problema ahora?</span>
+          <a href="tel:+56229654821" className="header-tel">
+            +56 2 2965 4821
+          </a>
+        </div>
+
+        <div className="header-cta">
+          <a href="#conversemos">Solicitar evaluación</a>
+        </div>
+
+        <a
+          className="header-tel-icon"
+          href="tel:+56229654821"
+          aria-label="Llamar +56 2 2965 4821"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.07 12.81 19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.21.4 2.39.82 3.5a2 2 0 0 1-.57 2.11L8.09 10.49a16 16 0 0 0 5.42 5.42l1.16-1.16a2 2 0 0 1 2.11-.57c1.11.42 2.29.7 3.5.82A2 2 0 0 1 22 16.92Z" />
+          </svg>
+        </a>
+
+        <button
+          className="header-hamburger"
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          <span className="hamburger-lines" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+        </button>
+      </div>
+
+      <nav className={`header-mobile-nav ${open ? "open" : ""}`} aria-label="Móvil">
+        <a href="#parque-instalado" onClick={() => setOpen(false)}>
+          Parque
+        </a>
+        <a href="#cobertura-sla" onClick={() => setOpen(false)}>
+          Cobertura
+        </a>
+        <a href="#planes-soporte" onClick={() => setOpen(false)}>
+          Planes
+        </a>
+        <a href="#pase-a-produccion" onClick={() => setOpen(false)}>
+          Pase
+        </a>
+        <a href="#guardia-tecnica" onClick={() => setOpen(false)}>
+          Guardia
+        </a>
+        <a href="tel:+56229654821" onClick={() => setOpen(false)}>
+          +56 2 2965 4821
+        </a>
+        <a href="#conversemos" onClick={() => setOpen(false)}>
+          Solicitar evaluación
+        </a>
+      </nav>
     </header>
   );
 }
 
-function Navegacion() {
-  const { oculto, compacto } = useNavScroll();
-  const activa = useSeccionActiva(IDS_SPY);
-  const clases = ['nav', oculto ? 'nav--oculto' : '', compacto ? 'nav--compacto' : ''].filter(Boolean).join(' ');
+function HeroFoto() {
+  const [missingDesktop, setMissingDesktop] = useState(false);
+  const [missingMobile, setMissingMobile] = useState(false);
+
+  const desktopSrc = `${mediaBase}altiva-hero-16x9.png`;
+  const mobileSrc = `${mediaBase}altiva-hero-9x16.png`;
+
   return (
-    <nav className={clases} aria-label="Principal">
-      <div className="contenedor nav-fila">
-        <a className="logo" href="#inicio" aria-label="ALTIVA, ir al inicio">
-          <span className="logo-marca" aria-hidden="true" />
-          ALTIVA
-        </a>
-        <ul className="nav-enlaces">
-          {SECCIONES_NAV.map((s) => (
-            <li key={s.id}>
-              <a
-                href={`#${s.id}`}
-                className={activa === s.id ? 'nav-enlace nav-enlace--activa' : 'nav-enlace'}
-                aria-current={activa === s.id ? 'true' : undefined}
-              >
-                {s.texto}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="nav-derecha">
-          <div className="nav-soporte">
-            <a className="nav-telefono" href={TELEFONO_ENLACE}>
-              {TELEFONO}
-            </a>
-            <span className="nav-soporte-linea">¿Problema ahora? Llámanos</span>
+    <>
+      {/* Desktop 16:9 */}
+      <div className="hero-foto-desktop" style={{ width: "100%" }}>
+        {missingDesktop ? (
+          <div
+            className="media-falta hero-foto-wrap"
+            data-falta="altiva-hero-16x9.png"
+            style={{
+              aspectRatio: "16/9",
+              border: "1px dashed #DCE3E8",
+              display: "grid",
+              placeItems: "center",
+              color: "#8A95AD",
+              font: "500 0.85rem \"DM Sans\", sans-serif",
+            }}
+          >
+            falta: altiva-hero-16x9.png
           </div>
-          <a className="btn-solido btn-solido--chico" href="#reserva">
-            Evaluación
-          </a>
-        </div>
+        ) : (
+          <div className="hero-foto-wrap">
+            <img
+              src={desktopSrc}
+              alt="Patch panel peinado 15 mm con cables azules sobre bandeja metálica, luz fría 5000K"
+              loading="eager"
+              decoding="async"
+              onError={() => {
+                console.warn("falta: altiva-hero-16x9.png");
+                setMissingDesktop(true);
+              }}
+            />
+          </div>
+        )}
       </div>
-    </nav>
+
+      {/* Mobile 9:16 */}
+      <div className="hero-foto-mobile" style={{ width: "100%" }}>
+        {missingMobile ? (
+          <div
+            className="media-falta hero-foto-wrap"
+            data-falta="altiva-hero-9x16.png"
+            style={{
+              aspectRatio: "9/16",
+              border: "1px dashed #DCE3E8",
+              display: "grid",
+              placeItems: "center",
+              color: "#8A95AD",
+              font: "500 0.85rem \"DM Sans\", sans-serif",
+            }}
+          >
+            falta: altiva-hero-9x16.png
+          </div>
+        ) : (
+          <div className="hero-foto-wrap">
+            <img
+              src={mobileSrc}
+              alt="Patch panel peinado vertical 9:16, cables azules etiquetados, luz fría lateral"
+              loading="eager"
+              decoding="async"
+              onError={() => {
+                console.warn("falta: altiva-hero-9x16.png");
+                setMissingMobile(true);
+              }}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
-function Hero({ referenciaHero }: { referenciaHero: RefObject<HTMLElement | null> }) {
+function Hero() {
   return (
-    <section id="inicio" className="hero" ref={referenciaHero}>
-      <div className="contenedor hero-grid">
-        <div className="hero-copy">
-          <p className="kicker">Tecnología corporativa · Santiago</p>
-          <h1 className="hero-titulo">
-            {LINEAS_H1.map((linea, i) => (
-              <span className="hero-linea" key={linea}>
-                <span className="hero-linea-inner" style={{ '--i': i } as CSSProperties}>
-                  {linea}
-                </span>
-              </span>
-            ))}
+    <section id="continuidad" aria-label="Continuidad">
+      <div className="hero-grid">
+        {/* Franja foto - en móvil va arriba (order 1 via CSS), en desktop abajo col 1-12 */}
+        <div className="hero-franja">
+          <HeroFoto />
+          <p className="hero-caption">Franja 01 · patch panel peinado 15 mm · filete cian 1px</p>
+        </div>
+
+        <div className="hero-left">
+          <p className="kicker">
+            <span className="kicker-dot" aria-hidden="true" />
+            TECNOLOGÍA CORPORATIVA · SANTIAGO — PROVEEDOR TI DESDE 2009
+          </p>
+          <h1 className="hero-h1">
+            Tu empresa <span className="u-underline">funcionando</span> sin cortes, con soporte que contesta y <span className="u-accent">respalda</span> hoy
           </h1>
           <p className="hero-sub">
-            Soporte informático, redes y sistemas para pymes que no pueden detenerse. Respuesta en menos de 2
-            horas hábiles, compromiso por escrito.
+            Soporte informático, redes y sistemas para pymes que no pueden detenerse. Respuesta en menos de 2 horas hábiles, compromiso
+            por escrito y repo en tu cuenta.
           </p>
-          <div className="hero-acciones">
-            <a className="btn-solido" href="#reserva">
+
+          <div className="hero-ctas">
+            <a href="#conversemos" className="btn-primary">
               Solicitar evaluación
             </a>
-            <a className="link-sub" href="#planes">
-              Ver planes
+            <a href="#planes-soporte" className="btn-ghost">
+              Ver planes desde $280.000/mes
             </a>
           </div>
-        </div>
-        <div className="hero-media">
-          <Figura
-            src={media("lobby.jpg")}
-            alt="Hall corporativo vacío de vidrio y acero con luz diurna fría y líneas verticales."
-            proporcion="16 / 9"
-            prioridad
-            caption="Hall de un cliente en Las Condes, un martes a las 8:29. A las 8:31 ya estamos adentro: el acceso se coordina una vez y queda documentado."
-            className="figura--hero"
-          />
-        </div>
-      </div>
-      <div className="hero-banda">
-        <div className="contenedor hero-banda-fila">
-          <span>SLA por escrito</span>
-          <span className="hero-banda-sep" aria-hidden="true">
-            ·
-          </span>
-          <span>Técnicos certificados</span>
-          <span className="hero-banda-sep" aria-hidden="true">
-            ·
-          </span>
-          <span>Respuesta &lt; 2 hrs hábiles</span>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-function ItemServicio({
-  titulo,
-  incluye,
-  tamano,
-  indice,
-}: {
-  titulo: string;
-  incluye: string;
-  tamano: string;
-  indice: number;
-}) {
-  const [fijado, setFijado] = useState(indice === 0);
-  const [sobrevuelo, setSobrevuelo] = useState(false);
-  const abierto = fijado || sobrevuelo;
-  return (
-    <li className={`servicio${abierto ? ' servicio--abierto' : ''}`}>
-      <button
-        type="button"
-        className="servicio-cabecera"
-        id={`servicio-cabecera-${indice}`}
-        aria-expanded={abierto}
-        aria-controls={`servicio-panel-${indice}`}
-        onClick={() => setFijado((v) => !v)}
-        onMouseEnter={() => {
-          if (hayHover()) setSobrevuelo(true);
-        }}
-        onMouseLeave={() => setSobrevuelo(false)}
-        onFocus={() => setFijado(true)}
-      >
-        <span className="servicio-numero">{String(indice + 1).padStart(2, '0')}</span>
-        <span className="servicio-titulo">{titulo}</span>
-        <span className="servicio-signo" aria-hidden="true">
-          +
-        </span>
-      </button>
-      <div
-        className="servicio-panel"
-        id={`servicio-panel-${indice}`}
-        role="region"
-        aria-labelledby={`servicio-cabecera-${indice}`}
-      >
-        <div className="servicio-panel-inner">
-          <p className="servicio-incluye">{incluye}</p>
-          <p className="servicio-tamano">{tamano}</p>
-        </div>
-      </div>
-    </li>
-  );
-}
-
-function Servicios() {
-  return (
-    <section id="servicios" className="seccion">
-      <div className="contenedor">
-        <EncabezadoSeccion
-          kicker="Servicios"
-          titulo="Seis frentes, un solo responsable."
-          intro="Lo que contratas es una operación que no se cae. Cada servicio tiene alcance definido, horas claras y un SLA firmado: pasa el cursor o toca cada línea para ver qué incluye."
-        />
-        <div className="servicios-grid">
-          <aside className="servicios-lateral">
-            <Figura
-              src={media("patch.jpg")}
-              alt="Sala de comunicaciones con racks ordenados y cables de red azules peinados en fila."
-              proporcion="16 / 9"
-              caption="Patch panel etiquetado en un cliente de la comuna de Las Condes. Así se ve un rack nuestro el día de la entrega — y así tiene que seguir viéndose."
-            />
-          </aside>
-          <ul className="servicios-lista">
-            {SERVICIOS.map((s, i) => (
-              <ItemServicio key={s.titulo} titulo={s.titulo} incluye={s.incluye} tamano={s.tamano} indice={i} />
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Dato({ dato, activo }: { dato: (typeof CIFRAS)[number]; activo: boolean }) {
-  const valor = useCountUp(dato.destino, activo);
-  return (
-    <div className="cifra">
-      <span className="cifra-numero">
-        {dato.prefijo ?? ''}
-        {valor}
-        {dato.sufijo ?? ''}
-      </span>
-      <span className="cifra-etiqueta">{dato.etiqueta}</span>
-    </div>
-  );
-}
-
-function Cifras() {
-  const { ref, visible } = useInView<HTMLDivElement>(0.35);
-  return (
-    <section id="cifras" className="cifras" aria-label="Cifras de ALTIVA">
-      <div className="contenedor cifras-fila" ref={ref}>
-        {CIFRAS.map((c) => (
-          <Dato key={c.etiqueta} dato={c} activo={visible} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PlanFila({ plan, indice }: { plan: (typeof PLANES)[number]; indice: number }) {
-  const { ref, visible } = useInView<HTMLDivElement>(0.16);
-  const reducido = useReducedMotion();
-  const mostrado = visible || reducido;
-  return (
-    <div
-      ref={ref}
-      role="row"
-      className={mostrado ? 'plan-fila reveal reveal--visible' : 'plan-fila reveal'}
-      style={reducido ? undefined : ({ transitionDelay: `${indice * 60}ms` } as CSSProperties)}
-    >
-      <div role="cell" className="plan-nombre">
-        <h3>{plan.nombre}</h3>
-        <span className="plan-usuarios">{plan.usuarios}</span>
-      </div>
-      <div role="cell" className="plan-incluye">
-        {plan.incluye}
-      </div>
-      <div role="cell" className="plan-valor">
-        {plan.valor}
-        <span className="plan-periodo">/mes</span>
-      </div>
-    </div>
-  );
-}
-
-function Planes() {
-  return (
-    <section id="planes" className="seccion seccion--alterna">
-      <div className="contenedor">
-        <EncabezadoSeccion
-          kicker="Planes"
-          titulo="Planes claros, compromiso por escrito."
-          intro="Plan mensual por empresa, facturado en pesos al valor UF del día. El SLA va firmado en el contrato, no en un brochure."
-        />
-        <div className="planes-grid">
-          <div className="tabla-planes" role="table" aria-label="Planes y valores mensuales">
-            {PLANES.map((p, i) => (
-              <PlanFila key={p.nombre} plan={p} indice={i} />
-            ))}
-            <Revelar>
-              <p className="precios-nota">
-                Sin permanencia obligatoria. Si no cumplimos el SLA, ese mes se descuenta.
-              </p>
-              <p className="precios-micro">
-                Valores en UF, facturados en pesos. El diagnóstico inicial es gratuito y sin compromiso.
-              </p>
-            </Revelar>
+          <div className="hero-banda" aria-label="Garantías">
+            <span className="hero-banda-item">
+              <span className="hero-banda-dot" aria-hidden="true">
+                ·
+              </span>{" "}
+              SLA por escrito
+            </span>
+            <span className="hero-banda-item">
+              <span className="hero-banda-dot" aria-hidden="true">
+                ·
+              </span>{" "}
+              Técnicos certificados
+            </span>
+            <span className="hero-banda-item">
+              <span className="hero-banda-dot" aria-hidden="true">
+                ·
+              </span>{" "}
+              Respuesta &lt; 2 hrs hábiles
+            </span>
           </div>
-          <aside className="planes-lateral">
-            <Revelar delay={120}>
-              <Figura
-                src={media("planos.jpg")}
-                alt="Diagrama de topología de red impreso en una hoja blanca sobre una mesa, junto a una regla metálica."
-                proporcion="4 / 5"
-                caption="Topología de red de un cliente, impresa y firmada. Ese plano es tuyo: se entrega con el diagnóstico y se actualiza cada vez que cambia algo."
-              />
-            </Revelar>
-          </aside>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-function PasoItem({ paso, indice }: { paso: (typeof PASOS)[number]; indice: number }) {
-  const { ref, visible } = useInView<HTMLLIElement>(0.16);
-  const reducido = useReducedMotion();
-  const mostrado = visible || reducido;
-  return (
-    <li
-      ref={ref}
-      className={mostrado ? 'paso reveal reveal--visible' : 'paso reveal'}
-      style={reducido ? undefined : ({ transitionDelay: `${indice * 90}ms` } as CSSProperties)}
-    >
-      <span className="paso-numero" aria-hidden="true">
-        {paso.numero}
-      </span>
-      <h3 className="paso-titulo">{paso.titulo}</h3>
-      <span className="paso-plazo">{paso.plazo}</span>
-      <p className="paso-detalle">{paso.detalle}</p>
-    </li>
-  );
-}
-
-function Metodo() {
-  return (
-    <section id="metodo" className="seccion">
-      <div className="contenedor">
-        <EncabezadoSeccion
-          kicker="Método"
-          titulo="Primero entender, después cobrar."
-          intro="Tres pasos, siempre iguales. Los mismos que seguimos hace 16 años con más de 140 empresas."
-        />
-        <ol className="pasos">
-          {PASOS.map((paso, i) => (
-            <PasoItem key={paso.numero} paso={paso} indice={i} />
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-function Voces() {
-  const reducido = useReducedMotion();
-  const [indice, setIndice] = useState(0);
-  const [pausa, setPausa] = useState(false);
-  useEffect(() => {
-    if (reducido || pausa) return;
-    const temporizador = window.setInterval(() => {
-      setIndice((i) => (i + 1) % VOCES.length);
-    }, 7000);
-    return () => window.clearInterval(temporizador);
-  }, [reducido, pausa]);
-  return (
-    <section id="voces" className="seccion seccion--alterna" aria-label="Testimonios de clientes">
-      <div className="contenedor voces-contenedor">
-        <EncabezadoSeccion kicker="Voces" titulo="Lo que dicen las empresas atendidas." />
-        <div
-          className="voces-carrusel"
-          onMouseEnter={() => setPausa(true)}
-          onMouseLeave={() => setPausa(false)}
-          onFocusCapture={() => setPausa(true)}
-          onBlurCapture={() => setPausa(false)}
-        >
-          <div className="voces-pila">
-            {VOCES.map((v, i) => (
-              <blockquote key={v.autor} className={i === indice ? 'voz voz--activa' : 'voz'} aria-hidden={i !== indice}>
-                <p className="voz-cita">“{v.cita}”</p>
-                <footer className="voz-autor">{v.autor}</footer>
-              </blockquote>
-            ))}
-          </div>
-          <div className="voces-controles" role="group" aria-label="Elegir testimonio">
-            {VOCES.map((v, i) => (
-              <button
-                key={v.autor}
-                type="button"
-                className={i === indice ? 'voz-punto voz-punto--activa' : 'voz-punto'}
-                aria-label={`Mostrar testimonio ${i + 1} de ${VOCES.length}`}
-                aria-pressed={i === indice}
-                onClick={() => setIndice(i)}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Faq() {
-  const [abierta, setAbierta] = useState<number | null>(null);
-  return (
-    <section id="faq" className="seccion">
-      <div className="contenedor faq-grid">
-        <div className="faq-columna">
-          <EncabezadoSeccion
-            kicker="Preguntas frecuentes"
-            titulo="Las seis que siempre nos hacen."
-            intro="Respondidas como te las contestaría un técnico al teléfono: sin vueltas."
-          />
-          <ul className="faq-lista">
-            {PREGUNTAS.map((item, i) => {
-              const abiertaActual = abierta === i;
-              return (
-                <li key={item.q} className={`acordeon${abiertaActual ? ' acordeon--abierto' : ''}`}>
-                  <button
-                    type="button"
-                    className="acordeon-cabecera"
-                    id={`pregunta-${i}`}
-                    aria-expanded={abiertaActual}
-                    aria-controls={`respuesta-${i}`}
-                    onClick={() => setAbierta(abiertaActual ? null : i)}
-                  >
-                    <span className="acordeon-pregunta">{item.q}</span>
-                    <span className="acordeon-signo" aria-hidden="true">
-                      +
-                    </span>
-                  </button>
-                  <div className="acordeon-panel" id={`respuesta-${i}`} role="region" aria-labelledby={`pregunta-${i}`}>
-                    <div className="acordeon-panel-inner">
-                      <p className="acordeon-respuesta">{item.a}</p>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <aside className="faq-lateral">
-          <Figura
-            src={media("vidrio.jpg")}
-            alt="Macro de una vitrina de vidrio esmerilado con un reflejo azul suave de luz diurna."
-            proporcion="1 / 1"
-            caption="Vitrina de nuestra sala de atención en Las Condes. Si tu problema es ahora, no necesitas hora: llámanos y te respondemos."
-          />
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-function Reserva() {
-  return (
-    <section id="reserva" className="seccion reserva">
-      <div className="contenedor reserva-grid">
-        <div className="reserva-copy">
-          <Revelar>
-            <p className="kicker">Evaluación gratuita</p>
-            <h2 className="reserva-titulo">
-              Hablemos de tu operación.
-            </h2>
-            <p className="reserva-intro">
-              Vamos a tu oficina, inventariamos tu parque y te entregamos un plan por escrito. Si no te sirve, te
-              lo decimos ahí mismo.
-            </p>
-            <a className="telefono-gigante" href={TELEFONO_ENLACE}>
-              {TELEFONO}
-            </a>
-            <div className="reserva-acciones">
-              <a className="btn-solido" href={CORREO_EVALUACION}>
-                Solicitar evaluación
-              </a>
-              <a className="link-sub" href={`mailto:${CORREO}`}>
-                {CORREO}
-              </a>
-            </div>
-          </Revelar>
-          <Revelar delay={120}>
-            <dl className="reserva-datos">
-              <div>
-                <dt>Horario comercial</dt>
-                <dd>Lun–Vie 8:30–18:30</dd>
-              </div>
-              <div>
-                <dt>Guardia técnica</dt>
-                <dd>Sábados</dd>
-              </div>
-              <div>
-                <dt>Dirección</dt>
-                <dd>Las Condes, Santiago</dd>
-              </div>
-            </dl>
-            <p className="reserva-soporte">¿Problema ahora? Llámanos: contesta un técnico, no un contestador.</p>
-          </Revelar>
-        </div>
-        <aside className="reserva-lateral">
-          <Revelar delay={150}>
-            <div className="mapa-marco">
-              <MapaLinea />
-            </div>
-            <p className="mapa-caption">Metro Manquehue, línea 1 · estacionamiento para visitas en el subsuelo.</p>
-          </Revelar>
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-function Pie() {
-  const anio = new Date().getFullYear();
-  return (
-    <footer className="pie">
-      <div className="contenedor pie-grid">
-        <div className="pie-marca">
-          <p className="logo">
-            <span className="logo-marca" aria-hidden="true" />
-            ALTIVA
+          <p className="hero-micro">
+            Si el diagnóstico muestra que no necesitas cambio, te lo decimos antes de cotizar. Nada parte sin tu ok por escrito.
           </p>
-          <p>ALTIVA SpA · RUT 77.412.630-8</p>
-          <p>Av. Apoquindo 4700, of. 21, Las Condes, Santiago</p>
+          <p className="hero-firma">Central 01 · patch panel · luz 5000K</p>
         </div>
-        <nav className="pie-nav" aria-label="Mapa del sitio">
-          <a href="#servicios">Servicios</a>
-          <a href="#planes">Planes</a>
-          <a href="#metodo">Método</a>
-          <a href="#faq">Preguntas</a>
-          <a href="#reserva">Evaluación</a>
-        </nav>
-        <div className="pie-contacto">
-          <a href={TELEFONO_ENLACE}>{TELEFONO}</a>
-          <a href={`mailto:${CORREO}`}>{CORREO}</a>
-          <p>¿Problema ahora? Llámanos: Lun–Vie 8:30–18:30 · guardia técnica sábados.</p>
+
+        <div className="hero-right">
+          <div className="indice-panel" aria-label="Cobertura en 6 puntos">
+            <p className="indice-titulo">COBERTURA EN 6 PUNTOS</p>
+            <div className="indice-lista">
+              <a href="#parque-instalado" className="indice-fila">
+                <span className="indice-num">01</span>
+                <span className="indice-text">
+                  <span className="indice-title">HelpDesk con dueño</span>
+                  <span className="indice-sub">Ticket con responsable, no rebote</span>
+                </span>
+              </a>
+              <a href="#cobertura-sla" className="indice-fila">
+                <span className="indice-num">02</span>
+                <span className="indice-text">
+                  <span className="indice-title">Redes y conectividad</span>
+                  <span className="indice-sub">Switching, Wi-Fi, VPN sin cortes</span>
+                </span>
+              </a>
+              <a href="#cobertura-sla" className="indice-fila">
+                <span className="indice-num">03</span>
+                <span className="indice-text">
+                  <span className="indice-title">Ciberseguridad base</span>
+                  <span className="indice-sub">Hardening + respaldo + monitoreo</span>
+                </span>
+              </a>
+              <a href="#cobertura-sla" className="indice-fila">
+                <span className="indice-num">04</span>
+                <span className="indice-text">
+                  <span className="indice-title">Respaldo y continuidad</span>
+                  <span className="indice-sub">Backup diario + prueba de restore</span>
+                </span>
+              </a>
+              <a href="#parque-instalado" className="indice-fila">
+                <span className="indice-num">05</span>
+                <span className="indice-text">
+                  <span className="indice-title">Microsoft 365 / Google</span>
+                  <span className="indice-sub">Migración y administración</span>
+                </span>
+              </a>
+              <a href="#guardia-tecnica" className="indice-fila">
+                <span className="indice-num">06</span>
+                <span className="indice-text">
+                  <span className="indice-title">Equipos y arriendo</span>
+                  <span className="indice-sub">Inventario y recambio programado</span>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="contenedor pie-legal">
-        <p>© {anio} ALTIVA SpA. Todos los derechos reservados.</p>
-        <p>Documentación tributaria electrónica conforme a la normativa del SII de Chile.</p>
-      </div>
-    </footer>
+    </section>
   );
 }
 
-function CtaFija({ visible }: { visible: boolean }) {
+/* Hook reveal stagger */
+function useReveal() {
+  const ref = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            el.classList.add("is-visible");
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return ref;
+}
+
+function ParqueInstalado() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  const [m1, setM1] = useState(false);
+  const [m2, setM2] = useState(false);
+  const [m3, setM3] = useState(false);
   return (
-    <div className={visible ? 'cta-fija cta-fija--visible' : 'cta-fija'} aria-hidden={!visible}>
-      <a href={TELEFONO_ENLACE} className="cta-fija-llamar" tabIndex={visible ? 0 : -1}>
+    <section id="parque-instalado" aria-label="Parque instalado">
+      <div className="container">
+        <div ref={ref as any} className="reveal">
+          <p className="kicker">PARQUE INSTALADO</p>
+          <h2 className="section-h2">Cuidamos lo que ya tienes. Sin vender fierros primero.</h2>
+          <p className="section-intro">Levantamos tu red, licencias y equipos en una tarde. Inventario con dueño y fecha. Sin auditoría eterna.</p>
+
+          <div className="parque-grid">
+            {/* Bloque 1 */}
+            <div className="parque-bloque reveal-child">
+              <div className="parque-media-wrap" style={{ aspectRatio: "1/1" }}>
+                {m1 ? (
+                  <div className="media-falta" data-falta="altiva-tile-01-1x1.png" style={{ aspectRatio: "1/1" }}>
+                    falta: altiva-tile-01-1x1.png
+                  </div>
+                ) : (
+                  <img
+                    src={`${mediaBase}altiva-tile-01-1x1.png`}
+                    alt="Detalle patch panel cables azules etiquetados a 15mm sobre bandeja metálica"
+                    loading="lazy"
+                    onError={() => {
+                      console.warn("falta: altiva-tile-01-1x1.png");
+                      setM1(true);
+                    }}
+                  />
+                )}
+              </div>
+              <h3 className="parque-title">Red y conectividad</h3>
+              <p className="parque-text">Switches, APs, firewall y VPN. Cableado peinado y documentado.</p>
+              <ul className="parque-bullets">
+                <li>Mapa de red entregado</li>
+                <li>Etiquetado por punto</li>
+              </ul>
+            </div>
+
+            {/* Bloque 2 */}
+            <div className="parque-bloque reveal-child">
+              <div className="parque-media-wrap" style={{ aspectRatio: "3/4" }}>
+                {m2 ? (
+                  <div className="media-falta" data-falta="altiva-tile-02-3x4.png" style={{ aspectRatio: "3/4" }}>
+                    falta: altiva-tile-02-3x4.png
+                  </div>
+                ) : (
+                  <img
+                    src={`${mediaBase}altiva-tile-02-3x4.png`}
+                    alt="Vitrina esmerilada con reflejo azul suave y mesa técnica vacía"
+                    loading="lazy"
+                    onError={() => {
+                      console.warn("falta: altiva-tile-02-3x4.png");
+                      setM2(true);
+                    }}
+                  />
+                )}
+              </div>
+              <h3 className="parque-title">Puestos y licencias</h3>
+              <p className="parque-text">Microsoft 365 / Google, antivirus, backup. Sin licencias fantasma.</p>
+              <ul className="parque-bullets">
+                <li>Inventario por usuario</li>
+                <li>Renovaciones calendarizadas</li>
+              </ul>
+            </div>
+
+            {/* Bloque 3 */}
+            <div className="parque-bloque reveal-child">
+              <div className="parque-media-wrap" style={{ aspectRatio: "1/1" }}>
+                {m3 ? (
+                  <div className="media-falta" data-falta="altiva-tile-03-1x1.png" style={{ aspectRatio: "1/1" }}>
+                    falta: altiva-tile-03-1x1.png
+                  </div>
+                ) : (
+                  <img
+                    src={`${mediaBase}altiva-tile-03-1x1.png`}
+                    alt="Diagrama topología de red impreso sobre mesa blanca con regla metálica"
+                    loading="lazy"
+                    onError={() => {
+                      console.warn("falta: altiva-tile-03-1x1.png");
+                      setM3(true);
+                    }}
+                  />
+                )}
+              </div>
+              <h3 className="parque-title">Respaldos a prueba</h3>
+              <p className="parque-text">Backup diario con prueba de restore mensual en tu cuenta.</p>
+              <ul className="parque-bullets">
+                <li>Restore testeado</li>
+                <li>Bitácora mensual</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="parque-nota">Si tu proveedor anterior no entrega claves, las recuperamos sin detener la operación.</p>
+          <div className="parque-precio">Levantamiento e inventario desde $490.000 — se descuenta si sigues a plan.</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CoberturaSla() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  const [missing, setMissing] = useState(false);
+  return (
+    <section id="cobertura-sla" aria-label="Cobertura SLA">
+      <div className="container">
+        <div ref={ref as any} className="reveal cobertura-grid">
+          <div className="cobertura-left">
+            <div className="cobertura-media-wrap">
+              {missing ? (
+                <div className="media-falta" data-falta="altiva-interior-16x9.png" style={{ aspectRatio: "4/3" }}>
+                  falta: altiva-interior-16x9.png
+                </div>
+              ) : (
+                <img
+                  src={`${mediaBase}altiva-interior-16x9.png`}
+                  alt="Hall corporativo vidrio y acero vacío, luz 5000K suelo pulido reflejo cian"
+                  loading="lazy"
+                  onError={() => {
+                    console.warn("falta: altiva-interior-16x9.png");
+                    setMissing(true);
+                  }}
+                />
+              )}
+            </div>
+            <p className="media-caption">Hall 01 · vidrio + acero · luz 5000K</p>
+          </div>
+          <div className="cobertura-right">
+            <p className="kicker">COBERTURA</p>
+            <h2 className="section-h2">Respuesta con responsable, no con call center.</h2>
+            <p className="section-intro" style={{ maxWidth: "56ch" }}>
+              Asignamos técnico con nombre y teléfono. Ves estado del ticket sin llamar dos veces.
+            </p>
+
+            <div className="cobertura-lista">
+              <div className="cobertura-item reveal-child">
+                <div className="cobertura-line">
+                  <span className="cobertura-nodo" />
+                </div>
+                <div className="cobertura-content">
+                  <p className="cobertura-num">01 · HelpDesk con dueño</p>
+                  <p className="cobertura-desc">Ticket con responsable, seguimiento por WhatsApp o mail, cierre con tu ok.</p>
+                </div>
+              </div>
+              <div className="cobertura-item reveal-child">
+                <div className="cobertura-line">
+                  <span className="cobertura-nodo" />
+                </div>
+                <div className="cobertura-content">
+                  <p className="cobertura-num">02 · Redes sin cortes</p>
+                  <p className="cobertura-desc">Switching, Wi-Fi, VPN y firewall con monitoreo y reporte mensual.</p>
+                </div>
+              </div>
+              <div className="cobertura-item reveal-child">
+                <div className="cobertura-line">
+                  <span className="cobertura-nodo" />
+                </div>
+                <div className="cobertura-content">
+                  <p className="cobertura-num">03 · Continuidad probada</p>
+                  <p className="cobertura-desc">Backup diario + restore mensual documentado en tu cuenta.</p>
+                </div>
+              </div>
+              <div className="cobertura-item reveal-child">
+                <div className="cobertura-line">
+                  <span className="cobertura-nodo" />
+                </div>
+                <div className="cobertura-content">
+                  <p className="cobertura-num">04 · Equipos al día</p>
+                  <p className="cobertura-desc">Inventario, recambio programado y arriendo con SLA.</p>
+                </div>
+              </div>
+            </div>
+
+            <ul className="cobertura-checks">
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Ticket con dueño
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Reporte mensual
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Claves en tu cuenta
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Descuento si no cumplimos SLA
+              </li>
+            </ul>
+
+            <div className="precio-inline">Visita de diagnóstico sin costo si contratas plan — inventario incluido.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const PLANES = [
+  { prest: "Plan Esencial — hasta 15 usuarios", precio: "$380.000 / mes", nota: "10 h remotas + 1 visita, SLA <4h hábil, reporte mensual" },
+  { prest: "Plan Corporativo — hasta 50 usuarios", precio: "$680.000 / mes", nota: "20 h + 2 visitas, SLA <2h hábil, monitoreo + backup incluido" },
+  { prest: "Plan A medida — 50+ o sedes", precio: "desde $950.000 / mes", nota: "horas y visitas según parque, SLA a convenir, guardia sábados" },
+  { prest: "Horas extra (fuera de plan)", precio: "$35.000 / h", nota: "se descuenta de plan si contratas mes siguiente" },
+  { prest: "Levantamiento e inventario", precio: "desde $490.000 (una vez)", nota: "se descuenta si sigues a plan — mapa + inventario + riesgos" },
+  { prest: "Migración Microsoft 365 / Google", precio: "desde $390.000", nota: "buzones + archivos + capacitación 60 min" },
+  { prest: "Respaldo y restore probado", precio: "incluido en Corporativo / desde $120.000", nota: "backup diario + prueba restore mensual" },
+  { prest: "Guardia técnica sábados", precio: "desde $190.000 / mes", nota: "09:00–14:00, respuesta <2h" },
+];
+
+function PlanesSoporte() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  return (
+    <section id="planes-soporte" aria-label="Planes soporte">
+      <div className="container">
+        <div ref={ref as any} className="reveal">
+          <p className="kicker">PLANES A LA VISTA</p>
+          <h2 className="section-h2">Precio que se puede comparar, con SLA por escrito</h2>
+          <p className="section-intro" style={{ maxWidth: "60ch" }}>
+            Cada valor es ‘desde’. El definitivo se confirma tras levantar tu parque. Sin permanencia obligatoria.
+          </p>
+
+          <div className="planes-layout">
+            <div className="planes-tabla-wrap">
+              <div className="planes-indicador" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="planes-tabla">
+                {PLANES.map((row, i) => (
+                  <div key={i} className="planes-fila reveal-child">
+                    <div className="planes-prest">
+                      <span className="planes-prest-text">{row.prest}</span>
+                      <span className="planes-nota-hover">{row.nota}</span>
+                    </div>
+                    <div className="planes-precio">{row.precio}</div>
+                  </div>
+                ))}
+                <p className="planes-nota-pie">
+                  Valores referenciales; el valor final se confirma tras diagnóstico en terreno. Factura exenta. Hasta 6 cuotas. Si no
+                  cumplimos el SLA, ese mes se descuenta proporcional.
+                </p>
+              </div>
+            </div>
+
+            <aside className="planes-aside">
+              <h3 className="planes-aside-title">¿Necesitas fecha real?</h3>
+              <p className="planes-aside-text">Agendamos visita de levantamiento con hora. Te damos alcance y rango el mismo día.</p>
+              <div className="planes-aside-tel">
+                <span className="planes-aside-etiqueta">¿Problema ahora?</span>
+                <a href="tel:+56229654821">+56 2 2965 4821</a>
+              </div>
+              <a href="#conversemos" className="btn-primary" style={{ width: "100%", marginTop: "14px" }}>
+                Hablar con soporte
+              </a>
+              <a href="#pase-a-produccion" className="btn-ghost" style={{ width: "100%", marginTop: "8px", justifyContent: "center" }}>
+                Ver método de pase
+              </a>
+              <p className="planes-aside-micro">Visita 60 min · Inventario incluido · Presupuesto por escrito</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PaseAProduccion() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const acordeon = [
+    { q: "¿Quedamos amarrados?", a: "No. Claves, inventario y respaldos quedan en tu cuenta. Licencia tuya." },
+    { q: "¿Y si no sirve?", a: "Te decimos antes de cotizar. Cobramos solo el levantamiento." },
+    { q: "¿Cuánto demora el pase?", a: "1 semana desde plan aprobado. Con fecha y ventana por escrito." },
+  ];
+  return (
+    <section id="pase-a-produccion" aria-label="Pase a producción">
+      <div className="container">
+        <div ref={ref as any} className="reveal">
+          <p className="kicker">PASE A PRODUCCIÓN</p>
+          <h2 className="section-h2">Entramos sin detener tu operación.</h2>
+          <p className="section-intro" style={{ maxWidth: "56ch" }}>
+            Cada pase tiene ventana, rollback y dueño. Sin ‘sprint infinito’ ni corte sorpresa.
+          </p>
+
+          <div className="pase-layout">
+            <div className="pase-timeline">
+              <div className="pase-line" aria-hidden="true" />
+              {[
+                { num: "01 · Levantamiento (día 1–2)", desc: "Visita + inventario + mapa de red y riesgos por escrito." },
+                { num: "02 · Plan por escrito (día 3)", desc: "Alcances, SLA y calendario con fecha. Tú apruebas." },
+                { num: "03 · Toma de control (semana 1)", desc: "Claves en tu cuenta, monitoreo y primera mantención sin corte." },
+                { num: "04 · Estabilización (30 días)", desc: "Ajustes incluidos. Luego plan mensual o pausa." },
+              ].map((step, i) => (
+                <div key={i} className="pase-step reveal-child">
+                  <span className="pase-nodo" aria-hidden="true" />
+                  <div>
+                    <p className="pase-step-num">{step.num}</p>
+                    <p className="pase-step-desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pase-detalle">
+              <h3 className="pase-detalle-title">Qué te llevas siempre</h3>
+              <ul className="pase-checks">
+                <li>
+                  <span className="check" aria-hidden="true">
+                    ✓
+                  </span>{" "}
+                  Inventario en tu cuenta
+                </li>
+                <li>
+                  <span className="check" aria-hidden="true">
+                    ✓
+                  </span>{" "}
+                  Claves y accesos tuyos
+                </li>
+                <li>
+                  <span className="check" aria-hidden="true">
+                    ✓
+                  </span>{" "}
+                  Runbook de restore
+                </li>
+                <li>
+                  <span className="check" aria-hidden="true">
+                    ✓
+                  </span>{" "}
+                  Reporte mensual
+                </li>
+              </ul>
+              <div className="pase-precio">Levantamiento $490.000 se descuenta si sigues a plan.</div>
+
+              <div className="pase-acordeon">
+                {acordeon.map((item, i) => {
+                  const open = openIdx === i;
+                  return (
+                    <div key={i} className={`pase-acc-item ${open ? "open" : ""}`}>
+                      <button className="pase-acc-trigger" aria-expanded={open} onClick={() => setOpenIdx(open ? null : i)}>
+                        <span>{item.q}</span>
+                        <span className="pase-chevron" aria-hidden="true">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0E7AA8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m6 9 6 6 6-6" />
+                          </svg>
+                        </span>
+                      </button>
+                      <div className="pase-acc-body" aria-hidden={!open}>
+                        <p>{item.a}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GuardiaTecnica() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  const [missing, setMissing] = useState(false);
+  return (
+    <section id="guardia-tecnica" aria-label="Guardia técnica">
+      <div className="container">
+        <div ref={ref as any} className="reveal">
+          <p className="kicker">GUARDIA TÉCNICA</p>
+          <h2 className="section-h2">Guardia humana, no bot que rebota.</h2>
+          <p className="section-intro" style={{ maxWidth: "56ch" }}>
+            Técnico que conoce tu red. Estado y tiempo de respuesta por contrato, no por promesa.
+          </p>
+
+          <div className="guardia-tabla-wrap reveal-child">
+            {/* Desktop grid */}
+            <div className="guardia-table-grid">
+              <div className="guardia-head"> </div>
+              <div className="guardia-head">ESENCIAL</div>
+              <div className="guardia-head">CORPORATIVO</div>
+              <div className="guardia-head">GUARDIA SÁBADOS</div>
+
+              <div className="guardia-cell guardia-label">Para quién</div>
+              <div className="guardia-cell">Hasta 15 usuarios sin urgencia</div>
+              <div className="guardia-cell">Operación diaria</div>
+              <div className="guardia-cell">Operación que no puede parar sábado</div>
+
+              <div className="guardia-cell guardia-label">Respuesta</div>
+              <div className="guardia-cell">&lt;4 h hábil</div>
+              <div className="guardia-cell">&lt;2 h hábil</div>
+              <div className="guardia-cell">&lt;2 h sábado 09–14h</div>
+
+              <div className="guardia-cell guardia-label">Qué incluye</div>
+              <div className="guardia-cell">HelpDesk + 1 visita + reporte</div>
+              <div className="guardia-cell">Todo Esencial + monitoreo + backup + 2 visitas</div>
+              <div className="guardia-cell">Todo Corporativo + guardia + rollback asistido</div>
+
+              <div className="guardia-cell guardia-label">Desde CLP</div>
+              <div className="guardia-cell guardia-precio">$380.000 / mes</div>
+              <div className="guardia-cell guardia-precio">$680.000 / mes</div>
+              <div className="guardia-cell guardia-precio">+$190.000 / mes</div>
+
+              <div className="guardia-cell guardia-label">Horario</div>
+              <div className="guardia-cell">Lun–Vie 08:30–18:30</div>
+              <div className="guardia-cell">Lun–Vie 08:30–18:30</div>
+              <div className="guardia-cell">Sáb 09:00–14:00</div>
+            </div>
+
+            {/* Mobile cards */}
+            <div className="guardia-cards">
+              <div className="guardia-card">
+                <div className="guardia-card-head">ESENCIAL</div>
+                <div className="guardia-card-body">
+                  <p><strong>Para quién:</strong> Hasta 15 usuarios sin urgencia</p>
+                  <p><strong>Respuesta:</strong> &lt;4 h hábil</p>
+                  <p><strong>Qué incluye:</strong> HelpDesk + 1 visita + reporte</p>
+                  <p><strong>Desde CLP:</strong> $380.000 / mes</p>
+                  <p><strong>Horario:</strong> Lun–Vie 08:30–18:30</p>
+                </div>
+              </div>
+              <div className="guardia-card">
+                <div className="guardia-card-head">CORPORATIVO</div>
+                <div className="guardia-card-body">
+                  <p><strong>Para quién:</strong> Operación diaria</p>
+                  <p><strong>Respuesta:</strong> &lt;2 h hábil</p>
+                  <p><strong>Qué incluye:</strong> Todo Esencial + monitoreo + backup + 2 visitas</p>
+                  <p><strong>Desde CLP:</strong> $680.000 / mes</p>
+                  <p><strong>Horario:</strong> Lun–Vie 08:30–18:30</p>
+                </div>
+              </div>
+              <div className="guardia-card">
+                <div className="guardia-card-head">GUARDIA SÁBADOS</div>
+                <div className="guardia-card-body">
+                  <p><strong>Para quién:</strong> Operación que no puede parar sábado</p>
+                  <p><strong>Respuesta:</strong> &lt;2 h sábado 09–14h</p>
+                  <p><strong>Qué incluye:</strong> Todo Corporativo + guardia + rollback asistido</p>
+                  <p><strong>Desde CLP:</strong> +$190.000 / mes</p>
+                  <p><strong>Horario:</strong> Sáb 09:00–14:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="guardia-nota">Sin permanencia. Pausas con 30 días de aviso. Horas no usadas se arrastran 1 mes. Si no cumplimos SLA, descuento proporcional.</p>
+
+          <div className="guardia-proof">
+            <div className="guardia-proof-media">
+              {missing ? (
+                <div className="media-falta" data-falta="altiva-proof-16x9.png" style={{ aspectRatio: "16/9" }}>
+                  falta: altiva-proof-16x9.png
+                </div>
+              ) : (
+                <img
+                  src={`${mediaBase}altiva-proof-16x9.png`}
+                  alt="Bandeja metálica con switch alineado y filete cian 1px, luz fría cenital"
+                  loading="lazy"
+                  onError={() => {
+                    console.warn("falta: altiva-proof-16x9.png");
+                    setMissing(true);
+                  }}
+                />
+              )}
+            </div>
+            <p className="media-caption">Deploy 04 · bandeja metálica · luz fría · filete cian</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Conversemos() {
+  const ref = useReveal() as React.RefObject<HTMLDivElement>;
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [form, setForm] = useState({
+    nombre: "",
+    telefono: "",
+    email: "",
+    tamano: "",
+    sistema: "",
+    urgencia: "",
+    mensaje: "",
+    claves: true,
+  });
+
+  function validate(): boolean {
+    const e: Record<string, string> = {};
+    if (!form.nombre.trim()) e.nombre = "Ingresa tu nombre";
+    if (!form.telefono.trim()) e.telefono = "Ingresa tu teléfono";
+    else if (!/^\+?56.*/.test(form.telefono.replace(/\s/g, "")) && form.telefono.length < 8) e.telefono = "Formato +56 2 ...";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email no válido";
+    if (!form.tamano) e.tamano = "Selecciona tamaño";
+    if (!form.sistema) e.sistema = "Selecciona sistema";
+    if (!form.urgencia) e.urgencia = "Selecciona urgencia";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!validate()) return;
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+      try {
+        localStorage.setItem("altiva-lead", JSON.stringify({ ...form, fecha: new Date().toISOString() }));
+      } catch {}
+      const text = `Hola ALTIVA quiero evaluación: ${form.nombre} ${form.tamano} ${form.urgencia}`;
+      const url = `https://wa.me/56229654821?text=${encodeURIComponent(text)}`;
+      // try wa.me, fallback mailto handled via window.open; if blocked open mailto
+      const w = window.open(url, "_blank");
+      if (!w) {
+        window.location.href = `mailto:contacto@altiva.cl?subject=Evaluacion ${encodeURIComponent(form.nombre)}&body=${encodeURIComponent(text + "\n" + form.mensaje)}`;
+      }
+    }, 600);
+  }
+
+  return (
+    <section id="conversemos" aria-label="Conversemos">
+      <div className="container">
+        <div ref={ref as any} className="reveal conversemos-grid">
+          <div className="conversemos-left">
+            <p className="kicker">CONVERSEMOS</p>
+            <h2 className="section-h2">Cuenta tu parque. Te decimos si te sirve.</h2>
+            <p className="section-intro" style={{ maxWidth: "36ch" }}>
+              Elige tamaño y urgencia. Te respondemos hoy con alcance y rango.
+            </p>
+
+            <form className="conversemos-form" onSubmit={handleSubmit} noValidate>
+              <div className="form-dots" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+
+              <label className="form-label">
+                Nombre y apellido *
+                <input
+                  className={`form-input ${errors.nombre ? "input-error" : ""}`}
+                  type="text"
+                  placeholder="Nombre y apellido"
+                  value={form.nombre}
+                  onChange={(ev) => setForm({ ...form, nombre: ev.target.value })}
+                />
+                {errors.nombre && <span className="form-error">{errors.nombre}</span>}
+              </label>
+
+              <label className="form-label">
+                Teléfono *
+                <input
+                  className={`form-input ${errors.telefono ? "input-error" : ""}`}
+                  type="tel"
+                  placeholder="+56 2 2965 4821"
+                  value={form.telefono}
+                  onChange={(ev) => setForm({ ...form, telefono: ev.target.value })}
+                />
+                {errors.telefono && <span className="form-error">{errors.telefono}</span>}
+              </label>
+
+              <label className="form-label">
+                Email
+                <input
+                  className={`form-input ${errors.email ? "input-error" : ""}`}
+                  type="email"
+                  placeholder="hola@empresa.cl"
+                  value={form.email}
+                  onChange={(ev) => setForm({ ...form, email: ev.target.value })}
+                />
+                {errors.email && <span className="form-error">{errors.email}</span>}
+              </label>
+
+              <label className="form-label">
+                Tamaño empresa *
+                <select
+                  className={`form-input ${errors.tamano ? "input-error" : ""}`}
+                  value={form.tamano}
+                  onChange={(ev) => setForm({ ...form, tamano: ev.target.value })}
+                >
+                  <option value="">Selecciona</option>
+                  <option value="1–15 usuarios">1–15 usuarios</option>
+                  <option value="16–50 usuarios">16–50 usuarios</option>
+                  <option value="50+ o sedes">50+ o sedes</option>
+                  <option value="No sé">No sé</option>
+                </select>
+                {errors.tamano && <span className="form-error">{errors.tamano}</span>}
+              </label>
+
+              <label className="form-label">
+                Sistema actual *
+                <select
+                  className={`form-input ${errors.sistema ? "input-error" : ""}`}
+                  value={form.sistema}
+                  onChange={(ev) => setForm({ ...form, sistema: ev.target.value })}
+                >
+                  <option value="">Selecciona</option>
+                  <option value="Microsoft 365">Microsoft 365</option>
+                  <option value="Google Workspace">Google Workspace</option>
+                  <option value="Mixto">Mixto</option>
+                  <option value="Servidor propio">Servidor propio</option>
+                  <option value="No tengo claro">No tengo claro</option>
+                </select>
+                {errors.sistema && <span className="form-error">{errors.sistema}</span>}
+              </label>
+
+              <label className="form-label">
+                Urgencia *
+                <select
+                  className={`form-input ${errors.urgencia ? "input-error" : ""}`}
+                  value={form.urgencia}
+                  onChange={(ev) => setForm({ ...form, urgencia: ev.target.value })}
+                >
+                  <option value="">Selecciona</option>
+                  <option value="Falla ahora">Falla ahora</option>
+                  <option value="Quiero cotizar cambio">Quiero cotizar cambio</option>
+                  <option value="Solo respaldo">Solo respaldo</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                {errors.urgencia && <span className="form-error">{errors.urgencia}</span>}
+              </label>
+
+              <label className="form-label">
+                Mensaje
+                <textarea
+                  className="form-input form-textarea"
+                  placeholder="Cuéntanos qué falla o qué quieres ordenar"
+                  rows={3}
+                  value={form.mensaje}
+                  onChange={(ev) => setForm({ ...form, mensaje: ev.target.value })}
+                />
+              </label>
+
+              <label className="form-checkbox">
+                <input
+                  type="checkbox"
+                  checked={form.claves}
+                  onChange={(ev) => setForm({ ...form, claves: ev.target.checked })}
+                />
+                <span>Quiero claves e inventario en mi cuenta desde día 1</span>
+              </label>
+
+              {success && <div className="form-success">Te escribimos hoy · revisa tu WhatsApp ✓</div>}
+
+              <button type="submit" className="btn-primary form-submit" disabled={loading}>
+                {loading ? "Enviando…" : "Solicitar evaluación"}
+              </button>
+              <a href="tel:+56229654821" className="btn-ghost" style={{ width: "100%", marginTop: "8px", justifyContent: "center" }}>
+                Llamar ahora
+              </a>
+            </form>
+          </div>
+
+          <div className="conversemos-right">
+            <div className="conversemos-tel">
+              <span className="conversemos-tel-label">¿Problema ahora?</span>
+              <a href="tel:+56229654821" className="conversemos-tel-num">
+                +56 2 2965 4821
+              </a>
+            </div>
+            <a href="mailto:contacto@altiva.cl" className="conversemos-email">
+              contacto@altiva.cl
+            </a>
+            <p className="conversemos-dir">Las Condes, Santiago · remoto Chile — visita en tu oficina</p>
+            <p className="conversemos-horario">Lun–Vie 08:30–18:30 · Guardia sábados 09–14h</p>
+            <ul className="conversemos-checks">
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Inventario en tu cuenta día 1
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Claves tuyas
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Factura exenta
+              </li>
+              <li>
+                <span className="check" aria-hidden="true">
+                  ✓
+                </span>{" "}
+                Descuento si no cumplimos SLA
+              </li>
+            </ul>
+            <p className="conversemos-mini">+16 años · +140 empresas · 97% resuelto el mismo día</p>
+          </div>
+        </div>
+
+        <footer className="site-footer">
+          <p className="footer-line">
+            ALTIVA SpA · Las Condes · <a href="mailto:contacto@altiva.cl">contacto@altiva.cl</a> ·{" "}
+            <a href="tel:+56229654821">+56 2 2965 4821</a>
+          </p>
+          <p className="footer-sub">© 2026 ALTIVA. Valores referenciales; se confirma tras diagnóstico. SLA por escrito.</p>
+        </footer>
+      </div>
+    </section>
+  );
+}
+
+function StickyMobileCta() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    function onScroll() {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setVisible(total > 0 && scrolled / total > 0.4);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  if (!visible) return null;
+  return (
+    <div className="sticky-cta-mobile" role="region" aria-label="Acciones">
+      <a href="tel:+56229654821" className="btn-ghost sticky-cta-ghost">
         Llamar
       </a>
-      <a href="#reserva" className="btn-solido btn-solido--chico cta-fija-demo" tabIndex={visible ? 0 : -1}>
-        Solicitar evaluación
+      <a href="#conversemos" className="btn-primary sticky-cta-primary">
+        Evaluación
       </a>
     </div>
   );
 }
 
 export function App() {
-  const referenciaHero = useRef<HTMLElement>(null);
-  const [trasHero, setTrasHero] = useState(false);
-
-  useEffect(() => {
-    let raf = 0;
-    const medir = () => {
-      raf = 0;
-      const hero = referenciaHero.current;
-      if (!hero) return;
-      setTrasHero(hero.getBoundingClientRect().bottom <= 88);
-    };
-    const alDesplazar = () => {
-      if (!raf) raf = requestAnimationFrame(medir);
-    };
-    window.addEventListener('scroll', alDesplazar, { passive: true });
-    window.addEventListener('resize', alDesplazar);
-    medir();
-    return () => {
-      window.removeEventListener('scroll', alDesplazar);
-      window.removeEventListener('resize', alDesplazar);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <>
-      <a className="salto" href="#contenido">
+      <a
+        href="#continuidad"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "auto",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+        }}
+      >
         Saltar al contenido
       </a>
-      <BarraProgreso />
-      <Navegacion />
-      <main id="contenido">
-        <Hero referenciaHero={referenciaHero} />
-        <Servicios />
-        <Cifras />
-        <Planes />
-        <Metodo />
-        <Voces />
-        <Faq />
-        <Reserva />
+      <Header />
+      <main>
+        <Hero />
+        <ParqueInstalado />
+        <CoberturaSla />
+        <PlanesSoporte />
+        <PaseAProduccion />
+        <GuardiaTecnica />
+        <Conversemos />
       </main>
-      <Pie />
-      <CtaFija visible={trasHero} />
+      <StickyMobileCta />
     </>
   );
 }

@@ -1,6 +1,0 @@
-{
-  "name": "Lumen — Diagnóstico Dental",
-  "description": "Sitio de diagnóstico dental clínico y digital en Santiago, Chile. Primero el diagnóstico. Después el tratamiento.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

@@ -63,7 +63,7 @@ Next.js u otro stack: tiene que poder exportarse a estáticos (`dist` o `out`) c
 
 - `title` / `client`: título de la pestaña y del visor `/propuesta/<slug>`.
 - `brand`: nombre corto de la marca para la card de la galería. Si falta, se deduce del `title`.
-- `sector`: slug del sector en la galería (ver `src/data/sectores.ts`: `dental`, `legal`, `arquitectura`, `inmobiliaria`, `veterinaria`, `bienestar`, `estetica`, `marketing`, `software`, `contabilidad`, `ecommerce`, `diseno`). Si falta, se infiere del prefijo del slug (`abogado-…` → `legal`, `arquitectura-…` → `arquitectura`, etc.).
+- `sector`: slug del sector en la galería (ver `src/data/sectores.ts`). Si falta, se infiere del prefijo del slug (`abogado-…` → `legal`, `dentista-…` → `dental`, `concesionaria-…` → `concesionaria`, etc.). Alias aceptados: `dentista` → `dental`, `abogado` → `legal`.
 - `description`: una línea para la card de la galería.
 - `hidden`: **`true` excluye la propuesta de la galería pública y del catálogo embebido en el bundle**. Úsalo para propuestas de clientes reales (datos reales de contacto): siguen funcionando por enlace directo `/propuesta/<slug>`, pero no se listan en ningún lado.
 - La variante de diseño (claro / oscuro premium / teal / azul) también se infiere del sufijo del slug (`-claro`, `-oscuro*`, `-teal`, `-azul-cian`).

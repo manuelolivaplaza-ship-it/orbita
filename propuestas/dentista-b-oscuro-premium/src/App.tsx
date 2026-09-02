@@ -1,146 +1,470 @@
-import { useRef, useState } from 'react';
-import { useScrollState, useRevealObserver, useCursor, useCountUp } from './hooks';
-import { media, MediaImg } from './media';
+import { useEffect, useState } from "react";
 
-const TEL = '+56 9 8765 4321';
-const TEL_HREF = 'tel:+56987654321';
-const EMAIL = 'hola@obsidianadental.cl';
-
-const fmtCL = new Intl.NumberFormat('es-CL');
-
-/* ============================ cursor ============================ */
-
-function Cursor() {
-  const ref = useRef<HTMLDivElement>(null);
-  useCursor(ref);
-  return <div ref={ref} className="cursor" aria-hidden="true" />;
-}
-
-/* ============================ count-up cifra ============================ */
-
-function Cifra({
-  fix,
-  value,
-  suffix,
-  label,
-  delay,
-}: {
-  fix?: string;
-  value: number;
-  suffix?: string;
-  label: string;
-  delay?: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const display = useCountUp(ref, value);
+function Header() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 840 && open) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open]);
 
   return (
-    <div className="cifra" data-reveal="fade" style={delay ? { transitionDelay: delay } : undefined}>
-      <p className="cifra-num">
-        {fix && <span className="cifra-fix">{fix}</span>}
-        <span ref={ref}>{fmtCL.format(display)}</span>
-        {suffix && <span className="cifra-fix">{suffix}</span>}
-      </p>
-      <p className="cifra-label">{label}</p>
-    </div>
-  );
-}
-
-/* ============================ nav ============================ */
-
-function Nav({ hidden, compact }: { hidden: boolean; compact: boolean }) {
-  return (
-    <header className={`nav${hidden ? ' nav--hidden' : ''}${compact ? ' nav--compact' : ''}`}>
-      <div className="wrap nav-inner">
-        <a className="brand" href="#inicio" aria-label="OBSIDIANA DENTAL — volver al inicio">
-          <span className="brand-name">OBSIDIANA</span>
-          <span className="brand-tag">Clínica de Especialidad</span>
+    <header className="obs-bar" role="banner">
+      <div className="obs-shell obs-bar__row">
+        <a href="#portada-dentista-b-oscuro-premium" className="obs-bar__brand" aria-label="OBSIDIANA — inicio">
+          OBSIDIANA
         </a>
-        <nav className="nav-links" aria-label="Secciones">
-          <a className="nav-link" href="#filosofia">Filosofía</a>
-          <a className="nav-link" href="#especialidades">Especialidades</a>
-          <a className="nav-link" href="#precios">Valores</a>
-          <a className="nav-link" href="#metodo">Método</a>
-          <a className="nav-link" href="#faq">Preguntas</a>
+        <nav className="obs-bar__nav" aria-label="Principal">
+          <a href="#primera-evaluacion-dentista-b-oscuro-premium">Evaluación</a>
+          <a href="#tratamientos-arancel-dentista-b-oscuro-premium">Tratamientos</a>
+          <a href="#especialidades-reales-dentista-b-oscuro-premium">Especialidades</a>
+          <a href="#isapre-reembolso-dentista-b-oscuro-premium">Isapre</a>
         </nav>
-        <div className="nav-right">
-          <a className="nav-tel" href={TEL_HREF} title="Urgencias dentales, respondemos personalmente">
-            Urgencias · {TEL}
+        <div className="obs-bar__actions">
+          <a href="tel:+56981234567" className="obs-bar__phone tabular">
+            +56 9 8123 4567
           </a>
-          <a className="btn" href="#reserva">Reservar</a>
+          <a href="tel:+56981234567" className="obs-bar__icon" aria-label="Llamar +56 9 8123 4567">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12 1.21.4 2.39.82 3.53a2 2 0 0 1-.57 2.11L8.09 10.64a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.57c1.14.42 2.32.7 3.53.82A2 2 0 0 1 22 16.92z" />
+            </svg>
+          </a>
+          <a href="#agenda-obsidiana" className="obs-btn obs-btn--solid obs-bar__cta">
+            Agendar evaluación
+          </a>
+          <button
+            className="obs-bar__burger"
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+            aria-controls="drawer-obsidiana"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="obs-bar__burgerLines" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+          </button>
         </div>
+      </div>
+      <div id="drawer-obsidiana" className={`obs-drawer ${open ? "is-open" : ""}`}>
+        <nav className="obs-drawer__nav" aria-label="Menú móvil">
+          <a href="#primera-evaluacion-dentista-b-oscuro-premium" onClick={() => setOpen(false)}>Evaluación</a>
+          <a href="#tratamientos-arancel-dentista-b-oscuro-premium" onClick={() => setOpen(false)}>Tratamientos</a>
+          <a href="#especialidades-reales-dentista-b-oscuro-premium" onClick={() => setOpen(false)}>Especialidades</a>
+          <a href="#isapre-reembolso-dentista-b-oscuro-premium" onClick={() => setOpen(false)}>Isapre</a>
+        </nav>
       </div>
     </header>
   );
 }
 
-/* ============================ hero ============================ */
-
 function Hero() {
+  const [hasDesktop, setHasDesktop] = useState<boolean | null>(null);
+  const [hasMobile, setHasMobile] = useState<boolean | null>(null);
+  const [hasVideo, setHasVideo] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL || "/";
+    const check = async (path: string) => {
+      try {
+        const res = await fetch(base + path, { method: "HEAD" });
+        return res.ok;
+      } catch {
+        return false;
+      }
+    };
+    (async () => {
+      const d = await check("media/obsidiana-hero-16x9.png");
+      const m = await check("media/obsidiana-hero-9x16.png");
+      const v = await check("media/obsidiana-hero-loop.mp4");
+      setHasDesktop(d);
+      setHasMobile(m);
+      setHasVideo(v);
+      if (!d) console.warn("[OBSIDIANA] falta: obsidiana-hero-16x9.png");
+      if (!m) console.warn("[OBSIDIANA] falta: obsidiana-hero-9x16.png (mobile)");
+      if (!v) console.info("[OBSIDIANA] sin video loop (opcional): obsidiana-hero-loop.mp4");
+    })();
+  }, []);
+
+  const base = import.meta.env.BASE_URL;
+  const withBase = (p: string) => (base.endsWith("/") ? base + p : base + "/" + p);
+
   return (
-    <section className="hero" id="inicio" aria-label="Inicio">
-      <div className="hero-media">
-        <MediaImg
-          name="hero.jpg"
-          alt="Box dental crepuscular y vacío: sillón como pieza escultórica bajo luz puntual cálida"
-          fetchPriority="high"
-        />
-      </div>
-      <div className="hero-scrim" aria-hidden="true" />
-      <div className="grano grano--hero" aria-hidden="true" />
-      <div className="wrap hero-content">
-        <p className="hero-kicker">Clínica dental de especialidad · Las Condes</p>
-        <h1>
-          <span className="h1-mask">
-            <span>La calma también es</span>
-          </span>
-          <span className="h1-mask">
-            <span>parte del tratamiento.</span>
-          </span>
-        </h1>
-        <p className="hero-sub">
-          Implantología, estética y rehabilitación con protocolo de especialidad. Diagnóstico
-          digital y presupuesto por escrito antes de tocar un solo diente.
-        </p>
-        <div className="hero-cta">
-          <a className="btn" href="#reserva">Reservar evaluación</a>
-          <a className="btn btn--ghost" href="#especialidades">Ver especialidades</a>
+    <section id="portada-dentista-b-oscuro-premium" className="obs-hero" aria-labelledby="hero-h1-dentista-b-oscuro-premium">
+      <div className="obs-shell obs-hero__frame">
+        <div className="obs-hero__copy">
+          <p className="obs-kicker">Clínica odontológica · Vitacura</p>
+          <h1 id="hero-h1-dentista-b-oscuro-premium" className="obs-hero__title">
+            Odontología de especialista, sin apuro ni sorpresas.
+          </h1>
+          <p className="obs-hero__lead">
+            Diagnóstico con scanner, plan fotografiado y presupuesto por escrito. El mismo especialista te acompaña de principio a fin.
+          </p>
+
+          <div className="obs-hero__actions">
+            <a href="#agenda-obsidiana" className="obs-btn obs-btn--solid">
+              Agendar evaluación
+            </a>
+            <a href="#tratamientos-arancel-dentista-b-oscuro-premium" className="obs-btn obs-btn--line">
+              Ver valores
+            </a>
+          </div>
+
+          <div className="obs-band" aria-label="Condiciones de atención">
+            <span>Atención con hora o por urgencia</span>
+            <span className="obs-band__dot" aria-hidden="true" />
+            <span>Convenios con las principales isapres</span>
+            <span className="obs-band__dot" aria-hidden="true" />
+            <span>Boleta reembolsable</span>
+          </div>
+
+          <p className="obs-hero__note">
+            Si el plan cambia después de la evaluación, te avisamos antes de partir. Nunca iniciamos sin tu aprobación por escrito.
+          </p>
+          <p className="obs-hero__sig">3 especialistas, siempre los mismos — no rotamos tu caso.</p>
         </div>
-        <p className="hero-support">
-          Urgencias dentales · <a href={TEL_HREF}>{TEL}</a>
-        </p>
+
+        <div className="obs-hero__visual">
+          <div className="obs-clip obs-clip--desktop">
+            {hasVideo ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={withBase("media/obsidiana-hero-16x9.png")}
+                style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", border: "1px solid var(--obs-line)" } as React.CSSProperties}
+                onError={() => {
+                  console.warn("[OBSIDIANA] video no cargó, fallback a imagen");
+                  setHasVideo(false);
+                }}
+              >
+                <source src={withBase("media/obsidiana-hero-loop.mp4")} type="video/mp4" />
+              </video>
+            ) : hasDesktop === false ? (
+              <div className="obs-missing" data-falta="obsidiana-hero-16x9.png">
+                falta: obsidiana-hero-16x9.png
+              </div>
+            ) : (
+              <img
+                src={withBase("media/obsidiana-hero-16x9.png")}
+                alt="Box 2 · luz perimetral · Vitacura — sillón odontológico OBSIDIANA"
+                loading="eager"
+                decoding="async"
+                onError={(e) => {
+                  const t = e.currentTarget;
+                  t.style.display = "none";
+                  const parent = t.parentElement;
+                  if (parent && !parent.querySelector("[data-falta]")) {
+                    const d = document.createElement("div");
+                    d.className = "obs-missing";
+                    d.setAttribute("data-falta", "obsidiana-hero-16x9.png");
+                    d.textContent = "falta: obsidiana-hero-16x9.png";
+                    (d as HTMLElement).style.cssText = "aspect-ratio:16/9;background:#1B1917;border:1px dashed #2E2A28;display:grid;place-items:center;color:#9A9590;font:500 0.85rem Outfit";
+                    parent.appendChild(d);
+                    console.warn("[OBSIDIANA] falta: obsidiana-hero-16x9.png");
+                  }
+                }}
+              />
+            )}
+          </div>
+
+          <div className="obs-clip obs-clip--mobile">
+            {hasMobile === false ? (
+              hasDesktop === false ? (
+                <div className="obs-missing" data-falta="obsidiana-hero-16x9.png" style={{ aspectRatio: "9 / 16" } as React.CSSProperties}>
+                  falta: obsidiana-hero-16x9.png
+                </div>
+              ) : (
+                <img
+                  src={withBase("media/obsidiana-hero-16x9.png")}
+                  alt="Box 2 · luz perimetral · Vitacura"
+                  loading="eager"
+                  onError={(e) => {
+                    const t = e.currentTarget;
+                    t.style.display = "none";
+                    const parent = t.parentElement;
+                    if (parent && !parent.querySelector("[data-falta]")) {
+                      const d = document.createElement("div");
+                      d.className = "obs-missing";
+                      d.setAttribute("data-falta", "obsidiana-hero-16x9.png");
+                      d.textContent = "falta: obsidiana-hero-16x9.png";
+                      parent.appendChild(d);
+                    }
+                  }}
+                />
+              )
+            ) : (
+              <img
+                src={withBase("media/obsidiana-hero-9x16.png")}
+                alt="Box 2 · luz perimetral · Vitacura — vista móvil"
+                loading="eager"
+                decoding="async"
+                onError={(e) => {
+                  const t = e.currentTarget;
+                  t.style.display = "none";
+                  const parent = t.parentElement;
+                  if (parent && !parent.querySelector("[data-falta]")) {
+                    const d = document.createElement("div");
+                    d.className = "obs-missing";
+                    d.setAttribute("data-falta", "obsidiana-hero-9x16.png");
+                    (d as HTMLElement).style.cssText = "aspect-ratio:9/16;background:#1B1917;border:1px dashed #2E2A28;display:grid;place-items:center;color:#9A9590;font:500 0.85rem Outfit";
+                    d.textContent = "falta: obsidiana-hero-9x16.png";
+                    parent.appendChild(d);
+                    console.warn("[OBSIDIANA] falta: obsidiana-hero-9x16.png");
+                  }
+                }}
+              />
+            )}
+          </div>
+
+          <p className="obs-hero__cap">Box 2 · luz perimetral · Vitacura</p>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ============================ filosofía ============================ */
-
-function Filosofia() {
+function SectionEvaluacion() {
+  const base = import.meta.env.BASE_URL;
+  const withBase = (p: string) => (base.endsWith("/") ? base + p : base + "/" + p);
   return (
-    <section className="sec" id="filosofia" aria-label="Filosofía">
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Filosofía</p>
+    <section id="primera-evaluacion-dentista-b-oscuro-premium" className="obs-eval" aria-labelledby="eval-h2">
+      <div className="obs-shell obs-eval__shell">
+        <div className="obs-eval__text">
+          <p className="obs-kicker obs-kicker--bone">Primera visita</p>
+          <h2 id="eval-h2" className="obs-h2 obs-h2--bone">La evaluación de 45 minutos que te deja todo claro</h2>
+          <p className="obs-intro obs-intro--bone">No es una limpieza express. Es una cita para entender tu boca, sin apuro y sin venderte lo que no necesitas.</p>
+
+          <div className="obs-steps">
+            <div className="obs-step">
+              <h3 className="obs-step__head"><span className="obs-step__n">01</span> · Scanner y radiografía</h3>
+              <p className="obs-step__p">Fotos intraorales y radiografía digital en el mismo box. Ves lo que vemos, en pantalla grande.</p>
+            </div>
+            <div className="obs-step">
+              <h3 className="obs-step__head"><span className="obs-step__n">02</span> · Diagnóstico en palabras simples</h3>
+              <p className="obs-step__p">Te mostramos qué pasa, qué es urgente y qué puede esperar. Preguntas todo, sin apuro.</p>
+            </div>
+            <div className="obs-step">
+              <h3 className="obs-step__head"><span className="obs-step__n">03</span> · Presupuesto por escrito y plan a tu ritmo</h3>
+              <p className="obs-step__p">Te llevas hoja con valores por pieza, alternativas y facilidades Isapre/Fonasa. Decides en casa, no en el sillón.</p>
+            </div>
+          </div>
+
+          <ul className="obs-checks" aria-label="Entrega de la evaluación">
+            <li><span className="obs-check__mark" aria-hidden="true">✓</span> Informe impreso</li>
+            <li><span className="obs-check__mark" aria-hidden="true">✓</span> Presupuesto firmado</li>
+            <li><span className="obs-check__mark" aria-hidden="true">✓</span> Fotos de tu caso</li>
+            <li><span className="obs-check__mark" aria-hidden="true">✓</span> WhatsApp directo con tu especialista</li>
+          </ul>
+
+          <div className="obs-eval__tag">Evaluación completa $32.900 — se abona al tratamiento si sigues con nosotros.</div>
         </div>
-        <div className="filosofia-grid">
-          <h2 className="filosofia-statement" data-reveal="fade">
-            Un plan claro antes que una silla de dentista.
-          </h2>
-          <div className="filosofia-copy" data-reveal="fade" style={{ transitionDelay: '0.12s' }}>
-            <p>
-              Radiografía panorámica digital el primer día. Presupuesto por escrito. El mismo
-              especialista desde la evaluación hasta el control final.
-            </p>
-            <p>
-              Saber qué va a pasar, cuánto va a costar y quién va a tratarlo reduce la mitad
-              de la ansiedad de ir al dentista. Por eso el diagnóstico y el plan vienen antes
-              que cualquier procedimiento, firmados y explicados paso a paso.
-            </p>
-            <p className="filosofia-discrecion">
-              No publicamos testimonios ni sonrisas de pacientes. La discreción de quienes nos
-              eligen es parte del protocolo.
-            </p>
+
+        <div className="obs-eval__figure">
+          <img
+            src={withBase("media/obsidiana-interior-16x9.png")}
+            alt="Box dental nocturno ordenado con sillón vacío e instrumental — evaluación 45 minutos en Vitacura"
+            loading="lazy"
+            decoding="async"
+            style={{ aspectRatio: "4 / 3", objectFit: "cover" } as React.CSSProperties}
+            onError={(e) => {
+              const t = e.currentTarget;
+              t.style.display = "none";
+              const parent = t.parentElement;
+              if (parent && !parent.querySelector("[data-falta]")) {
+                const d = document.createElement("div");
+                d.className = "obs-missing obs-missing--bone";
+                d.setAttribute("data-falta", "obsidiana-interior-16x9.png");
+                (d as HTMLElement).style.cssText = "aspect-ratio:4/3;background:#F0EBE3;border:1px dashed #D6D0C8;display:grid;place-items:center;color:#7A7570;font:500 0.85rem Outfit";
+                d.textContent = "falta: obsidiana-interior-16x9.png";
+                parent.appendChild(d);
+                console.warn("[OBSIDIANA] falta: obsidiana-interior-16x9.png");
+              }
+            }}
+          />
+          <p className="obs-eval__cap">Evaluación · 45 min · Vitacura</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionTratamientos() {
+  return (
+    <section id="tratamientos-arancel-dentista-b-oscuro-premium" className="obs-tariff" aria-labelledby="trat-h2">
+      <div className="obs-shell">
+        <div className="obs-blockHead">
+          <p className="obs-kicker">Arancel transparente</p>
+          <h2 id="trat-h2" className="obs-h2">Valores claros, presupuesto por escrito</h2>
+          <p className="obs-intro">Cada fila es el precio desde. El valor final se confirma tras diagnóstico con scanner, nunca por WhatsApp.</p>
+        </div>
+
+        <div className="obs-tariff__cols">
+          <div className="obs-tariff__list">
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Evaluación con scanner + radiografía</span>
+                <span className="obs-row__note">45 min · incluye scanner intraoral + diagnóstico fotografiado</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__amount">$32.900</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Limpieza y profilaxis</span>
+                <span className="obs-row__note">40 min · higiene + pulido + flúor + fotos</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$42.900</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Restauración resina (tapadura)</span>
+                <span className="obs-row__note">45 min · resina fotocurable, pulido final</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$64.900</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Endodoncia 1 conducto</span>
+                <span className="obs-row__note">90 min · microscopio + control radiográfico</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$135.000</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Extracción simple</span>
+                <span className="obs-row__note">30 min · anestesia + control 7 días</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$52.900</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Blanqueamiento</span>
+                <span className="obs-row__note">60 min · peróxido + protector gingival</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$94.900</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Implante (tornillo + corona)</span>
+                <span className="obs-row__note">plan en 2 fases · incluye controles y provisorio</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$420.000</span>
+              </div>
+            </div>
+            <div className="obs-row" role="row">
+              <div className="obs-row__main">
+                <span className="obs-row__name">Ortodoncia alineadores</span>
+                <span className="obs-row__note">12–18 meses · controles mensuales especialista</span>
+              </div>
+              <div className="obs-row__price tabular">
+                <span className="obs-row__from">desde</span> <span className="obs-row__amount">$48.000/mes</span>
+              </div>
+            </div>
+
+            <p className="obs-tariff__foot">Valores referenciales; el valor final se confirma tras diagnóstico. Sin sorpresas. Fonasa e Isapre con boleta reembolsable.</p>
+          </div>
+
+          <aside className="obs-tariff__aside" aria-label="Atención de urgencia">
+            <div className="obs-note">
+              <h3 className="obs-note__title">¿Dolor ahora?</h3>
+              <p className="obs-note__copy">Atención de urgencia el mismo día según disponibilidad. Llámanos y te decimos hora real.</p>
+              <a href="tel:+56981234567" className="obs-note__phone tabular">+56 9 8123 4567</a>
+              <a href="#agenda-obsidiana" className="obs-btn obs-btn--solid obs-note__cta">Agendar evaluación</a>
+              <p className="obs-note__small">Boleta reembolsable · Isapre y Fonasa</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SectionIsapre() {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section id="isapre-reembolso-dentista-b-oscuro-premium" className="obs-pay" aria-labelledby="isapre-h2">
+      <div className="obs-shell">
+        <div className="obs-blockHead">
+          <p className="obs-kicker">Cómo pagas</p>
+          <h2 id="isapre-h2" className="obs-h2">Fonasa, Isapre o particular. Sin letra chica.</h2>
+          <p className="obs-intro">Trabajamos con boleta reembolsable. Te explicamos antes cuánto cubre tu plan y cuánto pagas tú.</p>
+        </div>
+
+        <div className="obs-pay__grid">
+          <article className="obs-pay__card">
+            <h3 className="obs-pay__cardHead">Fonasa</h3>
+            <dl className="obs-pay__dl">
+              <div><dt>Cómo funciona</dt><dd>Bono nivel 3 en sucursal o web</dd></div>
+              <div><dt>Qué traes</dt><dd>Carnet + bono</dd></div>
+              <div><dt>Reembolso</dt><dd>Directo en Fonasa</dd></div>
+              <div><dt>Facilidades</dt><dd>3 cuotas sin interés</dd></div>
+            </dl>
+          </article>
+          <article className="obs-pay__card obs-pay__card--accent">
+            <h3 className="obs-pay__cardHead">Isapre (todas)</h3>
+            <dl className="obs-pay__dl">
+              <div><dt>Cómo funciona</dt><dd>Pagas y reembolsas con boleta</dd></div>
+              <div><dt>Qué traes</dt><dd>Credencial + plan</dd></div>
+              <div><dt>Reembolso</dt><dd>50–80% según plan*</dd></div>
+              <div><dt>Facilidades</dt><dd>6 cuotas sin interés</dd></div>
+            </dl>
+          </article>
+          <article className="obs-pay__card">
+            <h3 className="obs-pay__cardHead">Particular</h3>
+            <dl className="obs-pay__dl">
+              <div><dt>Cómo funciona</dt><dd>Pago directo con facilidades</dd></div>
+              <div><dt>Qué traes</dt><dd>Carnet</dd></div>
+              <div><dt>Reembolso</dt><dd>—</dd></div>
+              <div><dt>Facilidades</dt><dd>Hasta 12 cuotas</dd></div>
+            </dl>
+          </article>
+        </div>
+        <p className="obs-pay__note">* El porcentaje depende de tu plan Isapre. Lo verificamos en la evaluación y te damos el cálculo por escrito.</p>
+
+        <div className="obs-acc" aria-label="Preguntas sobre previsión">
+          <div className="obs-acc__item">
+            <button className="obs-acc__trigger" aria-expanded={open === 0} onClick={() => setOpen(open === 0 ? null : 0)}>
+              <span>¿Atienden Fonasa?</span>
+              <span className={`obs-acc__chev ${open === 0 ? "is-open" : ""}`} aria-hidden="true">⌃</span>
+            </button>
+            <div className={`obs-acc__panel ${open === 0 ? "is-open" : ""}`}>
+              <p>Sí, nivel 3. Compras el bono antes y te atendemos sin copago adicional en prestaciones bonificables.</p>
+            </div>
+          </div>
+          <div className="obs-acc__item">
+            <button className="obs-acc__trigger" aria-expanded={open === 1} onClick={() => setOpen(open === 1 ? null : 1)}>
+              <span>¿Qué Isapres tienen convenio?</span>
+              <span className={`obs-acc__chev ${open === 1 ? "is-open" : ""}`} aria-hidden="true">⌃</span>
+            </button>
+            <div className={`obs-acc__panel ${open === 1 ? "is-open" : ""}`}>
+              <p>Todas con reembolso. No hay 'convenio cerrado' que te amarre: emitimos boleta y reembolsas donde te convenga.</p>
+            </div>
+          </div>
+          <div className="obs-acc__item">
+            <button className="obs-acc__trigger" aria-expanded={open === 2} onClick={() => setOpen(open === 2 ? null : 2)}>
+              <span>¿Puedo pagar en cuotas?</span>
+              <span className={`obs-acc__chev ${open === 2 ? "is-open" : ""}`} aria-hidden="true">⌃</span>
+            </button>
+            <div className={`obs-acc__panel ${open === 2 ? "is-open" : ""}`}>
+              <p>Sí, con tarjeta hasta 12 cuotas. Sin interés hasta 6 con Isapre/Fonasa. Te damos el total por escrito.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -148,434 +472,301 @@ function Filosofia() {
   );
 }
 
-/* ============================ cifras ============================ */
-
-function Cifras() {
+function SectionEspecialidades() {
+  const base = import.meta.env.BASE_URL;
+  const withBase = (p: string) => (base.endsWith("/") ? base + p : base + "/" + p);
+  const tiles = [
+    {
+      file: "obsidiana-tile-01-1x1.png",
+      num: "01",
+      title: "Endodoncia microscópica",
+      text: "Un conducto, un diente a la vez. Con microscopio y control radiográfico. Sin apuro.",
+      meta: "Desde $135.000 · 90 min",
+      alt: "Bodegón chiaroscuro de bandeja con instrumental esterilizado sobre piedra oscura",
+    },
+    {
+      file: "obsidiana-tile-02-3x4.png",
+      num: "02",
+      title: "Implantología",
+      text: "Tornillo + corona en 2 fases, con planificación digital y provisorio incluido.",
+      meta: "Desde $420.000 · plan 2 fases",
+      alt: "Detalle de lámpara operatoria dental, brazo articulado metálico oscuro",
+    },
+    {
+      file: "obsidiana-tile-03-1x1.png",
+      num: "03",
+      title: "Ortodoncia alineadores",
+      text: "Alineadores transparentes, controles mensuales, el mismo ortodoncista siempre.",
+      meta: "Desde $48.000/mes",
+      alt: "Recepción nocturna vacía con mostrador de madera oscura y luz lineal cálida",
+    },
+    {
+      file: "obsidiana-tile-04-3x4.png",
+      num: "04",
+      title: "Estética adhesiva",
+      text: "Carillas y restauraciones que parecen tuyas, no postizas. Menos es más.",
+      meta: "Desde $64.900",
+      alt: "Macro de superficie cerámica porcelana dental con luz rasante nocturna",
+    },
+  ];
   return (
-    <section className="cifras" id="cifras" aria-label="Cifras">
-      <div className="wrap cifras-grid">
-        <Cifra fix="+" value={16} label="Años de especialidad" />
-        <Cifra fix="+" value={6500} label="Implantes colocados" delay="0.08s" />
-        <Cifra value={98} suffix="%" label="Continúa sus controles" delay="0.16s" />
-        <Cifra value={2} label="Especialistas titulados, siempre los mismos" delay="0.24s" />
-      </div>
-    </section>
-  );
-}
-
-/* ============================ especialidades ============================ */
-
-const ESPECIALIDADES = [
-  {
-    num: '01',
-    titulo: 'Implantología',
-    desc: 'Reemplazo de piezas perdidas con implantes de titanio y corona definitiva, planificados sobre radiografía y escaneo digital.',
-    duracion: '3 a 6 meses por etapa',
-    desde: '$890.000',
-  },
-  {
-    num: '02',
-    titulo: 'Estética dental',
-    desc: 'Carillas y restauraciones en porcelana y composite, diseñadas sobre tu propio patrón dental, nunca en serie.',
-    duracion: '2 a 4 sesiones',
-    desde: '$320.000',
-  },
-  {
-    num: '03',
-    titulo: 'Rehabilitación oral',
-    desc: 'Recuperación de la función masticatoria completa cuando faltan varias piezas o existe desgaste severo, por etapas definidas.',
-    duracion: 'Plan por etapas, 2 a 6 meses',
-    desde: '$1.450.000',
-  },
-  {
-    num: '04',
-    titulo: 'Endodoncia microscópica',
-    desc: 'Tratamiento de conducto bajo microscopio quirúrgico: más precisión, menos reintervenciones, diente conservado.',
-    duracion: '1 a 3 sesiones',
-    desde: '$380.000',
-  },
-  {
-    num: '05',
-    titulo: 'Periodoncia',
-    desc: 'Control y tratamiento de encías para detener la pérdida de soporte antes de que comprometa las piezas y los implantes.',
-    duracion: 'Mantenimiento trimestral',
-    desde: '$190.000',
-  },
-  {
-    num: '06',
-    titulo: 'Ortodoncia invisible',
-    desc: 'Alineadores transparentes con plan digital: ves el resultado simulado y el calendario completo antes de partir.',
-    duracion: '12 a 24 meses',
-    desde: '$2.990.000',
-  },
-];
-
-function Especialidades() {
-  const [open, setOpen] = useState<number | null>(null);
-
-  return (
-    <section className="sec" id="especialidades" aria-label="Especialidades">
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Especialidades</p>
-          <h2 className="h2">Seis especialidades, dos especialistas.</h2>
-          <p className="lead">
-            Cada tratamiento lo realiza quien lo diagnostica, dentro de su área titulada.
-          </p>
+    <section id="especialidades-reales-dentista-b-oscuro-premium" className="obs-works" aria-labelledby="esp-h2">
+      <div className="obs-shell">
+        <div className="obs-blockHead obs-blockHead--bone">
+          <p className="obs-kicker obs-kicker--bone">Lo que hacemos bien</p>
+          <h2 id="esp-h2" className="obs-h2 obs-h2--bone">Cuatro especialidades, siempre los mismos especialistas</h2>
+          <p className="obs-intro obs-intro--bone">No rotamos tu caso. Cada plan lo sigue quien lo diagnosticó.</p>
         </div>
-        <div className="esp-list" data-reveal="fade">
-          {ESPECIALIDADES.map((e, i) => (
-            <article
-              className="esp"
-              key={e.num}
-              data-open={open === i ? 'true' : 'false'}
-            >
-              <button
-                className="esp-head"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                aria-controls={`esp-panel-${e.num}`}
-              >
-                <span className="esp-num">{e.num}</span>
-                <span className="esp-title">{e.titulo}</span>
-                <span className="esp-icon" aria-hidden="true">+</span>
-              </button>
-              <div className="esp-panel" id={`esp-panel-${e.num}`}>
-                <div className="esp-panel-in">
-                  <div className="esp-panel-card">
-                    <div className="esp-field esp-panel-desc">
-                      <p className="esp-field-label">En qué consiste</p>
-                      <p className="esp-field-value">{e.desc}</p>
-                    </div>
-                    <div className="esp-field">
-                      <p className="esp-field-label">Duración típica</p>
-                      <p className="esp-field-value esp-field-value--mono">{e.duracion}</p>
-                    </div>
-                    <div className="esp-field">
-                      <p className="esp-field-label">Valor desde</p>
-                      <p className="esp-field-value esp-field-value--mono">{e.desde}</p>
-                    </div>
-                  </div>
-                </div>
+
+        <div className="obs-mosaic">
+          {tiles.map((t) => (
+            <article key={t.file} className="obs-mosaic__card">
+              <div className="obs-mosaic__media">
+                <img
+                  src={withBase(`media/${t.file}`)}
+                  alt={t.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ aspectRatio: "4 / 3", objectFit: "cover" } as React.CSSProperties}
+                  onError={(e) => {
+                    const img = e.currentTarget;
+                    img.style.display = "none";
+                    const parent = img.parentElement;
+                    if (parent && !parent.querySelector("[data-falta]")) {
+                      const d = document.createElement("div");
+                      d.className = "obs-missing obs-missing--bone";
+                      d.setAttribute("data-falta", t.file);
+                      (d as HTMLElement).style.cssText = `aspect-ratio:4/3;background:#F0EBE3;border:1px dashed #D6D0C8;display:grid;place-items:center;color:#7A7570;font:500 0.85rem Outfit`;
+                      d.textContent = `falta: ${t.file}`;
+                      parent.appendChild(d);
+                      console.warn(`[OBSIDIANA] falta: ${t.file}`);
+                    }
+                  }}
+                />
+              </div>
+              <div className="obs-mosaic__body">
+                <p className="obs-mosaic__num tabular">{t.num}</p>
+                <h3 className="obs-mosaic__title">{t.title}</h3>
+                <p className="obs-mosaic__text">{t.text}</p>
+                <p className="obs-mosaic__meta tabular">{t.meta}</p>
               </div>
             </article>
           ))}
         </div>
+
+        <p className="obs-works__trust tabular">+12 años en Vitacura · +7.200 pacientes · 97% nos recomienda · 3 especialistas, siempre los mismos</p>
       </div>
     </section>
   );
 }
 
-/* ============================ precios ============================ */
+function SectionAgenda() {
+  const base = import.meta.env.BASE_URL;
+  const withBase = (p: string) => (base.endsWith("/") ? base + p : base + "/" + p);
+  const [nombre, setNombre] = useState("");
+  const [tel, setTel] = useState("");
+  const [email, setEmail] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [detalle, setDetalle] = useState("");
+  const [whatsapp, setWhatsapp] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-const PRECIOS = [
-  {
-    nombre: 'Evaluación inicial + radiografía panorámica',
-    desc: 'Diagnóstico digital completo y presupuesto por escrito el mismo día.',
-    desde: '$45.000',
-  },
-  {
-    nombre: 'Endodoncia microscópica',
-    desc: 'Conducto bajo microscopio, con control de resultado a los seis meses.',
-    desde: '$380.000',
-  },
-  {
-    nombre: 'Corona de zirconio',
-    desc: 'Fresada digital sobre implante o pieza natural, color calibrado.',
-    desde: '$420.000',
-  },
-  {
-    nombre: 'Implante unitario',
-    desc: 'Colocación de implante de titanio con cirugía guiada por computadora.',
-    desde: '$890.000',
-  },
-  {
-    nombre: 'Ortodoncia invisible (plan completo)',
-    desc: 'Alineadores y todos los controles incluidos hasta la contención final.',
-    desde: '$2.990.000',
-  },
-];
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!nombre.trim() || nombre.trim().length < 2) e.nombre = "Ingresa tu nombre (mín. 2 caracteres).";
+    const telNorm = tel.trim();
+    const telRe = /^\+56\s?9\s?\d{4}\s?\d{4}$/;
+    const telCompact = telNorm.replace(/[-\s]/g, "");
+    const validTel = telRe.test(telNorm) || /^\+569\d{8}$/.test(telCompact);
+    if (!telNorm) e.tel = "Ingresa tu teléfono.";
+    else if (!validTel) e.tel = "Formato: +56 9 1234 5678";
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) e.email = "Email no válido.";
+    if (!motivo) e.motivo = "Selecciona un motivo.";
+    return e;
+  };
 
-function Precios() {
-  return (
-    <section className="sec precios" id="precios" aria-label="Precios">
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Precios</p>
-          <h2 className="h2">Valores claros, sin sorpresas.</h2>
-          <p className="lead">
-            Rangos de referencia reales en pesos chilenos. El número definitivo sale del
-            diagnóstico, no de la caja registradora.
-          </p>
-        </div>
-        <div className="precio-tabla" data-reveal="fade">
-          {PRECIOS.map((p) => (
-            <div className="precio-row" key={p.nombre}>
-              <h3 className="precio-nombre">{p.nombre}</h3>
-              <p className="precio-desc">{p.desc}</p>
-              <p className="precio-valor">
-                <span className="precio-desde">Desde</span>
-                <span className="precio-num precio-num--clp">{p.desde}</span>
-                <span className="precio-clp">CLP</span>
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="precio-nota" data-reveal="fade">
-          El valor final se confirma en la evaluación con radiografía. Nunca partimos un
-          tratamiento sin tu aprobación por escrito.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ============================ método ============================ */
-
-const METODO = [
-  {
-    num: '01',
-    titulo: 'Evaluación y diagnóstico digital',
-    desc: 'Radiografía panorámica y escaneo el primer día. Sales con el diagnóstico claro y por escrito, no con una lista de dudas.',
-  },
-  {
-    num: '02',
-    titulo: 'Plan explicado paso a paso',
-    desc: 'Cada fase, su duración y su valor, documentados. Apruebas el plan antes de que se toque un solo diente.',
-  },
-  {
-    num: '03',
-    titulo: 'Tratamiento y control',
-    desc: 'El mismo especialista que evaluó opera y controla. El alta se firma juntos, cuando el resultado está estable.',
-  },
-];
-
-function Metodo() {
-  return (
-    <section className="sec metodo" id="metodo" aria-label="Método">
-      <div className="metodo-bg" aria-hidden="true">
-        <MediaImg
-          name="corridor.jpg"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div className="metodo-scrim" aria-hidden="true" />
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Método</p>
-          <h2 className="h2">Tres pasos entre tú y el sillón.</h2>
-        </div>
-        <div className="metodo-grid">
-          {METODO.map((m, i) => (
-            <div
-              className="metodo-paso"
-              key={m.num}
-              data-reveal="fade"
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              <p className="metodo-num">{m.num}</p>
-              <h3 className="metodo-titulo">{m.titulo}</h3>
-              <p>{m.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================ galería ============================ */
-
-function Galeria() {
-  return (
-    <section className="sec sec--superficie" id="galeria" aria-label="Galería">
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Galería</p>
-          <h2 className="h2">La clínica, con foco.</h2>
-        </div>
-        <div className="galeria-grid">
-          <figure className="obra obra--kb" data-reveal="curtain">
-            <div className="obra-frame">
-              <MediaImg
-                name="object.jpg"
-                alt="Bodegón chiaroscuro de instrumental dental de titanio sobre piedra oscura"
-                loading="lazy"
-              />
-            </div>
-            <figcaption>
-              <span>Instrumental de precisión — bodegón sobre piedra oscura</span>
-              <span className="obra-index">01</span>
-            </figcaption>
-          </figure>
-          <figure className="obra" data-reveal="curtain">
-            <div className="obra-frame">
-              <MediaImg
-                name="texture.jpg"
-                alt="Macro de tela quirúrgica celeste pálido con luz rasante"
-                loading="lazy"
-              />
-            </div>
-            <figcaption>
-              <span>Protocolo de especialidad — tela quirúrgica con luz rasante</span>
-              <span className="obra-index">02</span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================ faq ============================ */
-
-const FAQ = [
-  {
-    q: '¿Cuánto cuesta la evaluación inicial?',
-    a: 'La evaluación cuesta $45.000 e incluye radiografía panorámica digital y presupuesto por escrito el mismo día. Si partes un tratamiento con nosotros, ese valor se descuenta del plan completo.',
-  },
-  {
-    q: '¿Colocar un implante duele?',
-    a: 'La cirugía se realiza con anestesia local y durante el procedimiento no hay dolor. Al día siguiente existen molestias manejables con analgésicos comunes; la mayoría de nuestros pacientes retoma su rutina en 24 a 48 horas.',
-  },
-  {
-    q: '¿Cuánto demora un implante de principio a fin?',
-    a: 'Entre 3 y 6 meses según tu integración ósea: cirugía de colocación, período de osteointegración y corona definitiva. El calendario exacto te lo entregamos por escrito antes de empezar.',
-  },
-  {
-    q: '¿Quién realiza el procedimiento?',
-    a: 'Siempre uno de los dos especialistas titulados de la clínica. El mismo profesional que evalúa es el que opera y el que hace los controles. No derivamos a profesionales rotativos ni subcontratamos.',
-  },
-  {
-    q: '¿Qué formas de pago aceptan?',
-    a: 'Transferencia, débito y tarjetas de crédito. En tratamientos de mayor monto organizamos cuotas coordinadas directamente con la clínica, siempre por escrito y sin cargos ocultos.',
-  },
-  {
-    q: '¿Cómo es el post-operatorio?',
-    a: 'Control incluido a los siete días y línea directa con tu especialista por WhatsApp durante toda la recuperación. Fuera de horario, urgencias responde al mismo teléfono de siempre.',
-  },
-];
-
-function Faq() {
-  const [open, setOpen] = useState<number | null>(null);
+  const handleSubmit = (ev: React.FormEvent) => {
+    ev.preventDefault();
+    const v = validate();
+    setErrors(v);
+    if (Object.keys(v).length > 0) return;
+    setLoading(true);
+    setSuccess(false);
+    setTimeout(() => {
+      const payload = { nombre: nombre.trim(), tel: tel.trim(), email: email.trim(), motivo, detalle: detalle.trim(), whatsapp, date: new Date().toISOString() };
+      try {
+        localStorage.setItem("obsidiana-lead", JSON.stringify(payload));
+      } catch {}
+      setLoading(false);
+      setSuccess(true);
+      const msg = `Hola OBSIDIANA, quiero agendar evaluación. Soy ${payload.nombre}, motivo: ${payload.motivo}.`;
+      const waUrl = `https://wa.me/56981234567?text=${encodeURIComponent(msg)}`;
+      const mailUrl = `mailto:hola@obsidiana.cl?subject=${encodeURIComponent("Agendar evaluación - " + payload.nombre)}&body=${encodeURIComponent(msg + (payload.detalle ? "\nDetalle: " + payload.detalle : "") + "\nTel: " + payload.tel + (payload.email ? "\nEmail: " + payload.email : ""))}`;
+      if (whatsapp) {
+        window.open(waUrl, "_blank");
+      } else {
+        window.location.href = mailUrl;
+      }
+      console.info("[OBSIDIANA] lead guardado", payload);
+    }, 700);
+  };
 
   return (
-    <section className="sec" id="faq" aria-label="Preguntas frecuentes">
-      <div className="wrap">
-        <div className="sec-head" data-reveal="fade">
-          <p className="kicker">Preguntas</p>
-          <h2 className="h2">Lo que preguntan antes de reservar.</h2>
-        </div>
-        <div className="faq-list" data-reveal="fade">
-          {FAQ.map((f, i) => (
-            <div className="faq-item" key={f.q} data-open={open === i ? 'true' : 'false'}>
-              <button
-                className="faq-q"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                aria-controls={`faq-panel-${i}`}
-              >
-                <span>{f.q}</span>
-                <span className="faq-icon" aria-hidden="true">+</span>
-              </button>
-              <div className="faq-panel" id={`faq-panel-${i}`}>
-                <div className="faq-panel-in">
-                  <p className="faq-a">{f.a}</p>
-                </div>
+    <section id="agenda-obsidiana" className="obs-book" aria-labelledby="agenda-h2">
+      <div className="obs-shell obs-book__shell">
+        <div className="obs-book__col">
+          <p className="obs-kicker">Agenda</p>
+          <h2 id="agenda-h2" className="obs-h2">Agenda tu evaluación. Te responden hoy.</h2>
+          <p className="obs-intro">Elige día y te confirmamos por WhatsApp en el día. Si es urgencia, llama directo.</p>
+
+          <form className="obs-form" onSubmit={handleSubmit} noValidate>
+            <div className="obs-field">
+              <label htmlFor="f-nombre-dentista-b-oscuro-premium">Nombre</label>
+              <input id="f-nombre-dentista-b-oscuro-premium" type="text" placeholder="Tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required aria-invalid={!!errors.nombre} />
+              {errors.nombre && <span className="obs-field__err">{errors.nombre}</span>}
+            </div>
+
+            <div className="obs-field">
+              <label htmlFor="f-tel-dentista-b-oscuro-premium">Teléfono</label>
+              <input id="f-tel-dentista-b-oscuro-premium" type="tel" placeholder="+56 9 1234 5678" value={tel} onChange={(e) => setTel(e.target.value)} required aria-invalid={!!errors.tel} className="tabular" />
+              {errors.tel && <span className="obs-field__err">{errors.tel}</span>}
+            </div>
+
+            <div className="obs-field">
+              <label htmlFor="f-email-dentista-b-oscuro-premium">Email</label>
+              <input id="f-email-dentista-b-oscuro-premium" type="email" placeholder="hola@email.cl" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={!!errors.email} />
+              {errors.email && <span className="obs-field__err">{errors.email}</span>}
+            </div>
+
+            <div className="obs-field">
+              <label htmlFor="f-motivo-dentista-b-oscuro-premium">Motivo</label>
+              <select id="f-motivo-dentista-b-oscuro-premium" value={motivo} onChange={(e) => setMotivo(e.target.value)} required aria-invalid={!!errors.motivo}>
+                <option value="">Selecciona motivo</option>
+                <option value="Evaluación general">Evaluación general</option>
+                <option value="Dolor/urgencia">Dolor/urgencia</option>
+                <option value="Limpieza">Limpieza</option>
+                <option value="Ortodoncia">Ortodoncia</option>
+                <option value="Implante">Implante</option>
+                <option value="Estética">Estética</option>
+                <option value="Otro">Otro</option>
+              </select>
+              {errors.motivo && <span className="obs-field__err">{errors.motivo}</span>}
+            </div>
+
+            <div className="obs-field obs-field--wide">
+              <label htmlFor="f-detalle-dentista-b-oscuro-premium">Cuéntanos</label>
+              <textarea id="f-detalle-dentista-b-oscuro-premium" placeholder="Cuéntanos en una línea" rows={3} value={detalle} onChange={(e) => setDetalle(e.target.value)} />
+            </div>
+
+            <label className="obs-check">
+              <input type="checkbox" checked={whatsapp} onChange={(e) => setWhatsapp(e.target.checked)} />
+              <span>Acepto que me contacten por WhatsApp</span>
+            </label>
+
+            <button type="submit" className="obs-btn obs-btn--solid obs-form__submit" disabled={loading}>
+              {loading ? "Enviando…" : "Agendar evaluación"}
+            </button>
+
+            {success && (
+              <div className="obs-form__ok" role="status" aria-live="polite">
+                <span className="obs-form__okMark" aria-hidden="true">✓</span> Te escribimos hoy · revisa tu WhatsApp
               </div>
-            </div>
-          ))}
+            )}
+          </form>
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ============================ reserva + footer ============================ */
+        <div className="obs-book__side">
+          <a href="tel:+56981234567" className="obs-book__phone tabular">+56 9 8123 4567</a>
+          <a href="mailto:hola@obsidiana.cl" className="obs-book__mail">hola@obsidiana.cl</a>
+          <p className="obs-book__addr">Av. Vitacura 3568, Vitacura, Santiago</p>
+          <p className="obs-book__hours"><span>Lun–Vie 9:00–19:30</span> <span className="obs-dot" aria-hidden="true" /> <span>Sáb 10:00–14:00</span></p>
 
-function Reserva() {
-  return (
-    <section className="sec sec--superficie" id="reserva" aria-label="Reserva">
-      <div className="wrap">
-        <div className="reserva-inner">
-          <div data-reveal="fade">
-            <p className="kicker">Reserva</p>
-            <h2 className="h2">Tu evaluación, esta semana.</h2>
-            <p>
-              <a className="reserva-tel" href={TEL_HREF}>{TEL}</a>
-            </p>
-            <p>
-              <a className="btn" href={TEL_HREF}>Reservar evaluación</a>
-            </p>
-            <p className="reserva-micro">Respondemos personalmente. Sin call centers.</p>
+          <div className="obs-book__rail" aria-label="Ubicación">
+            <span className="obs-book__railDot" aria-hidden="true" />
+            <span className="obs-book__railLine" aria-hidden="true" />
+            <span className="obs-book__railLabel">Metro Manquehue · 4 min a pie</span>
           </div>
-          <dl className="reserva-datos" data-reveal="fade" style={{ transitionDelay: '0.1s' }}>
-            <div>
-              <dt>Correo</dt>
-              <dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
-            </div>
-            <div>
-              <dt>Horario</dt>
-              <dd>Lun–Vie 9:00–19:30 · Sáb con hora</dd>
-            </div>
-            <div>
-              <dt>Dirección</dt>
-              <dd>Las Condes, Santiago</dd>
-            </div>
-          </dl>
+
+          <div className="obs-book__shot">
+            <img
+              src={withBase("media/obsidiana-proof-16x9.png")}
+              alt="Interior premium nocturno de clínica vacía — pasillo con madera oscura y luz lineal cálida"
+              loading="lazy"
+              decoding="async"
+              style={{ aspectRatio: "16 / 9", objectFit: "cover" } as React.CSSProperties}
+              onError={(e) => {
+                const img = e.currentTarget;
+                img.style.display = "none";
+                const parent = img.parentElement;
+                if (parent && !parent.querySelector("[data-falta]")) {
+                  const d = document.createElement("div");
+                  d.className = "obs-missing";
+                  d.setAttribute("data-falta", "obsidiana-proof-16x9.png");
+                  (d as HTMLElement).style.cssText = "aspect-ratio:16/9;background:#1B1917;border:1px dashed #2E2A28;display:grid;place-items:center;color:#9A9590;font:500 0.85rem Outfit";
+                  d.textContent = "falta: obsidiana-proof-16x9.png";
+                  parent.appendChild(d);
+                  console.warn("[OBSIDIANA] falta: obsidiana-proof-16x9.png");
+                }
+              }}
+            />
+          </div>
+
+          <p className="obs-book__trust">Boleta reembolsable · Fonasa nivel 3 · Isapre todas</p>
         </div>
-        <footer className="footer">
-          <span>OBSIDIANA DENTAL — Clínica de Especialidad</span>
-          <span>Las Condes, Santiago · Chile</span>
-          <span>© {new Date().getFullYear()} OBSIDIANA DENTAL</span>
-        </footer>
       </div>
+
+      <footer className="obs-foot">
+        <div className="obs-shell">
+          <p className="obs-foot__line">OBSIDIANA SpA · Av. Vitacura 3568, Vitacura · hola@obsidiana.cl · +56 9 8123 4567</p>
+          <p className="obs-foot__copy">© 2026 OBSIDIANA. Todos los derechos reservados. Valores referenciales.</p>
+        </div>
+      </footer>
     </section>
   );
 }
 
-/* ============================ sticky CTA ============================ */
-
-function StickyCta({ show }: { show: boolean }) {
+function StickyMobileCTA() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const threshold = document.documentElement.scrollHeight * 0.4 - window.innerHeight * 0.4;
+      if (window.scrollY > window.innerHeight * 0.4 || window.scrollY > threshold) setVisible(window.scrollY > window.innerHeight * 0.6);
+      else setVisible(false);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  useEffect(() => {
+    if (visible) document.body.style.paddingBottom = "72px";
+    else document.body.style.paddingBottom = "";
+    return () => {
+      document.body.style.paddingBottom = "";
+    };
+  }, [visible]);
+  if (!visible) return null;
   return (
-    <div className={`sticky-cta${show ? ' sticky-cta--show' : ''}`}>
-      <div className="sticky-cta-inner">
-        <p className="sticky-cta-label">
-          Urgencias dentales,
-          <br />
-          respondemos personalmente
-        </p>
-        <a className="btn" href={TEL_HREF}>Llamar ahora</a>
-      </div>
+    <div className="obs-sticky" role="complementary" aria-label="Agendar evaluación">
+      <a href="#agenda-obsidiana" className="obs-btn obs-btn--solid obs-sticky__btn">Agendar evaluación</a>
     </div>
   );
 }
 
-/* ============================ app ============================ */
-
 export function App() {
-  const { progress, hidden, compact, pastHero } = useScrollState();
-  useRevealObserver();
-
   return (
     <>
-      <div className="progress" style={{ width: `${progress * 100}%` }} aria-hidden="true" />
-      <Cursor />
-      <div className="grano" aria-hidden="true" />
-      <Nav hidden={hidden} compact={compact} />
+      <Header />
       <main>
         <Hero />
-        <Filosofia />
-        <Cifras />
-        <Especialidades />
-        <Precios />
-        <Metodo />
-        <Galeria />
-        <Faq />
-        <Reserva />
+        <SectionEvaluacion />
+        <SectionTratamientos />
+        <SectionEspecialidades />
+        <SectionIsapre />
+        <SectionAgenda />
       </main>
-      <StickyCta show={pastHero} />
+      <StickyMobileCTA />
     </>
   );
 }

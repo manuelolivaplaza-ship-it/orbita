@@ -1,68 +1,33 @@
-import { useEffect } from "react";
-import { Router, useRuta } from "./lib/router";
-import { Navbar, Footer, ProgressBar, Grain, CtaMovil } from "./components/Chrome";
-import { Inicio } from "./pages/Inicio";
-import { Catalogo } from "./pages/Catalogo";
-import { Ficha } from "./pages/Ficha";
-import { Vender } from "./pages/Vender";
-import { Nosotros } from "./pages/Nosotros";
-import { Contacto } from "./pages/Contacto";
-import { rutas, marca, etiquetas } from "./lib/datos";
-
-function Vistas() {
-  const ruta = useRuta();
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    document.documentElement.classList.toggle("is-static", params.has("static"));
-  }, []);
-
-  useEffect(() => {
-    const base = `${marca.nombre} ${marca.sufijo}`;
-    if (ruta === rutas.inicio) document.title = base;
-    else if (ruta.startsWith(rutas.ficha)) document.title = `${base} — ${etiquetas.catalogoUno}`;
-    else {
-      const nombrePagina =
-        ruta.startsWith(rutas.catalogo)
-          ? etiquetas.catalogo
-          : ruta.startsWith(rutas.captacion)
-            ? "Vender su propiedad"
-            : ruta.startsWith(rutas.nosotros)
-              ? "La corredora"
-              : "Contacto";
-      document.title = `${base} — ${nombrePagina}`;
-    }
-  }, [ruta]);
-
-  let vista = <Inicio />;
-  if (ruta.startsWith(rutas.ficha + "/")) {
-    vista = <Ficha id={ruta.slice(rutas.ficha.length + 1)} />;
-  } else if (ruta.startsWith(rutas.catalogo)) {
-    vista = <Catalogo />;
-  } else if (ruta.startsWith(rutas.captacion)) {
-    vista = <Vender />;
-  } else if (ruta.startsWith(rutas.nosotros)) {
-    vista = <Nosotros />;
-  } else if (ruta.startsWith(rutas.contacto)) {
-    vista = <Contacto />;
-  }
-
-  return (
-    <div className="app" key={ruta.startsWith(rutas.ficha) ? ruta : ruta.split("/")[1] || "inicio"}>
-      <Navbar />
-      <main className="vista">{vista}</main>
-      <Footer />
-      <CtaMovil />
-    </div>
-  );
-}
+import { Header } from "./components/Header";
+import { Hero } from "./components/Hero";
+import { Engagement } from "./components/Engagement";
+import { StackReal } from "./components/StackReal";
+import { Sla } from "./components/Sla";
+import { CasosIndustria } from "./components/CasosIndustria";
+import { ComoPartimos } from "./components/ComoPartimos";
+import { Presupuesto } from "./components/Presupuesto";
+import { Reserva } from "./components/Reserva";
+import { Faq } from "./components/Faq";
+import { Footer } from "./components/Footer";
+import { ConversionBars } from "./components/ConversionBars";
 
 export function App() {
   return (
-    <Router>
-      <ProgressBar />
-      <Vistas />
-      <Grain />
-    </Router>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Engagement />
+        <StackReal />
+        <Sla />
+        <CasosIndustria />
+        <ComoPartimos />
+        <Presupuesto />
+        <Reserva />
+        <Faq />
+      </main>
+      <Footer />
+      <ConversionBars />
+    </>
   );
 }

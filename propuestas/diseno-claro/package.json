@@ -1,5 +1,5 @@
 {
-  "name": "propuesta-diseno-claro",
+  "name": "diseno-claro",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "motion": "^13.1.1",
     "react": "^19.0.1",
-    "react-dom": "^19.0.1",
-    "three": "^0.185.1"
+    "react-dom": "^19.0.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
