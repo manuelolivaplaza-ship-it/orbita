@@ -65,8 +65,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
     { label: 'Creaciones', to: '/creaciones' },
     { label: 'Galería', to: '/galeria' },
     { label: 'Servicios', to: '/servicios' },
-    { label: 'Método', to: '/', hash: 'metodo' },
-    { label: 'Precios', to: '/', hash: 'precios' },
+    { label: 'CRM', to: '/crm' },
+    { label: 'Precios', to: '/precios' },
     { label: 'Contacto', to: '/', hash: 'contacto' },
   ];
 

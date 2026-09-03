@@ -1,0 +1,5 @@
+# standby AC era desconocido (Windows default Balanceado = 1800s = 30 min).
+# REVERTIR ASI: powercfg /change standby-timeout-ac 180  (ojo: powercfg usa MINUTOS aqui)
+# y: powercfg /change hibernate-timeout-ac 0
+standby-timeout-ac=desconocido (probable 1800s=30min)
+hibernate-timeout-ac=desconocido

@@ -1,0 +1,57 @@
+{
+  "eter": [
+    {
+      "file": "hero.jpg",
+      "kb": 370,
+      "size": "1920x1282"
+    },
+    {
+      "file": "biblioteca.jpg",
+      "kb": 397,
+      "size": "1200x1500"
+    },
+    {
+      "file": "laboratorio.jpg",
+      "kb": 562,
+      "size": "1920x1280"
+    },
+    {
+      "file": "detalle.jpg",
+      "kb": 132,
+      "size": "1000x1000"
+    }
+  ],
+  "noctua": [
+    {
+      "file": "biblioteca-noche.jpg",
+      "kb": 472,
+      "size": "1920x1775"
+    },
+    {
+      "file": "patio-noche.jpg",
+      "kb": 513,
+      "size": "1920x1280"
+    },
+    {
+      "file": "aula-noche.jpg",
+      "kb": 313,
+      "size": "1200x1500"
+    },
+    {
+      "file": "detalle-noche.jpg",
+      "kb": 140,
+      "size": "1000x1000"
+    }
+  ],
+  "metodo": "Pillow editorial pro: warm_shift+curves_S+contrast+desat+sharpen+vignette (ETER calido editorial #F8F6F0/#14365F, NOCTUA low-key cool #0E1320/#C9A86A), calidad 92 progressive, sin branding, sin personas",
+  "prompts_googleflow": {
+    "hero.jpg": "Patio interior campus universitario vacio mediodia, hormigon claro y madera, bancas vacias luz norte difusa orden obsesivo minimal editorial photorealistic 8k no people no branding",
+    "biblioteca.jpg": "Sala biblioteca luminosa estanterias mesas vacias luz natural lateral documental serena sin ocupantes, editorial daylight",
+    "laboratorio.jpg": "Laboratorio universitario ordenado mesas limpias instrumentos alineados sin ocupantes luz clinica suave editorial",
+    "detalle.jpg": "Macro papel hueso sello seco tipografia relieve luz rasante calida textura papel editorial",
+    "biblioteca-noche.jpg": "Biblioteca universitaria vacia noche mesas madera oscura iluminadas puntual estanterias penumbra low-key editorial cinematic no people",
+    "patio-noche.jpg": "Patio interior campus noche hormigon madera oscura iluminacion rasante calida editorial low-key",
+    "aula-noche.jpg": "Aula taller nocturno ordenado mesas alineadas pizarra limpia luz calida puntual editorial",
+    "detalle-noche.jpg": "Macro papel hueso sello seco dorado NOCTUA sobre tinta luz rasante calida editorial nocturno"
+  }
+}

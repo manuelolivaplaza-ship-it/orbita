@@ -1,0 +1,45 @@
+{
+  "slug": "vinedo-noctua-oscuro",
+  "targets": [
+    {
+      "name": "noctua-hero-16x9.png",
+      "ratio": 1.7777777777777777
+    },
+    {
+      "name": "noctua-hero-9x16.png",
+      "ratio": 0.5625
+    },
+    {
+      "name": "noctua-tile-01-1x1.png",
+      "ratio": 1.0
+    },
+    {
+      "name": "noctua-tile-02-1x1.png",
+      "ratio": 1.0
+    },
+    {
+      "name": "noctua-tile-03-3x4.png",
+      "ratio": 0.75
+    },
+    {
+      "name": "noctua-tile-04-3x4.png",
+      "ratio": 0.75
+    },
+    {
+      "name": "noctua-interior-16x9.png",
+      "ratio": 1.7777777777777777
+    },
+    {
+      "name": "noctua-cata-4x3.png",
+      "ratio": 1.3333333333333333
+    },
+    {
+      "name": "noctua-proof-16x9.png",
+      "ratio": 1.7777777777777777
+    },
+    {
+      "name": "noctua-og-16x9.png",
+      "ratio": 1.7777777777777777
+    }
+  ]
+}

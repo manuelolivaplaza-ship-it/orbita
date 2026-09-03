@@ -1,0 +1,15 @@
+﻿slug,veredicto,detalle
+dentista-b-claro,FALLO,"build=ok; ✗ vs dentista-b-oscuro-premium: CSS 40%, ids 0, silueta 1.00 ← CSS 39% >= 35% vs hermana | ✗ vs dentista-b-teal: CSS 47%, ids 0, silueta 1.00 ← CSS 47% >= 35% vs hermana | ✗ vs salud-mental-eter-claro: CSS 1%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display)"
+dentista-b-oscuro-premium,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 40%, ids 0, silueta 1.00 ← CSS 40% >= 35% vs hermana; tipografía+escala idénticas (var(--font-display)) | ✗ vs salud-mental-eter-claro: CSS 1%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display))"
+dentista-b-azul-cian,OK,build=ok; 
+dentista-b-teal,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 48%, ids 0, silueta 1.00 ← CSS 48% >= 35% vs hermana | ✗ vs dentista-b-oscuro-premium: CSS 35%, ids 0, silueta 1.00 ← CSS 35% >= 35% vs hermana"
+abogado-b-claro,OK,build=ok; 
+abogado-oscuro-premium,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 4%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display)) | ✗ vs dentista-b-oscuro-premium: CSS 2%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display)) | ✗ vs salud-mental-eter-claro: CSS 20%, ids 0, silueta 1.00 ← "
+software-b-azul-cian,OK,build=ok; 
+arquitectura-b-claro,OK,build=ok; 
+arquitectura-claro,OK,build=ok; 
+arquitectura-oscuro-premium,FALLO,"build=ok; ✗ vs arquitectura-b-oscuro: CSS 9%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display))"
+clinica-claro,OK,build=ok; 
+contador-claro,OK,build=ok; 
+concesionaria-eter-claro,OK,build=ok; 
+concesionaria-noctua-oscuro,OK,build=ok; 

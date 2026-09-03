@@ -1,0 +1,59 @@
+/* Orb — estilos mínimos portables. Opcional pero recomendado.
+   Importa este archivo una vez en tu app:  import "./orb.css";
+   Sin Tailwind funciona igual. */
+
+.orb {
+  --orb-body: #111111;
+  --orb-eye: #f5f5f2;
+  --orb-stroke: none;
+  --orb-stroke-width: 0;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  /* El pop burbuja escala desde el centro */
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* Tema claro: Orb negro. Tema oscuro: Orb blanco (como Grok Bot). */
+[data-theme="dark"] .orb,
+.orb--dark {
+  --orb-body: #ffffff;
+  --orb-eye: #111111;
+}
+
+.orb svg {
+  display: block;
+  overflow: visible;
+}
+
+/* Fallback CSS por si el JS tarda: aparece con pop suave.
+   El rAF del componente toma el control y lo sobrescribe. */
+@keyframes orb-spawn-fallback {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.orb[data-appear="true"] {
+  animation: orb-spawn-fallback 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb[data-appear="true"] {
+    animation: none;
+  }
+}

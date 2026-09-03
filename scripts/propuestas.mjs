@@ -26,6 +26,78 @@ function isApp(dir) {
   return fs.existsSync(path.join(dir, 'package.json'));
 }
 
+function isNext(dir) {
+  return (
+    fs.existsSync(path.join(dir, 'next.config.ts')) ||
+    fs.existsSync(path.join(dir, 'next.config.js')) ||
+    fs.existsSync(path.join(dir, 'next.config.mjs'))
+  );
+}
+
+export function exportNextDist(slug) {
+  const dir = path.join(root, slug);
+  const dist = path.join(dir, 'dist');
+  fs.mkdirSync(dist, { recursive: true });
+
+  const pub = path.join(dir, 'public');
+  if (fs.existsSync(pub)) {
+    fs.cpSync(pub, dist, { recursive: true });
+  }
+
+  const nextStatic = path.join(dir, '.next', 'static');
+  if (fs.existsSync(nextStatic)) {
+    fs.cpSync(nextStatic, path.join(dist, '_next', 'static'), { recursive: true });
+  }
+
+  const appServer = path.join(dir, '.next', 'server', 'app');
+  if (!fs.existsSync(appServer)) return false;
+
+  const processHtml = (filePath) => {
+    let content = fs.readFileSync(filePath, 'utf8');
+
+    // 1. Desempaquetar URLs de optimización de Next.js (_next/image?url=...) tanto en src como en srcset
+    content = content.replace(/(?:(?:\/propuestas\/[^\/"'\s]+\/|\/)?_next\/image\?url=)([^&"'\\\s\)]+)(?:(?:&amp;|&)[^"'\\\s\),]+)?/gi, (match, encodedUrl) => {
+      let rawUrl = decodeURIComponent(encodedUrl);
+      if (!rawUrl.startsWith('/')) rawUrl = '/' + rawUrl;
+      return `/propuestas/${slug}${rawUrl}`;
+    });
+
+    // 2. Reescribir rutas absolutas restantes hacia la propuesta aislada (sin duplicar /propuestas/slug/)
+    content = content.replace(/(?<!\/propuestas\/[^\/"'\s]+)\/_next\//g, `/propuestas/${slug}/_next/`);
+    content = content.replace(/(?<!\/propuestas\/[^\/"'\s]+)\/images\//g, `/propuestas/${slug}/images/`);
+    content = content.replace(/(?<!\/propuestas\/[^\/"'\s]+)\/media\//g, `/propuestas/${slug}/media/`);
+    content = content.replace(/(?<!\/propuestas\/[^\/"'\s]+)\/icon\.svg/g, `/propuestas/${slug}/icon.svg`);
+
+    // 3. Limpieza de seguridad ante cualquier doble prefijo
+    const doublePrefixRegex = new RegExp(`/propuestas/${slug}/propuestas/${slug}/`, 'g');
+    content = content.replace(doublePrefixRegex, `/propuestas/${slug}/`);
+
+    return content;
+  };
+
+  const walk = (currentDir, relDir = '') => {
+    for (const item of fs.readdirSync(currentDir, { withFileTypes: true })) {
+      const full = path.join(currentDir, item.name);
+      if (item.isDirectory()) {
+        walk(full, path.join(relDir, item.name));
+      } else if (item.name.endsWith('.html')) {
+        const transformed = processHtml(full);
+        const targetDir = path.join(dist, relDir);
+        fs.mkdirSync(targetDir, { recursive: true });
+        fs.writeFileSync(path.join(targetDir, item.name), transformed, 'utf8');
+        if (item.name !== 'index.html' && !item.name.startsWith('_')) {
+          const subDir = path.join(targetDir, item.name.replace(/\.html$/, ''));
+          fs.mkdirSync(subDir, { recursive: true });
+          fs.writeFileSync(path.join(subDir, 'index.html'), transformed, 'utf8');
+        }
+      }
+    }
+  };
+
+  walk(appServer);
+  return true;
+}
+
 function run(bin, args, cwd, envExtra = {}) {
   const result = spawnSync(bin, args, {
     cwd,
@@ -37,8 +109,7 @@ function run(bin, args, cwd, envExtra = {}) {
 }
 
 function shouldInstall(dir) {
-  // En Vercel NODE_ENV=production y un npm install por carpeta omite Vite
-  // (devDependency) y alarga el build hasta el timeout.
+  // En Vercel NODE_ENV=production y un npm install por carpeta omite devDependencies
   if (process.env.VERCEL === '1' || process.env.SKIP_PROPUESTA_INSTALL === '1') return false;
   return !fs.existsSync(path.join(dir, 'node_modules'));
 }
@@ -49,7 +120,36 @@ function buildOne(slug) {
     console.log(`· ${slug} (estática, nada que construir)`);
     return;
   }
+
+  const metaPath = path.join(dir, 'meta.json');
+  if (fs.existsSync(metaPath)) {
+    try {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+      if (meta.hidden) {
+        console.log(`· ${slug} (oculta)`);
+        return;
+      }
+    } catch {}
+  }
+
   console.log(`→ Construyendo propuesta aislada: ${slug}`);
+  if (isNext(dir)) {
+    const appServerIndex = path.join(dir, '.next', 'server', 'app', 'index.html');
+    if (!fs.existsSync(appServerIndex)) {
+      if (shouldInstall(dir)) {
+        run('npm', ['install', '--include=dev'], dir, {
+          NODE_ENV: 'development',
+          npm_config_production: 'false',
+        });
+      }
+      run('npx', ['next', 'build'], dir, {
+        NEXT_TELEMETRY_DISABLED: '1',
+      });
+    }
+    exportNextDist(slug);
+    return;
+  }
+
   if (shouldInstall(dir)) {
     run('npm', ['install', '--include=dev'], dir, {
       NODE_ENV: 'development',

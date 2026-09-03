@@ -1,0 +1,22 @@
+Voy a revisar el workspace y armar un sitio dental con paleta azul-cian, contenido chileno y decisiones de diseño bien definidas. Empiezo por ver qué hay en el proyecto.El workspace está vacío. Voy a mirar sitios hermanos y armar un concepto sólido: marca, paleta, páginas y contenido chileno, sin levantar el servidor.Hay un sitio dental ya listo en Propuestas. Lo reviso para diferenciar esta variante azul-cian y subir el nivel.Concepto: **CIAN**, clínica en Vitacura. Claridad diagnóstica, paleta fría azul-cian, distinto al atelier cálido de Alba. Scaffold del proyecto y fotografías editoriales en paralelo.El scaffold chocó con el log del workspace. Lo armo en una carpeta temporal y sigo con el resto de la fotografía.Las fotos de espacio quedaron muy bien. Sigo con equipo, sonrisas y casos, y espero el scaffold.Retratos coherentes. Muevo el proyecto a la raíz, instalo shadcn y genero los casos antes/después.Los antes/después funcionan. Copio las fotos al proyecto y empiezo a escribir marca, tokens y páginas.Escribo el sistema de diseño, los datos de la clínica y los componentes de layout.Listo. El sitio es **Cian**, una clínica de odontología contemporánea en Vitacura, Santiago. Next.js 16, Tailwind y shadcn, paleta clara azul-cian.
+
+**La idea:** *ver para decidir*. El diagnóstico se muestra en pantalla, el plan llega en pesos el mismo día. El cian es una línea de agua que recorre el edificio, el escáner y la marca. No es un atelier cálido: es clínico, frío y preciso.
+
+**Decisiones que importan**
+- Marca de una sílaba, como un laboratorio, no un spa
+- Syne + Manrope (geométrico, no serif de boutique)
+- Footer navy, como el Pacífico al anochecer, en un sitio por lo demás claro
+- WhatsApp y reembolso isapre como piezas de primer orden (Chile)
+- Honorarios en pesos, boleta, estacionamiento, Costanera
+- Menú de tratamientos como protocolo numerado, no como catálogo de 22 especialidades
+
+**Páginas:** inicio, clínica, tratamientos (8 fichas), equipo, casos con antes/después, tecnología, primera visita, reembolso isapre, agendar hora, contacto, legal.
+
+Para verlo:
+
+```bash
+npm install
+npm run dev
+```
+
+Las solicitudes de hora quedan en `data/horas.json`. No levanté el servidor: cuando lo abras, mira sobre todo el hero con la línea de escaneo, el canal de agua en recepción y el selector de isapres.

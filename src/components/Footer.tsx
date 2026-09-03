@@ -253,8 +253,8 @@ export const Footer: React.FC = () => {
                 <li><Link to="/creaciones" className="hover:text-white transition-colors">Creaciones</Link></li>
                 <li><Link to="/galeria" className="hover:text-white transition-colors">Galería de propuestas</Link></li>
                 <li><Link to="/servicios" className="hover:text-white transition-colors">Servicios</Link></li>
-                <li><Link to="/#metodo" className="hover:text-white transition-colors">Método</Link></li>
-                <li><Link to="/#precios" className="hover:text-white transition-colors">Precios</Link></li>
+                <li><Link to="/crm" className="hover:text-white transition-colors">Panel CRM</Link></li>
+                <li><Link to="/precios" className="hover:text-white transition-colors">Precios</Link></li>
                 <li><Link to="/#contacto" className="hover:text-white transition-colors">Contacto</Link></li>
               </ul>
             </div>
@@ -266,7 +266,7 @@ export const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-2 text-sm text-white/85">
                 <li><Link to="/" className="hover:text-white transition-colors">Origen</Link></li>
-                <li><Link to="/#metodo" className="hover:text-white transition-colors">Cómo trabajamos</Link></li>
+                <li><Link to="/precios" className="hover:text-white transition-colors">Planes y Precios</Link></li>
                 <li><Link to="/#faq" className="hover:text-white transition-colors">Preguntas</Link></li>
                 <li><a href="mailto:hola@orbita.studio" className="hover:text-white transition-colors">Unirse</a></li>
               </ul>

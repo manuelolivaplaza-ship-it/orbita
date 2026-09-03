@@ -8,9 +8,11 @@ import NotFoundPage from './pages/NotFoundPage';
 import PreviewSitePage from './pages/PreviewSitePage';
 import PropuestaPage from './pages/PropuestaPage';
 import AdminPage from './pages/AdminPage';
+import CrmPage from './pages/CrmPage';
 import LegalPage from './pages/LegalPage';
 import GaleriaPage from './pages/GaleriaPage';
 import GaleriaSectorPage from './pages/GaleriaSectorPage';
+import PreciosPage from './pages/PreciosPage';
 
 function RedirectTrabajo() {
   const { slug } = useParams();
@@ -22,6 +24,8 @@ export default function App() {
     <Routes>
       <Route path="preview/:slug" element={<PreviewSitePage />} />
       <Route path="propuesta/:slug" element={<PropuestaPage />} />
+      <Route path="crm" element={<CrmPage />} />
+      <Route path="crm/:slug" element={<CrmPage />} />
       <Route path="admin" element={<AdminPage />} />
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
@@ -32,6 +36,7 @@ export default function App() {
         <Route path="trabajo" element={<Navigate to="/creaciones" replace />} />
         <Route path="trabajo/:slug" element={<RedirectTrabajo />} />
         <Route path="servicios" element={<ServiciosPage />} />
+        <Route path="precios" element={<PreciosPage />} />
         <Route path="privacidad" element={<LegalPage kind="privacidad" />} />
         <Route path="terminos" element={<LegalPage kind="terminos" />} />
         <Route path="*" element={<NotFoundPage />} />

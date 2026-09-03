@@ -1,0 +1,41 @@
+{
+ "slug": "dentista-b-claro",
+ "targets": [
+  {
+   "name": "serena-dental-hero-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "serena-dental-hero-9x16.png",
+   "ratio": 0.5625
+  },
+  {
+   "name": "serena-dental-tile-01-1x1.png",
+   "ratio": 1.0
+  },
+  {
+   "name": "serena-dental-tile-02-3x4.png",
+   "ratio": 0.75
+  },
+  {
+   "name": "serena-dental-tile-03-1x1.png",
+   "ratio": 1.0
+  },
+  {
+   "name": "serena-dental-tile-04-3x4.png",
+   "ratio": 0.75
+  },
+  {
+   "name": "serena-dental-interior-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "serena-dental-proof-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "serena-dental-og-16x9.png",
+   "ratio": 1.777778
+  }
+ ]
+}

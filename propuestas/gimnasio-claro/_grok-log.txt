@@ -1,0 +1,14 @@
+Voy a revisar el workspace y las convenciones del proyecto para armar un sitio de gimnasio claro, luminoso y en español de Chile.El directorio está vacío: voy a construir un club de entrenamiento con identidad propia, luz natural y contenido chileno. Empiezo por el andamiaje y la dirección visual.Sigo generando el set fotográfico y espero a que termine el andamiaje.El log de Grok bloqueaba el scaffold; lo aparto y vuelvo a crear el proyecto.El proyecto quedó en `web`; lo subo a la raíz y configuro el sistema de diseño.Las fotos tienen el tono correcto. Reviso el resto, copio assets e instalo dependencias.La fotografía quedó coherente. Ahora armo identidad, sistema visual y todas las páginas.El linter marcó dos `setState` en efectos; los reemplazo por el patrón que recomienda React 19.Quedó **ALBA**, un club de entrenamiento en Lo Barnechea: claro, de papel y cobre, no el gimnasio oscuro de siempre.
+
+La paleta es crema, tinta y cobre chileno. La tipografía es Fraunces + Outfit. Toda la fotografía es propia (salas, terraza a los Andes, equipo, café con lúcuma y maqui). El contenido está en español de Chile: precios en CLP, WhatsApp, tutear, Lo Barnechea.
+
+**Páginas**
+- Inicio — titular enorme, “Luz de Santiago” según la hora real, recorrido horizontal de salas
+- Espacios — salón, fuerza, reforma, terraza, frío, lockers, café
+- Entrenamiento — Fuerza, Reforma, Pulso, Tierra, Cerro, Frío
+- Equipo — Patricia León y cuatro entrenadores
+- Clases — tablero semanal con el día de hoy marcado
+- Membresías — Pase del día, Alba, Alba Luz, Atelier (sin matrícula)
+- Visita — formulario + WhatsApp
+
+Para verlo: `npm run dev`. El build de producción ya pasó.Ese comando era el andamiaje inicial, que falló por un archivo del sistema; el sitio ya está armado en la raíz del proyecto y el build pasó. Podés revisar con `npm run dev`.

@@ -1,0 +1,13 @@
+Voy a armar un sitio de veterinaria con paleta teal, contenido en español de Chile y un diseño que se sienta premium. Primero reviso el workspace y las convenciones del stack.El workspace está vacío; voy a mirar sitios hermanos (veterinaria oscura y clínicas teal) para calzar el nivel y no repetir el mismo enfoque.La clínica se llamará **Estuario**: hospital veterinario en Isla Teja, Valdivia, con paleta papel cálido y teal de río — distinta a las otras variantes. Empiezo el proyecto y las fotos de marca.Sigo con el resto de fotografías mientras Next termina de instalarse.Reintento el scaffold (el log de Grok bloqueaba la carpeta) y completo las fotos que faltan.El log de Grok tiene el directorio bloqueado; armo el proyecto en una carpeta temporal y lo subo.Las fotos de la fachada, el patio de arrayanes y la recepción con lluvia ya marcan el tono. Limpio un par de retratos e inicializo el sistema de UI.Empiezo el sistema de contenido y el diseño; en paralelo termino de instalar los componentes.Listo. El sitio es **Estuario**, un hospital veterinario en Isla Teja, Valdivia, a orillas del Calle-Calle.
+
+**Qué es, y por qué no es “otra clínica con patitas”**
+- Paleta de **papel cálido + teal de río** (no menta spa). Tipografía Fraunces + Outfit.
+- La decisión de diseño es un **hospital de verdad** (UCI 24 h, pabellón, laboratorio) con la calma de un edificio de madera y vidrio sobre el agua.
+- El home se parte en dos orillas: **Duele ahora** / **Hay hora**. Eso es el uso real de una veterinaria.
+- Barra fija de urgencias, triaje rojo/ámbar/verde, salas perro/gato separadas, internación con visitas a las 12:00 y 18:30.
+- Contenido en español de Chile: tutores, hora (no “cita”), pesos, boleta, microchip, lluvia, UACh.
+
+**Páginas (27 rutas, build OK)**
+Inicio, clínica, servicios (9 fichas), equipo, urgencias 24 h, internación, agendar hora, contacto, privacidad, aviso legal, cookies.
+
+Cuando lo quieras ver: `npm run dev`. No levanté localhost.Ese aviso es de un intento viejo de `create-next-app` en la carpeta (chocaba con `_grok-log.txt`). Ya quedó resuelto: el sitio **Estuario** está armado y el build pasó. No hay nada más que hacer.

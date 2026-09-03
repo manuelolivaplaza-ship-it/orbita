@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="100%" height="100%" fill="#0E1113"/>
+<rect x="0.5" y="0.5" width="1199" height="674" fill="none" stroke="#2E3330" stroke-width="1"/>
+<rect x="80" y="80" width="1040" height="515" fill="#191C1E" stroke="#2E3330"/>
+<polygon points="380,130 820,130 760,520 440,520" fill="#24282B" stroke="#2E3330"/>
+<polygon points="480,130 720,130 690,520 510,520" fill="#0E1113" stroke="#2E3330" opacity="0.9"/>
+<g opacity="0.35" fill="#C8A96A">
+  <rect x="520" y="145" width="18" height="8" rx="1"/><rect x="662" y="145" width="18" height="8" rx="1"/>
+  <rect x="530" y="200" width="14" height="6" rx="1"/><rect x="656" y="200" width="14" height="6" rx="1"/>
+</g>
+<g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+  <text x="600" y="610" font-size="10" letter-spacing="3.2" fill="#C8A96A" font-weight="600">PASILLO — 16:9</text>
+  <text x="600" y="626" font-size="8" letter-spacing="1.4" fill="#9AA0A6">pasillo nocturno simétrico · focos cálidos · sereno</text>
+</g>
+</svg>

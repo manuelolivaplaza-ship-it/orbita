@@ -1,7 +1,8 @@
 {
-  "title": "OBSIDIANA — Clínica Odontológica · Propuesta Órbita",
-  "client": "OBSIDIANA",
+  "title": "OBSIDIANA — Odontología de Especialista en Vitacura · Propuesta Órbita",
+  "client": "Obsidiana Odontología",
   "brand": "OBSIDIANA",
-  "sector": "dentista",
-  "description": "Propuesta oscuro premium boutique nocturna para clínica dental chilena: especialista, trazabilidad, precio honesto en noche."
+  "sector": "dental",
+  "variant": "oscuro",
+  "description": "Odontología boutique en Vitacura: scanner 3D, plan fotografiado y presupuesto por escrito."
 }

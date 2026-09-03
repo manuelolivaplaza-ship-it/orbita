@@ -166,7 +166,13 @@ export default function PropuestaPage() {
           referrerPolicy="no-referrer"
         />
       )}
-      <PreviewReturnPopup name={label} labelTag="Propuesta Órbita" backUrl={backUrl} />
+
+      <PreviewReturnPopup
+        name={label}
+        labelTag="Propuesta Órbita"
+        backUrl={backUrl}
+        crmUrl={`/crm/${slug}`}
+      />
 
       {/* Navegación entre propuestas del mismo sector */}
       {prev && (

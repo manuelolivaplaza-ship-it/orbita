@@ -10,3 +10,11 @@ coverage/
 *.log
 .env*
 !.env.example
+.*-estado.json
+*.backup*
+*.bak
+COLA-V2*
+scripts/_shots/
+_shots/
+nul
+

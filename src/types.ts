@@ -3,6 +3,13 @@ export interface PlanItem {
   name: string;
   price: string;
   priceRaw: number;
+  priceUf?: string;
+  priceUfRaw?: number;
+  monthlyPrice?: string;
+  monthlyPriceRaw?: number;
+  monthlyPriceUf?: string;
+  monthlyPriceUfRaw?: number;
+  monthlyFeatures?: string[];
   period?: string;
   description: string;
   features: string[];

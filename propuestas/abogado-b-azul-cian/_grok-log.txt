@@ -1,0 +1,11 @@
+Voy a explorar el workspace y armar un sitio de abogados en español de Chile, con paleta azul-cian y un diseño que se sienta premium. No levantaré localhost.Hay sitios hermanos en la misma carpeta. Voy a leer el contenido y la paleta para que este estudio azul-cian quede a la misma altura, no como una plantilla genérica.ATRIO ya cubre la casa de Ñuñoa; esta variante tiene que ser otra firma, otra idea y otra paleta. Voy a revisar el resto de sitios hermanos para no repetir el mismo estudio.Concepto: **CAUCE**, un estudio en Providencia orilla del Mapocho — paleta hielo y cian, distinta de ATRIO y RIVERA. Empiezo por el andamiaje y las imágenes.Las primeras fotos de la oficina ya están. Sigo con el equipo, más interiores y el contenido del estudio.Copio las fotos al proyecto y escribo la identidad, el contenido chileno y el sistema visual.Las fotos funcionan: Mapocho, cordillera, luz cian. Ahora armo el sistema visual y las páginas.Listo: **CAUCE**, un estudio jurídico en Providencia, orilla del Mapocho. Paleta hielo + cian, distinta de las otras variantes de abogados.
+
+**La idea.** Un asunto tiene un cauce — procedimiento, plazo, foro — o no lo tiene. Si no lo tiene, se lo dicen en la primera hora. No empujan el río.
+
+**Qué hay**
+- Next.js 16 + Tailwind 4, contenido en español de Chile
+- Home, estudio, 5 afluentes (laboral, familia, consumidor/SERNAC, civil e inmobiliario, empresa), equipo, asuntos, contacto, aviso legal y privacidad
+- Cinco abogados con retrato, formación y colegiatura
+- Honorarios en UF + IVA, sondaje a $48.000, validación de RUT
+- Fotos propias: sala con el Mapocho y la cordillera, fachada, equipo
+- El build compiló las 24 rutas. No levanté localhost.

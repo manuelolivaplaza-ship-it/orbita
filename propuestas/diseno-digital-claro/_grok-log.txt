@@ -1,0 +1,1 @@
+Voy a revisar el workspace y las convenciones de diseño para armar un sitio luminoso, en español de Chile, con decisiones de producto claras.El workspace está vacío salvo un log; voy a mirar la plantilla y sitios vecinos para alinear estructura, build estático y tono.

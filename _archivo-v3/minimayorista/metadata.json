@@ -1,0 +1,6 @@
+{
+  "name": "MiniMayorista",
+  "description": "Supermercado chileno de venta al por menor con precios de mayorista y despacho a domicilio en Santiago.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

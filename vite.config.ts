@@ -219,7 +219,14 @@ function propuestasPlugin(): Plugin {
   const root = path.resolve(__dirname, 'propuestas');
 
   const resolveFile = (urlPath: string) => {
-    const rel = decodeURIComponent(urlPath.replace(/^\/propuestas\/?/, '')).split('?')[0];
+    // Limpiar posibles duplicaciones accidentales de prefijos /propuestas/slug/
+    let cleaned = urlPath;
+    const doubleMatch = cleaned.match(/\/propuestas\/([a-zA-Z0-9_-]+)\/propuestas\/\1\//);
+    if (doubleMatch) {
+      cleaned = cleaned.replace(doubleMatch[0], `/propuestas/${doubleMatch[1]}/`);
+    }
+
+    const rel = decodeURIComponent(cleaned.replace(/^\/propuestas\/?/, '')).split('?')[0];
     if (!rel || rel.includes('..')) return null;
     const parts = rel.split('/').filter(Boolean);
     const slug = parts[0];
@@ -228,9 +235,14 @@ function propuestasPlugin(): Plugin {
     const folder = path.join(root, slug);
     if (!fs.existsSync(folder) || !fs.statSync(folder).isDirectory()) return null;
 
-    const rest = parts.slice(1).join('/') || 'index.html';
+    let rest = parts.slice(1).join('/') || 'index.html';
+    if (rest.startsWith(`propuestas/${slug}/`)) {
+      rest = rest.replace(`propuestas/${slug}/`, '');
+    }
     const app = isAppFolder(folder);
-    const bases = app ? [path.join(folder, 'dist'), folder] : [folder];
+    const bases = app
+      ? [path.join(folder, 'dist'), path.join(folder, 'public'), folder]
+      : [folder];
 
     for (const base of bases) {
       let file = path.resolve(base, rest);
@@ -278,6 +290,73 @@ function propuestasPlugin(): Plugin {
       server.watcher.on('unlink', invalidateCatalogo);
 
       server.middlewares.use((req, res, next) => {
+        // 1. Interceptar peticiones a _next/image?url=...
+        if (req.url && req.url.includes('_next/image')) {
+          try {
+            const urlObj = new URL(req.url, 'http://localhost');
+            const targetUrl = urlObj.searchParams.get('url');
+            if (targetUrl) {
+              const decoded = decodeURIComponent(targetUrl);
+              let slug = '';
+              const propMatch = req.url.match(/\/propuestas\/([a-zA-Z0-9_-]+)\//);
+              if (propMatch) {
+                slug = propMatch[1];
+              } else if (req.headers.referer) {
+                const refMatch = req.headers.referer.match(/\/propuestas\/([a-zA-Z0-9_-]+)/);
+                if (refMatch) slug = refMatch[1];
+              }
+
+              if (slug) {
+                const folder = path.join(root, slug);
+                const cleanRel = decoded.replace(/^\//, '');
+                const candidates = [
+                  path.join(folder, 'dist', cleanRel),
+                  path.join(folder, 'public', cleanRel),
+                  path.join(folder, cleanRel),
+                ];
+                for (const cand of candidates) {
+                  if (fs.existsSync(cand) && fs.statSync(cand).isFile()) {
+                    const buf = fs.readFileSync(cand);
+                    res.setHeader('Content-Type', MIME[path.extname(cand).toLowerCase()] || 'image/jpeg');
+                    res.setHeader('Content-Length', buf.length);
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+                    res.end(buf);
+                    return;
+                  }
+                }
+              }
+            }
+          } catch {
+            // fallback
+          }
+        }
+
+        // 2. Interceptar rutas relativas a la raíz (/images/ o /media/) cuando el referer es un iframe de propuesta
+        if (req.url && (req.url.startsWith('/images/') || req.url.startsWith('/media/')) && req.headers.referer) {
+          const refMatch = req.headers.referer.match(/\/propuestas\/([a-zA-Z0-9_-]+)/);
+          if (refMatch) {
+            const slug = refMatch[1];
+            const folder = path.join(root, slug);
+            const cleanRel = req.url.replace(/^\//, '').split('?')[0];
+            const candidates = [
+              path.join(folder, 'dist', cleanRel),
+              path.join(folder, 'public', cleanRel),
+            ];
+            for (const cand of candidates) {
+              if (fs.existsSync(cand) && fs.statSync(cand).isFile()) {
+                const buf = fs.readFileSync(cand);
+                res.setHeader('Content-Type', MIME[path.extname(cand).toLowerCase()] || 'image/jpeg');
+                res.setHeader('Content-Length', buf.length);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+                res.end(buf);
+                return;
+              }
+            }
+          }
+        }
+
         if (!req.url?.startsWith('/propuestas/')) return next();
         const file = resolveFile(req.url);
         if (!file) {
@@ -285,9 +364,9 @@ function propuestasPlugin(): Plugin {
           res.end();
           return;
         }
+        const buf = fs.readFileSync(file);
         res.setHeader('Content-Type', MIME[path.extname(file).toLowerCase()] || 'application/octet-stream');
-        // Las propuestas se embeben en iframes con sandbox (origen opaco):
-        // sin CORS los assets módulo/CSS no cargan.
+        res.setHeader('Content-Length', buf.length);
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Cache-Control', 'no-cache, must-revalidate');
         if (req.method === 'HEAD') {
@@ -295,7 +374,7 @@ function propuestasPlugin(): Plugin {
           res.end();
           return;
         }
-        fs.createReadStream(file).pipe(res);
+        res.end(buf);
       });
     },
     closeBundle() {
@@ -336,6 +415,13 @@ export default defineConfig(() => {
     },
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
+      watch: {
+        ignored: [
+          '**/propuestas/**/dist/**',
+          '**/propuestas/**/.next/**',
+          '**/propuestas/**/node_modules/**',
+        ],
+      },
     },
     build: {
       rollupOptions: {

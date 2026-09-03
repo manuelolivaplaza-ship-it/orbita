@@ -10,7 +10,7 @@ export const FeaturedWork: React.FC = () => {
   return (
     <section
       id="creaciones"
-      className="relative z-10 scroll-mt-24 border-t border-zinc-200/80 bg-white px-6 py-24 sm:py-32"
+      className="relative z-10 scroll-mt-24 border-t border-zinc-200/80 bg-white px-4 py-16 sm:px-6 sm:py-28"
     >
       <div className="mx-auto max-w-[88rem]">
         <div className="mb-12 grid gap-8 lg:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10">

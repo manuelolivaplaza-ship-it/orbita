@@ -1,0 +1,23 @@
+Voy a revisar el workspace y armar una marca y un sitio Next.js claro y luminoso, con contenido en español de Chile. No voy a levantar localhost.El workspace está vacío: voy a construir una marca editorial luminosa y un sitio Next.js completo, con imágenes propias y copy en español de Chile. No levantaré el servidor.Mientras se crea el proyecto, genero la fotografía de marca: luz de Santiago, estudio, casos y equipo.El scaffold falló por un archivo de log; lo aparto y vuelvo a crear el proyecto.El proyecto Next.js ya está creado. Ahora lo subo a la raíz, copio las fotos y reviso la estructura base.Las fotos quedaron con la paleta correcta. Reviso convenciones de Next 16 y empiezo a escribir el sistema de diseño y las páginas.Las fotos tienen la luz correcta. Ahora armo el sistema de diseño, el contenido en español de Chile y las páginas.El build ya compiló; ahora corrijo los dos avisos de ESLint en el menú y en las animaciones.Quedó **Alba**, un estudio de software en Lastarria, Santiago. El sitio es Next.js 16, claro y luminoso de punta a punta: papel crema, cobre (Chile), tipografía Fraunces + Geist, y fotografía de primera luz.
+
+**Cómo se ve**
+- Fondo siempre claro. Sin modo oscuro.
+- El cursor arrastra un destello cálido; hay grano de película y una línea de cobre al hacer scroll.
+- Reloj en hora Santiago (`amanecer`, `mañana`, `atardecer`…).
+- Copy en español de Chile, tono de taller, no de agencia.
+
+**Páginas**
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero, manifiesto, casos, método, equipo |
+| `/trabajo` | Índice de encargos |
+| `/trabajo/nativa` | Banca privada |
+| `/trabajo/puerto-lumen` | Torre de control portuaria |
+| `/trabajo/clinica-alto` | Ficha clínica |
+| `/trabajo/cultiva` | Agronegocio / exportación |
+| `/servicios` | Producto, plataformas, sistemas, ingeniería |
+| `/estudio` | Historia, principios, equipo, Lastarria |
+| `/contacto` | Formulario + WhatsApp |
+| `/privacidad` | Ley 19.628 |
+
+Para verlo: `npm run dev`. El build de producción ya compiló; no levanté el servidor.

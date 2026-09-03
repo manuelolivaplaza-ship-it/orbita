@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800">
+<rect width="100%" height="100%" fill="#F8F5EF"/>
+<rect x="0.5" y="0.5" width="639" height="799" fill="none" stroke="#E2DDD4" stroke-width="1"/>
+<rect x="80" y="80" width="480" height="560" fill="white" stroke="#E2DDD4"/>
+<!-- padrón simulation -->
+<rect x="110" y="115" width="420" height="260" fill="#EDE8DC" stroke="#E2DDD4"/>
+<line x1="130" y1="155" x2="510" y2="155" stroke="#E2DDD4" opacity="0.7"/>
+<line x1="130" y1="175" x2="510" y2="175" stroke="#E2DDD4" opacity="0.5"/>
+<line x1="130" y1="195" x2="410" y2="195" stroke="#E2DDD4" opacity="0.4"/>
+<line x1="130" y1="215" x2="460" y2="215" stroke="#E2DDD4" opacity="0.4"/>
+<rect x="360" y="225" width="140" height="90" fill="white" stroke="#E2DDD4" opacity="0.85"/>
+<line x1="375" y1="240" x2="485" y2="240" stroke="#9E2B1E" opacity="0.18" stroke-width="1.2"/>
+<!-- llave -->
+<g transform="translate(160,420)">
+  <rect x="0" y="28" width="170" height="14" rx="7" fill="#121416" opacity="0.9"/>
+  <rect x="165" y="18" width="32" height="34" rx="6" fill="white" stroke="#E2DDD4"/>
+  <polygon points="202,35 215,30 215,40" fill="#C9B99A" stroke="#E2DDD4"/>
+  <line x1="20" y1="35" x2="140" y2="35" stroke="white" opacity="0.25" stroke-width="1"/>
+</g>
+<g opacity="0.04" stroke="#121416" stroke-width="0.6">
+  <line x1="0" y1="80" x2="640" y2="80"/><line x1="0" y1="640" x2="640" y2="640"/>
+</g>
+<g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+  <text x="320" y="720" font-size="10" letter-spacing="3.2" fill="#9E2B1E" font-weight="600">STILL — 4:5</text>
+  <text x="320" y="736" font-size="8" letter-spacing="1.4" fill="#8B8680">llave + padrón sin marca + lápiz técnico · papel hueso</text>
+</g>
+<g font-family="IBM Plex Mono, monospace" font-size="7" letter-spacing="1.2" fill="#8B8680"><text x="14" y="786">ÉTER — STILL</text><text x="14" y="794" fill="#9E2B1E">— LUZ NATURAL · SIN PERSONAS</text></g>
+</svg>

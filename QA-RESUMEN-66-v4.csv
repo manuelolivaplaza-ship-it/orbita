@@ -1,0 +1,6 @@
+﻿slug,veredicto,detalle
+dentista-b-claro,FALLO,"build=ok; ✗ vs dentista-b-oscuro-premium: CSS 1%, ids 0, silueta 1.00 ← firma motion v3 presente en ambos"
+dentista-b-oscuro-premium,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 1%, ids 0, silueta 1.00 ← firma motion v3 presente en ambos | ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+dentista-b-teal,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 2%, ids 0, silueta 1.00 ← firma motion v3 presente en ambos | ✗ vs dentista-b-oscuro-premium: CSS 3%, ids 0, silueta 1.00 ← firma motion v3 presente en ambos | ✗ vs gimnasio-claro: CSS 0%, ids 0, silueta 1.00 ← firma motion v3 presente en ambos"
+abogado-oscuro-premium,FALLO,"build=ok; ✗ vs salud-mental-eter-claro: CSS 20%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display))"
+arquitectura-oscuro-premium,FALLO,"build=ok; ✗ vs arquitectura-b-oscuro: CSS 9%, ids 0, silueta 1.00 ← tipografía+escala idénticas (var(--font-display))"

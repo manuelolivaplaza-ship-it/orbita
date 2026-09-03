@@ -1,0 +1,14 @@
+Voy a construir un sitio de clínica con presencia real: diseño luminoso, contenido en español de Chile y decisiones de producto concretas. Primero reviso el workspace y las convenciones de stack.El workspace está vacío, así que voy a definir identidad, stack y páginas antes de escribir código. Reviso el nivel de los otros sitios del mismo folder para no bajar el listón.Hay sitios “claro” hermanos con un listón alto. Voy a leer su arquitectura y el tono visual para construir una clínica distinta, no una copia.Voy a construir **CLARO**: una clínica boutique en Providencia cuya marca es la consulta de 45 minutos, a la luz del día. Empiezo por el esqueleto de Next.js y las fotografías canónicas.Las dos fotos canónicas ya están. Las reviso y, a partir de ellas, derivo interiores y retratos con la misma luz.La arquitectura quedó con la luz que buscaba. A partir de esas dos fotos derivo el resto de interiores y empiezo a escribir el sistema.Los interiores quedaron coherentes con la casa. Sigo con retratos del equipo y copio las fotos de arquitectura.Los ocho retratos ya están. Los reviso para asignar cada cara a un médico y, si hace falta, regenero mesa y luz.Los retratos encajan con el tono de la casa. Los nombro, armo identidad y datos, y escribo el sitio encima.Identidad y fotos listas. Ahora armo el sistema visual y los componentes de la casa.Sigue la página de inicio y el resto de rutas: es el corazón del sitio.**CLARO** está armada: una clínica boutique en Los Conquistadores 2170, Providencia. La marca es el tiempo — **45 minutos a la luz del día** — no un mall médico ni un hospital.
+
+La casa de los años 40 con pabellón de vidrio, patio de olivos y los Andes al fondo recorre todo el sitio: fotografía propia, retratos del equipo, tipografía Fraunces + Outfit, paleta lino / oro de mañana / tinta.
+
+**Qué vas a encontrar**
+
+- Inicio cinematográfico, reloj en hora de Santiago y planta de la casa clicable
+- 8 especialidades con ficha, arancel y médico (interna, cardio, endocrino, gastro, neuro, gineco, derma, salud mental)
+- Equipo con biografía, formación y frase propia
+- Primera hora, laboratorio con valores en pesos, convenios isapre/Fonasa
+- Agenda en tres pasos (sala → tramo → datos, con RUT chileno)
+- Contacto, mapa, privacidad y aviso legal
+
+El build de producción compiló las 33 rutas. No levanté servidor: cuando quieras verlo, `npm run dev`.

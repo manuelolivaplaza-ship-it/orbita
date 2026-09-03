@@ -1,0 +1,14 @@
+Voy a revisar el workspace y las convenciones del proyecto para construir un sitio oscuro premium, con contenido en español de Chile.El workspace está vacío: voy a definir la identidad del estudio y el sistema visual antes de scaffolding, y revisaré cómo están armados los otros sitios del mismo tipo.Hay una versión clara del mismo rubro en Propuestas. La reviso para que esta variante oscura sea distinta y de otro nivel.Voy a seguir la dirección de **RIVERA Nocturno**: expediente jurídico chileno, tinta noche y latón contenido. Primero las imágenes del lote y el esqueleto de Next.js.Reviso el lote para confirmar que no haya personas ni texto, y armo el proyecto.Las cuatro fotos quedan bien: las copio al sitio y empiezo a montar Next.js con el sistema visual de expediente nocturno.Escribo el esqueleto del proyecto y el sistema visual (tokens, tipografía, grilla) para después montar las secciones.Quedó armado **RIVERA**, un estudio jurídico nocturno de Las Condes. Next.js, CSS propio, sin plantilla ni Tailwind: expediente bajo lámpara, no landing negra genérica.
+
+**Dirección.** Tinta `#0F1A24`, hueso `#EDE6DA`, latón cepillado `#C9A86A` en menos del 6% de la pantalla (CTA, índice, precios). Tipografía **Newsreader + Public Sans**. Esquinas vivas, filete 1px, cero sombras. El hero es tipográfico: la autoridad la pone el titular, no una foto a sangre.
+
+**Recorrido (como un expediente, no como un catálogo).**
+1. **Materias** — solo cuatro: penal, familia crítica, civil patrimonial, tributario.
+2. **Cómo partimos** — reunión, diagnóstico 24–48h, estrategia por escrito.
+3. **Honorarios** — tabla en CLP, “desde”, sin planes tipo SaaS.
+4. **Urgencia** — detención / cautelar / VIF, teléfono grande, respuesta 45 min RM, 24/7.
+5. **Reserva** — formulario mínimo + WhatsApp.
+
+Teléfono visible en el header. En móvil, CTA “Agendar reunión” aparece al scrollear. Textos en español de Chile (SII, pensión de alimentos, RDR, posesión efectiva, control de detención).
+
+Build de producción compiló sin errores. No levanté servidor, como pediste.

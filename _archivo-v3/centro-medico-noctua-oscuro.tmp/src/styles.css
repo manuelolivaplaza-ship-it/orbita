@@ -1,0 +1,50 @@
+:root {
+  color: #0b0b12;
+  background: #f7f8fc;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0.6rem 0 1rem;
+}
+
+.lead {
+  color: #3f3f46;
+  line-height: 1.6;
+}
+
+ul {
+  padding-left: 1.1rem;
+  color: #3f3f46;
+  line-height: 1.7;
+}
+
+code {
+  font-size: 0.85em;
+}

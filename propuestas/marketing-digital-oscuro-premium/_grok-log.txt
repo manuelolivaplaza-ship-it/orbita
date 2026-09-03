@@ -1,0 +1,28 @@
+Voy a diseñar un sitio oscuro premium de agencia de marketing (Chile), con libertad total de estructura y estética. Primero reviso el workspace y las convenciones de diseño para construir algo que se sienta editorial, no plantilla.El workspace está vacío, así que voy a construir el sitio desde cero. Primero miro cómo están armados tus otros sitios y dejo el concepto de marca cerrado antes de generar assets.Hay una serie de sitios hermanos; voy a copiar el nivel de oficio de los oscuros premium y del marketing claro, no la plantilla.Concepto cerrado: **Obsidiana**, estudio en Barrio Italia. Vidrio volcánico, corte exacto, paleta ember sobre negro. Armo el proyecto y empiezo a generar las fotografías.El scaffold chocó con un archivo de log; lo aparto y sigo con las fotos de casos y retratos.El scaffold automático no entra por el log bloqueado; armo el proyecto a mano y copio las imágenes.Las fotos ya están en `public`. Mientras instala dependencias, escribo el sistema visual y todo el contenido.Las fotos del hero y del equipo quedaron con el corte que buscaba. Ahora arreglo el marquee y el favicon, y corro el build — sin levantar localhost.El sitio es **Obsidiana**: un estudio de marketing digital en Barrio Italia, Santiago. Next.js 16, React 19, Tailwind v4. El build de producción compiló las 31 páginas. No levanté el servidor; para verlo:
+
+```bash
+npm run dev
+```
+
+**Cortamos el ruido.** Vidrio volcánico, filo de cirugía, ocho cuentas al año. No es una agencia que vende “presencia”: el medio es barato, el criterio no.
+
+### Decisiones que importan
+
+- **Nombre y metáfora.** Obsidiana: negro, corte, Chile. El acento es ember (`#e2572a`), no cobre ni brass — se distingue de los otros sitios oscuros premium.
+- **Tipografía.** Instrument Serif + Manrope + Space Mono. Editorial, no “tech SaaS”.
+- **Oficios, no servicios.** Marca, performance, contenido, producto, SEO, retención. Cada uno dice cuándo viene y cuándo no.
+- **La pauta la paga el cliente.** Sin markup de media. Retainer desde 48 UF. Diagnóstico de 40 min, dos cupos por semana.
+- **Copy en español de Chile.** Usted, UF, IVA, WhatsApp, Business Manager, CAC, Barrio Italia, Condell 1448.
+
+### Mapa
+
+| Ruta | Qué hay |
+| --- | --- |
+| `/` | Hero de obsidiana, reloj de Santiago, cuentas, trabajo, oficios, método, mesa, FAQ, formulario |
+| `/trabajo` + 6 cases | Alza, Casa Lira, Andino, Nortevolt, Oficio, Clínica Austral |
+| `/oficios` | Seis oficios con páginas propias |
+| `/estudio` + `/mesa/[slug]` | El piso y las cinco que firman |
+| `/metodo` | Corte, honorarios en UF, lo que no hacen |
+| `/diagnostico` | Formulario + WhatsApp |
+
+El facet ember a la izquierda, el grano y el reloj de Santiago (`America/Santiago`) son parte del sistema: a las 19:00 la mesa cierra; el media, a veces, sigue.

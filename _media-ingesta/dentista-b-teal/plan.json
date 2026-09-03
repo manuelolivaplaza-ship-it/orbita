@@ -1,0 +1,41 @@
+{
+ "slug": "dentista-b-teal",
+ "targets": [
+  {
+   "name": "lago-azul-hero-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "lago-azul-hero-9x16.png",
+   "ratio": 0.5625
+  },
+  {
+   "name": "lago-azul-tile-01-1x1.png",
+   "ratio": 1.0
+  },
+  {
+   "name": "lago-azul-tile-02-3x4.png",
+   "ratio": 0.75
+  },
+  {
+   "name": "lago-azul-tile-03-1x1.png",
+   "ratio": 1.0
+  },
+  {
+   "name": "lago-azul-tile-04-3x4.png",
+   "ratio": 0.75
+  },
+  {
+   "name": "lago-azul-interior-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "lago-azul-proof-16x9.png",
+   "ratio": 1.777778
+  },
+  {
+   "name": "lago-azul-og-16x9.png",
+   "ratio": 1.777778
+  }
+ ]
+}

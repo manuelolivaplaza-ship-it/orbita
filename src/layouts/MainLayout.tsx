@@ -6,6 +6,7 @@ import { BudgetModal } from '../components/BudgetModal';
 import { ScheduleModal } from '../components/ScheduleModal';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { LiquidGlassFilter } from '../components/LiquidGlass';
+import { OrbAssistant } from '../components/chat/OrbAssistant';
 import { planKeyFromName } from '../data/pricing';
 
 export const MainLayout: React.FC = () => {
@@ -61,6 +62,10 @@ export const MainLayout: React.FC = () => {
         defaultPlan={selectedPlan}
       />
       <ScheduleModal isOpen={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+      <OrbAssistant
+        onOpenQuoteModal={handleOpenQuoteModal}
+        onOpenSchedule={handleOpenSchedule}
+      />
     </div>
   );
 };

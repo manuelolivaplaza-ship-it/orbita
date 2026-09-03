@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-cyan: var(--cyan);
+  --color-cyan-deep: var(--cyan-deep);
+  --color-blue: var(--blue);
+  --color-navy: var(--navy);
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --paper: #f2f7fa;
+  --paper-2: #e4eef4;
+  --ink: #0c1f33;
+  --muted: #4d6478;
+  --line: #c5d6e2;
+  --cyan: #12c4d4;
+  --cyan-deep: #0a9eac;
+  --blue: #1a5fd0;
+  --navy: #083056;
+  --header: 4.5rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  color-scheme: light;
+  background: var(--paper);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header) + 12px);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--cyan) 42%, transparent);
+  color: var(--ink);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+img {
+  user-select: none;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.font-sans {
+  font-family: var(--font-outfit), var(--font-sans);
+}
+
+.kicker {
+  font-family: var(--font-outfit), var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan-deep);
+}
+
+.nums {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.shell {
+  width: min(1240px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    width: min(1240px, calc(100% - 4rem));
+  }
+}
+
+.link-line {
+  background-image: linear-gradient(var(--cyan), var(--cyan));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1.5px;
+  transition: background-size 0.4s var(--ease);
+}
+
+.link-line:hover {
+  background-size: 100% 1.5px;
+}
+
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 1.6s var(--ease);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.045);
+}
+
+.waterline {
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan) 18%,
+    var(--blue) 52%,
+    var(--cyan) 82%,
+    transparent
+  );
+}
+
+.waterline-draw {
+  transform-origin: left;
+  animation: draw-line 1.4s var(--ease) both;
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: rise 0.95s var(--ease) forwards;
+  animation-play-state: paused;
+}
+
+.reveal.is-in {
+  animation-play-state: running;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: drift 42s linear infinite;
+}
+
+.nivel-fill {
+  transform-origin: bottom;
+  animation: fill-up 1.8s var(--ease) both;
+}
+
+@keyframes fill-up {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.meander-bg {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='720' height='80' viewBox='0 0 720 80' fill='none'><path d='M-20 40 C 60 8, 120 72, 200 40 S 340 8, 420 40 S 560 72, 640 40 S 780 8, 860 40' stroke='%2312c4d4' stroke-opacity='0.18' stroke-width='1.4'/></svg>");
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .waterline-draw,
+  .nivel-fill,
+  .img-zoom img,
+  .marquee-track {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--paper);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan-deep);
+}

@@ -3,9 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import { Hero } from '../components/Hero';
 import { FeaturedWork } from '../components/home/FeaturedWork';
 import { GaleriaTeaser } from '../components/home/GaleriaTeaser';
-import { WhatWeBuild } from '../components/home/WhatWeBuild';
-import { SistemaOrbita } from '../components/SistemaOrbita';
-import { MetodoTimeline } from '../components/MetodoTimeline';
+import { CrmShowcase } from '../components/home/CrmShowcase';
 import { ShowcasePanel } from '../components/ShowcasePanel';
 import { Precios } from '../components/Precios';
 import { FaqAccordion } from '../components/FaqAccordion';
@@ -26,9 +24,7 @@ export default function HomePage() {
       <Hero onOpenQuoteModal={onOpenQuoteModal} onOpenSchedule={onOpenSchedule} />
       <GaleriaTeaser />
       <FeaturedWork />
-      <WhatWeBuild />
-      <SistemaOrbita onOpenQuoteModal={onOpenQuoteModal} />
-      <MetodoTimeline />
+      <CrmShowcase />
       <ShowcasePanel onOpenQuoteModal={onOpenQuoteModal} />
       <Precios onOpenQuoteModal={onOpenQuoteModal} />
       <FaqAccordion />

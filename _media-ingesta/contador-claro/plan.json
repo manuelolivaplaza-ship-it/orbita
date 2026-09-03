@@ -1,0 +1,13 @@
+{
+  "slug": "contador-claro",
+  "targets": [
+    {"name": "folio-hero-16x9.png", "ratio": 1.7777777777777777},
+    {"name": "folio-hero-9x16.png", "ratio": 0.5625},
+    {"name": "folio-remu-1x1.png", "ratio": 1.0},
+    {"name": "folio-remu2-1x1.png", "ratio": 1.0},
+    {"name": "folio-timbres-16x9.png", "ratio": 1.7777777777777777},
+    {"name": "folio-regimen-4x3.png", "ratio": 1.3333333333333333},
+    {"name": "folio-proceso-16x9.png", "ratio": 1.7777777777777777},
+    {"name": "folio-og-16x9.png", "ratio": 1.7777777777777777}
+  ]
+}

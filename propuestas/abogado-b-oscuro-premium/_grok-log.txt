@@ -1,0 +1,12 @@
+Voy a revisar el workspace y armar un sitio de abogados oscuro premium, con contenido para Chile y libertad total en el diseño. Empiezo por ver qué hay ya en el proyecto.Hay sitios hermanos en la carpeta. Voy a leer el brief, la variante B clara y la oscura premium para que esta versión sea distinta y no una copia.Voy a leer las dos variantes ya hechas para no repetir firma, paleta ni concepto.Concepto: **Vigilia**, un estudio en Lastarria, a ocho minutos de Tribunales. Oscuro con cobre chileno, no oro ni azul marino. Empiezo por la base del proyecto y las fotografías.Las fotos de atmósfera salieron. Reintento la que falló, reviso calidad y armo el contenido del estudio.Las fotos tienen el tono correcto. Sigo con el equipo, la mesa y el contenido del estudio.Los retratos quedaron coherentes. Ahora armo el sistema visual y las páginas.Listo. El sitio es **Vigilia**, un estudio jurídico en Lastarria (Santiago Centro), oscuro premium y distinto de las otras variantes del rubro.
+
+**La decisión de marca.** No es oro sobre azul marino ni un patio luminoso. Es **cobre chileno sobre negro**, lámpara, escrito de noche. A ocho minutos a pie del Palacio de los Tribunales. La última hora con cliente es a las 20:00; el escrito, a veces, a las 23:00.
+
+**Qué hay adentro**
+- Next.js 16, contenido en español de Chile
+- Home cinematográfica, reloj de Santiago (cambia el texto si es vigilia), materias como piezas de expediente, mesa de cuatro abogados, arancel en UF, formulario de primera hora
+- Páginas: El estudio, Materias (5), Equipo (4 fichas), Honorarios, Primera hora, aviso legal y privacidad
+- Civil, laboral, familia, recursos constitucionales y administrativo. **No toman penal** — se deriva
+- Honorarios en UF + IVA, primera hora $52.000 (se descuenta si toman el asunto)
+
+El build de producción compiló las 23 rutas. No levanté localhost, como pediste.

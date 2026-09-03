@@ -1,0 +1,19 @@
+Voy a construir un sitio de estudio contable en español de Chile: luminoso, claro y con cada decisión de diseño y contenido pensada. Primero reviso el workspace y las convenciones del stack.El workspace está vacío: voy a armar el sitio desde cero. Reviso tipografía, generación de imágenes y el listado de sitios para fijar el nivel.Hay sitios hermanos de estudio profesional en el mismo escritorio. Voy a estudiar el de abogado claro para igualar el nivel y diferenciar el de contador.Las fotos del estudio salieron; reintento las que fallaron por el recorte y armo los retratos del equipo.Reviso las fotos para asignarlas bien y, en paralelo, armo la estructura del sitio.Las fotos quedaron cohesivas: ventana al cerro, cobre, retratos con la misma luz. Renombro assets y escribo identidad, datos y la base del sitio.El linter marca un `setState` en un efecto al cambiar de ruta. Lo cierro desde los clics del menú, que es el lugar correcto.Listo: **CLARO**, un estudio contable en Providencia, hecho en Next.js. Luminoso, con papel, cobre y la luz de la mañana — no el azul corporativo de siempre.
+
+**La idea.** Las cifras a plena luz. Una ventana al cerro San Cristóbal, una terraza, una libreta que se puede leer. Cuatro contadores. Honorarios en UF, por escrito.
+
+**Qué vas a ver**
+- Hero a pantalla completa con la ventana al cerro y la palabra *luz* en itálica de cobre
+- Reloj en vivo de Santiago y el **próximo vencimiento** (F29, Previred, renta)
+- **Calendario tributario chileno**: F29 día 12 / 20, Previred, F22, DJ, patente; si cae en sábado, domingo o feriado, corre al hábil siguiente
+- Seis oficios: mensual, impuestos, remuneraciones, independientes, sociedades, planificación
+- Honorarios transparentes, casos sin nombre de cliente, formulario con validación de RUT
+- Contenido en español de Chile (SII, F29, F22, Previred, SpA, boletas, UF)
+
+**Para revisarlo** (cuando quieras, en tu máquina):
+
+```bash
+npm run dev
+```
+
+El build de producción ya compiló las 26 rutas.

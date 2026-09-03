@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img">
+<defs>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F7F4EF"/><stop offset="100%" stop-color="#EFE9E0"/></linearGradient>
+  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#1E1C19" flood-opacity="0.07"/></filter>
+  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.7"/></filter>
+</defs>
+<rect width="800" height="800" fill="url(#g1)"/>
+<rect x="0.5" y="0.5" width="799" height="799" fill="none" stroke="#D9D3C8" stroke-width="1"/>
+<g opacity="0.05" stroke="#1E1C19" stroke-width="0.5">
+  <line x1="133.33333333333334" y1="0" x2="133.33333333333334" y2="800"/><line x1="266.6666666666667" y1="0" x2="266.6666666666667" y2="800"/><line x1="400" y1="0" x2="400" y2="800"/><line x1="533.3333333333334" y1="0" x2="533.3333333333334" y2="800"/><line x1="666.6666666666667" y1="0" x2="666.6666666666667" y2="800"/>
+  <line x1="0" y1="200" x2="800" y2="200"/><line x1="0" y1="400" x2="800" y2="400"/><line x1="0" y1="600" x2="800" y2="600"/>
+</g>
+<g><rect x="140" y="140" width="520" height="520" rx="1" fill="white" stroke="#D9D3C8" filter="url(#softShadow)"/><rect x="164" y="164" width="472" height="472" fill="#EFE9E0" stroke="#D9D3C8"/><g opacity="0.07" stroke="#1E1C19" stroke-width="0.4"><line x1="164" y1="180" x2="636" y2="180"/><line x1="164" y1="202" x2="636" y2="202"/><line x1="164" y1="224" x2="636" y2="224"/><line x1="164" y1="246" x2="636" y2="246"/><line x1="164" y1="268" x2="636" y2="268"/><line x1="164" y1="290" x2="636" y2="290"/><line x1="164" y1="312" x2="636" y2="312"/><line x1="164" y1="334" x2="636" y2="334"/><line x1="164" y1="356" x2="636" y2="356"/><line x1="164" y1="378" x2="636" y2="378"/><line x1="164" y1="400" x2="636" y2="400"/><line x1="164" y1="422" x2="636" y2="422"/><line x1="164" y1="444" x2="636" y2="444"/><line x1="164" y1="466" x2="636" y2="466"/><line x1="164" y1="488" x2="636" y2="488"/><line x1="164" y1="510" x2="636" y2="510"/><line x1="164" y1="532" x2="636" y2="532"/><line x1="164" y1="554" x2="636" y2="554"/><line x1="164" y1="576" x2="636" y2="576"/><line x1="164" y1="598" x2="636" y2="598"/></g><rect x="240" y="380" width="320" height="2" fill="#7A9A84" opacity="0.3"/><circle cx="400" cy="400" r="90" fill="none" stroke="#7A9A84" stroke-width="0.8" opacity="0.12"/></g>
+<g font-family="'Cormorant Garamond', Georgia, serif" text-anchor="middle">
+  <text x="400" y="390" font-size="11" letter-spacing="4.5" fill="#1E1C19" font-weight="600">DETAIL B · 1:1</text>
+  <text x="400" y="412" font-size="8.5" letter-spacing="2.2" fill="#8A8378" font-family="'JetBrains Mono', monospace">papel algodon · grano</text>
+</g>
+<g font-family="'JetBrains Mono', monospace" font-size="6.5" letter-spacing="1.1" fill="#8A8378"><text x="14" y="790">ETER — CENTRO DE SALUD MENTAL</text><text x="14" y="796" fill="#7A9A84">— LUZ NORTE · PROVIDENCIA · SIN PERSONAS · GOOGLE FLOW</text></g>
+</svg>

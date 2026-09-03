@@ -1,0 +1,16 @@
+Voy a revisar el workspace y el contexto del proyecto para armar una veterinaria dark de alto impacto, en español de Chile, sin levantar localhost.Hay sitios hermanos y un archivo de cola; voy a leer el brief y una veterinaria existente para no copiar el mismo diseño.Voy a ver la veterinaria clara existente y un sitio oscuro ya listo, para que esta variante B sea distinta y al mismo nivel.Reviso la estructura técnica de un sitio oscuro ya cerrado y el resto de la veterinaria clara, para armar algo distinto y completo.Concepto: **Farol**, hospital veterinario 24 h en Ñuñoa. Empiezo por las fotos y el esqueleto del proyecto.Siguen las fotos de animales, la ronda nocturna y los retratos del equipo.Hay límite de imágenes; sigo con el código y reintento las fotos en tandas más chicas.Listo. El sitio es **Farol**, un hospital veterinario 24 horas en Ñuñoa. Next.js, dark, contenido en español de Chile. No levanté localhost.
+
+La tesis de la marca es la noche: los animales se enferman a las 3:00, y Farol es la luz que queda prendida en Irarrázaval 2940.
+
+**Qué vas a ver**
+- Hero a pantalla completa: fachada mojada, farol de sodio, reloj en vivo de Santiago que cambia entre consulta diurna y guardia
+- Paleta carbón + ámbar de farol (Fraunces + Sora), grano y un farol que late al costado en desktop
+- **Triaje interactivo**: eliges lo que le pasa al animal y te dice “ven ahora” o “pide hora”
+- **Pizarra de internación** (“esta noche”: Lola, Momo, Tata) — nombres cambiados, el gesto es real
+- Arancel en pesos chilenos, Ley 21.020 / chip, Colmevet, metro Ñuñoa L3/L6
+- Formulario de hora + WhatsApp de guardia en móvil
+
+**Páginas**
+Inicio, El hospital, Servicios (9, con ficha), Urgencias 24 h, Internación, Equipo (5 médicos), Pedir hora, Contacto, privacidad y aviso legal.
+
+Cuando lo quieras ver: `npm run dev` en esta carpeta.

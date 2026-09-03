@@ -1,0 +1,19 @@
+﻿slug,veredicto,detalle
+dentista-b-claro,FALLO,"build=ok; ✗ vs dentista-b-oscuro-premium: CSS 40%, ids 0, silueta 1.00 ← CSS 41% >= 35% vs hermana; tipografía+escala idénticas (bitter) | ✗ vs dentista-b-teal: CSS 48%, ids 0, silueta 1.00 ← CSS 48% >= 35% vs hermana | ✗ vs (tipografía prohibida): CSS 0%, ids"
+dentista-b-oscuro-premium,FALLO,"build=ok; ✗ vs dentista-b-claro: CSS 40%, ids 0, silueta 1.00 ← CSS 41% >= 35% vs hermana; tipografía+escala idénticas (bitter) | ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+dentista-b-azul-cian,SIN-CAMBIOS,no ids shared
+dentista-b-teal,FALLO,"build=ok; ✗ vs abogado-oscuro-premium: CSS 4%, ids 0, silueta 1.00 ← tipografía+escala idénticas (sans-serif) | ✗ vs dentista-b-claro: CSS 48%, ids 0, silueta 1.00 ← CSS 48% >= 35% vs hermana | ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-"
+abogado-b-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+abogado-claro,OK,build=ok; 
+abogado-b-oscuro-premium,OK,build=ok; 
+abogado-oscuro-premium,FALLO,"build=ok; ✗ vs dentista-b-teal: CSS 4%, ids 0, silueta 1.00 ← tipografía+escala idénticas (sans-serif) | ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+abogado-b-azul-cian,OK,build=ok; 
+software-b-azul-cian,SIN-CAMBIOS,no ids shared
+arquitectura-b-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+arquitectura-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+arquitectura-oscuro-premium,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+clinica-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+contador-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← roboto, system-ui"
+concesionaria-eter-claro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← system-ui"
+concesionaria-noctua-oscuro,FALLO,"build=ok; ✗ vs (tipografía prohibida): CSS 0%, ids 0, silueta 0.00 ← arial, roboto, system-ui"
+diseno-claro,OK,build=ok; 

@@ -35,7 +35,7 @@ const points = [
 export const ShowcasePanel: React.FC<ShowcasePanelProps> = ({ onOpenQuoteModal }) => {
   const reducedMotion = usePrefersReducedMotion();
   return (
-    <section id="prueba" className="bg-white px-6 py-24 sm:py-28 relative z-10">
+    <section id="prueba" className="bg-white px-4 py-16 sm:px-6 sm:py-28 relative z-10">
       <div className="max-w-[88rem] mx-auto grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* LEFT */}
         <div className="md:pr-4">

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, GripHorizontal } from 'lucide-react';
+import { ArrowLeft, GripHorizontal, Zap } from 'lucide-react';
 
 type Pos = { x: number; y: number };
 
@@ -31,11 +31,13 @@ export function PreviewReturnPopup({
   name,
   caseSlug,
   backUrl,
+  crmUrl,
   labelTag = 'Preview Órbita',
 }: {
   name: string;
   caseSlug?: string;
   backUrl?: string;
+  crmUrl?: string;
   labelTag?: string;
 }) {
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -131,8 +133,19 @@ export function PreviewReturnPopup({
               className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white text-[#0B0B12] text-xs font-medium px-3 py-2 hover:bg-zinc-200"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              Volver a Órbita
+              <span>Volver</span>
             </Link>
+            {crmUrl && (
+              <Link
+                to={crmUrl}
+                target="_blank"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-zinc-800 text-white border border-white/15 text-xs font-medium px-3 py-2 hover:bg-zinc-700 transition-colors shadow-xs"
+                title="Abrir panel CRM y analítica en tiempo real"
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <span>Panel CRM</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>

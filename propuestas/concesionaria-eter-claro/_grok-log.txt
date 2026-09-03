@@ -1,0 +1,20 @@
+Voy a armar ETER como un sitio de concesionaria claro, limpio y etéreo. Primero reviso el workspace y las convenciones de diseño para que cada decisión visual y de contenido tenga peso.El workspace está vacío: voy a construir ETER como una casa de automóviles en Vitacura — alta, clara y editorial — y generar una fotografía propia para que todo el sitio respire el mismo aire.El log de Grok bloqueaba el scaffold; lo muevo y vuelvo a crear el proyecto.Mientras el scaffold termina, genero el resto de las fotografías de la colección con la misma luz y paleta.El scaffold está listo. Reviso las fotos y subo el proyecto a la raíz para empezar a construir el sitio.Las fotos ya tienen un lenguaje visual coherente. Ahora armo el proyecto en la raíz y empiezo a construir el sistema de diseño y las páginas.El 911 quedó limpio. Ahora escribo el sistema visual, los datos de la casa y las páginas con copy en español de Chile.Sigue el sistema de tipos: ahora armo las páginas, empezando por el home — es la pieza que tiene que sostener todo el resto.El build compiló las 19 páginas. Ajusto la tipografía del hero para que en móvil no se desborde, y cierro detalles de accesibilidad.**ETER** está lista: una casa de automóviles en Lo Barnechea, no un patio con globos.
+
+La marca se trata como una galería. Nueve presencias, luz de montaña, copy en español de Chile (CLP, UF, transferencia, permiso de circulación, WhatsApp, pie y cuotas). El sitio es claro a propósito: papel frío, una sola calidez en oro, tipografía editorial (Cormorant + Outfit) y fotografía propia en la misma niebla.
+
+**Páginas**
+- `/` — hero a pantalla completa, manifiesto, tres piezas, la casa, el rito
+- `/coleccion` — filtros por atmósfera: Silencio, Aliento, Pulso
+- `/coleccion/[slug]` — ficha, precio en pesos y UF, visita
+- `/la-casa` — el showroom, quiénes reciben, horario
+- `/visita` — agenda con cita
+- 404 — *Esta presencia no está en la casa.*
+
+**Para verla**
+
+```bash
+npm install
+npm run dev
+```
+
+Abre `http://localhost:3000`. El build de producción ya compiló las 19 rutas.

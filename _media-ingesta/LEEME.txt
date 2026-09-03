@@ -1,0 +1,17 @@
+LEEME — INGESTA DE MEDIA (Google Flow)
+=====================================
+
+CÓMO FUNCIONA (automático):
+1. Genera las imágenes en Flow con el lote de MEDIA-PROMPTS-<slug>.md
+2. Descárgalas de Flow y SUÉLTALAS en esta carpeta del slug (cualquier nombre de archivo)
+3. El bot de ingesta (cada 30 min, silencioso) las toma:
+   - valida proporciones contra el plan (16:9 / 4:5 / 1:1)
+   - renombra a los nombres canónicos (patio.jpg, tres-cuartos.jpg…)
+   - verifica con dhash que no sean fotos reutilizadas de otra web
+   - las coloca en propuestas/<slug>/public/media/
+   - actualiza MEDIA-REGISTRO.md y despacha la construcción al board kanban
+
+REGLAS:
+- La carpeta del slug necesita las N imágenes del plan completas (no procesa parcial).
+- Lo procesado queda en _procesado/ por si hay que revertir.
+- Nada se envía a leads sin tu OK (regla permanente).

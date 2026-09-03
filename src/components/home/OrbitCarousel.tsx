@@ -6,11 +6,11 @@ import { PreviewHeroShot } from '../cases/PreviewHeroShot';
 import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
 
 const TAU = Math.PI * 2;
-const SPEED = TAU / 90_000;
-const TARGET = 24;
-const VISIBLE = 1.02;
-const WARM = VISIBLE + 0.55; // precarga las que entran por abajo
-const KEEP = VISIBLE + 0.3; // no suelta el iframe hasta que ya no se ve
+const SPEED = TAU / 85_000;
+const TARGET = 14; // Punto óptimo: separación sutil y armónica sin huecos excesivos
+const VISIBLE = 1.08;
+const WARM = VISIBLE + 0.55;
+const KEEP = VISIBLE + 0.3;
 const SHOT_W = 960;
 const SHOT_H = 620;
 
@@ -88,16 +88,15 @@ export const OrbitCarousel: React.FC = () => {
   const geo = useMemo(() => {
     const phone = mobileStage;
     const cardW = Math.min(
-      phone ? 204 : box.w < 640 ? 260 : 348,
-      Math.max(168, box.w * (phone ? 0.54 : 0.4)),
+      phone ? 230 : box.w < 640 ? 275 : 352,
+      Math.max(170, box.w * (phone ? 0.62 : 0.40)),
     );
-    const cardH = cardW * 0.64;
-    // Celular: centro más a la derecha y un poco abajo, para que el arco
-    // recorra el fondo sin atravesar el título.
-    const cx = box.w * (phone ? 1.56 : 1.38);
-    const cy = box.h * (phone ? 0.62 : 0.5);
-    const rWant = Math.max(box.h * (phone ? 0.56 : 0.92), 220);
-    const rMax = cx - box.w * (phone ? 0.5 : 0.12);
+    const cardH = cardW * 0.62;
+    // Celular: centro ligeramente a la derecha, para que las cards crucen el escenario de forma amplia y nítida.
+    const cx = box.w * (phone ? 1.15 : 1.40);
+    const cy = box.h * (phone ? 0.50 : 0.50);
+    const rWant = Math.max(box.h * (phone ? 0.88 : 0.94), 210);
+    const rMax = cx - box.w * (phone ? 0.38 : 0.10);
     const r = Math.max(180, Math.min(rWant, rMax));
     return { w: box.w, h: box.h, cardW, cardH, r, cx, cy, phone };
   }, [box, mobileStage]);
@@ -117,9 +116,9 @@ export const OrbitCarousel: React.FC = () => {
       const θ = θ0 + (i / n) * TAU;
       const signed = shortest(θ - Math.PI);
       const dist = Math.abs(signed);
-      const fade = g.phone ? 0.6 : VISIBLE;
+      const fade = VISIBLE;
 
-      if (dist > fade + (g.phone ? 0.1 : 0.18)) {
+      if (dist > fade + (g.phone ? 0.15 : 0.18)) {
         el.style.visibility = 'hidden';
         el.style.pointerEvents = 'none';
         el.style.opacity = '0';
@@ -132,7 +131,7 @@ export const OrbitCarousel: React.FC = () => {
       const y = g.cy + g.r * Math.sin(θ);
       const rot = signed * (180 / Math.PI);
       const t = Math.min(1, dist / fade);
-      const opacity = t < 0.5 ? 1 : Math.max(0, 1 - (t - 0.5) / 0.5);
+      const opacity = t < 0.6 ? 1 : Math.max(0, 1 - (t - 0.6) / 0.4);
       const scale = 1 - t * 0.07;
 
       el.style.visibility = 'visible';
@@ -237,7 +236,7 @@ export const OrbitCarousel: React.FC = () => {
                 to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
                 aria-label={`Ver propuesta ${item.brand}`}
                 tabIndex={i === frontIdx ? 0 : -1}
-                className="group block h-full overflow-hidden rounded-[1.15rem] bg-zinc-100 shadow-[0_18px_40px_-16px_rgba(15,15,40,0.35)] ring-1 ring-black/[0.06]"
+                className="group block h-full overflow-hidden rounded-[1.25rem] bg-zinc-100 shadow-[0_22px_50px_-18px_rgba(15,15,40,0.30)] ring-1 ring-black/[0.07] hover:shadow-[0_28px_60px_-16px_rgba(15,15,40,0.42)] hover:ring-black/15 transition-all duration-300"
                 onMouseEnter={() => {
                   if (isCoarsePointer()) return;
                   hoverRef.current = true;
@@ -282,14 +281,14 @@ export const OrbitCarousel: React.FC = () => {
                     />
                   )}
                   <div
-                    className={`pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/55 to-transparent px-3 pb-2.5 pt-8 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 ${
-                      held ? 'opacity-100' : 'opacity-0'
+                    className={`pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/75 via-[#0B0B12]/30 to-transparent px-3.5 pb-3 pt-10 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 ${
+                      held ? 'opacity-100' : 'opacity-85'
                     }`}
                   >
-                    <span className="truncate text-[11px] font-medium tracking-tight text-white">
+                    <span className="truncate text-xs font-semibold tracking-tight text-white drop-shadow-xs">
                       {item.brand}
                     </span>
-                    <span className="shrink-0 text-[9px] font-semibold uppercase tracking-wider text-white/80">
+                    <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-white backdrop-blur-xs">
                       {sectorInfo?.label ?? item.sector}
                     </span>
                   </div>

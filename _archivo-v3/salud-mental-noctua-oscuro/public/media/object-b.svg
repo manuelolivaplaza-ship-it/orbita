@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800" role="img">
+<defs>
+  <linearGradient id="ng1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#121110"/><stop offset="100%" stop-color="#23201C"/></linearGradient>
+  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8" result="b"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0"/></filter>
+</defs>
+<rect width="640" height="800" fill="url(#ng1)"/>
+<rect x="0.5" y="0.5" width="639" height="799" fill="none" stroke="#2E2A26" stroke-width="1"/>
+<g filter="url(#softShadow)"><rect x="110" y="90" width="420" height="520" rx="1" fill="#1B1917" stroke="#2E2A26"/><rect x="134" y="118" width="372" height="180" rx="1" fill="#121110" stroke="#2E2A26"/><ellipse cx="320" cy="208" rx="120" ry="50" fill="#C8A96A" opacity="0.08" filter="url(#glow)"/><rect x="140" y="380" width="340" height="160" rx="1" fill="#23201C" stroke="#2E2A26"/><rect x="200" y="410" width="80" height="80" rx="1" fill="#121110" stroke="#2E2A26"/><rect x="300" y="430" width="100" height="60" rx="1" fill="#1E1C19" stroke="#2E2A26"/></g>
+<g font-family="'Cormorant Garamond', Georgia, serif" text-anchor="middle">
+  <text x="320" y="390" font-size="11" letter-spacing="4.5" fill="#EDE8E0" font-weight="500">OBJECT B · 4:5</text>
+  <text x="320" y="412" font-size="8.2" letter-spacing="2" fill="#9B948B" font-family="'JetBrains Mono', monospace">piedra oscura · volumenes</text>
+</g>
+<g font-family="'JetBrains Mono', monospace" font-size="6.5" letter-spacing="1.1" fill="#9B948B"><text x="14" y="790">NOCTUA — SALUD MENTAL</text><text x="14" y="796" fill="#C8A96A">— RESERVA PRIVADA · LUZ CALIDA 2700K · SIN PERSONAS</text></g>
+</svg>

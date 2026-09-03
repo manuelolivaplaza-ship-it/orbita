@@ -1,0 +1,142 @@
+{
+  "proyecto": "SALUD-MENTAL VISUAL PRO 16 A+B",
+  "eter": "papel #F7F4EF / sage #7A9A84 claro editorial 8 imagenes",
+  "noctua": "fondo #121110 / champan #C8A96A oscuro premium 8 imagenes",
+  "metodo": "Pillow procedural editorial pro (gradientes fotograficos + ruido + sharpen + vignette) - fallback FAL 402 Google Flow sin branding, sin personas, muse-spark-1.2 prompts",
+  "total": 16,
+  "ok": 16,
+  "results": [
+    {
+      "file": "room.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\room.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 285,
+      "status": "ok"
+    },
+    {
+      "file": "room-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\room-b.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 286,
+      "status": "ok"
+    },
+    {
+      "file": "still.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\still.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 192,
+      "status": "ok"
+    },
+    {
+      "file": "still-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\still-b.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 192,
+      "status": "ok"
+    },
+    {
+      "file": "window.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\window.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 199,
+      "status": "ok"
+    },
+    {
+      "file": "window-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\window-b.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 195,
+      "status": "ok"
+    },
+    {
+      "file": "detail.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\detail.jpg",
+      "w": 1080,
+      "h": 1080,
+      "kb": 387,
+      "status": "ok"
+    },
+    {
+      "file": "detail-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-eter-claro/public/media\\detail-b.jpg",
+      "w": 1080,
+      "h": 1080,
+      "kb": 232,
+      "status": "ok"
+    },
+    {
+      "file": "hero.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\hero.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 304,
+      "status": "ok"
+    },
+    {
+      "file": "hero-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\hero-b.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 300,
+      "status": "ok"
+    },
+    {
+      "file": "object.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\object.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 286,
+      "status": "ok"
+    },
+    {
+      "file": "object-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\object-b.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 258,
+      "status": "ok"
+    },
+    {
+      "file": "texture.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\texture.jpg",
+      "w": 1080,
+      "h": 1080,
+      "kb": 466,
+      "status": "ok"
+    },
+    {
+      "file": "texture-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\texture-b.jpg",
+      "w": 1080,
+      "h": 1080,
+      "kb": 384,
+      "status": "ok"
+    },
+    {
+      "file": "corridor.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\corridor.jpg",
+      "w": 1920,
+      "h": 1080,
+      "kb": 359,
+      "status": "ok"
+    },
+    {
+      "file": "corridor-b.jpg",
+      "path": "C:/Users/manue/OneDrive/Desktop/órbita\\propuestas/salud-mental-noctua-oscuro/public/media\\corridor-b.jpg",
+      "w": 1080,
+      "h": 1350,
+      "kb": 243,
+      "status": "ok"
+    }
+  ],
+  "prompts_flow": {
+    "eter_room": "photorealistic empty therapy room, north daylight through large window with thin white mullions, linen armchair in warm off-white, light oak side table, sheer curtains, pale plaster walls, small eucalyptus stem in ceramic vase, soft morning light 10am --ar 16:9",
+    "noctua_hero": "cinematic empty therapy room at night, charcoal matte walls, ivory armchair, dark wood side table, warm hidden grazing light 2700K --ar 16:9"
+  }
+}

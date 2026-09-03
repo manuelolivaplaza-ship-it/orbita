@@ -1,0 +1,2837 @@
+[
+  {
+    "slug": "abogado-b-azul-cian",
+    "meta": {
+      "title": "Arrieta & Cía. Abogados",
+      "client": "Arrieta & Cía. Abogados — Estudio jurídico, Santiago de Chile",
+      "brand": "Arrieta & Cía. Abogados",
+      "sector": "legal",
+      "description": "Estudio jurídico con acentos azul cián: técnico, moderno y con navegación por prácticas."
+    },
+    "mediaVisible": [
+      "biblioteca.png",
+      "escritorio.png",
+      "expediente.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "abogado-b-claro",
+    "meta": {
+      "title": "Bravo & Soto Abogados — Propuesta de rediseño · Órbita",
+      "client": "Estudio jurídico de proximidad (grupo Claro minimalista / neutro)",
+      "brand": "Bravo & Soto Abogados",
+      "sector": "legal",
+      "description": "Estudio jurídico de proximidad: diseño claro y minimalista, sereno y cercano."
+    },
+    "mediaVisible": [
+      "biblioteca.png",
+      "escritorio.png",
+      "expediente.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "abogado-b-oscuro-premium",
+    "meta": {
+      "title": "VALPARAÍSO ASESORES LEGALES — Propuesta Órbita",
+      "client": "VALPARAÍSO ASESORES LEGALES",
+      "brand": "Valparaíso Asesores Legales",
+      "sector": "legal",
+      "description": "Asesoría legal con dirección oscura premium: sobria, elegante y de alto contraste."
+    },
+    "mediaVisible": [
+      "pasillo.png",
+      "pluma.png",
+      "sala.png",
+      "textura.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #121110 (negro CÁLIDO) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-cálido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI). PROHIBIDO #000/#FFF puros, dorado brillante",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro frasco ámbar sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nhero.jpg 16:9 sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA ·\nobject.jpg 4:5 bodegón chiaroscuro frasco ámbar sobre piedra oscura · texture.jpg 1:1 macro\nseda carbón con luz rasante cálida · corridor.jpg 16:9 pasillo nocturno simétrico con focos\nempotrados cálidos y obra enmarcada, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero pantalla completa: kicker champán uppercase, H1 gigante marfil leading 0.95,\n         subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado\n         por degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n         (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"Discreción total\": editorial sobre la promesa del\n         nombre — resultados que nadie nota, privacidad absoluta. Copy base: \"Nuestros mejores\n         resultados son los que nadie puede señalar.\" Sin testimonios públicos JAMÁS: la\n         ausencia es el argumento premium.\n#cifras  Count-up tabulares serif al entrar: \"+15 años\", \"+3.000 protocolos\", \"97% c"
+  },
+  {
+    "slug": "abogado-claro",
+    "meta": {
+      "title": "Estudio Ferrada & Cía. — Propuesta de rediseño · Órbita",
+      "client": "Estudio jurídico (grupo Claro minimalista / neutro)",
+      "brand": "Estudio Ferrada & Cía.",
+      "sector": "legal",
+      "description": "Estudio jurídico sobrio y cercano sobre base clara, con jerarquía tipográfica tranquila."
+    },
+    "mediaVisible": [
+      "biblioteca.png",
+      "escritorio.png",
+      "expediente.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "abogado-oscuro-premium",
+    "meta": {
+      "title": "RIVERA & CÍA. — Abogados · Propuesta Órbita",
+      "client": "RIVERA & CÍA.",
+      "brand": "Rivera & Cía.",
+      "sector": "legal",
+      "description": "Abogados con dirección oscura premium: autoridad y confianza desde la primera pantalla."
+    },
+    "mediaVisible": [
+      "pasillo.png",
+      "pluma.png",
+      "sala.png",
+      "textura.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #121110 (negro CÁLIDO) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-cálido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI). PROHIBIDO #000/#FFF puros, dorado brillante",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro frasco ámbar sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nhero.jpg 16:9 sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA ·\nobject.jpg 4:5 bodegón chiaroscuro frasco ámbar sobre piedra oscura · texture.jpg 1:1 macro\nseda carbón con luz rasante cálida · corridor.jpg 16:9 pasillo nocturno simétrico con focos\nempotrados cálidos y obra enmarcada, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero pantalla completa: kicker champán uppercase, H1 gigante marfil leading 0.95,\n         subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado\n         por degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n         (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"Discreción total\": editorial sobre la promesa del\n         nombre — resultados que nadie nota, privacidad absoluta. Copy base: \"Nuestros mejores\n         resultados son los que nadie puede señalar.\" Sin testimonios públicos JAMÁS: la\n         ausencia es el argumento premium.\n#cifras  Count-up tabulares serif al entrar: \"+15 años\", \"+3.000 protocolos\", \"97% c"
+  },
+  {
+    "slug": "alba",
+    "meta": {
+      "title": "Urgencia dental con hora el mismo día",
+      "client": "Alba",
+      "brand": "Alba",
+      "sector": "dental",
+      "description": "Urgencia dental con hora el mismo día: sitio directo, con reserva rápida y tono cálido."
+    },
+    "mediaVisible": [
+      "corridor.jpg",
+      "desk.jpg",
+      "facade.jpg",
+      "object.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "arquitectura-b-claro",
+    "meta": {
+      "title": "NORTE ESTUDIO — Arquitectura · Propuesta Órbita",
+      "client": "Estudio de arquitectura (grupo Claro minimalista / neutro)",
+      "brand": "NORTE ESTUDIO",
+      "sector": "arquitectura",
+      "description": "Buen proyecto, obra corta, casa tranquila: sistema propio de módulos prefabricados de madera que se montan en semanas."
+    },
+    "mediaVisible": [
+      "detail.jpg",
+      "hero.jpg",
+      "model.jpg",
+      "site.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-ARQUITECTURA-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F5F2EC (hueso cálido) · --tinta #191713 · --gris #8B857A · --linea #DCD6CA · ACENTO ÚNICO --roble #9A7B4F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, fotos stock de rascacielos genéricos, planos como textura",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "casa de madera y hormigón visto al atardecer, ventanas encendidas, SIN personas"
+      },
+      {
+        "file": "model.jpg",
+        "ratio": "1:1",
+        "desc": "maqueta de estudio sobre mesa de trabajo con planos y escalímetro"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "4:5",
+        "desc": "detalle textura revestimiento madera + piedra, luz rasante"
+      },
+      {
+        "file": "site.jpg",
+        "ratio": "16:9",
+        "desc": "terreno/ladera con obra en estructura, cielo sobrio, documental limpio."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas/caras/logos = descartar y regenerar)\nhero.jpg 16:9 casa de madera y hormigón visto al atardecer, ventanas encendidas, SIN personas ·\nmodel.jpg 1:1 maqueta de estudio sobre mesa de trabajo con planos y escalímetro ·\ndetail.jpg 4:5 detalle textura revestimiento madera + piedra, luz rasante ·\nsite.jpg 16:9 terreno/ladera con obra en estructura, cielo sobrio, documental limpio.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio    Hero: kicker uppercase tracking amplio (\"ESTUDIO DE ARQUITECTURA · CHILE\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado. hero.jpg derecha 7/12 con caption técnica 11px (\"Casa Rupanco, 2024 · 214 m²\").\n#cifras    Count-up tabulares serif al entrar (IntersectionObserver): \"+120 proyectos\", \"18 años\",\n           \"96% permisos aprobados\", \"0 obras sin contrato claro\". Estilo Winteri: evidencia antes que adjetivos.\n#proyectos Índice numerado 01–08 editorial (NO cards): nombre grande + comuna + línea + flecha.\n           Hover/tap expande 64px revelando FICHA TÉCNICA obligatoria: m², año, tipología\n           (casa/edificio/comer"
+  },
+  {
+    "slug": "arquitectura-b-oscuro",
+    "meta": {
+      "title": "UMBRAL — Arquitectura · Propuesta Órbita",
+      "client": "Estudio de arquitectura (grupo Oscuro / premium minimal real)",
+      "brand": "UMBRAL",
+      "sector": "arquitectura",
+      "description": "Precisión premium: presupuesto abierto por partida, modelo 3D compartido con el mandante y obra documentada semana a semana."
+    },
+    "mediaVisible": [
+      "detail.jpg",
+      "gallery.jpg",
+      "hero.jpg",
+      "model.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-ARQUITECTURA-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #131210 (negro CÁLIDO) · --superficie #1C1A17 · --superficie-alta #242119 · --filete #302B24 · --hueso #EAE4D8 (texto, NUNCA #FFF) · --gris-cálido #9A9285 · ACENTO ÚNICO --laton #B99A62 (<5% UI). PROHIBIDO #000/#FFF puros, dorados brillantes",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorados brillantes",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "casa de hormigón y madera al anochecer, interiores en luz cálida, cielo azul"
+      },
+      {
+        "file": "model.jpg",
+        "ratio": "1:1",
+        "desc": "maqueta blanca sobre mesa oscura con foco lateral"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "4:5",
+        "desc": "macro textura hormigón visto con juntas, luz rasante cálida"
+      },
+      {
+        "file": "gallery.jpg",
+        "ratio": "16:9",
+        "desc": "interior doble altura con escalera de madera, luz cenital, cinematográfico sereno."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas/caras/logos = descartar y regenerar)\nhero.jpg 16:9 casa de hormigón y madera al anochecer, interiores en luz cálida, cielo azul\nprofundo, SIN personas · model.jpg 1:1 maqueta blanca sobre mesa oscura con foco lateral ·\ndetail.jpg 4:5 macro textura hormigón visto con juntas, luz rasante cálida ·\ngallery.jpg 16:9 interior doble altura con escalera de madera, luz cenital, cinematográfico sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio    Hero pantalla completa: kicker latón uppercase, H1 gigante hueso leading 0.95,\n           subhead gris cálido, CTA sólido latón texto tinta. hero.jpg integrado por\n           degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n           (opacity .04) sobre toda la página.\n#cifras    Count-up tabulares serif al entrar: \"+85 obras\", \"22 años de estudio\", \"98%\n           permisos aprobados\", \"1 arquitecto a cargo, siempre\". Evidencia numérica en vez\n           de adjetivos (patrón Winteri).\n#proyectos Índice numerado 01–08 lista editorial: nombre + comuna + línea + flecha.\n           Hover/tap expande 280ms revelando FICHA TÉCNICA: m², año, tipología, material"
+  },
+  {
+    "slug": "arquitectura-claro",
+    "meta": {
+      "title": "Estudio Meridiano — Arquitectura con método, obra con calma",
+      "client": "Propuesta para estudios de arquitectura · Grupo claro minimalista / neutro",
+      "brand": "Estudio Meridiano",
+      "sector": "arquitectura",
+      "description": "Obra nueva, remodelaciones y dirección de obra: proyectos medidos, presupuesto acotado y reporte constante, sobre base clara."
+    },
+    "mediaVisible": [
+      "esquina.png",
+      "mesa.png",
+      "muro.png",
+      "sala.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-ARQUITECTURA-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F5F2EC (hueso cálido) · --tinta #191713 · --gris #8B857A · --linea #DCD6CA · ACENTO ÚNICO --roble #9A7B4F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, fotos stock de rascacielos genéricos, planos como textura",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "casa de madera y hormigón visto al atardecer, ventanas encendidas, SIN personas"
+      },
+      {
+        "file": "model.jpg",
+        "ratio": "1:1",
+        "desc": "maqueta de estudio sobre mesa de trabajo con planos y escalímetro"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "4:5",
+        "desc": "detalle textura revestimiento madera + piedra, luz rasante"
+      },
+      {
+        "file": "site.jpg",
+        "ratio": "16:9",
+        "desc": "terreno/ladera con obra en estructura, cielo sobrio, documental limpio."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas/caras/logos = descartar y regenerar)\nhero.jpg 16:9 casa de madera y hormigón visto al atardecer, ventanas encendidas, SIN personas ·\nmodel.jpg 1:1 maqueta de estudio sobre mesa de trabajo con planos y escalímetro ·\ndetail.jpg 4:5 detalle textura revestimiento madera + piedra, luz rasante ·\nsite.jpg 16:9 terreno/ladera con obra en estructura, cielo sobrio, documental limpio.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio    Hero: kicker uppercase tracking amplio (\"ESTUDIO DE ARQUITECTURA · CHILE\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado. hero.jpg derecha 7/12 con caption técnica 11px (\"Casa Rupanco, 2024 · 214 m²\").\n#cifras    Count-up tabulares serif al entrar (IntersectionObserver): \"+120 proyectos\", \"18 años\",\n           \"96% permisos aprobados\", \"0 obras sin contrato claro\". Estilo Winteri: evidencia antes que adjetivos.\n#proyectos Índice numerado 01–08 editorial (NO cards): nombre grande + comuna + línea + flecha.\n           Hover/tap expande 64px revelando FICHA TÉCNICA obligatoria: m², año, tipología\n           (casa/edificio/comer"
+  },
+  {
+    "slug": "arquitectura-oscuro-premium",
+    "meta": {
+      "title": "UMBRAL — Propuesta de rediseño · Órbita",
+      "client": "Estudios de arquitectura (grupo Oscuro / premium minimal real)",
+      "brand": "UMBRAL",
+      "sector": "arquitectura",
+      "description": "Obra de alto estándar con materiales que envejecen bien: dirección oscura premium y un socio acompañando cada proyecto."
+    },
+    "mediaVisible": [
+      "escalera.png",
+      "hormigon.png",
+      "maqueta.png",
+      "pavilon-noche.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-ARQUITECTURA-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #131210 (negro CÁLIDO) · --superficie #1C1A17 · --superficie-alta #242119 · --filete #302B24 · --hueso #EAE4D8 (texto, NUNCA #FFF) · --gris-cálido #9A9285 · ACENTO ÚNICO --laton #B99A62 (<5% UI). PROHIBIDO #000/#FFF puros, dorados brillantes",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorados brillantes",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "casa de hormigón y madera al anochecer, interiores en luz cálida, cielo azul"
+      },
+      {
+        "file": "model.jpg",
+        "ratio": "1:1",
+        "desc": "maqueta blanca sobre mesa oscura con foco lateral"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "4:5",
+        "desc": "macro textura hormigón visto con juntas, luz rasante cálida"
+      },
+      {
+        "file": "gallery.jpg",
+        "ratio": "16:9",
+        "desc": "interior doble altura con escalera de madera, luz cenital, cinematográfico sereno."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas/caras/logos = descartar y regenerar)\nhero.jpg 16:9 casa de hormigón y madera al anochecer, interiores en luz cálida, cielo azul\nprofundo, SIN personas · model.jpg 1:1 maqueta blanca sobre mesa oscura con foco lateral ·\ndetail.jpg 4:5 macro textura hormigón visto con juntas, luz rasante cálida ·\ngallery.jpg 16:9 interior doble altura con escalera de madera, luz cenital, cinematográfico sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio    Hero pantalla completa: kicker latón uppercase, H1 gigante hueso leading 0.95,\n           subhead gris cálido, CTA sólido latón texto tinta. hero.jpg integrado por\n           degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n           (opacity .04) sobre toda la página.\n#cifras    Count-up tabulares serif al entrar: \"+85 obras\", \"22 años de estudio\", \"98%\n           permisos aprobados\", \"1 arquitecto a cargo, siempre\". Evidencia numérica en vez\n           de adjetivos (patrón Winteri).\n#proyectos Índice numerado 01–08 lista editorial: nombre + comuna + línea + flecha.\n           Hover/tap expande 280ms revelando FICHA TÉCNICA: m², año, tipología, material"
+  },
+  {
+    "slug": "bruma",
+    "meta": {
+      "title": "Clínica dental familiar y odontopediatría",
+      "client": "Bruma",
+      "brand": "Bruma",
+      "sector": "dental",
+      "description": "Clínica dental familiar y odontopediatría, con paleta teal fresca y cercana."
+    },
+    "mediaVisible": [
+      "basin.jpg",
+      "bench.jpg",
+      "room.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "casonorte",
+    "meta": {
+      "title": "Clínica dental integral en Santiago",
+      "client": "Casa Norte",
+      "brand": "Casa Norte",
+      "sector": "dental",
+      "description": "Clínica dental integral en Santiago: tratamientos, equipo y horas en un recorrido sereno."
+    },
+    "mediaVisible": [
+      "desk.jpg",
+      "facade.jpg",
+      "object.jpg",
+      "room.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "centro-medico-eter-claro",
+    "meta": {
+      "title": "ÉTER — Centro Médico · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "centro-medico",
+      "description": "Propuesta clara luminosa para centros médicos chilenos: especialidades, bono electrónico y reserva en 48h."
+    },
+    "mediaVisible": [
+      "consulta.jpg",
+      "corridor.jpg",
+      "detail.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-CENTRO-MEDICO-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 45 capturas: 35 neutros claros avg 6.1% oscuro / 56.9% light) --papel #F8F6F1 · --papel-2 #EFE9E0 · --tinta #121614 · --gris #8B8680 · --linea #E2DDD4 · ACENTO ÚNICO --azul-clinico #115E8A (azul acero institucional desaturado, <5% de la UI: CTA secundario, kickers, links, estados activos; CTA principal es sólido tinta #121614 sobre papel). PROHIBIDO azul neón (#0096FF y familia), teal neón (#00FFC8), verde lima, rojo coral saturado #FF3B30, dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por",
+    "prohibido": "PROHIBIDO azul neón (#0096FF y familia), teal neón (#00FFC8), verde lima, rojo coral saturado #FF3B30, dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros (usa tinta y papel).",
+    "images": [
+      {
+        "file": "consulta.jpg",
+        "ratio": "16:9",
+        "desc": "box de consulta VACÍO luz norte: camilla lino claro, mesa roble clara, ventanal grande, fichas clínicas alineadas y fonendo desenfocado sobre papel, pared hueso — calma clínica absoluta, sin personas"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón sobre papel hueso: cuaderno clínico abierto con pauta de control, lápiz grafito, tarjeta bono electrónico y taza cerámica, luz natural"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido / textura camilla con luz rasante suave"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo/consulta luminosa vacía con luz natural y sombra suave, serena, nada clínico frío."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; doctores con fonendo apuntando a cámara / enfermeras cruzadas sonriendo / corazones latiendo / cruces gigantes neón / pasillos hospital genéricos = descartar y regenerar)\nconsulta.jpg 16:9 box de consulta VACÍO luz norte: camilla lino claro, mesa roble clara, ventanal grande, fichas clínicas alineadas y fonendo desenfocado sobre papel, pared hueso — calma clínica absoluta, sin personas ·\nstill.jpg 4:5 bodegón sobre papel hueso: cuaderno clínico abierto con pauta de control, lápiz grafito, tarjeta bono electrónico y taza cerámica, luz natural ·\ndetail.jpg 1:1 macro lino pálido / textura camilla con luz rasante suave ·\ncorridor.jpg 16:9 pasillo/consulta luminosa vacía con luz natural y sombra suave, serena, nada clínico frío.\nSi falta una, tipografía y layout llevan el diseño solos. Nada externo a public/media.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker azul-clínico uppercase tracking amplio (\"CENTRO MÉDICO · PROVIDENCIA / LAS CONDES · 3 SEDES\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Agendar hora\" + link subrayado animado azul-clínico a #pre"
+  },
+  {
+    "slug": "centro-medico-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Centro Médico · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "centro-medico",
+      "description": "Propuesta oscura premium para centros médicos chilenos: especialidades, bono electrónico y atención sin espera."
+    },
+    "mediaVisible": [
+      "corridor.jpg",
+      "lab.jpg",
+      "measure.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-CENTRO-MEDICO-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root — medida de 5 capturas: 56-96% oscuro, avg 74% dark) --fondo #0F1412 (tinta petróleo profundo) · --superficie #1B2220 · --superficie-alta #252E2B · --filete #2E3834 · --hueso #E8E4DE (texto, NUNCA #FFF) · --gris-calido #9CA3A0 · ACENTO ÚNICO --teal-claro #3EB5A6 (<5% de la UI: CTA sólido, kickers, estados activos, links). PROHIBIDO #000/#FFF puros, azul neón (#0096FF), verde lima (#BFFF00), glow en texto, gradientes púrpura-azul genéricos, dorado brillante #FFD700. border-radius: 0 en TODO. Profundidad por capas + filetes 1p",
+    "prohibido": "PROHIBIDO #000/#FFF puros, azul neón (#0096FF), verde lima (#BFFF00), glow en texto, gradientes púrpura-azul genéricos, dorado brillante #FFD700. border-radius: 0 en TODO. Profundidad por capas + filetes 1px (nunca sombras difusas).",
+    "images": [
+      {
+        "file": "lab.jpg",
+        "ratio": "16:9",
+        "desc": "consulta nocturna VACÍA, camilla oscura lino grafito, mesa roble oscuro, luz oculta cálida rasante, instrumental desenfocado, penumbra elegante, sin personas"
+      },
+      {
+        "file": "measure.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: fonendo acero, cuaderno clínico y tarjeta bono electrónico sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino oscuro / cuero técnico con luz rasante cálida"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo consulta nocturno simétrico con focos cálidos empotrados, cinematográfico sereno, sin gente."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; doctores posando con fonendo / enfermeras sonriendo / corazones neón / cruces gigantes / manos con guantes apuntando = descartar)\nlab.jpg 16:9 consulta nocturna VACÍA, camilla oscura lino grafito, mesa roble oscuro, luz oculta cálida rasante, instrumental desenfocado, penumbra elegante, sin personas ·\nmeasure.jpg 4:5 bodegón chiaroscuro: fonendo acero, cuaderno clínico y tarjeta bono electrónico sobre piedra oscura ·\ntexture.jpg 1:1 macro lino oscuro / cuero técnico con luz rasante cálida ·\ncorridor.jpg 16:9 pasillo consulta nocturno simétrico con focos cálidos empotrados, cinematográfico sereno, sin gente.\nSi falta una, tipografía y layout llevan el diseño solos.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker teal-claro uppercase (\"CENTRO MÉDICO PREMIUM · LAS CONDES / VITACURA · HORA EXACTA\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris cálido, CTA sólido teal-claro texto tinta. lab.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04 sobre toda la página.\n#filosofia ★ LA SECCIÓ"
+  },
+  {
+    "slug": "clinica-claro",
+    "meta": {
+      "title": "Propuesta de rediseño — Clínica Lircay",
+      "client": "Clínica Lircay",
+      "brand": "Clínica Lircay",
+      "sector": "dental",
+      "description": "Clínica con diseño claro y minimalista: especialidades, equipo y agenda destacada."
+    },
+    "mediaVisible": [
+      "hall.png",
+      "laboratorio.png",
+      "pasillo.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "concesionaria-eter-claro",
+    "meta": {
+      "title": "ÉTER — Concesionaria · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "concesionaria",
+      "description": "Propuesta clara editorial para concesionarias chilenas: stock verificable, precio publicado y transferencia que no te deja botado."
+    },
+    "mediaVisible": [
+      "detail.jpg",
+      "pasillo.jpg",
+      "showroom.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-CONCESIONARIA-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 92 capturas: 72 claros 0–45% oscuro, 18 oscuros 47–96%) --papel #F8F5EF · --papel-2 #EDE8DC · --tinta #121416 · --gris #8B8680 · --linea #E2DDD4 · ACENTO ÚNICO --rojo #9E2B1E (rojo automotriz desaturado, <5% de la UI: CTA secundario, kickers, links, estados activos, subrayado; CTA principal es sólido tinta #121416 sobre papel). PROHIBIDO rojo neón (#FF1A1A), azul confianza saturado como acento, dorado brillante, degradados, neón. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fond",
+    "prohibido": "PROHIBIDO rojo neón (#FF1A1A), azul confianza saturado como acento, dorado brillante, degradados, neón. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros (usa tinta y papel).",
+    "images": [
+      {
+        "file": "showroom.jpg",
+        "ratio": "16:9",
+        "desc": "interior de showroom VACÍO luz mañana: 3 autos alineados sobre piso pulido gris claro, muro blanco con línea horizontal filete, luz natural lateral — orden quirúrgico, reflejo suave, sin personas"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón sobre papel hueso claro: llave tipo navaja + padrón genérico sin marca + lápiz técnico, luz natural"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro costura de cuero / aro diamantado / filete cromado con luz rasante suave"
+      },
+      {
+        "file": "pasillo.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de showroom luminoso vacío con sombra suave, sereno, nada galpón frío."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; showroom con neón/familia feliz con SUV nuevo y globos/vendedor entregando llaves sonriendo/mockup 3D futurista inglés = descartar y regenerar)\nshowroom.jpg 16:9 interior de showroom VACÍO luz mañana: 3 autos alineados sobre piso pulido gris claro, muro blanco con línea horizontal filete, luz natural lateral — orden quirúrgico, reflejo suave, sin personas ·\nstill.jpg 4:5 bodegón sobre papel hueso claro: llave tipo navaja + padrón genérico sin marca + lápiz técnico, luz natural ·\ndetail.jpg 1:1 macro costura de cuero / aro diamantado / filete cromado con luz rasante suave ·\npasillo.jpg 16:9 pasillo de showroom luminoso vacío con sombra suave, sereno, nada galpón frío.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker rojo uppercase tracking amplio (\"CONCESIONARIA · LAS CONDES · USADOS VERIFICADOS\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Ver stock verificado\" + link subrayado animado rojo a #precios. Filtro sobrio bajo hero: Marca / Modelo / Año / Precio — como ficha, no marketplace chillón. showroom.jpg derecha 7/12, caption técnica 11px (\"ÉTER — "
+  },
+  {
+    "slug": "concesionaria-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Concesionaria · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "concesionaria",
+      "description": "Propuesta oscura premium minimal para concesionarias chilenas: showroom nocturno, stock curado y consignación con custodia y seguro."
+    },
+    "mediaVisible": [
+      "cava.jpg",
+      "pasillo.jpg",
+      "still.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-CONCESIONARIA-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root — medida de 18 capturas: 47–96% oscuro) --fondo #0E1113 (negro tinta profunda) · --superficie #191C1E · --superficie-alta #24282B · --filete #2E3330 · --hueso #E9E4DE (texto, NUNCA #FFF) · --gris #9AA0A6 · ACENTO ÚNICO --champagne #C8A96A (<5% de la UI: CTA sólido, kickers, estados activos, links; tracking amplio uppercase). PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes púrpura-azul genéricos, rojo neón brillante. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras difu",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes púrpura-azul genéricos, rojo neón brillante. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras difusas). Fondo oscuro en capas SIEMPRE (nada de bloques blancos).",
+    "images": [
+      {
+        "file": "cava.jpg",
+        "ratio": "16:9",
+        "desc": "showroom nocturno VACÍO: 2 autos premium alineados sobre piso oscuro pulido, luz rasante cálida oculta, muro tinta mate — cinematográfico sereno, reflejo suave, sin personas"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: llave premium + padrón oscuro sin marca + lápiz metálico sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro cuero perforado / aro diamantado / cromado con luz rasante cálida"
+      },
+      {
+        "file": "pasillo.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de showroom nocturno simétrico con focos cálidos empotrados, sereno, nada galpón ruidoso."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; showroom luminoso blanco/familia con SUV y globos/vendedor con corbata entregando llaves/mockup 3D neón inglés = descartar y regenerar)\ncava.jpg 16:9 showroom nocturno VACÍO: 2 autos premium alineados sobre piso oscuro pulido, luz rasante cálida oculta, muro tinta mate — cinematográfico sereno, reflejo suave, sin personas ·\nstill.jpg 4:5 bodegón chiaroscuro: llave premium + padrón oscuro sin marca + lápiz metálico sobre piedra oscura ·\ntexture.jpg 1:1 macro cuero perforado / aro diamantado / cromado con luz rasante cálida ·\npasillo.jpg 16:9 pasillo de showroom nocturno simétrico con focos cálidos empotrados, sereno, nada galpón ruidoso.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero pantalla completa: kicker champagne uppercase (\"CONCESIONARIA PREMIUM · LO BARNECHEA · STOCK CURADO\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris, CTA sólido champagne texto fondo + link subrayado animado a #precios. cava.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04 sobre toda la página.\n#filosofia  ★ LA SECCIÓN QUE DIF"
+  },
+  {
+    "slug": "contador-claro",
+    "meta": {
+      "title": "Estudio Balance — Contabilidad al día, negocio en calma",
+      "client": "Propuesta para estudios contables y asesores tributarios · Grupo claro minimalista / neutro",
+      "brand": "Estudio Balance",
+      "sector": "contabilidad",
+      "description": "Estudio contable y tributario: orden, calma y servicios explicados sin jerga."
+    },
+    "mediaVisible": [
+      "archivo.png",
+      "escritorio.png",
+      "grilla.png",
+      "sala-reuniones.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "dentista-b-azul-cian",
+    "meta": {
+      "title": "AZURA — Centro Dental · Propuesta Órbita",
+      "client": "AZURA",
+      "brand": "AZURA",
+      "sector": "dentista",
+      "description": "Propuesta clara con acento azul/cian para centro dental chileno: protocolo, puntualidad y convenios."
+    },
+    "mediaVisible": [
+      "box.jpg",
+      "detalle.jpg",
+      "instrumental.jpg",
+      "recepcion.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DENTISTA-B-AZUL-CIAN.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #F8FBFD · --tinta #132430 (azul-negro clínico) · --gris #6F8090 · --linea #D8E2E9 · ACENTO ÚNICO --azul-clinico #0E7CB5 (<5% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "recepción luminosa VACÍA con mostrador blanco y pared azul pálido"
+      },
+      {
+        "file": "box.jpg",
+        "ratio": "16:9",
+        "desc": "box dental con sillón vacío, luz natural y monitor de radiografía apagado"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de superficie vidrio esmerilado con reflejo azul suave"
+      },
+      {
+        "file": "instrumental.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de instrumental esterilizado en pouches azules alineados sobre"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/sonrisas de stock = descartar)\nrecepcion.jpg 16:9 recepción luminosa VACÍA con mostrador blanco y pared azul pálido ·\nbox.jpg 16:9 box dental con sillón vacío, luz natural y monitor de radiografía apagado ·\ndetalle.jpg 1:1 macro de superficie vidrio esmerilado con reflejo azul suave ·\ninstrumental.jpg 4:5 bodegón de instrumental esterilizado en pouches azules alineados sobre\nbandeja blanca.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker azul uppercase (\"CENTRO DENTAL · PUENTE ALTO\"), H1 gigante leading\n           0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado animado\n           a #valores. recepcion.jpg derecha 7/12, caption técnica 11px. Banda fina bajo el\n           hero: \"Especialidades coordinadas en un solo lugar · Urgencias dentales durante\n           horario\".\n#especialidades Índice numerado 01–06 editorial (NO cards): Diagnóstico digital · Rehabilitación\n           y estética · Endodoncia · Odontopediatría · Periodoncia · Ortodoncia y alineadores.\n           Hover/tap expande 64px revelando duración típica y valor \"desde\" (280ms).\n#cifr"
+  },
+  {
+    "slug": "dentista-b-claro",
+    "meta": {
+      "title": "SERENA DENTAL — Clínica Odontológica · Propuesta Órbita",
+      "client": "SERENA DENTAL",
+      "brand": "SERENA DENTAL",
+      "sector": "dentista",
+      "description": "Propuesta clara minimalista para clínica dental chilena: criterio clínico, precios transparentes."
+    },
+    "mediaVisible": [
+      "box.jpg",
+      "detalle.jpg",
+      "instrumental.jpg",
+      "sala.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DENTISTA-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FBFBF9 · --tinta #1B2430 (azul-pizarra clínico) · --gris #7A8590 · --linea #E1E5E3 · ACENTO ÚNICO --azul-clinico #2C6E8F (<5% de la UI: CTA principal, estados activos, links).",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "sala.jpg",
+        "ratio": "16:9",
+        "desc": "sala de espera luminosa y VACÍA, sillones claros, luz norte, madera pálida"
+      },
+      {
+        "file": "box.jpg",
+        "ratio": "16:9",
+        "desc": "box dental ordenado con sillón vacío e instrumental esterilizado sobre bandeja"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de superficie cerámica blanca con luz rasante suave"
+      },
+      {
+        "file": "instrumental.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de espejos y sondas dentales alineados sobre tela blanca."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes)\nsala.jpg 16:9 sala de espera luminosa y VACÍA, sillones claros, luz norte, madera pálida ·\nbox.jpg 16:9 box dental ordenado con sillón vacío e instrumental esterilizado sobre bandeja ·\ndetalle.jpg 1:1 macro de superficie cerámica blanca con luz rasante suave ·\ninstrumental.jpg 4:5 bodegón de espejos y sondas dentales alineados sobre tela blanca.\nCaras/sonrisas de stock/bocas abiertas/dientes gigantes = descartar y regenerar.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"CLÍNICA DENTAL · ÑUÑOA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #valores. sala.jpg derecha 7/12, caption técnica 11px. Banda fina bajo el\n           hero: \"Atención con hora o por urgencia · Convenios con las principales isapres\".\n#tratamientos Índice numerado 01–06 editorial (NO cards): Evaluación y diagnóstico digital ·\n           Limpieza y profilaxis · Restauraciones estéticas · Endodoncia · Cirugía y\n           extracciones · Ortodoncia y alineadores. Hover/tap expande 64px revelando duración"
+  },
+  {
+    "slug": "dentista-b-oscuro-premium",
+    "meta": {
+      "title": "OBSIDIANA DENTAL — Clínica de Especialidad · Propuesta Órbita",
+      "client": "OBSIDIANA DENTAL",
+      "brand": "OBSIDIANA DENTAL",
+      "sector": "dentista",
+      "description": "Propuesta oscura premium para clínica dental chilena: especialidad, tecnología y calma."
+    },
+    "mediaVisible": [
+      "corridor.jpg",
+      "hero.jpg",
+      "object.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DENTISTA-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #14171B (azul-negro profundo) · --superficie #1B2026 · --superficie-alta #232A31 · --filete #2F3840 · --hueso #EDEBE6 (texto, NUNCA #FFF) · --gris-calido #97A1AB · ACENTO ÚNICO --celeste-quirurgico #8FC7DC (<5% de la UI). PROHIBIDO #000/#FFF puros, azul",
+    "prohibido": "PROHIBIDO #000/#FFF puros, azul",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "box dental crepuscular VACÍA, sillón como pieza escultórica bajo luz puntual"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de instrumental dental sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro tela quirúrgica celeste pálido con luz rasante"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo clínico nocturno simétrico con focos empotrados cálidos,"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/sonrisas/manos = descartar)\nhero.jpg 16:9 box dental crepuscular VACÍA, sillón como pieza escultórica bajo luz puntual\ncálida · object.jpg 4:5 bodegón chiaroscuro de instrumental dental sobre piedra oscura ·\ntexture.jpg 1:1 macro tela quirúrgica celeste pálido con luz rasante ·\ncorridor.jpg 16:9 pasillo clínico nocturno simétrico con focos empotrados cálidos,\ncinematográfico pero sereno.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker celeste uppercase, H1 gigante hueso leading 0.95,\n           subhead gris cálido, CTA sólido celeste texto tinta. hero.jpg integrado por\n           degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n           (opacity .04).\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"Un plan claro antes que una silla\n           de dentista.\" Copy base: \"Radiografía panorámica digital el primer día. Presupuesto\n           por escrito. El mismo especialista desde la evaluación hasta el control final.\"\n           Sin testimonios públicos JAMÁS: la discreción es el argumento premium.\n#cifras    Count-up"
+  },
+  {
+    "slug": "dentista-b-teal",
+    "meta": {
+      "title": "LAGO AZUL DENTAL — Clínica Dental · Propuesta Órbita",
+      "client": "LAGO AZUL DENTAL",
+      "brand": "LAGO AZUL DENTAL",
+      "sector": "dentista",
+      "description": "Propuesta clara con acento teal para clínica dental chilena: higiene, cercanía y valores transparentes."
+    },
+    "mediaVisible": [
+      "box.jpg",
+      "detalle.jpg",
+      "instrumental.jpg",
+      "recepcion.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DENTISTA-B-TEAL.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFDFB · --tinta #123832 (verde-petróleo profundo) · --gris #6F8880 · --linea #D7E5DE · ACENTO ÚNICO --teal #17907E (<5-8% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "recepción luminosa VACÍA con mostrador blanco y pared verde-agua pálido"
+      },
+      {
+        "file": "box.jpg",
+        "ratio": "16:9",
+        "desc": "box dental ordenado con sillón vacío y luz natural lateral"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de superficie cerámica verde-agua con luz suave"
+      },
+      {
+        "file": "instrumental.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de frascos y instrumental alineado sobre bandeja blanca."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/sonrisas de stock = descartar)\nrecepcion.jpg 16:9 recepción luminosa VACÍA con mostrador blanco y pared verde-agua pálido ·\nbox.jpg 16:9 box dental ordenado con sillón vacío y luz natural lateral ·\ndetalle.jpg 1:1 macro de superficie cerámica verde-agua con luz suave ·\ninstrumental.jpg 4:5 bodegón de frascos y instrumental alineado sobre bandeja blanca.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker teal uppercase (\"CLÍNICA DENTAL · LA FLORIDA\"), H1 gigante leading\n           0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado animado\n           a #valores. recepcion.jpg derecha 7/12, caption técnica 11px. Banda fina bajo el\n           hero: \"Horas puntuales sin esperas · Urgencias dentales durante horario\".\n#tratamientos Índice numerado 01–06 editorial (NO cards): Evaluación y diagnóstico · Limpieza\n           y profilaxis · Restauraciones · Odontopediatría · Endodoncia · Ortodoncia y\n           alineadores. Hover/tap expande 64px revelando duración típica y valor \"desde\"\n           (280ms).\n#cifras    Count-up al entrar en viewport (IntersectionOb"
+  },
+  {
+    "slug": "diseno-claro",
+    "meta": {
+      "title": "Propuesta de rediseño · diseño claro",
+      "client": "Estudios de diseño digital chilenos · grupo Claro minimalista / neutro",
+      "brand": "Estudio Trazo",
+      "sector": "diseno",
+      "description": "Estudio de diseño digital: el sitio como pieza de portafolio, con grilla y detalle tipográfico."
+    },
+    "mediaVisible": [
+      "biblioteca-estudio.png",
+      "mesa-trabajo.png",
+      "papel-macro.png",
+      "posters-prensa.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "distribuidora-eter-claro",
+    "meta": {
+      "title": "ÉTER — Distribuidora Mayorista · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "distribuidora",
+      "description": "Propuesta clara luminosa para distribuidoras mayoristas chilenas: catálogo pedido, stock y despacho."
+    },
+    "mediaVisible": [
+      "bodega.jpg",
+      "camion.jpg",
+      "detail.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DISTRIBUIDORA-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 59 capturas: 47 neutros claros 0-39% oscuro) --papel #F7F5EF · --papel-2 #EFE9E0 · --tinta #1A1E1B · --gris #8A8580 · --linea #E0D9CC · ACENTO ÚNICO --oxido #9E3A1B (óxido terracota profundo, <5% de la UI: CTA secundario, kickers, links, estados activos; CTA principal es sólido tinta #1A1E1B sobre papel). PROHIBIDO rojo neón (#FF0000), verde lima, dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros.",
+    "prohibido": "PROHIBIDO rojo neón (#FF0000), verde lima, dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros.",
+    "images": [
+      {
+        "file": "bodega.jpg",
+        "ratio": "16:9",
+        "desc": "bodega luminosa VACÍA, pasillo con pallets y cajas alineadas rotuladas, luz norte, sin personas, orden absoluto"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón sobre papel hueso: caja abierta con productos alineados (aceite, arroz, conservas), albarán y lápiz, luz natural"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro cartón corrugado / textura caja con luz rasante suave"
+      },
+      {
+        "file": "camion.jpg",
+        "ratio": "16:9",
+        "desc": "camión de reparto blanco estacionado con portón bodega al fondo, luz mañana, sin gente, cinematográfico sereno."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; bodegas saturadas con gente cargando cajas genérica/manos con clipboard neón = descartar y regenerar)\nbodega.jpg 16:9 bodega luminosa VACÍA, pasillo con pallets y cajas alineadas rotuladas, luz norte, sin personas, orden absoluto ·\nstill.jpg 4:5 bodegón sobre papel hueso: caja abierta con productos alineados (aceite, arroz, conservas), albarán y lápiz, luz natural ·\ndetail.jpg 1:1 macro cartón corrugado / textura caja con luz rasante suave ·\ncamion.jpg 16:9 camión de reparto blanco estacionado con portón bodega al fondo, luz mañana, sin gente, cinematográfico sereno.\nSi falta una, tipografía y layout llevan el diseño solos. Nada externo a public/media.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker óxido uppercase tracking amplio (\"DISTRIBUIDORA MAYORISTA · LA FLORIDA · DESDE 2008\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Ver catálogo y precios\" + link subrayado animado óxido a #precios. bodega.jpg derecha 7/12, caption técnica 11px (\"Bodega ÉTER — stock rotulado, picking diario 06:00\"). Banda fina bajo hero: \"Stock en vivo · Precio por caja y "
+  },
+  {
+    "slug": "distribuidora-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Distribuidora Nocturna · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "distribuidora",
+      "description": "Propuesta oscura premium para distribuidoras chilenas: despacho nocturno, licores y abarrotes premium."
+    },
+    "mediaVisible": [
+      "bodegon.jpg",
+      "corridor.jpg",
+      "hero.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-DISTRIBUIDORA-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #131412 (negro cálido petróleo profundo) · --superficie #1D1E1B · --superficie-alta #252621 · --filete #2E3330 · --hueso #E8E4DE (texto, NUNCA #FFF) · --gris-calido #9AA3A0 · ACENTO ÚNICO --ambar #C2851A (<5% de la UI: CTA sólido, kickers, estados activos, links). PROHIBIDO #000/#FFF puros, neón (#39FF14), glow en texto, gradientes púrpura-azul genéricos, dorado brillante #FFD700. border-radius: 0 en TODO. Profundidad por capas + filetes 1px (nunca sombras difusas).",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón (#39FF14), glow en texto, gradientes púrpura-azul genéricos, dorado brillante #FFD700. border-radius: 0 en TODO. Profundidad por capas + filetes 1px (nunca sombras difusas).",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "bodega nocturna VACÍA, pallets con cajas alineadas iluminadas luz cálida rasante, penumbra elegante, sin personas"
+      },
+      {
+        "file": "bodegon.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: botella, caja y albarán sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro cartón oscuro texturado con luz rasante cálida"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo bodega nocturno simétrico con focos empotrados cálidos, cinematográfico sereno, sin gente."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/bodegas sucias con gente = descartar)\nhero.jpg 16:9 bodega nocturna VACÍA, pallets con cajas alineadas iluminadas luz cálida rasante, penumbra elegante, sin personas ·\nbodegon.jpg 4:5 bodegón chiaroscuro: botella, caja y albarán sobre piedra oscura ·\ntexture.jpg 1:1 macro cartón oscuro texturado con luz rasante cálida ·\ncorridor.jpg 16:9 pasillo bodega nocturno simétrico con focos empotrados cálidos, cinematográfico sereno, sin gente.\nSi falta una, tipografía y layout llevan el diseño solos.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker ámbar uppercase (\"DISTRIBUIDORA NOCTURNA · MAIPÚ · DESPACHO 18-04H\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris cálido, CTA sólido ámbar texto tinta. hero.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04 sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"Reposición nocturna, sala llena al abrir.\"\n           Copy: \"Despachamos cuando tu sala está cerrada. Sin camión bloqueando la puerta a las 11:00. "
+  },
+  {
+    "slug": "ecommerce-claro",
+    "meta": {
+      "title": "Propuesta de rediseño · ecommerce claro",
+      "client": "Tiendas online chilenas · grupo Claro minimalista / neutro",
+      "brand": "Bazar Austral",
+      "sector": "ecommerce",
+      "description": "Tienda online clara y rápida: vitrina, catálogo y checkout pensados para convertir."
+    },
+    "mediaVisible": [
+      "lino-detalle.png",
+      "producto-textil.png",
+      "tienda-interior.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "eter-claro",
+    "meta": {
+      "title": "ÉTER — Casa de Eventos · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "eventos",
+      "description": "Propuesta clara luminosa para centros de eventos: salones, capacidades y cotización instantánea."
+    },
+    "mediaVisible": [
+      "detalle.jpg",
+      "parque.jpg",
+      "plano.jpg",
+      "salon.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-EVENTOS-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FBF9F6 · --tinta #1A2320 (verde-negro profundo, NUNCA #000) · --gris #7F8782 · --linea #E6DDD2 · ACENTO ÚNICO --terracota #C0582A (<5% de la UI: CTA principal sólido, kickers, links activos, subrayados). PROHIBIDO #000/#FFF puros, neón, glow, gradientes decorativos. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace generoso.",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón, glow, gradientes decorativos. border-radius: 0 en TODO.",
+    "images": [
+      {
+        "file": "salon.jpg",
+        "ratio": "16:9",
+        "desc": "salón VACÍO luminoso, mesa larga roble clara vestida lino hueso, luz norte, parque al fondo desenfocado, sin personas"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón mesa: platos hueso, cubiertos, copa agua, servilleta lino doblada, luz rasante cálida"
+      },
+      {
+        "file": "parque.jpg",
+        "ratio": "16:9",
+        "desc": "parque/jardín crepuscular VACÍO, guirnalda de luces cálidas tenue, cinematográfico sereno"
+      },
+      {
+        "file": "plano.jpg",
+        "ratio": "1:1",
+        "desc": "plano cenital esquemático del salón (líneas finas tinta sobre papel) estilo arquitectónico, no foto."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/fiestas desbordadas = descartar y regenerar)\nsalon.jpg 16:9 salón VACÍO luminoso, mesa larga roble clara vestida lino hueso, luz norte, parque al fondo desenfocado, sin personas ·\ndetalle.jpg 4:5 bodegón mesa: platos hueso, cubiertos, copa agua, servilleta lino doblada, luz rasante cálida ·\nparque.jpg 16:9 parque/jardín crepuscular VACÍO, guirnalda de luces cálidas tenue, cinematográfico sereno ·\nplano.jpg 1:1 plano cenital esquemático del salón (líneas finas tinta sobre papel) estilo arquitectónico, no foto.\nSi falta una, tipografía y layout llevan el diseño solos. Nada externo a public/media.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"CASA DE EVENTOS · LA REINA\"), H1 gigante\n           leading 0.92 tracking negativo tinta, subhead 2 líneas gris, CTA sólido terracota\n           texto papel + link subrayado animado a #precios. salon.jpg derecha 7/12, caption\n           técnica 11px (\"Salón Central · 180 sentados · luz norte\"). Banda fina bajo hero:\n           \"Un solo evento por día · Equipo dedicado · Estacionamiento privado\".\n#salone"
+  },
+  {
+    "slug": "ferreteria-eter-claro",
+    "meta": {
+      "title": "ÉTER — Ferretería Industrial · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "ferreteria-industrial",
+      "description": "Propuesta clara editorial para ferreterías industriales y barracas chilenas: fierro, perno y plancha con medida exacta, precio sin letra chica y despacho que cumple."
+    },
+    "mediaVisible": [
+      "bodega.jpg",
+      "fierro.jpg",
+      "pasillo.jpg",
+      "pernos.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-FERRETERIA-INDUSTRIAL-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #FCFCF9 · --superficie #FFFFFF · --tinta #14181C · --gris #6B7480 · --linea #E6E1D6 · --acero #4A5A6B (texto secundario frío) · ACENTO ÚNICO --naranja #E85D04 (naranja seguridad industrial desaturado, <5% de la UI). Usado SOLO en CTA sólido, precio destacado y micro-filete activo. border-radius: 0 en TODO.",
+    "prohibido": "PROHIBIDO: fotos de obreros con casco genérico sonriendo a cámara, herramientas 3D flotando, warehouse render neón, manos con guantes apuntando, badges de rating con estrellas, marquee, planes SaaS \"más elegido\", testimonios con foto, logos de marcas inventadas, iconos decorativos como pieza central, gradient",
+    "images": [
+      {
+        "file": "steel.jpg",
+        "ratio": "16:9",
+        "desc": "bodega luminosa con perfiles de acero y mallas ordenadas, luz norte, sin personas, orden obsesivo"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro pernos/tornillos/tarugos sobre cartón técnico gris, sombra suave, ficha visible"
+      },
+      {
+        "file": "yard.jpg",
+        "ratio": "16:9",
+        "desc": "patio de fierro con fierro doblado y zinc acopiado, mañana despejada, limpio sin barro"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "4:5",
+        "desc": "herramientas eléctricas alineadas sobre mesón blanco, luz de día clínica"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; obreros con casco sonriendo / renders 3D neón = descartar y regenerar)\nsteel.jpg 16:9 bodega luminosa con perfiles de acero y mallas ordenadas, luz norte, sin personas, orden obsesivo\ndetail.jpg 1:1 macro pernos/tornillos/tarugos sobre cartón técnico gris, sombra suave, ficha visible\nyard.jpg 16:9 patio de fierro con fierro doblado y zinc acopiado, mañana despejada, limpio sin barro\ntools.jpg 4:5 herramientas eléctricas alineadas sobre mesón blanco, luz de día clínica\nSi no hay media, tipografía y tabla llevan el diseño (no usar stock externo).\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav deben funcionar)\n#inicio  Hero: kicker uppercase tracking amplio \"PERNERÍA · FIERRO · MADERA · GASFITERÍA\", H1 gigante leading 0.92 tracking -0.03em, subhead 2 líneas max 62ch, CTA sólido naranja texto hueso + link \"Ver precios\" subrayado animado 200ms. steel.jpg derecha 5/12 con caption técnica 11px \"Bodega Santiago · 1.200 m2 · stock rotulado\". Grano sutil opacity .03.\n#confianza Barra de confianza bajo hero (filete superior 1px): \"40 años abasteciendo obra\" · \"4.5★ 1.434 opiniones (Pernos Kim benchmark)\" · \"Despacho 24h RM\" · sin estr"
+  },
+  {
+    "slug": "ferreteria-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Ferretería Industrial Nocturna · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "ferreteria-industrial",
+      "description": "Propuesta oscura premium para ferreterías industriales y maestranzas nocturnas en Chile: fierro pesado, perno estructural y despacho madrugada con stock real."
+    },
+    "mediaVisible": [
+      "bodegon.jpg",
+      "corridor.jpg",
+      "hero.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-FERRETERIA-INDUSTRIAL-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #FCFCF9 · --superficie #FFFFFF · --tinta #14181C · --gris #6B7480 · --linea #E6E1D6 · --acero #4A5A6B (texto secundario frío) · ACENTO ÚNICO --naranja #E85D04 (naranja seguridad industrial desaturado, <5% de la UI). Usado SOLO en CTA sólido, precio destacado y micro-filete activo. border-radius: 0 en TODO.",
+    "prohibido": "PROHIBIDO: fotos de obreros con casco genérico sonriendo a cámara, herramientas 3D flotando, warehouse render neón, manos con guantes apuntando, badges de rating con estrellas, marquee, planes SaaS \"más elegido\", testimonios con foto, logos de marcas inventadas, iconos decorativos como pieza central, gradient",
+    "images": [
+      {
+        "file": "steel.jpg",
+        "ratio": "16:9",
+        "desc": "bodega luminosa con perfiles de acero y mallas ordenadas, luz norte, sin personas, orden obsesivo"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro pernos/tornillos/tarugos sobre cartón técnico gris, sombra suave, ficha visible"
+      },
+      {
+        "file": "yard.jpg",
+        "ratio": "16:9",
+        "desc": "patio de fierro con fierro doblado y zinc acopiado, mañana despejada, limpio sin barro"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "4:5",
+        "desc": "herramientas eléctricas alineadas sobre mesón blanco, luz de día clínica"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; obreros con casco sonriendo / renders 3D neón = descartar y regenerar)\nsteel.jpg 16:9 bodega luminosa con perfiles de acero y mallas ordenadas, luz norte, sin personas, orden obsesivo\ndetail.jpg 1:1 macro pernos/tornillos/tarugos sobre cartón técnico gris, sombra suave, ficha visible\nyard.jpg 16:9 patio de fierro con fierro doblado y zinc acopiado, mañana despejada, limpio sin barro\ntools.jpg 4:5 herramientas eléctricas alineadas sobre mesón blanco, luz de día clínica\nSi no hay media, tipografía y tabla llevan el diseño (no usar stock externo).\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav deben funcionar)\n#inicio  Hero: kicker uppercase tracking amplio \"PERNERÍA · FIERRO · MADERA · GASFITERÍA\", H1 gigante leading 0.92 tracking -0.03em, subhead 2 líneas max 62ch, CTA sólido naranja texto hueso + link \"Ver precios\" subrayado animado 200ms. steel.jpg derecha 5/12 con caption técnica 11px \"Bodega Santiago · 1.200 m2 · stock rotulado\". Grano sutil opacity .03.\n#confianza Barra de confianza bajo hero (filete superior 1px): \"40 años abasteciendo obra\" · \"4.5★ 1.434 opiniones (Pernos Kim benchmark)\" · \"Despacho 24h RM\" · sin estr"
+  },
+  {
+    "slug": "gimnasio-claro",
+    "meta": {
+      "title": "Estudio Savia — Propuesta de rediseño · Órbita",
+      "client": "Estudio de pilates, yoga y barre (grupo Claro minimalista / neutro)",
+      "brand": "Estudio Savia",
+      "sector": "bienestar",
+      "description": "Pilates, yoga y barre: diseño claro y orgánico, con clases, planes y horarios."
+    },
+    "mediaVisible": [
+      "barra.png",
+      "estudio.png",
+      "props.png",
+      "yoga.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "gimnasio-oscuro-premium",
+    "meta": {
+      "title": "FORJA · Propuesta Órbita",
+      "client": "FORJA — Centro de Entrenamiento",
+      "brand": "FORJA",
+      "sector": "bienestar",
+      "description": "Centro de entrenamiento con dirección oscura premium: fuerza, disciplina y comunidad."
+    },
+    "mediaVisible": [
+      "barra.png",
+      "pesas.png",
+      "plataforma.png",
+      "sala.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #121110 (negro CÁLIDO) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-cálido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI). PROHIBIDO #000/#FFF puros, dorado brillante",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro frasco ámbar sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nhero.jpg 16:9 sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA ·\nobject.jpg 4:5 bodegón chiaroscuro frasco ámbar sobre piedra oscura · texture.jpg 1:1 macro\nseda carbón con luz rasante cálida · corridor.jpg 16:9 pasillo nocturno simétrico con focos\nempotrados cálidos y obra enmarcada, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero pantalla completa: kicker champán uppercase, H1 gigante marfil leading 0.95,\n         subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado\n         por degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n         (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"Discreción total\": editorial sobre la promesa del\n         nombre — resultados que nadie nota, privacidad absoluta. Copy base: \"Nuestros mejores\n         resultados son los que nadie puede señalar.\" Sin testimonios públicos JAMÁS: la\n         ausencia es el argumento premium.\n#cifras  Count-up tabulares serif al entrar: \"+15 años\", \"+3.000 protocolos\", \"97% c"
+  },
+  {
+    "slug": "inmobiliaria-b-claro",
+    "meta": {
+      "title": "Propuesta de rediseño · Alameda Propiedades (grupo Claro minimalista / neutro, variante B) — Órbita",
+      "client": "Alameda Propiedades SpA — corredora de propiedades, Santiago de Chile",
+      "brand": "Alameda Propiedades",
+      "sector": "inmobiliaria",
+      "description": "Corredora de propiedades: catálogo claro con filtros y fichas orientadas a generar contactos."
+    },
+    "mediaVisible": [
+      "casa.png",
+      "cocina.png",
+      "edificio.png",
+      "living.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "inmobiliaria-b-oscuro-premium",
+    "meta": {
+      "title": "CUMBRES Propiedades · Propuesta Órbita",
+      "client": "CUMBRES Propiedades",
+      "brand": "CUMBRES Propiedades",
+      "sector": "inmobiliaria",
+      "description": "Propiedades premium con dirección oscura: catálogo elegante y captura de clientes."
+    },
+    "mediaVisible": [
+      "cocina.png",
+      "fachada.png",
+      "living.png",
+      "terraza.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #121110 (negro CÁLIDO) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-cálido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI). PROHIBIDO #000/#FFF puros, dorado brillante",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro frasco ámbar sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nhero.jpg 16:9 sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA ·\nobject.jpg 4:5 bodegón chiaroscuro frasco ámbar sobre piedra oscura · texture.jpg 1:1 macro\nseda carbón con luz rasante cálida · corridor.jpg 16:9 pasillo nocturno simétrico con focos\nempotrados cálidos y obra enmarcada, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero pantalla completa: kicker champán uppercase, H1 gigante marfil leading 0.95,\n         subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado\n         por degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n         (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"Discreción total\": editorial sobre la promesa del\n         nombre — resultados que nadie nota, privacidad absoluta. Copy base: \"Nuestros mejores\n         resultados son los que nadie puede señalar.\" Sin testimonios públicos JAMÁS: la\n         ausencia es el argumento premium.\n#cifras  Count-up tabulares serif al entrar: \"+15 años\", \"+3.000 protocolos\", \"97% c"
+  },
+  {
+    "slug": "inmobiliaria-claro",
+    "meta": {
+      "title": "Meridiano Propiedades — Propuesta de rediseño · Órbita",
+      "client": "Corredora inmobiliaria (grupo Claro minimalista / neutro)",
+      "brand": "Meridiano Propiedades",
+      "sector": "inmobiliaria",
+      "description": "Corredora inmobiliaria clara y minimalista: propiedades destacadas y contacto directo."
+    },
+    "mediaVisible": [
+      "casa.png",
+      "cocina.png",
+      "edificio.png",
+      "living.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "inmobiliaria-oscuro-premium",
+    "meta": {
+      "title": "ALTAMAR Propiedades · Propuesta Órbita",
+      "client": "ALTAMAR Propiedades",
+      "brand": "ALTAMAR Propiedades",
+      "sector": "inmobiliaria",
+      "description": "Inmobiliaria premium con dirección oscura: sobriedad, catálogo y experiencia de alto nivel."
+    },
+    "mediaVisible": [
+      "casa.png",
+      "cocina.png",
+      "living.png",
+      "terraza.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root) --fondo #121110 (negro CÁLIDO) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-cálido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI). PROHIBIDO #000/#FFF puros, dorado brillante",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro frasco ámbar sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nhero.jpg 16:9 sala crepuscular luz oculta cálida, yeso carbón, cama marfil, latón, VACÍA ·\nobject.jpg 4:5 bodegón chiaroscuro frasco ámbar sobre piedra oscura · texture.jpg 1:1 macro\nseda carbón con luz rasante cálida · corridor.jpg 16:9 pasillo nocturno simétrico con focos\nempotrados cálidos y obra enmarcada, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero pantalla completa: kicker champán uppercase, H1 gigante marfil leading 0.95,\n         subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado\n         por degradado hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo\n         (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"Discreción total\": editorial sobre la promesa del\n         nombre — resultados que nadie nota, privacidad absoluta. Copy base: \"Nuestros mejores\n         resultados son los que nadie puede señalar.\" Sin testimonios públicos JAMÁS: la\n         ausencia es el argumento premium.\n#cifras  Count-up tabulares serif al entrar: \"+15 años\", \"+3.000 protocolos\", \"97% c"
+  },
+  {
+    "slug": "kinesiologia-eter-claro",
+    "meta": {
+      "title": "ÉTER — Kinesiología · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "kinesiologia",
+      "description": "Propuesta clara editorial para centros de kinesiología chilenos: rehabilitación luminosa, criterio clínico y agenda humana."
+    },
+    "mediaVisible": [
+      "box.jpg",
+      "corridor.jpg",
+      "detail.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-KINESIOLOGIA-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 54 capturas: 41 neutros claros 0-15% oscuro) --papel #F8F6F1 · --papel-2 #EFE9E0 · --tinta #1C1E1B · --gris #8A857E · --linea #E0D9CC · ACENTO ÚNICO --teal #0F766E (teal clínico desaturado, <5% de la UI: CTA secundario, kickers, links, estados activos; CTA principal es sólido tinta #1C1E1B sobre papel). PROHIBIDO teal neón (#00FFC8 y familia), verde lima saturado (#BFFF00), dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #0",
+    "prohibido": "PROHIBIDO teal neón (#00FFC8 y familia), verde lima saturado (#BFFF00), dorados brillantes, degradados. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros (usa tinta y papel).",
+    "images": [
+      {
+        "file": "box.jpg",
+        "ratio": "16:9",
+        "desc": "box de kinesiología VACÍO luz norte: camilla lino claro, mesa de roble clara, ventanal grande, banda elástica enrollada y cuaderno clínico desenfocado, pared hueso — calma clínica absoluta, sin personas"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón sobre papel hueso: cuaderno abierto con pauta de ejercicios, lápiz grafito, banda elástica verde desaturada y taza cerámica, luz natural"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido / textura camilla con luz rasante suave"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo/box luminoso vacío con luz natural y sombra suave, sereno, nada clínico frío."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; deportistas con vendas genéricas/cerebros 3D/esqueletos neón/manos con guantes apuntando = descartar y regenerar)\nbox.jpg 16:9 box de kinesiología VACÍO luz norte: camilla lino claro, mesa de roble clara, ventanal grande, banda elástica enrollada y cuaderno clínico desenfocado, pared hueso — calma clínica absoluta, sin personas ·\nstill.jpg 4:5 bodegón sobre papel hueso: cuaderno abierto con pauta de ejercicios, lápiz grafito, banda elástica verde desaturada y taza cerámica, luz natural ·\ndetail.jpg 1:1 macro lino pálido / textura camilla con luz rasante suave ·\ncorridor.jpg 16:9 pasillo/box luminoso vacío con luz natural y sombra suave, sereno, nada clínico frío.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker teal uppercase tracking amplio (\"CENTRO DE KINESIOLOGÍA · LAS CONDES / VITACURA · BOX Y DOMICILIO\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Agendar evaluación\" + link subrayado animado teal a #precios. box.jpg derecha 7/12, caption técnica 11px (\"Box ÉTER — luz norte, 60 min por sesión\"). Banda fina bajo hero: \"Evaluación en 48h · Plan por"
+  },
+  {
+    "slug": "kinesiologia-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Kinesiología · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "kinesiologia",
+      "description": "Propuesta oscura premium minimal para centros de kinesiología chilenos: noche clínica, precisión y retorno deportivo."
+    },
+    "mediaVisible": [
+      "corridor.jpg",
+      "lab.jpg",
+      "measure.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-KINESIOLOGIA-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root — medida de 9 capturas: 49-98% oscuro) --fondo #101416 (azul-negro tinta profunda) · --superficie #1A1E22 · --superficie-alta #22272B · --filete #2E3440 · --hueso #E8E4DE (texto, NUNCA #FFF) · --gris #9AA0A6 · ACENTO ÚNICO --teal-frio #3EB5A6 (<5% de la UI: CTA sólido, kickers, estados activos, links; tracking amplio uppercase). PROHIBIDO #000/#FFF puros, neón saturado (#00FFC8 y familia), glow en texto, gradientes púrpura-azul genéricos. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras d",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón saturado (#00FFC8 y familia), glow en texto, gradientes púrpura-azul genéricos. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras difusas). Fondo oscuro en capas SIEMPRE (nada de bloques blancos).",
+    "images": [
+      {
+        "file": "lab.jpg",
+        "ratio": "16:9",
+        "desc": "laboratorio de movimiento nocturno VACÍO: camilla oscura, jaula de fuerza desenfocada, luz oculta cálida rasante, cinematográfica pero serena"
+      },
+      {
+        "file": "measure.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: banda elástica negra, goniómetro acero, cuaderno con test de salto sobre piedra oscura"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino oscuro / goma de piso técnico con luz rasante cálida"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo/box nocturno simétrico con focos cálidos empotrados, sereno, nada gym ruidoso."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; deportistas vendados genéricos con grito/columna neón/manos con guantes apuntando/esqueleto 3D = descartar y regenerar)\nlab.jpg 16:9 laboratorio de movimiento nocturno VACÍO: camilla oscura, jaula de fuerza desenfocada, luz oculta cálida rasante, cinematográfica pero serena ·\nmeasure.jpg 4:5 bodegón chiaroscuro: banda elástica negra, goniómetro acero, cuaderno con test de salto sobre piedra oscura ·\ntexture.jpg 1:1 macro lino oscuro / goma de piso técnico con luz rasante cálida ·\ncorridor.jpg 16:9 pasillo/box nocturno simétrico con focos cálidos empotrados, sereno, nada gym ruidoso.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero pantalla completa: kicker teal-frío uppercase (\"KINESIOLOGÍA DEPORTIVA · LAS CONDES / LA REINA\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris, CTA sólido teal-frío texto fondo + link subrayado animado a #servicios. lab.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04 sobre toda la página.\n#filosofia  ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"Rehabilitar es medir.\" Copy bas"
+  },
+  {
+    "slug": "laboratorio-eter-claro",
+    "meta": {
+      "title": "CRISTALAB — Laboratorio Clínico · Propuesta Órbita",
+      "client": "CRISTALAB",
+      "brand": "CRISTALAB",
+      "sector": "laboratorio",
+      "description": "Propuesta clara minimalista para laboratorio clínico chileno: exámenes confiables, resultados puntuales, trato humano."
+    },
+    "mediaVisible": [
+      "hero.jpg",
+      "hero.webp",
+      "recepcion.jpg",
+      "recepcion.webp",
+      "texture.jpg",
+      "texture.webp",
+      "tubos.jpg",
+      "tubos.webp"
+    ],
+    "mediaCount": 8,
+    "promptFile": "PROMPT-LABORATORIO-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFBFC (fondo, NUNCA #FFF puro en bloques grandes) · --blanco #FFFFFF · --tinta #0F1E2E (grafito azulado, texto) · --gris #6B7A8F · --gris-suave #9AA6BA · --linea #E6EAF0 · --linea-fuerte #D2D9E6 · ACENTO ÚNICO --petroleo #0E7490 (teal-600, <5% de la UI: CTA principal, link activo, dato clave, subrayado). PROHIBIDO #000/#FFF puros en texto/fondo, neón, glow, gradientes, sombras difusas. border-radius: 0 en TODO. Separación por filetes 1px var(--linea) y whitespace. ::selection var(--petroleo)/texto blanco. Focus-visible ring 2px var(--petrol",
+    "prohibido": "PROHIBIDO #000/#FFF puros en texto/fondo, neón, glow, gradientes, sombras difusas. border-radius: 0 en TODO. Separación por filetes 1px var(--linea) y whitespace. ::selection var(--petroleo)/texto blanco. Focus-visible ring 2px var(--petroleo).",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "mesada de laboratorio VACÍA, luz norte fría, tubos de ensayo alineados y gradilla metálica impecable, fondo blanco desenfocado"
+      },
+      {
+        "file": "tubos.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón macro de tubos al vacío con etiqueta tipográfica mínima, luz rasante fría"
+      },
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "recepción de toma de muestras vacía, sillas alineadas, luz natural, sin personas"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro papel de examen impreso con trama tipográfica y filete 1px, luz rasante. Nada de stock con doctores sonriendo, manos con guantes apuntando, microscopios 3D neón, corazones latiendo. Si falta una imagen, tipografía "
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos con jeringa/estetoscopio = descartar)\nhero.jpg 16:9 mesada de laboratorio VACÍA, luz norte fría, tubos de ensayo alineados y gradilla metálica impecable, fondo blanco desenfocado · tubos.jpg 4:5 bodegón macro de tubos al vacío con etiqueta tipográfica mínima, luz rasante fría · recepcion.jpg 16:9 recepción de toma de muestras vacía, sillas alineadas, luz natural, sin personas · texture.jpg 1:1 macro papel de examen impreso con trama tipográfica y filete 1px, luz rasante. Nada de stock con doctores sonriendo, manos con guantes apuntando, microscopios 3D neón, corazones latiendo. Si falta una imagen, tipografía y layout llevan el diseño solos.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio Hero: kicker uppercase tracking amplio (\"LABORATORIO CLÍNICO · SANTIAGO · DESDE 2012\"), H1 gigante tinta leading 0.92 tracking -0.03em, subhead 2 líneas gris, CTA sólido petróleo texto blanco + link subrayado animado a #precios (\"Ver preparación y ayuno\"). hero.jpg derecha 7/12 con caption técnica 11px (\"Toma en ayunas hasta 10:30 · Resultados en línea el mismo día en exámenes seleccionados\"). Banda"
+  },
+  {
+    "slug": "laboratorio-noctua-oscuro",
+    "meta": {
+      "title": "ORIA — Laboratorio Clínico Premium · Propuesta Órbita",
+      "client": "ORIA",
+      "brand": "ORIA",
+      "sector": "laboratorio",
+      "description": "Propuesta oscura premium para laboratorio clínico chileno: precisión nocturna, bioseguridad y resultado puntual."
+    },
+    "mediaVisible": [
+      "hero.jpg",
+      "hero.webp",
+      "lab-noche.jpg",
+      "lab-noche.webp",
+      "texture.jpg",
+      "texture.webp",
+      "tubos-dark.jpg",
+      "tubos-dark.webp"
+    ],
+    "mediaCount": 8,
+    "promptFile": "PROMPT-LABORATORIO-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #0F1419 (grafito azul-negro profundo) · --superficie #18202A · --superficie-alta #222E3B · --filete #2F3D4F · --hueso #E8EEF2 (texto, NUNCA #FFF) · --gris-calido #8A9BB0 · --gris-apagado #5A6A80 · ACENTO ÚNICO --cian-hielo #7BC4D6 (<5% de la UI: CTA, kicker, dato clave, subrayado). PROHIBIDO #000/#FFF puros, azul-violeta neón (#5865F2 y familia), glow en texto, gradientes púrpura genéricos, sombras difusas. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras). ::selection var(--cian",
+    "prohibido": "PROHIBIDO #000/#FFF puros, azul-violeta neón (#5865F2 y familia), glow en texto, gradientes púrpura genéricos, sombras difusas. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras). ::selection var(--cian-hielo)/texto tinta. Focus-visible ring 2px var(--cian-hielo).",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala de toma de muestras crepuscular VACÍA, camilla y gradilla iluminadas puntual cálida sobre fondo noche, sin personas"
+      },
+      {
+        "file": "tubos-dark.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de tubos al vacío sobre acero oscuro cepillado, luz rasante fría"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro superficie de acero inoxidable cepillado con luz rasante"
+      },
+      {
+        "file": "lab-noche.jpg",
+        "ratio": "16:9",
+        "desc": "mesada de laboratorio nocturna con microscopio y cuaderno técnico, luz lateral dramática, cinematográfico pero sereno. Nada de doctores con fonendo, manos con guantes apuntando, ADN 3D neón, cruces gigantes. Si falta una"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/código Matrix = descartar)\nhero.jpg 16:9 sala de toma de muestras crepuscular VACÍA, camilla y gradilla iluminadas puntual cálida sobre fondo noche, sin personas · tubos-dark.jpg 4:5 bodegón chiaroscuro de tubos al vacío sobre acero oscuro cepillado, luz rasante fría · texture.jpg 1:1 macro superficie de acero inoxidable cepillado con luz rasante · lab-noche.jpg 16:9 mesada de laboratorio nocturna con microscopio y cuaderno técnico, luz lateral dramática, cinematográfico pero sereno. Nada de doctores con fonendo, manos con guantes apuntando, ADN 3D neón, cruces gigantes. Si falta una, tipografía y layout llevan el diseño solos.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio Hero pantalla completa: kicker cian-hielo uppercase (\"LABORATORIO PRIVADO · SANTIAGO · CADENA DE FRÍO CONTROLADA\"), H1 gigante hueso leading 0.92 tracking -0.03em, subhead gris cálido 2 líneas, CTA sólido cian-hielo texto tinta + link secundario a #precios. hero.jpg integrado por degradado hacia var(--fondo) (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04. Caption técnica 11px: \"Toma agendada ca"
+  },
+  {
+    "slug": "lumen",
+    "meta": {
+      "title": "Diagnóstico dental con escáner en la primera visita",
+      "client": "Lumen",
+      "brand": "Lumen",
+      "sector": "dental",
+      "description": "Diagnóstico dental con escáner en la primera visita: tecnología y confianza en azul."
+    },
+    "mediaVisible": [
+      "facade.jpg",
+      "object.jpg",
+      "room.jpg"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "marketing-b-azul-cian",
+    "meta": {
+      "title": "PULSO — Agencia de Marketing · Propuesta Órbita",
+      "client": "PULSO",
+      "brand": "PULSO",
+      "sector": "marketing",
+      "description": "Propuesta de superficie media con acento azul/cian para agencias de marketing chilenas: respaldo corporativo y datos."
+    },
+    "mediaVisible": [
+      "consola.jpg",
+      "detalle.jpg",
+      "estudio.jpg",
+      "hero.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-MARKETING-B-AZUL-CIAN.md",
+    "paleta": "PALETA (regla dura — la superficie media tiene capas, variables CSS en :root) --fondo #26303C (azul pizarra MEDIO, más claro que una noche) · --superficie #2E3947 · --superficie-alta #37434F · --filete #48545F · --hueso #E9EDF0 (texto, NUNCA #FFF) · --gris-calido #9FABB5 · ACENTO ÚNICO --cian #35A7CE (<5% de la UI: CTA sólido, kickers,",
+    "prohibido": "PROHIBIDO #000/#FFF puros, secciones blancas o negras puras,",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "oficina abierta en penumbra azulada VACÍA, ventanal con ciudad fuera de foco,"
+      },
+      {
+        "file": "estudio.jpg",
+        "ratio": "16:9",
+        "desc": "estudio audiovisual vacío: ciclorama gris-azul, luces"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de vidrio esmerilado con reflejo cian suave"
+      },
+      {
+        "file": "consola.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de audífonos profesionales y consola sobre superficie grafito con"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos de stock = descartar)\nhero.jpg 16:9 oficina abierta en penumbra azulada VACÍA, ventanal con ciudad fuera de foco,\nluz fría de tarde · estudio.jpg 16:9 estudio audiovisual vacío: ciclorama gris-azul, luces\napagadas en pértiga · detalle.jpg 1:1 macro de vidrio esmerilado con reflejo cian suave ·\nconsola.jpg 4:5 bodegón de audífonos profesionales y consola sobre superficie grafito con\nluz cian lateral.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker cian uppercase (\"AGENCIA DE MARKETING · LAS\n           CONDES\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris cálido,\n           CTA sólido cian texto tinta + link subrayado animado a #servicios. hero.jpg\n           lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay plano).\n           Banda fina bajo el hero: \"Planes mensuales con ejecutivo dedicado · Reporte\n           con números auditables\".\n#servicios Índice numerado 01–06 lista editorial (NO cards): Estrategia y posicionamiento ·\n           Pauta digital y paid media · Contenido y producción audiovisual · SEO técn"
+  },
+  {
+    "slug": "marketing-b-claro",
+    "meta": {
+      "title": "CRITERIO — Agencia de Marketing · Propuesta Órbita",
+      "client": "CRITERIO",
+      "brand": "CRITERIO",
+      "sector": "marketing",
+      "description": "Propuesta clara editorial para agencias de marketing chilenas: orden, criterio y métricas."
+    },
+    "mediaVisible": [
+      "cuaderno.jpg",
+      "detalle.jpg",
+      "muestras.jpg",
+      "recepcion.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-MARKETING-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAF9F5 · --tinta #1C1C1A · --gris #75736B · --linea #E3E1D8 · ACENTO ÚNICO --lacre #A63A2B (<5% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared"
+      },
+      {
+        "file": "muestras.jpg",
+        "ratio": "16:9",
+        "desc": "papelería de marca alineada sobre mesa clara (libros,"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de papel algodón texturado con luz"
+      },
+      {
+        "file": "cuaderno.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de cuaderno, lápiz y taza de cerámica sobre lino"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos de stock = descartar)\nrecepcion.jpg 16:9 oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared\nblanca rota · muestras.jpg 16:9 papelería de marca alineada sobre mesa clara (libros,\ntarjetas, láminas), luz natural · detalle.jpg 1:1 macro de papel algodón texturado con luz\nsuave rasante · cuaderno.jpg 4:5 bodegón de cuaderno, lápiz y taza de cerámica sobre lino\nclaro.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker lacre uppercase (\"AGENCIA DE MARKETING · PROVIDENCIA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link\n           subrayado animado a #servicios. recepcion.jpg derecha 7/12, caption técnica\n           11px. Banda fina bajo el hero: \"Planes mensuales sin contratos trampa ·\n           Reporte con números auditables\".\n#servicios Índice numerado 01–06 editorial (NO cards): Estrategia y posicionamiento ·\n           Pauta digital · Contenido y copywriting · SEO técnico · Redes sociales ·\n           Analítica y reportes. Hover/tap expande 64px revelando duración típica y\n           precio \"de"
+  },
+  {
+    "slug": "marketing-b-oscuro",
+    "meta": {
+      "title": "BRÚJULA — Agencia de Marketing · Propuesta Órbita",
+      "client": "BRÚJULA",
+      "brand": "BRÚJULA",
+      "sector": "marketing",
+      "description": "Propuesta oscura premium minimal para agencias de marketing chilenas: criterio, foco y métricas."
+    },
+    "mediaVisible": [
+      "hero.jpg",
+      "oficina.jpg",
+      "tablero.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-MARKETING-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #14161A (azul-negro tinta profunda) · --superficie #1B1E23 · --superficie-alta #22262C · --filete #2F343B · --hueso #ECE9E2 (texto, NUNCA #FFF) · --gris-calido #9AA3AC · ACENTO ÚNICO --ambar #D9A441 (<5% de la UI: CTA sólido, kickers, estados activos, links).",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón (#39FF14 y familia), glow en texto, gradientes",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala de reuniones crepuscular VACÍA, mesa larga oscura, luz oculta cálida"
+      },
+      {
+        "file": "tablero.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: cuaderno,"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro papel negro texturado"
+      },
+      {
+        "file": "oficina.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo/oficina nocturna simétrica con focos"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos de stock = descartar)\nhero.jpg 16:9 sala de reuniones crepuscular VACÍA, mesa larga oscura, luz oculta cálida\nrasante, cinematográfica pero serena · tablero.jpg 4:5 bodegón chiaroscuro: cuaderno,\nregla, compás antiguo sobre piedra oscura · texture.jpg 1:1 macro papel negro texturado\ncon luz rasante cálida · oficina.jpg 16:9 pasillo/oficina nocturna simétrica con focos\ncálidos empotrados, serena.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker ámbar uppercase (\"AGENCIA DE MARKETING ·\n           PROVIDENCIA\"), H1 gigante hueso leading 0.95 tracking negativo, subhead gris\n           cálido, CTA sólido ámbar texto tinta + link subrayado animado a #servicios.\n           hero.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay\n           negro plano). Grano fílmico sutilísimo (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"Estrategia que se puede\n           auditar.\" Copy base: \"Cada campaña tiene objetivo, presupuesto y métrica\n           declarados por escrito. Si el número no mejor"
+  },
+  {
+    "slug": "marketing-claro",
+    "meta": {
+      "title": "Estudio Norte — Marketing con criterio, no ruido",
+      "client": "Propuesta para agencias de marketing · Grupo claro minimalista",
+      "brand": "Estudio Norte",
+      "sector": "marketing",
+      "description": "Agencia de marketing con criterio: servicios, casos y una propuesta clara, sin ruido."
+    },
+    "mediaVisible": [
+      "corredor.png",
+      "formas.png",
+      "mesa.png",
+      "papel.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-MARKETING-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAF9F5 · --tinta #1C1C1A · --gris #75736B · --linea #E3E1D8 · ACENTO ÚNICO --lacre #A63A2B (<5% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared"
+      },
+      {
+        "file": "muestras.jpg",
+        "ratio": "16:9",
+        "desc": "papelería de marca alineada sobre mesa clara (libros,"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de papel algodón texturado con luz"
+      },
+      {
+        "file": "cuaderno.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de cuaderno, lápiz y taza de cerámica sobre lino"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos de stock = descartar)\nrecepcion.jpg 16:9 oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared\nblanca rota · muestras.jpg 16:9 papelería de marca alineada sobre mesa clara (libros,\ntarjetas, láminas), luz natural · detalle.jpg 1:1 macro de papel algodón texturado con luz\nsuave rasante · cuaderno.jpg 4:5 bodegón de cuaderno, lápiz y taza de cerámica sobre lino\nclaro.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker lacre uppercase (\"AGENCIA DE MARKETING · PROVIDENCIA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link\n           subrayado animado a #servicios. recepcion.jpg derecha 7/12, caption técnica\n           11px. Banda fina bajo el hero: \"Planes mensuales sin contratos trampa ·\n           Reporte con números auditables\".\n#servicios Índice numerado 01–06 editorial (NO cards): Estrategia y posicionamiento ·\n           Pauta digital · Contenido y copywriting · SEO técnico · Redes sociales ·\n           Analítica y reportes. Hover/tap expande 64px revelando duración típica y\n           precio \"de"
+  },
+  {
+    "slug": "marketing-oscuro-premium",
+    "meta": {
+      "title": "FOCO — Propuesta de rediseño · Órbita",
+      "client": "Agencia de marketing digital / publicidad / comunicaciones (grupo Oscuro / premium minimal real)",
+      "brand": "FOCO",
+      "sector": "marketing",
+      "description": "Agencia con dirección oscura premium: impacto, portafolio y mensajes afilados."
+    },
+    "mediaVisible": [
+      "film.png",
+      "focos.png",
+      "lente.png",
+      "proyector.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-MARKETING-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAF9F5 · --tinta #1C1C1A · --gris #75736B · --linea #E3E1D8 · ACENTO ÚNICO --lacre #A63A2B (<5% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared"
+      },
+      {
+        "file": "muestras.jpg",
+        "ratio": "16:9",
+        "desc": "papelería de marca alineada sobre mesa clara (libros,"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de papel algodón texturado con luz"
+      },
+      {
+        "file": "cuaderno.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de cuaderno, lápiz y taza de cerámica sobre lino"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos de stock = descartar)\nrecepcion.jpg 16:9 oficina luminosa VACÍA con mesa de madera clara, sillas simples y pared\nblanca rota · muestras.jpg 16:9 papelería de marca alineada sobre mesa clara (libros,\ntarjetas, láminas), luz natural · detalle.jpg 1:1 macro de papel algodón texturado con luz\nsuave rasante · cuaderno.jpg 4:5 bodegón de cuaderno, lápiz y taza de cerámica sobre lino\nclaro.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker lacre uppercase (\"AGENCIA DE MARKETING · PROVIDENCIA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link\n           subrayado animado a #servicios. recepcion.jpg derecha 7/12, caption técnica\n           11px. Banda fina bajo el hero: \"Planes mensuales sin contratos trampa ·\n           Reporte con números auditables\".\n#servicios Índice numerado 01–06 editorial (NO cards): Estrategia y posicionamiento ·\n           Pauta digital · Contenido y copywriting · SEO técnico · Redes sociales ·\n           Analítica y reportes. Hover/tap expande 64px revelando duración típica y\n           precio \"de"
+  },
+  {
+    "slug": "minimayorista",
+    "meta": {
+      "title": "Sitio web y tienda online",
+      "client": "MiniMayorista",
+      "hidden": true
+    },
+    "mediaVisible": [],
+    "mediaCount": 0,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "neumaticos-eter-claro",
+    "meta": {
+      "title": "NEUMA ÉTER — Neumáticos · Propuesta Órbita",
+      "client": "NEUMA",
+      "brand": "NEUMA",
+      "sector": "neumaticos",
+      "description": "Propuesta clara editorial para servitecas y venta de neumáticos en Chile: buscador por medida, precio instalado y agenda de montaje sin WhatsApp eterno."
+    },
+    "mediaVisible": [
+      "detail.jpg",
+      "pasillo.jpg",
+      "still.jpg",
+      "taller.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-NEUMATICOS-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #F7F7F5 · --tinta #1A2328 (grafito-azulado industrial) · --gris #7A868F · --linea #E2E5E3 · ACENTO ÚNICO --goma #0F4C5C (azul goma profundo, <5% de la UI: CTA principal, estado activo, link).",
+    "prohibido": "PROHIBIDO: vulcanizador sonriendo con pulgar arriba, manos engrasadas posando, auto deportivo",
+    "images": [
+      {
+        "file": "galpon.jpg",
+        "ratio": "16:9",
+        "desc": "galpón de serviteca luminoso y VACÍO, torres de llantas alineadas por medida,"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de banda de rodadura nueva sobre papel kraft claro, luz rasante suave"
+      },
+      {
+        "file": "bodega.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de bodega claro ordenado, llantas rotuladas por código, simetría industrial"
+      },
+      {
+        "file": "kit.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de tuercas y manómetro alineados sobre superficie hueso, sombra suave."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes, si faltan tipografía lleva el layout)\ngalpon.jpg 16:9 galpón de serviteca luminoso y VACÍO, torres de llantas alineadas por medida,\nluz norte, piso de concreto limpio, sin personas ·\ndetalle.jpg 1:1 macro de banda de rodadura nueva sobre papel kraft claro, luz rasante suave ·\nbodega.jpg 16:9 pasillo de bodega claro ordenado, llantas rotuladas por código, simetría industrial ·\nkit.jpg 4:5 bodegón de tuercas y manómetro alineados sobre superficie hueso, sombra suave.\nPROHIBIDO: vulcanizador sonriendo con pulgar arriba, manos engrasadas posando, auto deportivo\ncon humo de llanta, renders 3D futuristas, llantas flotando con brillo neón. Si una imagen no\nconvence, se descarta y el layout tipográfico resuelve.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero editorial 12cols: kicker uppercase tracking .18em (\"SERVITECA · MAIPÚ · DESDE 2006\"),\n           H1 gigante leading 0.92 tracking -0.03em, subhead 2 líneas gris, CTA sólido tinta \"Cotizar medidas\"\n           + link subrayado animado a #precios \"Ver precios de referencia\". galpon.jpg derecha 7/12 con caption\n           técnica 11px (\"Stock v"
+  },
+  {
+    "slug": "neumaticos-noctua-oscuro",
+    "meta": {
+      "title": "NEUMA NOCTUA — Neumáticos Premium · Propuesta Órbita",
+      "client": "NEUMA NOCTUA",
+      "brand": "NEUMA NOCTUA",
+      "sector": "neumaticos",
+      "description": "Showroom nocturno de neumáticos premium, llantas diamantadas y montaje de precisión en Santiago."
+    },
+    "mediaVisible": [
+      "detail-noir.jpg",
+      "pasillo-noir.jpg",
+      "still-noir.jpg",
+      "taller-noir.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-NEUMATICOS-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --fondo #121417 (grafito profundo) · --superficie #1A1D20 · --superficie-alta #23262B · --filete #2E3339 · --hueso #E8E6E1 (texto, NUNCA #FFF) · --gris #9AA0A6 · ACENTO ÚNICO --ambar #D97706 (luz de taller cálida, <6% de la UI: CTA principal, kickers, estados activos, links).",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes púrpura-azul genéricos.",
+    "images": [
+      {
+        "file": "galpon.jpg",
+        "ratio": "16:9",
+        "desc": "taller nocturno VACÍO e impecable: torres de llantas en sombra, una sola luz cálida"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de banda de rodadura nueva sobre pizarra oscura, luz rasante cálida"
+      },
+      {
+        "file": "bodega.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de bodega nocturna ordenada, llantas rotuladas por código, simetría industrial"
+      },
+      {
+        "file": "kit.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de manómetro y tuercas sobre acero oscuro, sombra profunda."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes, si faltan tipografía lleva el layout)\ngalpon.jpg 16:9 taller nocturno VACÍO e impecable: torres de llantas en sombra, una sola luz cálida\nrasante sobre la bancada de montaje, piso de concreto limpio que refleja la luz, sin personas ·\ndetalle.jpg 1:1 macro de banda de rodadura nueva sobre pizarra oscura, luz rasante cálida ·\nbodega.jpg 16:9 pasillo de bodega nocturna ordenada, llantas rotuladas por código, simetría industrial\nen penumbra ·\nkit.jpg 4:5 bodegón chiaroscuro de manómetro y tuercas sobre acero oscuro, sombra profunda.\nPROHIBIDO: vulcanizador sonriendo con pulgar arriba, manos engrasadas posando, auto derrapando con\nhumo, renders 3D futuristas, llantas flotando con neón. Si una imagen no convence, se descarta\ny el layout tipográfico resuelve.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero editorial 12cols: kicker uppercase tracking .18em ámbar (\"SERVITECA NOCTURNA · MACUL · DESDE 2009\"),\n           H1 gigante hueso leading 0.92 tracking -0.03em, subhead 2 líneas gris, CTA sólido ámbar \"Cotizar ahora\"\n           + link subrayado animado a #precios \"Ver precios de referencia\". g"
+  },
+  {
+    "slug": "noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Casa de Eventos Nocturna · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "eventos",
+      "description": "Propuesta oscura premium para centros de eventos: dirección de arte, técnica y un solo evento por noche."
+    },
+    "mediaVisible": [
+      "bodegon.jpg",
+      "corridor.jpg",
+      "hero.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-EVENTOS-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FBF9F6 · --tinta #1A2320 (verde-negro profundo, NUNCA #000) · --gris #7F8782 · --linea #E6DDD2 · ACENTO ÚNICO --terracota #C0582A (<5% de la UI: CTA principal sólido, kickers, links activos, subrayados). PROHIBIDO #000/#FFF puros, neón, glow, gradientes decorativos. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace generoso.",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón, glow, gradientes decorativos. border-radius: 0 en TODO.",
+    "images": [
+      {
+        "file": "salon.jpg",
+        "ratio": "16:9",
+        "desc": "salón VACÍO luminoso, mesa larga roble clara vestida lino hueso, luz norte, parque al fondo desenfocado, sin personas"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón mesa: platos hueso, cubiertos, copa agua, servilleta lino doblada, luz rasante cálida"
+      },
+      {
+        "file": "parque.jpg",
+        "ratio": "16:9",
+        "desc": "parque/jardín crepuscular VACÍO, guirnalda de luces cálidas tenue, cinematográfico sereno"
+      },
+      {
+        "file": "plano.jpg",
+        "ratio": "1:1",
+        "desc": "plano cenital esquemático del salón (líneas finas tinta sobre papel) estilo arquitectónico, no foto."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/fiestas desbordadas = descartar y regenerar)\nsalon.jpg 16:9 salón VACÍO luminoso, mesa larga roble clara vestida lino hueso, luz norte, parque al fondo desenfocado, sin personas ·\ndetalle.jpg 4:5 bodegón mesa: platos hueso, cubiertos, copa agua, servilleta lino doblada, luz rasante cálida ·\nparque.jpg 16:9 parque/jardín crepuscular VACÍO, guirnalda de luces cálidas tenue, cinematográfico sereno ·\nplano.jpg 1:1 plano cenital esquemático del salón (líneas finas tinta sobre papel) estilo arquitectónico, no foto.\nSi falta una, tipografía y layout llevan el diseño solos. Nada externo a public/media.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"CASA DE EVENTOS · LA REINA\"), H1 gigante\n           leading 0.92 tracking negativo tinta, subhead 2 líneas gris, CTA sólido terracota\n           texto papel + link subrayado animado a #precios. salon.jpg derecha 7/12, caption\n           técnica 11px (\"Salón Central · 180 sentados · luz norte\"). Banda fina bajo hero:\n           \"Un solo evento por día · Equipo dedicado · Estacionamiento privado\".\n#salone"
+  },
+  {
+    "slug": "pausa",
+    "meta": {
+      "title": "Consulta dental de adultos, agenda limitada",
+      "client": "Pausa",
+      "brand": "Pausa",
+      "sector": "dental",
+      "description": "Consulta dental de adultos con agenda limitada: calma, exclusividad y diseño claro."
+    },
+    "mediaVisible": [
+      "basin.jpg",
+      "bench.jpg",
+      "room.jpg",
+      "still.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SITIO-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root) --papel #F7F4EF · --tinta #17140F · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --bronce #9C6B3F (<5% de la UI). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO: personas/caras/manos, antes/después fotográficos, testimonios con foto, badges de",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala hueso/roble vacía luz norte"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón frasco ámbar sobre"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido"
+      },
+      {
+        "file": "tools.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental esterilizado"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/logos = descartar y regenerar)\nroom.jpg 16:9 sala hueso/roble vacía luz norte · still.jpg 4:5 bodegón frasco ámbar sobre\npiedra caliza · detail.jpg 1:1 macro lino pálido · tools.jpg 16:9 instrumental esterilizado\nordenado sobre paño blanco, luz de día, clínico pero bello.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos)\n#inicio  Hero: kicker uppercase tracking amplio, H1 gigante leading 0.92 tracking negativo,\n         subhead 2 líneas, CTA sólido tinta + link subrayado animado. room.jpg derecha 7/12,\n         caption técnica 11px. Puntos flotantes sutiles (opacity .15) guiño Plenaire.\n#evidencia Count-up animado al entrar en viewport (IntersectionObserver): \"+1.200 evaluaciones\",\n         \"94% recomienda\", \"12 años\", \"0 tratamientos sin diagnóstico\". Números tabulares serif.\n#tratamientos Índice numerado 01–06 editorial (NO cards): nombre grande + línea + flecha.\n         Hover/tap expande 64px revelando duración y precio \"desde\" (280ms).\n#precios \"Precios claros, sin sorpresas\": tabla 4 tratamientos estrella precio desde + nota\n         \"El valor final se confirma en tu evaluación. Nunca cobramos algo que no aprobaste.\"\n#metod"
+  },
+  {
+    "slug": "repuestos-eter-claro",
+    "meta": {
+      "title": "ÉTER REPUESTOS — Casa de Repuestos · Propuesta Órbita",
+      "client": "ÉTER REPUESTOS",
+      "brand": "ÉTER REPUESTOS",
+      "sector": "repuestos",
+      "description": "Propuesta clara minimalista para casa de repuestos chilena: stock verificable, compatibilidad por VIN y despacho hoy."
+    },
+    "mediaVisible": [
+      "bodega.jpg",
+      "detalle.jpg",
+      "kit.jpg",
+      "mostrador.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-REPUESTOS-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #F7F7F5 · --tinta #1A2328 (grafito-azulado industrial) · --gris #7A868F · --linea #E2E5E3 · ACENTO ÚNICO --rojo-signal #C1272D (<5% de la UI: CTA principal, estado activo, link).",
+    "prohibido": "PROHIBIDO: mecánico sonriendo con pulgar arriba, manos con llave inglesa, familia con auto,",
+    "images": [
+      {
+        "file": "mostrador.jpg",
+        "ratio": "16:9",
+        "desc": "mostrador técnico luminoso y VACÍO, estanterías con cajas alineadas, luz norte, sin personas"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de disco de freno nuevo sobre papel kraft claro, luz rasante suave"
+      },
+      {
+        "file": "bodega.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de bodega claro ordenado, cajas rotuladas por código, simetría industrial"
+      },
+      {
+        "file": "kit.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de filtros y pastillas alineados sobre superficie hueso, sombra suave."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes, si faltan tipografía lleva el layout)\nmostrador.jpg 16:9 mostrador técnico luminoso y VACÍO, estanterías con cajas alineadas, luz norte, sin personas ·\ndetalle.jpg 1:1 macro de disco de freno nuevo sobre papel kraft claro, luz rasante suave ·\nbodega.jpg 16:9 pasillo de bodega claro ordenado, cajas rotuladas por código, simetría industrial ·\nkit.jpg 4:5 bodegón de filtros y pastillas alineados sobre superficie hueso, sombra suave.\nPROHIBIDO: mecánico sonriendo con pulgar arriba, manos con llave inglesa, familia con auto,\nrenders 3D futuristas, repuestos flotando con brillo neón. Si una imagen no convence, se descarta\ny el layout tipográfico resuelve.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero editorial 12cols: kicker uppercase tracking .18em (\"CASA DE REPUESTOS · 10 DE JULIO · DESDE 2008\"),\n           H1 gigante leading 0.92 tracking -0.03em, subhead 2 líneas gris, CTA sólido tinta \"Cotizar por VIN\"\n           + link subrayado animado a #precios \"Ver precios referencia\". Mostrador.jpg derecha 7/12 con caption\n           técnica 11px (\"Stock verificable · Código y compatibilidad a la "
+  },
+  {
+    "slug": "repuestos-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA REPUESTOS — Casa de Repuestos Nocturna · Propuesta Órbita",
+      "client": "NOCTUA REPUESTOS",
+      "brand": "NOCTUA REPUESTOS",
+      "sector": "repuestos",
+      "description": "Propuesta oscura premium para casa de repuestos chilena: verificación por VIN, stock verificable y despacho noche/madrugada."
+    },
+    "mediaVisible": [
+      "bodega.jpg",
+      "detalle.jpg",
+      "kit.jpg",
+      "mostrador.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-REPUESTOS-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --fondo #121417 (grafito profundo) · --superficie #1A1D20 · --superficie-alta #23262B · --filete #2E3339 · --hueso #E8E6E1 (texto, NUNCA #FFF) · --gris #9AA0A6 · ACENTO ÚNICO --signal #C1272D (rojo señal técnico, <6% de la UI: CTA principal, kickers, estados activos, links).",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes púrpura-azul genéricos.",
+    "images": [
+      {
+        "file": "bodega.jpg",
+        "ratio": "16:9",
+        "desc": "bodega de repuestos nocturna VACÍA e impecable: estanterías metálicas en penumbra,"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de disco de freno nuevo sobre pizarra oscura, luz rasante suave"
+      },
+      {
+        "file": "pasillo.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo de bodega claro en penumbra, cajas alineadas y rotuladas, simetría industrial"
+      },
+      {
+        "file": "kit.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de filtros y pastillas alineados sobre superficie grafito, sombra profunda."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes, si faltan tipografía lleva el layout)\nbodega.jpg 16:9 bodega de repuestos nocturna VACÍA e impecable: estanterías metálicas en penumbra,\nuna sola luz cálida rasante sobre la bancada de despacho, cajas rotuladas por código, sin personas ·\ndetalle.jpg 1:1 macro de disco de freno nuevo sobre pizarra oscura, luz rasante suave ·\npasillo.jpg 16:9 pasillo de bodega claro en penumbra, cajas alineadas y rotuladas, simetría industrial ·\nkit.jpg 4:5 bodegón chiaroscuro de filtros y pastillas alineados sobre superficie grafito, sombra profunda.\nPROHIBIDO: mecánico sonriendo con pulgar arriba, manos con llave inglesa, familia con auto, renders 3D\nfuturistas, repuestos flotando con brillo neón. Si una imagen no convence, se descarta\ny el layout tipográfico resuelve.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero editorial 12cols: kicker uppercase tracking .18em signal (\"CASA DE REPUESTOS · 10 DE JULIO · DESDE 2008\"),\n           H1 gigante hueso leading 0.92 tracking -0.03em, subhead 2 líneas gris, CTA sólido signal \"Cotizar por VIN\"\n           + link subrayado animado a #precios \"Ver precios referenc"
+  },
+  {
+    "slug": "salud-mental-eter-claro",
+    "meta": {
+      "title": "ÉTER — Salud Mental · Propuesta Órbita",
+      "client": "ÉTER",
+      "brand": "ÉTER",
+      "sector": "salud-mental",
+      "description": "Propuesta clara editorial para centros de salud mental chilenos: calma, criterio y acceso humano."
+    },
+    "mediaVisible": [
+      "detail-b.jpg",
+      "detail.jpg",
+      "room-b.jpg",
+      "room.jpg",
+      "still-b.jpg",
+      "still.jpg",
+      "window-b.jpg",
+      "window.jpg"
+    ],
+    "mediaCount": 8,
+    "promptFile": "PROMPT-SALUD-MENTAL-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 8 capturas: 0% oscuros, 6 neutros) --papel #F7F4EF · --papel-2 #EFE9E0 · --tinta #1E1C19 · --gris #8A8378 · --linea #D9D3C8 · ACENTO ÚNICO --sage #7A9A84 (verde salvia contenido, <5% de la UI: CTA secundario, kickers, links, estados activos; CTA principal es sólido tinta sobre papel). PROHIBIDO verde neón, lima saturado (#BFFF00 y familia), dorados brillantes. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE.",
+    "prohibido": "PROHIBIDO verde neón, lima saturado (#BFFF00 y familia), dorados brillantes. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE.",
+    "images": [
+      {
+        "file": "room.jpg",
+        "ratio": "16:9",
+        "desc": "sala de terapia VACÍA luz norte: sillón lino claro, mesa de roble clara, ventana grande, planta pequeña desenfocada, pared blanca rota — calma absoluta, sin personas"
+      },
+      {
+        "file": "still.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón sobre papel hueso: cuaderno abierto, lápiz grafito, taza cerámica y ramita de eucalipto, luz natural"
+      },
+      {
+        "file": "detail.jpg",
+        "ratio": "1:1",
+        "desc": "macro lino pálido/textura papel algodón con luz rasante suave"
+      },
+      {
+        "file": "window.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo luminoso vacío con luz natural y sombra suave, sereno, nada clínico frío."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos posando = descartar y regenerar)\nroom.jpg 16:9 sala de terapia VACÍA luz norte: sillón lino claro, mesa de roble clara, ventana grande, planta pequeña desenfocada, pared blanca rota — calma absoluta, sin personas ·\nstill.jpg 4:5 bodegón sobre papel hueso: cuaderno abierto, lápiz grafito, taza cerámica y ramita de eucalipto, luz natural ·\ndetail.jpg 1:1 macro lino pálido/textura papel algodón con luz rasante suave ·\nwindow.jpg 16:9 pasillo luminoso vacío con luz natural y sombra suave, sereno, nada clínico frío.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker sage uppercase tracking amplio (\"CENTRO DE SALUD MENTAL · PROVIDENCIA / ONLINE\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Agendar primera conversación\" + link subrayado animado sage a #equipo. room.jpg derecha 7/12, caption técnica 11px (\"Sala Éter — luz norte, sin interrupciones\"). Banda fina bajo hero: \"Primera hora en 72h · Arancel informado antes · Presencial y online · Fonasa/Isapre\". Puntos flotantes sutiles opacity .12 guiño Plenaire.\n#evidencia  Count-up al entrar "
+  },
+  {
+    "slug": "salud-mental-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Salud Mental · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "salud-mental",
+      "description": "Propuesta oscura premium para salud mental chilena: discreción, criterio y continuidad."
+    },
+    "mediaVisible": [
+      "corridor-b.jpg",
+      "corridor.jpg",
+      "hero-b.jpg",
+      "hero.jpg",
+      "object-b.jpg",
+      "object.jpg",
+      "texture-b.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 8,
+    "promptFile": "PROMPT-SALUD-MENTAL-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #121110 (negro CÁLIDO, no #000) · --superficie #1B1917 · --superficie-alta #23201C · --filete #2E2A26 · --marfil #EDE8E0 (texto, NUNCA #FFF) · --gris-calido #9B948B · ACENTO ÚNICO --champan #C8A96A (<5% UI: CTA sólido, kickers, links, estados activos). PROHIBIDO #000/#FFF puros, dorado brillante (#FFD700), neón/lima, glow en texto, gradientes púrpura-azul genéricos. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras difusas). Grano fílmico sutilísimo opacity .04 sobre toda la págin",
+    "prohibido": "PROHIBIDO #000/#FFF puros, dorado brillante (#FFD700), neón/lima, glow en texto, gradientes púrpura-azul genéricos. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras difusas). Grano fílmico sutilísimo opacity .04 sobre toda la página.",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala nocturna VACÍA luz oculta cálida rasante: sillón marfil, muro carbón mate, mesa oscura, lámpara cálida fuera de cuadro, cinematográfica pero serena, sin personas"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro: cuaderno de tapa oscura, lápiz, frasco ámbar sobre piedra oscura, luz cálida puntual"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro tela/seda carbón con luz rasante cálida, textura rica"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico vacío con focos cálidos empotrados y obra enmarcada tenue, sereno, nada tétrico."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/equipos posando = descartar y regenerar)\nhero.jpg 16:9 sala nocturna VACÍA luz oculta cálida rasante: sillón marfil, muro carbón mate, mesa oscura, lámpara cálida fuera de cuadro, cinematográfica pero serena, sin personas ·\nobject.jpg 4:5 bodegón chiaroscuro: cuaderno de tapa oscura, lápiz, frasco ámbar sobre piedra oscura, luz cálida puntual ·\ntexture.jpg 1:1 macro tela/seda carbón con luz rasante cálida, textura rica ·\ncorridor.jpg 16:9 pasillo nocturno simétrico vacío con focos cálidos empotrados y obra enmarcada tenue, sereno, nada tétrico.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero pantalla completa: kicker champán uppercase (\"SALUD MENTAL · LAS CONDES / ONLINE — RESERVA PRIVADA\"), H1 gigante marfil leading 0.95 tracking negativo, subhead gris cálido, CTA sólido champán texto tinta. hero.jpg lateral 7/12 integrado por degradado hacia --fondo (NUNCA overlay negro plano). Grano fílmico .04. Banda fina: \"Evaluación privada en 72h · Entrada discreta · Online y presencial\".\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ \"La privacidad es parte del tratamiento.\" Editorial corto 2 pá"
+  },
+  {
+    "slug": "software-b-azul-cian",
+    "meta": {
+      "title": "ALTIVA — Tecnología Corporativa · Propuesta Órbita",
+      "client": "ALTIVA",
+      "brand": "ALTIVA",
+      "sector": "software",
+      "description": "Propuesta clara con acento azul/cian para empresa TI chilena: confianza corporativa, soporte real."
+    },
+    "mediaVisible": [
+      "lobby.jpg",
+      "patch.jpg",
+      "planos.jpg",
+      "vidrio.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SOFTWARE-B-AZUL-CIAN.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #F9FBFC · --tinta #14212B (azul-negro corporativo) · --gris #6E7E88 · --linea #DCE3E8 · ACENTO ÚNICO --azul-cian #0B76A8 (<5% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "lobby.jpg",
+        "ratio": "16:9",
+        "desc": "hall corporativo de vidrio y acero VACÍO, luz diurna fría, líneas verticales"
+      },
+      {
+        "file": "patch.jpg",
+        "ratio": "16:9",
+        "desc": "patch panel de red ordenado, cables azules peinados y etiquetados"
+      },
+      {
+        "file": "vidrio.jpg",
+        "ratio": "1:1",
+        "desc": "macro de vitrina esmerilada con reflejo azul suave"
+      },
+      {
+        "file": "planos.jpg",
+        "ratio": "4:5",
+        "desc": "diagrama de topología de red impreso sobre mesa blanca con regla metálica."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas/caras/logos falsos = descartar)\nlobby.jpg 16:9 hall corporativo de vidrio y acero VACÍO, luz diurna fría, líneas verticales ·\npatch.jpg 16:9 patch panel de red ordenado, cables azules peinados y etiquetados ·\nvidrio.jpg 1:1 macro de vitrina esmerilada con reflejo azul suave ·\nplanos.jpg 4:5 diagrama de topología de red impreso sobre mesa blanca con regla metálica.\nStock cliché (servers con humo, cascos VR, handshakes) = descartar y regenerar.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker azul uppercase (\"TECNOLOGÍA CORPORATIVA · SANTIAGO\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #planes. lobby.jpg derecha 7/12, caption técnica 11px. Banda fina bajo el\n           hero: \"SLA por escrito · Técnicos certificados · Respuesta < 2 hrs hábiles\".\n#servicios Índice numerado 01–06 editorial (NO cards): Soporte HelpDesk · Redes y\n           conectividad (switching, Wi-Fi, VPN) · Ciberseguridad básica empresarial · Respaldo\n           y continuidad · Microsoft 365 / Google Workspace · Equipos y "
+  },
+  {
+    "slug": "software-b-claro",
+    "meta": {
+      "title": "BALIZA — Software de Gestión · Propuesta Órbita",
+      "client": "BALIZA",
+      "brand": "BALIZA",
+      "sector": "software",
+      "description": "Propuesta clara y neutra para fábrica de software chilena: ingeniería seria, precios transparentes."
+    },
+    "mediaVisible": [],
+    "mediaCount": 0,
+    "promptFile": "PROMPT-SOFTWARE-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFAF8 · --tinta #1A1D21 (grafito) · --gris #737B82 · --linea #E2E4E1 · ACENTO ÚNICO --azul-acero #2B5F8F (<5% de la UI: CTA principal, estados activos, links).",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "oficina.jpg",
+        "ratio": "16:9",
+        "desc": "oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,"
+      },
+      {
+        "file": "teclado.jpg",
+        "ratio": "1:1",
+        "desc": "macro de teclas mecánicas con luz rasante suave"
+      },
+      {
+        "file": "wireframe.jpg",
+        "ratio": "4:5",
+        "desc": "wireframes a lápiz sobre papel milimetrado con regla y lápiz encima"
+      },
+      {
+        "file": "rack.jpg",
+        "ratio": "16:9",
+        "desc": "rack de servidores en sala limpia con LEDs tenues, tomado de lado."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes)\noficina.jpg 16:9 oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,\nmonitores apagados · teclado.jpg 1:1 macro de teclas mecánicas con luz rasante suave ·\nwireframe.jpg 4:5 wireframes a lápiz sobre papel milimetrado con regla y lápiz encima ·\nrack.jpg 16:9 rack de servidores en sala limpia con LEDs tenues, tomado de lado.\nCaras/manos/logos falsos/pantallas con texto ilegible gigante = descartar y regenerar.\nLas UI nunca protagonizan: lo que vende aquí es el método y la palabra clara.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"SOFTWARE DE GESTIÓN · SANTIAGO\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #precios. oficina.jpg derecha 7/12, caption técnica 11px. Banda fina bajo\n           el hero: \"Implementación guiada incluida · Datos migrados por nuestro equipo\".\n#modulos   Índice numerado 01–06 editorial (NO cards): Facturación electrónica SII · Inventario\n           y bodega · Ventas y CRM · Reportes y tableros · Integración con bancos · App"
+  },
+  {
+    "slug": "software-b-oscuro-premium",
+    "meta": {
+      "title": "UMBRAL — Fábrica de Software · Propuesta Órbita",
+      "client": "UMBRAL",
+      "brand": "UMBRAL",
+      "sector": "software",
+      "description": "Propuesta oscura premium para fábrica de software chilena: ingeniería precisa, trato directo."
+    },
+    "mediaVisible": [
+      "hero.jpg",
+      "planos.jpg",
+      "teclas.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SOFTWARE-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #14171A (grafito profundo) · --superficie #1B1F23 · --superficie-alta #22272C · --filete #30363B · --hueso #E9E7E2 (texto, NUNCA #FFF) · --gris-calido #99A2A8 · ACENTO ÚNICO --ambar-codigo #D9A441 (<5% de la UI). PROHIBIDO #000/#FFF puros, azul-violeta",
+    "prohibido": "PROHIBIDO #000/#FFF puros, azul-violeta",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala de reuniones crepuscular VACÍA, mesa larga madera oscura, luz puntual cálida"
+      },
+      {
+        "file": "teclas.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de teclado mecánico retroiluminado"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro superficie metálica cepillada con luz"
+      },
+      {
+        "file": "planos.jpg",
+        "ratio": "16:9",
+        "desc": "diagramas técnicos impresos en blanco sobre papel, luz lateral"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/código Matrix = descartar)\nhero.jpg 16:9 sala de reuniones crepuscular VACÍA, mesa larga madera oscura, luz puntual cálida\nsobre cuaderno abierto · teclas.jpg 4:5 bodegón chiaroscuro de teclado mecánico retroiluminado\ntenue sobre escritorio oscuro · texture.jpg 1:1 macro superficie metálica cepillada con luz\nrasante · planos.jpg 16:9 diagramas técnicos impresos en blanco sobre papel, luz lateral\ndramática, cinematográfico pero sereno.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker ámbar uppercase, H1 gigante hueso leading 0.95,\n           subhead gris cálido, CTA sólido ámbar texto tinta. hero.jpg integrado por degradado\n           hacia el fondo (NUNCA overlay negro plano). Grano fílmico sutilísimo (opacity .04).\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"El software falla por promesas\n           grandes y procesos chicos.\" Copy base: \"Alcance escrito antes de empezar. Demo\n           funcionando cada viernes. Un ingeniero senior responde tu WhatsApp, no un ticket\n           perdido.\" Sin testimonios públicos JAMÁS: la discreción es"
+  },
+  {
+    "slug": "software-claro",
+    "meta": {
+      "title": "Cordillera Software — Propuesta de rediseño · Órbita",
+      "client": "Casa de software / consultora TI (grupo Claro minimalista / neutro)",
+      "brand": "Cordillera Software",
+      "sector": "software",
+      "description": "Casa de software clara y ordenada: servicios, stack y casos para clientes B2B."
+    },
+    "mediaVisible": [
+      "bloques.png",
+      "capas.png",
+      "pasillo.png"
+    ],
+    "mediaCount": 3,
+    "promptFile": "PROMPT-SOFTWARE-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFAF8 · --tinta #1A1D21 (grafito) · --gris #737B82 · --linea #E2E4E1 · ACENTO ÚNICO --azul-acero #2B5F8F (<5% de la UI: CTA principal, estados activos, links).",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "oficina.jpg",
+        "ratio": "16:9",
+        "desc": "oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,"
+      },
+      {
+        "file": "teclado.jpg",
+        "ratio": "1:1",
+        "desc": "macro de teclas mecánicas con luz rasante suave"
+      },
+      {
+        "file": "wireframe.jpg",
+        "ratio": "4:5",
+        "desc": "wireframes a lápiz sobre papel milimetrado con regla y lápiz encima"
+      },
+      {
+        "file": "rack.jpg",
+        "ratio": "16:9",
+        "desc": "rack de servidores en sala limpia con LEDs tenues, tomado de lado."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes)\noficina.jpg 16:9 oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,\nmonitores apagados · teclado.jpg 1:1 macro de teclas mecánicas con luz rasante suave ·\nwireframe.jpg 4:5 wireframes a lápiz sobre papel milimetrado con regla y lápiz encima ·\nrack.jpg 16:9 rack de servidores en sala limpia con LEDs tenues, tomado de lado.\nCaras/manos/logos falsos/pantallas con texto ilegible gigante = descartar y regenerar.\nLas UI nunca protagonizan: lo que vende aquí es el método y la palabra clara.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"SOFTWARE DE GESTIÓN · SANTIAGO\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #precios. oficina.jpg derecha 7/12, caption técnica 11px. Banda fina bajo\n           el hero: \"Implementación guiada incluida · Datos migrados por nuestro equipo\".\n#modulos   Índice numerado 01–06 editorial (NO cards): Facturación electrónica SII · Inventario\n           y bodega · Ventas y CRM · Reportes y tableros · Integración con bancos · App"
+  },
+  {
+    "slug": "software-oscuro-premium",
+    "meta": {
+      "title": "Vértice Sistemas — Propuesta de rediseño · Órbita",
+      "client": "Fábrica de software / consultora TI (grupo Oscuro / premium minimal real)",
+      "brand": "Vértice Sistemas",
+      "sector": "software",
+      "description": "Consultora TI con dirección oscura premium: producto, equipo y confianza técnica."
+    },
+    "mediaVisible": [
+      "cubos.png",
+      "laminas.png",
+      "monolito.png",
+      "oficina.png"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-SOFTWARE-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFAF8 · --tinta #1A1D21 (grafito) · --gris #737B82 · --linea #E2E4E1 · ACENTO ÚNICO --azul-acero #2B5F8F (<5% de la UI: CTA principal, estados activos, links).",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "oficina.jpg",
+        "ratio": "16:9",
+        "desc": "oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,"
+      },
+      {
+        "file": "teclado.jpg",
+        "ratio": "1:1",
+        "desc": "macro de teclas mecánicas con luz rasante suave"
+      },
+      {
+        "file": "wireframe.jpg",
+        "ratio": "4:5",
+        "desc": "wireframes a lápiz sobre papel milimetrado con regla y lápiz encima"
+      },
+      {
+        "file": "rack.jpg",
+        "ratio": "16:9",
+        "desc": "rack de servidores en sala limpia con LEDs tenues, tomado de lado."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes)\noficina.jpg 16:9 oficina de desarrollo luminosa y VACÍA, mesas de madera clara, luz norte,\nmonitores apagados · teclado.jpg 1:1 macro de teclas mecánicas con luz rasante suave ·\nwireframe.jpg 4:5 wireframes a lápiz sobre papel milimetrado con regla y lápiz encima ·\nrack.jpg 16:9 rack de servidores en sala limpia con LEDs tenues, tomado de lado.\nCaras/manos/logos falsos/pantallas con texto ilegible gigante = descartar y regenerar.\nLas UI nunca protagonizan: lo que vende aquí es el método y la palabra clara.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"SOFTWARE DE GESTIÓN · SANTIAGO\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #precios. oficina.jpg derecha 7/12, caption técnica 11px. Banda fina bajo\n           el hero: \"Implementación guiada incluida · Datos migrados por nuestro equipo\".\n#modulos   Índice numerado 01–06 editorial (NO cards): Facturación electrónica SII · Inventario\n           y bodega · Ventas y CRM · Reportes y tableros · Integración con bancos · App"
+  },
+  {
+    "slug": "universidad-eter-claro",
+    "meta": {
+      "title": "ÉTER — Universidad Privada · Propuesta Órbita",
+      "client": "Universidad privada (grupo Neutro/plantilla 17)",
+      "brand": "ÉTER",
+      "sector": "universidad",
+      "description": "Propuesta clara luminosa para universidades privadas chilenas: orden académico, prueba social y admisión sin fricción."
+    },
+    "mediaVisible": [
+      "biblioteca.jpg",
+      "detalle.jpg",
+      "hero.jpg",
+      "laboratorio.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-UNIVERSIDAD-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #F8F6F0 (hueso cálido, fondo SIEMPRE) · --superficie #FFFFFF · --tinta #121B2A (azul-noche, texto principal) · --gris #6B7280 · --gris-suave #9AA3B2 · --linea #E2DDD4 · --linea-fuerte #D6CFBF · ACENTO ÚNICO --acento #14365F (azul institucional profundo, <5% de la UI: CTA sólido, kickers, links activos, filete activo, subrayados).",
+    "prohibido": "PROHIBIDO #000/#FFF puros en fondos/textos de sección (usa var(--papel) y var(--tinta)).",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "patio interior de campus universitario VACÍO al mediodía, hormigón claro + madera, bancas vacías, luz norte difusa, sin personas, orden obsesivo"
+      },
+      {
+        "file": "biblioteca.jpg",
+        "ratio": "4:5",
+        "desc": "sala de biblioteca luminosa con estanterías y mesas vacías, luz natural lateral, documental sereno, sin ocupantes"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de papel con sello seco y tipografía en relieve sobre hueso, luz rasante cálida, tipográfico"
+      },
+      {
+        "file": "laboratorio.jpg",
+        "ratio": "16:9",
+        "desc": "laboratorio / taller universitario ordenado, mesas limpias, instrumentos alineados, sin ocupantes, luz clínica suave."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; personas genéricas de stock = descartar y regenerar)\nhero.jpg 16:9 patio interior de campus universitario VACÍO al mediodía, hormigón claro + madera, bancas vacías, luz norte difusa, sin personas, orden obsesivo ·\nbiblioteca.jpg 4:5 sala de biblioteca luminosa con estanterías y mesas vacías, luz natural lateral, documental sereno, sin ocupantes ·\ndetalle.jpg 1:1 macro de papel con sello seco y tipografía en relieve sobre hueso, luz rasante cálida, tipográfico ·\nlaboratorio.jpg 16:9 laboratorio / taller universitario ordenado, mesas limpias, instrumentos alineados, sin ocupantes, luz clínica suave.\nSi no hay media, tipografía y layout llevan el diseño (no uses stock externo, no uses birretes/estudiantes posando).\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero editorial: kicker acento uppercase tracking .14em \"UNIVERSIDAD PRIVADA · ACREDITADA 5 AÑOS\",\n           H1 gigante serif leading 0.92 tracking -0.03em, subhead 2 líneas 18px gris max 62ch, CTA sólido acento texto papel + link subrayado animado 200ms a #carreras (\"Conocer carreras\").\n           hero.jpg derecha 7/12 con caption técnica "
+  },
+  {
+    "slug": "universidad-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Universidad Privada · Propuesta Órbita",
+      "client": "Universidad privada (grupo Neutro/plantilla 17 — pitch oscuro)",
+      "brand": "NOCTUA",
+      "sector": "universidad",
+      "description": "Propuesta oscura premium para universidades privadas chilenas: noche académica, prestigio silencioso y admisión sin fricción."
+    },
+    "mediaVisible": [
+      "aula-noche.jpg",
+      "biblioteca-noche.jpg",
+      "detalle-noche.jpg",
+      "patio-noche.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-UNIVERSIDAD-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root — la oscuridad tiene capas, medida de referentes oscuros del rubro) --fondo #0E1320 (tinta noche profunda, fondo SIEMPRE) · --superficie #171E2E (bloques) · --superficie-alta #1E2942 · --filete #2A3652 · --hueso #E9E4DE (texto principal, NUNCA #FFF puro) · --hueso-suave #CFC8BE · --gris #9AA0A6 · --gris-apagado #7A8290 · ACENTO ÚNICO --champagne #C9A86A (oro champán apagado, <5% de la UI: CTA sólido, kickers uppercase tracking amplio, links activos, filete activo, + y % de cifras). PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes pú",
+    "prohibido": "PROHIBIDO #000/#FFF puros, neón saturado, glow en texto, gradientes púrpura-azul genéricos, rojo neón brillante, sombras difusas. border-radius: 0 en TODO salvo 50% circular. Profundidad por capas de fondo + filetes 1px (nunca sombras). ::selection var(--champagne)/texto var(--fondo). Focus-visible ring 2px ",
+    "images": [
+      {
+        "file": "biblioteca-noche.jpg",
+        "ratio": "16:9",
+        "desc": "biblioteca universitaria VACÍA de noche, mesas de madera oscura iluminadas puntual, estanterías en penumbra, luz cálida contenida, cinematográfico sereno, sin personas"
+      },
+      {
+        "file": "patio-noche.jpg",
+        "ratio": "16:9",
+        "desc": "patio interior de campus de noche, hormigón y madera oscura con iluminación rasante cálida, bancas vacías, reflejo suave, sin ocupantes"
+      },
+      {
+        "file": "detalle-noche.jpg",
+        "ratio": "1:1",
+        "desc": "macro de papel hueso con sello seco dorado y tipografía en relieve sobre tinta, luz rasante cálida, detalle premium"
+      },
+      {
+        "file": "aula-noche.jpg",
+        "ratio": "4:5",
+        "desc": "aula / taller nocturno ordenado, mesas alineadas, pizarra limpia, luz cálida puntual, sin personas."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; campus diurno luminoso / estudiantes lanzando birretes / renders neón = descartar y regenerar)\nbiblioteca-noche.jpg 16:9 biblioteca universitaria VACÍA de noche, mesas de madera oscura iluminadas puntual, estanterías en penumbra, luz cálida contenida, cinematográfico sereno, sin personas ·\npatio-noche.jpg 16:9 patio interior de campus de noche, hormigón y madera oscura con iluminación rasante cálida, bancas vacías, reflejo suave, sin ocupantes ·\ndetalle-noche.jpg 1:1 macro de papel hueso con sello seco dorado y tipografía en relieve sobre tinta, luz rasante cálida, detalle premium ·\naula-noche.jpg 4:5 aula / taller nocturno ordenado, mesas alineadas, pizarra limpia, luz cálida puntual, sin personas.\nSi no hay media, tipografía y capas de tinta llevan el diseño (no uses stock externo diurno, no uses birretes).\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa tinta: kicker champagne uppercase tracking .16em \"UNIVERSIDAD PRIVADA · ACREDITADA 5 AÑOS · BIBLIOTECA NOCTURNA\",\n           H1 gigante hueso serif leading 0.92 tracking -0.03em, subhead gris 18px max 62ch, CTA sólido ch"
+  },
+  {
+    "slug": "veterinaria-b-claro",
+    "meta": {
+      "title": "VITALIA — Clínica Veterinaria · Propuesta Órbita",
+      "client": "VITALIA",
+      "brand": "VITALIA",
+      "sector": "veterinaria",
+      "description": "Clínica veterinaria clara y cercana: horas, especialidades y urgencias visibles."
+    },
+    "mediaVisible": [
+      "detalle.jpg",
+      "farmacia.jpg",
+      "quirofano.jpg",
+      "sala.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-VETERINARIA-B-CLARO-MINIMALISTA.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FAFAF7 · --tinta #16211C (verde-negro clínico) · --gris #7C8781 · --linea #DFE3DE · ACENTO ÚNICO --verde-clinico #2E7D5B (<5% de la UI: CTA principal, estados activos, links).",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays",
+    "images": [
+      {
+        "file": "sala.jpg",
+        "ratio": "16:9",
+        "desc": "sala de espera luminosa y VACÍA, luz norte, verde salvia y roble"
+      },
+      {
+        "file": "quirofano.jpg",
+        "ratio": "16:9",
+        "desc": "instrumental quirúrgico esterilizado ordenado sobre paño azul quirúrgico"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de pelaje sano retroiluminado (sin animal reconocible)"
+      },
+      {
+        "file": "farmacia.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de frascos y vacunas alineados sobre bandeja blanca."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes)\nsala.jpg 16:9 sala de espera luminosa y VACÍA, luz norte, verde salvia y roble ·\nquirofano.jpg 16:9 instrumental quirúrgico esterilizado ordenado sobre paño azul quirúrgico ·\ndetalle.jpg 1:1 macro de pelaje sano retroiluminado (sin animal reconocible) ·\nfarmacia.jpg 4:5 bodegón de frascos y vacunas alineados sobre bandeja blanca.\nCaras/manos/perritos tiernos/logos = descartar y regenerar.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker uppercase tracking amplio (\"CLÍNICA VETERINARIA · ÑUÑOA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado a #precios. sala.jpg derecha 7/12, caption técnica 11px. Banda fina bajo el\n           hero: \"Atención por orden de llegada y hora agendada · Urgencias 24/7\".\n#servicios Índice numerado 01–06 editorial (NO cards): Consulta general · Vacunación y\n           desparasitación · Cirugía soft tissue · Laboratorio y diagnóstico por imagen ·\n           Peluquería sanitaria · Tienda veterinaria. Hover/tap expande 64px revelando\n           duración típica y precio \"desde\" (280m"
+  },
+  {
+    "slug": "veterinaria-b-oscuro",
+    "meta": {
+      "title": "NOCTUA VET — Clínica Veterinaria de Especialidad · Propuesta Órbita",
+      "client": "NOCTUA VET",
+      "brand": "NOCTUA VET",
+      "sector": "veterinaria",
+      "description": "Clínica veterinaria de especialidad con dirección oscura premium y fichas por área."
+    },
+    "mediaVisible": [
+      "corridor.jpg",
+      "hero.jpg",
+      "object.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-VETERINARIA-B-OSCURO-PREMIUM.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, variables CSS en :root) --fondo #131614 (verde-negro profundo) · --superficie #1B201D · --superficie-alta #232A26 · --filete #2E3630 · --hueso #EDEAE3 (texto, NUNCA #FFF) · --gris-calido #98A29B · ACENTO ÚNICO --verde-lumen #7FC8A9 (<5% de la UI). PROHIBIDO #000/#FFF puros, verde neón",
+    "prohibido": "PROHIBIDO #000/#FFF puros, verde neón",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "sala quirúrgica crepuscular, luz oculta cálida, instrumental acero sobre paño"
+      },
+      {
+        "file": "object.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro de estetoscopio y frascos ámbar"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro tela verde quirúrgica con luz rasante"
+      },
+      {
+        "file": "corridor.jpg",
+        "ratio": "16:9",
+        "desc": "pasillo nocturno simétrico con focos empotrados cálidos, cinematográfico"
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/mascotas tiernas = descartar)\nhero.jpg 16:9 sala quirúrgica crepuscular, luz oculta cálida, instrumental acero sobre paño\nverde quirúrgico, VACÍA · object.jpg 4:5 bodegón chiaroscuro de estetoscopio y frascos ámbar\nsobre piedra oscura · texture.jpg 1:1 macro tela verde quirúrgica con luz rasante ·\ncorridor.jpg 16:9 pasillo nocturno simétrico con focos empotrados cálidos, cinematográfico\npero sereno.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero pantalla completa: kicker verde-lumen uppercase, H1 gigante hueso leading\n           0.95, subhead gris cálido, CTA sólido verde-lumen texto tinta. hero.jpg lateral\n           7/12 integrado por degradado hacia el fondo (NUNCA overlay negro plano). Grano\n           fílmico sutilísimo (opacity .04) sobre toda la página.\n#filosofia ★ LA SECCIÓN QUE DIFERENCIA ★ editorial corto: \"Protocolo hospitalario para quien\n           no puede decir dónde le duele.\" Copy base: \"Cada indicación se explica; cada precio\n           se confirma antes. La confianza se construye con criterio, no con promesas.\"\n           Sin testimonios públicos JAMÁS: l"
+  },
+  {
+    "slug": "veterinaria-b-teal",
+    "meta": {
+      "title": "LAGUNA VET — Centro Médico Veterinario · Propuesta Órbita",
+      "client": "LAGUNA VET",
+      "brand": "LAGUNA VET",
+      "sector": "veterinaria",
+      "description": "Centro médico veterinario con paleta teal: fresco, profesional y fácil de recorrer."
+    },
+    "mediaVisible": [
+      "consulta.jpg",
+      "detalle.jpg",
+      "farmacia.jpg",
+      "recepcion.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-VETERINARIA-B-TEAL.md",
+    "paleta": "PALETA (regla dura, variables CSS en :root) --papel #FBFDFC · --tinta #14332B · --gris #748B84 · --linea #D8E5E0 · ACENTO ÚNICO --teal #1F8A7D (<5-8% de la UI: CTA principal, kickers, estados activos, links; el resto neutro). border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace.",
+    "prohibido": "PROHIBIDO secciones negras/noche u overlays oscuros sobre fotos.",
+    "images": [
+      {
+        "file": "recepcion.jpg",
+        "ratio": "16:9",
+        "desc": "recepción luminosa VACÍA con mostrador blanco y pared verde-agua pálido"
+      },
+      {
+        "file": "consulta.jpg",
+        "ratio": "16:9",
+        "desc": "box de consulta ordenado: balanza veterinaria, mesa de examen, luz natural"
+      },
+      {
+        "file": "detalle.jpg",
+        "ratio": "1:1",
+        "desc": "macro de superficie cerámica verde-agua con luz suave"
+      },
+      {
+        "file": "farmacia.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón de frascos y sobres veterinarios alineados sobre bandeja blanca."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; caras/manos/mascotas tiernas = descartar)\nrecepcion.jpg 16:9 recepción luminosa VACÍA con mostrador blanco y pared verde-agua pálido ·\nconsulta.jpg 16:9 box de consulta ordenado: balanza veterinaria, mesa de examen, luz natural ·\ndetalle.jpg 1:1 macro de superficie cerámica verde-agua con luz suave ·\nfarmacia.jpg 4:5 bodegón de frascos y sobres veterinarios alineados sobre bandeja blanca.\n\n## SECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio    Hero: kicker teal uppercase (\"CENTRO MÉDICO VETERINARIO · PROVIDENCIA\"), H1 gigante\n           leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta + link subrayado\n           animado. recepcion.jpg derecha 7/12, caption técnica 11px. Banda fina: \"Atención con\n           hora o por orden de llegada · Urgencias durante horario de operación\".\n#servicios Índice numerado 01–06 editorial (NO cards): Consulta general · Vacunación ·\n           Cirugía menor · Laboratorio · Odontología veterinaria · Control peso y nutrición.\n           Hover/tap expande 64px revelando duración típica y precio \"desde\" (280ms).\n#cifras    Count-up al entrar: \"+9 años en el "
+  },
+  {
+    "slug": "vinedo-eter-claro",
+    "meta": {
+      "title": "LUMEN — Viña & Cava · Propuesta Órbita",
+      "client": "LUMEN",
+      "brand": "LUMEN",
+      "sector": "vinedo",
+      "description": "Propuesta clara editorial para viñedos chilenos: tours luminosos, cava ordenada y venta directa sin fricción."
+    },
+    "mediaVisible": [
+      "botella.jpg",
+      "cava.jpg",
+      "parra.jpg",
+      "vinedo.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-VINEDO-ETER-CLARO.md",
+    "paleta": "PALETA (regla dura, como variables CSS en :root — medida de 49 capturas: 26 neutros claros 0-41% oscuro) --papel #F8F5EF · --papel-2 #EDE6D6 · --tinta #1E1A16 · --gris #8A857E · --linea #E2D9C7 · ACENTO ÚNICO --terracota #9C4A2A (barrica desaturada, <5% de la UI: CTA secundario, kickers, links, estados activos, subrayado; CTA principal es sólido tinta #1E1A16 sobre papel). PROHIBIDO terracota neón (#FF3B30 y familia), verde lima saturado, dorados brillantes metálicos, degradados, azules corporativos como acento. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--l",
+    "prohibido": "PROHIBIDO terracota neón (#FF3B30 y familia), verde lima saturado, dorados brillantes metálicos, degradados, azules corporativos como acento. border-radius: 0 en TODO. Cero sombras difusas: separación por filetes 1px var(--linea) y whitespace. Fondo claro SIEMPRE. NUNCA #000/#FFF puros (usa tinta y papel).",
+    "images": [
+      {
+        "file": "vinedo.jpg",
+        "ratio": "16:9",
+        "desc": "hilera de parras VACÍA luz mañana lateral, suelo mineral, cordón ordenado, sin personas, orden agrícola absoluto"
+      },
+      {
+        "file": "cava.jpg",
+        "ratio": "4:5",
+        "desc": "interior de cava VACÍA luz cenital suave: barricas alineadas, pasillo central vacío, piedra y madera, luz natural filtrada"
+      },
+      {
+        "file": "botella.jpg",
+        "ratio": "1:1",
+        "desc": "bodegón sobre papel hueso claro: botella sin etiqueta genérica + copa vacía + corcho y lápiz de cata, luz natural"
+      },
+      {
+        "file": "parra.jpg",
+        "ratio": "16:9",
+        "desc": "detalle macro hoja de parra / sarmiento con luz rasante suave, textura vegetal premium."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; viñedo con filtro Instagram saturado / copa gigante con vino derramado / barricas con luz neón / manos brindando a cámara con bokeh = descartar y regenerar)\nvinedo.jpg 16:9 hilera de parras VACÍA luz mañana lateral, suelo mineral, cordón ordenado, sin personas, orden agrícola absoluto ·\ncava.jpg 4:5 interior de cava VACÍA luz cenital suave: barricas alineadas, pasillo central vacío, piedra y madera, luz natural filtrada ·\nbotella.jpg 1:1 bodegón sobre papel hueso claro: botella sin etiqueta genérica + copa vacía + corcho y lápiz de cata, luz natural ·\nparra.jpg 16:9 detalle macro hoja de parra / sarmiento con luz rasante suave, textura vegetal premium.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero: kicker terracota uppercase tracking amplio (\"VIÑA & CAVA · PIRQUE · VALLE CENTRAL\"), H1 gigante leading 0.92 tracking negativo, subhead 2 líneas, CTA sólido tinta \"Reservar visita guiada\" + link subrayado animado terracota a #precios. vinedo.jpg derecha 7/12, caption técnica 11px (\"LUMEN · Pirque — tours con cupo visible, último tour 15:30\"). Banda fina bajo hero: \"Cupo y horario visibles · Degus"
+  },
+  {
+    "slug": "vinedo-noctua-oscuro",
+    "meta": {
+      "title": "NOCTUA — Viña & Cava Nocturna · Propuesta Órbita",
+      "client": "NOCTUA",
+      "brand": "NOCTUA",
+      "sector": "vinedo",
+      "description": "Propuesta oscura premium para viñedos chilenos: cava nocturna, degustación precisa y guarda sin humo."
+    },
+    "mediaVisible": [
+      "botella-dark.jpg",
+      "cava-noche.jpg",
+      "hero.jpg",
+      "texture.jpg"
+    ],
+    "mediaCount": 4,
+    "promptFile": "PROMPT-VINEDO-NOCTUA-OSCURO.md",
+    "paleta": "PALETA (regla dura — la oscuridad tiene capas, como variables CSS en :root — medida 17 sitios 48-100% oscuro) --fondo #0E0D0C (negro barrica profundo) · --superficie #1A1816 · --superficie-alta #252220 · --filete #2E2A26 · --hueso #EDE6D6 (texto, NUNCA #FFF) · --gris-calido #9A9590 · --gris-apagado #6B6763 · ACENTO ÚNICO --burdeo #8B2E3A (vino tinto profundo, <5% de la UI: CTA, kicker, dato clave, subrayado). PROHIBIDO #000/#FFF puros, burdeo neón (#FF2B4A y familia), glow en texto, gradientes púrpura genéricos, sombras difusas. border-radius: 0 en TODO. Profundidad por capas de fondo + filete",
+    "prohibido": "PROHIBIDO #000/#FFF puros, burdeo neón (#FF2B4A y familia), glow en texto, gradientes púrpura genéricos, sombras difusas. border-radius: 0 en TODO. Profundidad por capas de fondo + filetes 1px (nunca sombras). ::selection var(--burdeo)/texto hueso. Focus-visible ring 2px var(--burdeo).",
+    "images": [
+      {
+        "file": "hero.jpg",
+        "ratio": "16:9",
+        "desc": "cava nocturna VACÍA iluminada quirúrgica: barricas con luz cenital cálida puntual sobre fondo noche, pasillo vacío cinematográfico, sin personas"
+      },
+      {
+        "file": "botella-dark.jpg",
+        "ratio": "4:5",
+        "desc": "bodegón chiaroscuro sobre piedra oscura: botella negra sin etiqueta genérica + copa con vino tinto + sacacorchos, luz rasante cálida"
+      },
+      {
+        "file": "texture.jpg",
+        "ratio": "1:1",
+        "desc": "macro roble de barrica / duela con luz rasante dramática, vetas y sello a fuego"
+      },
+      {
+        "file": "cava-noche.jpg",
+        "ratio": "16:9",
+        "desc": "degustación nocturna VACÍA: mesa de roble con copas alineadas y luz baja, cinematográfico pero sereno."
+      }
+    ],
+    "pasoRaw": "PASO 0 — MEDIA (public/media/, máx 4 imágenes; viñedo soleado con filtro cálido excesivo / copa con vino derramado / manos brindando bokeh / barrica con luz neón = descartar y regenerar)\nhero.jpg 16:9 cava nocturna VACÍA iluminada quirúrgica: barricas con luz cenital cálida puntual sobre fondo noche, pasillo vacío cinematográfico, sin personas ·\nbotella-dark.jpg 4:5 bodegón chiaroscuro sobre piedra oscura: botella negra sin etiqueta genérica + copa con vino tinto + sacacorchos, luz rasante cálida ·\ntexture.jpg 1:1 macro roble de barrica / duela con luz rasante dramática, vetas y sello a fuego ·\ncava-noche.jpg 16:9 degustación nocturna VACÍA: mesa de roble con copas alineadas y luz baja, cinematográfico pero sereno.\n\nSECCIONES — ARCO DE CONVERSIÓN (ids fijos, anclas del nav SIEMPRE funcionan)\n#inicio  Hero pantalla completa: kicker burdeo uppercase (\"VIÑA NOCTURNA · PIRQUE · CAVA A 14°C\"), H1 gigante hueso leading 0.92 tracking -0.03em, subhead gris cálido 2 líneas, CTA sólido burdeo texto hueso + link secundario a #precios. hero.jpg integrado por degradado hacia var(--fondo) (NUNCA overlay negro plano). Grano fílmico sutilísimo opacity .04. Caption técnica 11px: \"Cava NOCTUA · 8 má"
+  }
+]

@@ -1,0 +1,21 @@
+Voy a armar una clínica dental de alto impacto en teal, con contenido chileno. Primero reviso el workspace y las convenciones de diseño para no improvisar la base.El workspace está vacío: voy a ver cómo están armados los otros sitios del escritorio para mantener el mismo nivel de calidad y convenciones.Hay otros sitios dentales en la misma carpeta. Miro su estructura para no repetir el mismo diseño y subir el listón.Alba ya cubre la versión clara. Voy a leer su identidad y páginas clave para hacer una clínica teal distinta, no un clon.Identidad: **Bruma**, clínica en Vitacura junto al Parque Bicentenario. Paleta teal de laguna y niebla andina, distinta de Alba. Empiezo el scaffold y la fotografía canónica.La recepción quedó bien. Retrato y sonrisa van en 3:4; mientras Next termina de instalar, sigo con el resto de la fotografía.El scaffold chocó con `_grok-log.txt`. Lo aparto y sigo con la clínica y el resto de fotos.Next.js ya está. Muevo el proyecto a la raíz, inicializo shadcn y armo los antes/después de los casos.Las fotos de la clínica quedaron fuertes. Quito el bordado ilegible del delantal de Catalina, reviso el resto del equipo y cargo los componentes de shadcn.Las fotos están. Ahora armo el sistema visual teal, el contenido chileno y las páginas.Listo. El sitio es **Bruma**, una clínica dental en Vitacura, junto al Parque Bicentenario.
+
+Es Next.js (App Router) con paleta teal — piedra verdeagua, laguna, bruma andina — y contenido en español de Chile: *hora* (no cita), pesos, reembolso Isapre, WhatsApp, estacionamiento.
+
+**Qué vas a ver**
+- Hero a pantalla completa: pabellón de vidrio al amanecer sobre el agua
+- Tipografía editorial (Cormorant Garamond + Sora)
+- 8 tratamientos con honorarios en CLP y ficha propia
+- Equipo de 4 doctores (U. de Chile, U. de los Andes, UDD, U. de Valparaíso)
+- Antes/después arrastrable
+- Agenda que guarda en `data/horas.json`
+- Barra móvil con llamar / WhatsApp / hora
+
+**Páginas:** inicio, clínica, tratamientos, equipo, casos, tecnología, primera hora, contacto, legal.
+
+Cuando quieras revisarlo:
+
+```bash
+npm install
+npm run dev
+```

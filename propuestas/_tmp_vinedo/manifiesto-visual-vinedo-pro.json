@@ -1,0 +1,49 @@
+{
+  "eter": [
+    {
+      "file": "vinedo.jpg",
+      "kb": 410
+    },
+    {
+      "file": "cava.jpg",
+      "kb": 288
+    },
+    {
+      "file": "botella.jpg",
+      "kb": 133
+    },
+    {
+      "file": "parra.jpg",
+      "kb": 295
+    }
+  ],
+  "noctua": [
+    {
+      "file": "hero.jpg",
+      "kb": 605
+    },
+    {
+      "file": "botella-dark.jpg",
+      "kb": 229
+    },
+    {
+      "file": "texture.jpg",
+      "kb": 59
+    },
+    {
+      "file": "cava-noche.jpg",
+      "kb": 820
+    }
+  ],
+  "metodo": "Pillow editorial pro: warm_shift+curves_S+contrast+desat+sharpen+vignette (ETER claro cálido editorial, NOCTUA low-key cool), calidad 92 progressive, sin branding, sin personas",
+  "prompts_googleflow": {
+    "eter-vinedo.jpg": "Wide editorial vineyard rows Pirque Valle Central, empty vines aligned, mineral soil, lateral morning light, no people, photorealistic 8k",
+    "eter-cava.jpg": "Empty cellar aligned French oak barrels 225L, limestone, soft filtered light, central corridor empty, no people",
+    "eter-botella.jpg": "Still life light bone paper, unlabeled bottle empty glass cork tasting pencil natural daylight minimal",
+    "eter-parra.jpg": "Macro vine leaf tendril raking soft light shallow depth premium botanical",
+    "noctua-hero.jpg": "Empty nocturnal cave surgical pinpoint warm light on barrels dark cinematic corridor no people",
+    "noctua-botella.jpg": "Chiaroscuro dark stone unlabeled black bottle red wine glass corkscrew warm raking light",
+    "noctua-texture.jpg": "Extreme macro oak barrel stave grain fire brand dramatic raking light",
+    "noctua-cava.jpg": "Empty nocturnal tasting table dark oak aligned Riedel glasses low warm light cinematic"
+  }
+}
