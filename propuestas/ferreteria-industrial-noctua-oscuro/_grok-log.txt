@@ -1,0 +1,24 @@
+Voy a revisar el workspace y las convenciones de diseño antes de construir NOCTUA: una ferretería industrial oscura, nocturna y precisa, en español de Chile.El workspace está vacío. Voy a mirar propuestas hermanas para el nivel de calidad y, en paralelo, armar el concepto de marca.Hay un sistema de marcas (NOCTUA, ÉTER) y propuestas hermanas. Voy a leer la plantilla, el diseño y un noctua ya cerrado para calzar el estándar.Reviso el hero y, si el tratamiento de luz y grano está bien, derivo de ahí el resto de las fotos.El hero quedó con la luz correcta: LED frío, sodio al fondo, hormigón húmedo. Derivo el resto de ese look y empiezo a escribir el sitio.El path de las imágenes venía URL-encoded. Las localizo, las copio al proyecto y desde ahí derivo el resto.El vertical tiene el mismo sodio y el hormigón mojado. Derivo las fotos de material desde el hero del proyecto.Las fotos de material coinciden: cara de corte, pernos, fierro, nave. Copio, saco una de tableros y escribo el código.Sigo con los componentes de marca, la tira y el cascarón del sitio.Next.js 16 registra la fuente como `Big_Shoulders`, no `Big_Shoulders_Display`. Corrijo eso y vuelvo a construir.**NOCTUA** está armada: ferretería industrial de turno noche en Quilicura. No es ÉTER invertido. El patio abre cuando el resto cierra.
+
+## Concepto
+Lista hasta las 22:00. Corte en nave. Retiro a las 05:00. El H1 lo dice de una sola cara: **El fierro no espera el día.**
+
+La paleta sale de la nave: vacío, cascarilla, LED sobre acero, y un solo calor — la lámpara de sodio. Tipografía: **Big Shoulders** para el 6.000, Source Sans 3 para el mesón, Azeret Mono para SKU y milímetros.
+
+## Firma
+**La tira.** Un nidador de cortes sobre 6.000 mm con kerf de 3 mm. Anida piezas, cuenta merma, arma WhatsApp. Eso no se pega en otro rubro.
+
+Complemento: planta de la nave (seis bahías, un pasillo) y una lámpara que indica si el mesón está abierto, en hora de Santiago.
+
+## Páginas
+| Ruta | Qué hay |
+|---|---|
+| `/` | Hero de nave, tira, planta, lista de despacho |
+| `/familias` + `/familias/[slug]` | Seis bahías con ficha y precio IVA |
+| `/tira` | El nidador a pantalla completa |
+| `/turno` | Ronda 18:00–05:30 y lo que se pregunta en el mesón |
+| `/cotizar` | Lista con RUT chileno y WhatsApp |
+
+Fotos propias del recinto de noche (pasillo, fierro, cara de corte, pernos, tableros). Sin gente, sin stock genérico.
+
+Cuando lo mires, el gesto a probar es **anidar un pilar de 3.150** en la tira. Ahí está el oficio.

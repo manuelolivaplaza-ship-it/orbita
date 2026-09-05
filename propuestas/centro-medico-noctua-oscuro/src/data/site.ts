@@ -1,0 +1,51 @@
+export const site = {
+  name: "NOCTUA",
+  legalName: "NOCTUA SpA",
+  rut: "77.890.441-3",
+  tagline: "Se nombra de noche.",
+  description:
+    "Centro médico de precisión en Vitacura. Ocho especialidades, laboratorio e imagen en la misma casa. Abrimos a las 16:00. Último cupo 22:00.",
+  url: "https://noctuamedico.cl",
+  email: "hora@noctuamedico.cl",
+  phone: "+56 2 3288 4050",
+  phoneHref: "tel:+56232884050",
+  mobile: "+56 9 7612 4050",
+  mobileHref: "tel:+56976124050",
+  whatsapp: "+56 9 7612 4050",
+  whatsappHref:
+    "https://wa.me/56976124050?text=Hola%20NOCTUA%2C%20quiero%20pedir%20una%20hora.",
+  instagram: "https://instagram.com/noctua.medico",
+  instagramHandle: "@noctua.medico",
+  coords: { lat: "33°23′S", lng: "70°35′W" },
+  geo: { lat: -33.383, lng: -70.583 },
+  address: {
+    line1: "Av. Nueva Costanera 4050",
+    commune: "Vitacura",
+    city: "Santiago",
+    region: "Región Metropolitana",
+    country: "Chile",
+    maps: "https://maps.google.com/?q=Av.+Nueva+Costanera+4050+Vitacura",
+  },
+  metro: "Escuela Militar · 12 min a pie",
+  parking: "Ocho cupos en el predio · aviso al agendar",
+  hoursShort: "Lun–Vie 16:00–23:00 · Sáb 09:00–14:00",
+  hours: [
+    { days: "Lunes a viernes", time: "16:00 – 23:00" },
+    { days: "Sábado", time: "09:00 – 14:00" },
+    { days: "Domingo y festivos", time: "Cerrado" },
+  ],
+  lastSlot: "22:00",
+  openHour: 16,
+  closeHour: 23,
+  saturdayOpen: 9,
+  saturdayClose: 14,
+  founded: 2018,
+  emergency: "131",
+} as const;
+
+export const navLinks = [
+  { href: "/especialidades", label: "Especialidades" },
+  { href: "/sueno", label: "Sueño" },
+  { href: "/casa", label: "La casa" },
+  { href: "/equipo", label: "Equipo" },
+] as const;

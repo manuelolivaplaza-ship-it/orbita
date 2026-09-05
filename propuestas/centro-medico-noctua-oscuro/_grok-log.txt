@@ -1,0 +1,11 @@
+Voy a construir un sitio de centro médico para NOCTUA: oscuro, nocturno y preciso, en español de Chile. Primero reviso el workspace y las convenciones de diseño para arrancar con una base sólida.El workspace está vacío: voy a diseñar NOCTUA desde cero. Reviso otras propuestas del mismo directorio para alinear el nivel, y defino la identidad visual antes de generar el proyecto.Hay un patrón claro en las propuestas: voy a copiar la estructura (plantilla, `meta.json`, un NOCTUA oscuro ya hecho) y el centro médico claro para no inventar convenciones.Identidad clara: NOCTUA como centro médico de precisión nocturna en Vitacura, con medicina del sueño como sello. Empiezo por los assets visuales y el esqueleto del proyecto.Las doce fotos ya están. Voy a revisar que el look sea coherente y las copio al proyecto.Las fotos quedan: piedra volcánica, ámbar y Santiago de noche. Ahora armo el sitio completo — datos, identidad y las piezas interactivas.**NOCTUA** es un centro médico de precisión nocturna en Vitacura. El sitio está en Next.js, en español de Chile, y el build compiló las 24 páginas.
+
+La tesis de la marca: de día el síntoma se disfraza; de noche se nombra. No es una urgencia. Es la consulta que cabe después del trabajo — último cupo 22:00 — con laboratorio e imagen en la misma casa. El sello es **medicina del sueño**.
+
+**Identidad.** Negro `#050506`, ámbar de ojo de búho, lino `#ece7dc`. Piedra volcánica, una lámpara, Santiago al otro lado del vidrio. Copy seco, chileno, sin jerga de pasillo.
+
+**Páginas.** Inicio cinematográfico · ocho especialidades (interna, sueño, cardio, neuro, salud mental, gine, imagen, laboratorio) · oficio del sueño con hipnograma · la casa y su planta · equipo de ocho · laboratorio con arancel · mapa esto sí / esto no (SAMU 131) · agenda con RUT y previsión · valores, privacidad, aviso legal.
+
+**Piezas que no son plantilla.** Constelación interactiva de especialidades, tira de ECG, hipnograma de una noche, planta de la casa, reloj de Santiago con fase lunar, triage de urgencia.
+
+Cuando lo quieras ver: `npm run dev` en esta carpeta, o el visor de Órbita en `/propuesta/centro-medico-noctua-oscuro` después del build de propuestas.

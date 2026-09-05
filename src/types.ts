@@ -1,3 +1,10 @@
+export interface PlanAiAssistant {
+  conversations: string;
+  shortLabel: string;
+  optional: boolean;
+  description: string;
+}
+
 export interface PlanItem {
   id: string;
   name: string;
@@ -15,6 +22,7 @@ export interface PlanItem {
   features: string[];
   popular?: boolean;
   ctaText: string;
+  aiAssistant?: PlanAiAssistant;
 }
 
 export interface FaqItem {

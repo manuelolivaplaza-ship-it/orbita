@@ -1,0 +1,20 @@
+Voy a revisar el workspace y armar NOCTUA como una tienda de vinos oscura y precisa, en español de Chile, sin levantar localhost.El workspace está vacío: voy a anclar el concepto en el Valle del Elqui — cielos oscuros, cosecha nocturna, precisión — y luego construir la marca y el sitio alrededor de eso.Empiezo por el scaffold de Next.js y, en paralelo, dejo anclada la identidad: Elqui, cosecha de noche, catálogo corto.El Elqui encaja: altitud, amplitud térmica y cielos de observatorio. Siguiente: scaffold, catálogo y las imágenes de marca.Las primeras imágenes ya están. Sigo con cosecha, bodega, botellas y el resto del sistema visual.El hero y la botella funcionan. Sigo con datos, componentes y el resto de las imágenes.Las fotos están en su sitio. Ahora armo el sistema de diseño, el catálogo y las piezas de interfaz.Typecheck limpio. Ajusto las botellas para que se vean enteras y corro un build de verificación, sin levantar el servidor.**NOCTUA** está armada: un viñedo de altura en el Valle del Elqui, cosecha solo de noche, tono preciso y oscuro. Next.js 15, build estático verificado. No levanté el servidor.
+
+La marca se apoya en algo real del valle: granito, amplitud térmica, cielo de observatorio. El búho (noctua) es el sello; cada vino lleva hora de vendimia, temperatura de uva y fase lunar.
+
+**Carta** (precios en CLP, IVA incluido):
+
+| Vino | Cepa | Precio |
+|---|---|---|
+| Strix 2023 | Syrah | $28.000 |
+| Alba 2023 | Pedro Ximénez | $24.000 |
+| Lúnula 2024 | Moscatel de Alejandría | $22.000 |
+| Umbra 2022 | Syrah | $42.000 |
+| Meridiana 2021 | Syrah · Garnacha | $48.000 |
+| Noctua 2020 | Syrah gran guarda | $72.000 · 14 botellas |
+
+**Rutas:** `/` · `/vinos` · `/vinos/[slug]` · `/origen` · `/metodo` · `/visitas` · `/circulo` · `/carrito`
+
+Al entrar hay un gate de 18 años. El carrito persiste en el navegador (despacho RM / regiones / retiro en Paihuano). Formularios de visita, club y pedido quedan en estado de confirmación, sin backend.
+
+Para verlo: `npm run dev` en esta carpeta.

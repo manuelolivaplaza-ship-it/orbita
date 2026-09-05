@@ -12,7 +12,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
   return (
     <section
       id="hero"
-      className="relative isolate min-h-[100svh] overflow-hidden flex flex-col justify-between pt-24 pb-8 sm:pt-28 sm:pb-12 lg:min-h-[100svh] lg:h-[100svh] lg:block lg:py-0"
+      className="relative isolate min-h-[100svh] overflow-hidden flex items-center pt-20 pb-8 sm:pt-24 sm:pb-12 lg:h-[100svh] lg:block lg:py-0"
     >
       <div
         className="pointer-events-none absolute right-[-18%] top-[28%] h-[22rem] w-[22rem] rounded-full lg:right-[-8%] lg:top-[6%] lg:h-[42rem] lg:w-[42rem]"
@@ -20,9 +20,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
         aria-hidden
       />
 
-      {/* Copy content: on mobile top-aligned, on desktop vertically centered */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[88rem] items-start px-5 sm:px-6 lg:absolute lg:inset-0 lg:items-center lg:px-6">
-        <div className="pointer-events-auto w-full max-w-[21rem] sm:max-w-xl lg:max-w-[30rem] xl:max-w-xl">
+      {/* Copy content: on mobile top/center-aligned, on desktop vertically centered */}
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[88rem] items-center px-5 sm:px-6 lg:absolute lg:inset-0 lg:px-6">
+        <div className="pointer-events-auto relative w-full max-w-[21.5rem] sm:max-w-xl lg:max-w-[30rem] xl:max-w-xl">
+          {/* Subtle gradient wash on mobile to guarantee crystal-clear text readability over passing cards */}
+          <div
+            className="pointer-events-none absolute -inset-x-4 -inset-y-6 -z-10 rounded-3xl bg-gradient-to-r from-[#F7F8FC]/95 via-[#F7F8FC]/80 to-transparent backdrop-blur-[2px] lg:hidden"
+            aria-hidden
+          />
+
           <h1
             className="mb-5 text-[2.4rem] font-medium leading-[0.96] tracking-tight text-[#0B0B12] sm:mb-6 sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
@@ -80,9 +86,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
         </div>
       </div>
 
-      {/* Visual stage: on mobile it sits cleanly below the copy; on desktop it occupies the right half */}
+      {/* Visual stage: fills the entire hero both on mobile and desktop */}
       <div
-        className="relative z-0 h-[290px] w-full shrink-0 animate-fade-in-up mt-6 sm:h-[350px] lg:absolute lg:inset-0 lg:h-full lg:w-auto lg:mt-0 lg:left-[50%] xl:left-[42%] 2xl:left-[38%]"
+        className="absolute inset-0 z-0 h-full w-full pointer-events-auto animate-fade-in-up lg:left-[50%] xl:left-[42%] 2xl:left-[38%] lg:w-auto"
         style={{ animationDelay: '0.2s' }}
       >
         <OrbitCarousel />

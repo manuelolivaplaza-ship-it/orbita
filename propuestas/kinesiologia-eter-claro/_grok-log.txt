@@ -1,1 +1,16 @@
-Voy a revisar el workspace y las convenciones de diseño/imagen antes de armar ETER: un sitio claro, limpio y etéreo, en español de Chile.El workspace está vacío. Voy a mirar propuestas hermanas y armar una dirección visual propia para ETER.
+Voy a revisar el workspace y las convenciones de diseño/imagen antes de armar ETER: un sitio claro, limpio y etéreo, en español de Chile.El workspace está vacío. Voy a mirar propuestas hermanas y armar una dirección visual propia para ETER.Hay un patrón de propuestas Órbita. Voy a leer la plantilla, otras marcas ETER y un sitio de clínica para alinear estructura y tono.Hay un brief de Órbita para este slug. Voy a leer la cola, el inventario de media y un ETER ya cerrado para copiar el estándar, no la estética.Voy a construir ETER como un Next.js editorial: luz norte, tipografía de aire y copy chileno concreto. Primero el look visual canónico; después el sitio entero.El bodegón falló por el ratio; voy a revisar las tres fotos que sí salieron y completar el set.Copio las fotos al proyecto y las reviso; después derivo las que falten desde el box canónico.Las fotos ya tienen el tono. Ahora armo el esqueleto de Next.js, la paleta y todo el contenido en español de Chile.El build pasó. Dejo `/agenda` estática — ahora es dinámica por `searchParams` y eso rompe el export de Órbita.**ETER** quedó armado como sitio Next.js: claro, de papel hueso, con luz norte y copy chileno concreto. No es una clínica genérica ni un spa.
+
+La idea de marca es el éter como medio: el cuerpo que vuelve a pesar lo justo. Tipografía enorme (Cormorant + Outfit), filetes de 1 px, radios en cero, teal usado con parsimonia. Fotos de espacios vacíos — camilla de lino, pasillo, jardín — sin deportistas vendados ni esqueletos 3D.
+
+**Páginas**
+- `/` — conversión completa: hero, cifras, enfoques, equipo, valores, método, FAQ, agenda
+- `/oficio` y 6 enfoques (traumatológica, deportiva, neurológica, respiratoria, domicilio, evaluación)
+- `/espacio` — la casa en San Damián 1280, Las Condes, y cobertura a domicilio
+- `/equipo` — seis kinesiólogos, el mismo de principio a fin
+- `/valores` — precios en CLP y reembolso ISAPRE/FONASA
+- `/agenda` — formulario con RUT, previsión y WhatsApp
+
+**Datos de la casa (demo)**  
+Teléfono `+56 2 2840 3315` · WhatsApp `+56 9 7612 4408` · `hola@eterkine.cl`
+
+El build estático ya está en `dist/`. Cuando lo abras en Órbita: `/propuesta/kinesiologia-eter-claro`.

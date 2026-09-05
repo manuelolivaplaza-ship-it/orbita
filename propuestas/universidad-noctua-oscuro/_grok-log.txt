@@ -1,0 +1,21 @@
+Voy a construir NOCTUA como un sitio oscuro, nocturno y preciso. Primero reviso el workspace y las convenciones del stack para no improvisar sobre algo que ya exista.El workspace está vacío: voy a definir la identidad de NOCTUA (Chile, noche, precisión) y armar el proyecto Next.js desde cero.Hay un sistema de marca NOCTUA en las otras propuestas. Voy a leer esa identidad y la universidad clara para no inventar otra cosa.La marca NOCTUA ya está definida. Ahora leo la universidad ETER y las páginas más logradas para igualar profundidad, no para copiarlas.Identidad definida: instituto nocturno en la falda del San Cristóbal, misma gramática visual de NOCTUA. Empiezo por los assets y el esqueleto del proyecto.Las primeras ocho fotos ya están. Sigo con el resto de assets y el andamiaje del proyecto.Voy a revisar las fotos clave, copiarlas al proyecto e instalar dependencias.Las fotos están. Copio assets, instalo dependencias y empiezo a escribir el sistema y el contenido.Ajusto la luna y la cifra de apertura — el reloj animado producía minutos imposibles.**NOCTUA** es un instituto universitario nocturno en Recoleta, no un vespertino. La hora es la tesis: el recinto abre a las 17:30, cuando Santiago baja la voz.
+
+Next.js 16, misma gramática visual de la marca (void, ámbar, Syne, el búho). El build compiló 24 páginas. No corrí localhost.
+
+**La decisión central.** ETER se sostiene en la altura. NOCTUA se sostiene en la noche. Ocho carreras, seminario de doce, 640 estudiantes. El cielo se mide, el sueño se registra, la ciudad se lee encendida.
+
+**Sede.** Santa Filomena 184, Recoleta. Metro Baquedano a 9 minutos. Funicular a 4. Cúpula en el cerro; estación en Atacama.
+
+**Pregrado (jornada 17:30–01:00)**
+
+| Escuela | Carreras |
+|---|---|
+| Cielo y Medida | Astronomía, Datos y Observación, Cine |
+| Cuerpo y Tiempo | Neurociencias del Sueño |
+| Ciudad y Signo | Urbanismo, Diseño, Literatura y Archivo, Gobierno de la Ciudad |
+
+**Admisión 2027.** PAES, entrevista, portafolio donde el oficio lo pide, y una **vigilia** (20:00–00:30) en astronomía, cine y neurociencias. Arancel publicado, Beca Vigilia y Beca Recoleta.
+
+**Páginas.** Inicio, Instituto, Campus, Carreras (8 fichas), Admisión (formulario), Cuerpo, Investigación, Contacto, privacidad y aviso legal.
+
+Cuando lo abras: hero desde el cerro, barra con hora de Santiago y fase lunar, y el seminario con la ciudad detrás del vidrio.

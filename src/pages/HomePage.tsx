@@ -1,7 +1,6 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Hero } from '../components/Hero';
-import { FeaturedWork } from '../components/home/FeaturedWork';
 import { GaleriaTeaser } from '../components/home/GaleriaTeaser';
 import { CrmShowcase } from '../components/home/CrmShowcase';
 import { ShowcasePanel } from '../components/ShowcasePanel';
@@ -23,7 +22,6 @@ export default function HomePage() {
       />
       <Hero onOpenQuoteModal={onOpenQuoteModal} onOpenSchedule={onOpenSchedule} />
       <GaleriaTeaser />
-      <FeaturedWork />
       <CrmShowcase />
       <ShowcasePanel onOpenQuoteModal={onOpenQuoteModal} />
       <Precios onOpenQuoteModal={onOpenQuoteModal} />

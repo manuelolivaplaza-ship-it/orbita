@@ -1,0 +1,16 @@
+Voy a construir NOCTUA como una web oscura, precisa y con carácter de marca. Primero reviso el workspace y las convenciones de diseño/imagen para que cada decisión visual sea deliberada.El workspace está vacío: voy a armar NOCTUA desde cero — Next.js, sistema visual propio y fotografía de marca. Empiezo por el scaffold y los assets canónicos.El scaffold sigue instalando. Mientras tanto reviso las fotos y genero el resto de assets con las proporciones correctas.El log de sesión bloqueaba el scaffold. Voy a instalar Next.js en un subdirectorio y localizar las imágenes generadas.Next.js ya está listo. Ahora reviso las fotos canónicas y muevo el proyecto a la raíz.Las fotos están a la altura. Copio las variantes, las nombro con sentido y empiezo a construir el sistema de marca y las páginas.Las variantes de producto están bien. Copio las últimas y empiezo a escribir el sistema: datos, marca, layout y páginas.Ajusto tipografías para que Syne e Instrument Serif carguen de verdad, y cierro las páginas que faltan.El catálogo debe leer los filtros desde la URL para que los enlaces de cada línea funcionen al navegar.**NOCTUA** está armada: un atelier de neumáticos nocturno, no una gomería genérica.
+
+El sitio vive en `web/` (Next.js, App Router, TypeScript). No corrí el servidor: ábrelo cuando quieras con `cd web` y `npm run dev`.
+
+### Marca
+El nombre es latín: **búho**. La tesis es una sola frase: *agarre cuando el resto no ve*. Paleta de negro verdadero, papel cálido e iris ámbar. Tipografía **Syne** (el wordmark), **Instrument Serif** (el manifiesto) y **Geist Mono** (las fichas técnicas). Marca reducida a dos ojos, sin mascota.
+
+### Qué vas a ver
+- **Inicio** — hero de ruta mojada, HUD de laboratorio, cuatro territorios de Chile, catálogo, tambores de medida y el taller de noche.
+- **Catálogo** — seis líneas: Vía, Nox, Cumbre, Atacama, Carga, Velox. Precios en CLP, IVA incluido.
+- **Ficha** — medida, stock en Huechuraba, índice nocturno, montaje o WhatsApp.
+- **Medida** — ancho / perfil / aro, o un auto que se vea en Chile (Swift, Hilux, CX-5…).
+- **Taller** — montaje, alineación 3D y **cita nocturna** jue–sáb 21:00–01:00, sin recargo.
+- **NOCTUA** y **Cita** — origen de la marca y reserva.
+
+No hay carrito. En Chile el neumático se agenda, se monta y se paga en taller; el sitio está hecho para eso.Ese proceso viejo era el `create-next-app` que falló al inicio por el log de sesión. No afecta nada: el sitio quedó en `web/`.Ese lint se ejecutó fuera de `web/` y falló por eso. El de la app ya pasó después, sin errores.

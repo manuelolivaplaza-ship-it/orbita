@@ -1,0 +1,35 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { site } from "@/data/site";
+import { cn } from "@/lib/cn";
+
+export function StickyCta() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 520);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-40 border-t border-line bg-void/95 p-3 backdrop-blur-md transition-transform duration-300 lg:hidden",
+        show ? "translate-y-0" : "translate-y-full",
+      )}
+    >
+      <div className="flex gap-2">
+        <Link href="/hora" className="btn btn-amber flex-1">
+          Pedir hora
+        </Link>
+        <a href={site.whatsappHref} className="btn btn-ghost flex-1">
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  );
+}

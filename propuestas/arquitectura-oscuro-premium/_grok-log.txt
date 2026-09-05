@@ -1,0 +1,19 @@
+Voy a armar un sitio oscuro premium para un estudio de arquitectura, con libertad total de diseño y contenido en español de Chile. Primero reviso el workspace y las convenciones de diseño para no improvisar.El workspace está vacío y hay propuestas hermanas; voy a estudiar la plantilla, el sitio de arquitectura claro y un oscuro premium para alinear calidad, stack y estructura.La versión clara está en Buenos Aires; esta tiene que ser Chile y distinta. Sigo con el listón de diseño de los oscuros premium y cómo se exportan.Ya tengo el listón y las convenciones de Órbita. Ahora armo un estudio chileno propio —no un invertido de VETA— y reviso los archivos de soporte del stack.Concepto: **ORILLA**, un estudio en Lastarria que trabaja el borde entre cordillera y Pacífico. Paleta de noche y cobre chileno, no un invertido de VETA. Empiezo a generar la fotografía y a armar el proyecto.Las cubiertas ya están. Reviso las más críticas y, en paralelo, genero interiores y el material de estudio.Las cubiertas quedaron fuertes. Sigo con los interiores anclados a cada obra y reviso el resto de exteriores.Reviso interiores y estudio; si calzan, copio todo a `public/images` y empiezo a escribir el sitio.La fotografía está. Copio los archivos y empiezo a escribir el sitio completo.Imágenes listas. Ahora escribo el esqueleto, los datos del estudio y el sistema visual.Ajusto las fuentes para el build y luego instalo dependencias y compilo, sin levantar servidor.Listo. El sitio es **ORILLA**, un estudio de arquitectura en Lastarria, Santiago. Next.js, oscuro premium, contenido en español de Chile. El build estático quedó en `dist/` (sin levantar servidor).
+
+**Por qué no es un invertido de un sitio claro.** Chile es un corte de 4.000 km. El estudio trabaja ese borde: cordillera / Pacífico, sismo / luz del poniente. La paleta es noche de hormigón y **cobre** (no oro). Tipografía Instrument Serif + Sans, coordenadas en IBM Plex Mono.
+
+**Lo que vas a ver**
+- Hero a pantalla completa: Casa Ladera en voladizo sobre el valle de Santiago, blue hour
+- Preloader que dibuja el horizonte y la cota `33°26′ S`
+- Regla de cota fija a la izquierda (como un corte de plano)
+- Territorio norte–sur: de Calama a Petrohué
+- Índice editorial: hover una obra, aparece la foto
+- Ficha de cada proyecto como cartela de plano (`ORL-24-07`)
+- Principios: **Borde, Materia, Sismo**
+
+**Ocho obras**, con fotografía propia:
+Casa Ladera (Lo Barnechea), Casa Matanzas, Bodega Apalta, Pabellón Mapocho, Casa Quebrada (Valparaíso), Refugio Petrohué, Casa Tunquén, Escuela Calama.
+
+**Rutas:** `/` · `/obras` · `/obras/[slug]` · `/estudio` · `/enfoque` · `/contacto`
+
+Para revisarlo: `/propuesta/arquitectura-oscuro-premium` en Órbita. No verifiqué el sitio en el navegador, como pediste.

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, ArrowRight, Sparkles, Rocket, ChevronDown } from 'lucide-react';
 import { LiquidGlass } from './LiquidGlass';
+import { Orb } from './orb';
 import { plans, UF_APPROX_CLP } from '../data/pricing';
 
 interface PreciosProps {
@@ -212,11 +213,38 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                       </div>
                     )}
                   </div>
+
+                  {/* Módulo Opcional: Asistente con IA personalizado - Compacto y no seleccionable */}
+                  {isMonthly && plan.aiAssistant && (
+                    <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5 transition-colors">
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-2xs border border-zinc-200/60 overflow-hidden">
+                            <Orb size={22} state="idle" tone="ink" playful shadow={false} />
+                          </div>
+                          <span className="text-xs font-semibold text-zinc-900 tracking-tight">
+                            Asistente con IA personalizado
+                          </span>
+                        </div>
+                        <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
+                          {plan.aiAssistant.shortLabel}
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-zinc-600 leading-relaxed pl-8">
+                        {plan.aiAssistant.description}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <button
-                  onClick={() => onOpenQuoteModal(plan.name)}
-                  className={`w-full py-3 px-6 rounded-full font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
+                  onClick={() =>
+                    onOpenQuoteModal(
+                      isMonthly ? `${plan.name} (Mensual)` : plan.name
+                    )
+                  }
+                  className={`w-full py-3.5 px-6 rounded-full font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
                     plan.popular
                       ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md active:scale-[0.98]'
                       : 'border border-[#0B0B12] text-[#0B0B12] hover:bg-[#0B0B12] hover:text-white'

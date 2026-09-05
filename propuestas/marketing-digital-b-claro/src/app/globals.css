@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-nieve: var(--nieve);
+  --color-nieve-2: var(--nieve-2);
+  --color-tinta: var(--tinta);
+  --color-muted: var(--muted);
+  --color-linea: var(--linea);
+  --color-norte: var(--norte);
+  --color-norte-deep: var(--norte-deep);
+  --color-hielo: var(--hielo);
+  --color-cielo: var(--cielo);
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --nieve: #f4f7f6;
+  --nieve-2: #e6eeec;
+  --tinta: #131c1e;
+  --muted: #5a686a;
+  --linea: #d0dcda;
+  --norte: #1a6b6e;
+  --norte-deep: #125456;
+  --hielo: #b7d2d4;
+  --cielo: #6d8f92;
+  --header: 4.25rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  border-color: var(--linea);
+}
+
+html {
+  color-scheme: light;
+  background: var(--nieve);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header) + 12px);
+}
+
+body {
+  background: var(--nieve);
+  color: var(--tinta);
+  font-family: var(--font-geist), var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--norte) 28%, transparent);
+  color: var(--tinta);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--norte);
+  outline-offset: 3px;
+}
+
+img {
+  user-select: none;
+}
+
+.font-display {
+  font-family: var(--font-instrument), var(--font-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+}
+
+.font-sans {
+  font-family: var(--font-geist), var(--font-sans);
+}
+
+.kicker {
+  font-family: var(--font-geist), var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--norte);
+}
+
+.nums {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.shell {
+  width: min(1220px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    width: min(1280px, calc(100% - 4.5rem));
+  }
+}
+
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.4s var(--ease);
+}
+
+.link-line:hover {
+  background-size: 100% 1px;
+}
+
+.crop {
+  position: relative;
+}
+
+.crop::before,
+.crop::after,
+.crop-marks::before,
+.crop-marks::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.crop-marks {
+  pointer-events: none;
+}
+
+.horizon {
+  height: 1px;
+  background: var(--norte);
+  transform-origin: left center;
+  animation: horizon-draw 1.4s var(--ease) both;
+}
+
+@keyframes horizon-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: enter 0.95s var(--ease) forwards;
+  animation-play-state: paused;
+}
+
+.reveal.is-in {
+  animation-play-state: running;
+}
+
+@keyframes enter {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-tick {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.light-tick {
+  animation: pulse-tick 2.6s ease-in-out infinite;
+}
+
+.meter-fill {
+  background: color-mix(in srgb, var(--norte) 22%, var(--hielo));
+}
+
+@keyframes loading-line {
+  0% {
+    transform: scaleX(0.12);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  51% {
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0.12);
+    transform-origin: right;
+  }
+}
+
+.loading-line {
+  animation: loading-line 1.6s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .horizon,
+  .light-tick,
+  .loading-line {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nieve);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--linea);
+  border: 2px solid var(--nieve);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--norte);
+}

@@ -1,0 +1,26 @@
+Voy a construir ETER como un sitio de alto diseño: primero reviso el workspace y las convenciones de Next/shadcn, y después armo una marca etérea con contenido chileno.El workspace está vacío; voy a mirar propuestas hermanas para alinear el listón de calidad y, en paralelo, armar el concepto visual de ETER.Hay una línea de propuestas ETER y un brief visual de salud mental. Voy a leer la plantilla, un sitio hermano y ese brief para no partir de cero.El concepto queda anclado en el éter: luz norte, sage, silencio y una respiración como gesto de marca. Empiezo a generar el set visual y a armar el proyecto Next.El still falló por el ratio; voy a revisar el lote que sí salió y completar texturas, bodegones y retratos.Las salas y la fachada están a la altura; la sala de espera quedó demasiado deteriorada, así que la limpio y sigo con bodegones y retratos.El set visual ya tiene el tono: retratos serenos, salas de lino y luz. Sigo con el resto del equipo y, en paralelo, escribo la arquitectura del sitio.El equipo visual quedó coherente. Copio los assets y escribo el sistema de diseño, los componentes de respiración y las páginas.**ETER** ya está armado: un centro de salud mental en Providencia, claro, etéreo y en español de Chile. Next.js 16, 28 páginas estáticas, build verde. No levanté servidor.
+
+La marca se apoya en el éter: el medio invisible. El claim es **«Un lugar para lo que no se ve.»** Paleta de papel `#F7F4EF` y sage `#7A9A84`, Cormorant Garamond para el display, Outfit para el cuerpo, JetBrains Mono para los datos. Fotografía propia: salas vacías con luz norte, lino, eucalipto, la cordillera por la ventana, y seis retratos editoriales sin sonrisa de stock.
+
+**Lo que hace distinto al sitio**
+
+- Un anillo que respira (4 s / 6 s). Se puede seguir un minuto.
+- Una sección entera que solo dice «Quédate un segundo.» y, después, «Nadie te va a apurar.»
+- Campo de éter: orbes sage muy lentos, grain fijo.
+- Emparejamiento, no hueco: el formulario se lee; no se asigna al que tenga cupo.
+- Crisis tratada en voz baja: Salud Responde `600 360 7777` y `*4141`, en el pie, sin banner rojo.
+
+**Páginas**
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero, manifiesto, silencio, cifras, áreas, equipo, respirar, casa, método, honorarios, FAQ |
+| `/enfoque` | Criterio clínico |
+| `/areas` + 8 fichas | Ansiedad, ánimo, duelo, trauma, pareja, infanto-juvenil, sueño, psiquiatría |
+| `/equipo` + 6 fichas | Isidora, Mateo, Amanda, Emilia, Benjamín, Francisca |
+| `/espacio` | Antonio Varas 2650, Providencia · Metro Los Leones |
+| `/primera` | Pedido de hora con RUT chileno |
+| `/valores` | Honorarios y reembolso ISAPRE |
+| `/privacidad` · `/aviso-legal` | Ficha, secreto profesional, urgencias |
+
+Cuando lo quieras ver: `npm run dev` en esta carpeta. El `meta.json` ya está listo para la galería de propuestas.

@@ -1,0 +1,14 @@
+Voy a armar un sitio de agencia de marketing digital en Next.js, luminoso y con contenido para Chile. Primero reviso el workspace y las convenciones de diseño para que cada decisión de layout, tipografía y copy sume al WOW.El workspace está vacío: voy a definir una marca propia, armar el proyecto en Next.js y generar imágenes a medida para que el sitio se sienta editorial y luminoso, no genérico.Hay otros sitios “claros” en la misma carpeta; los reviso para igualar el nivel y diferenciar la agencia de marketing.Voy a crear FARO, un estudio en Lastarria: luz de mañana, tipografía editorial y fotografía propia. Empiezo el proyecto y las imágenes a la vez.Las primeras fotografías ya están; ahora armo retratos del equipo y las imágenes de los casos, y sigo el scaffold.El scaffold chocó con un archivo del workspace; lo armo en una carpeta temporal y termino las fotos de casos.El nombre del viñedo se rompió por la ñ; lo dejo en ASCII y empiezo a escribir el sitio.Imágenes listas. Ahora armo identidad, datos y componentes, y después las páginas.Corrijo voseo argentino que se coló en el copy chileno y escribo la home.El build compiló las 25 páginas. Dejo el reloj de Santiago a prueba de formato de hora y paso el linter.Listo: el sitio es **FARO**, un estudio de marketing digital en Lastarria. No corrí el servidor; el build de producción compiló las 25 páginas.
+
+**Por qué FARO.** Un faro no grita: hace visible la costa. Encaja con una web clara y luminosa, y evita el nombre “Claro” (la telco). Paleta de papel y sol (`#F6F1E6` + `#F0B429`), serif Fraunces y sans Outfit. El acento no es el púrpura de agencia genérica.
+
+**Qué vas a ver**
+- Home con hero a pantalla completa, haz de luz, reloj **Luz de Santiago** (posición del sol en hora chilena) y marquee de oficios
+- Cinco casos (viña, fintech, turismo, hogar, gastronomía) con cifras, proceso y cita
+- Oficio: marca, pauta, contenido, performance, sitios, medición — cada uno con página propia
+- Estudio, equipo, honorarios en UF, brief con WhatsApp
+- Copy en español de Chile: tú, directorio, pauta, plata, IVA, Lastarria
+
+**Rutas:** `/` `/trabajo` `/oficio` `/estudio` `/contacto`
+
+Cuando lo quieras abrir: `npm run dev`.

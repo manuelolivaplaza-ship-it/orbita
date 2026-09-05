@@ -1,0 +1,29 @@
+Voy a construir un sitio WOW para ETER: primero reviso el workspace y las convenciones de diseño/imagen, y después armo la experiencia completa en español de Chile.El workspace está vacío: voy a montar Next.js, generar una paleta visual etérea y construir el sitio como una pieza editorial, no como una ficha médica genérica.El andamio sigue instalándose. Genero el resto de la fotografía editorial con proporciones válidas.El andamio chocó con un archivo de log; lo aparto y sigo con las fotos que faltan.El log está bloqueado, así que armo el proyecto en una carpeta temporal y lo subo a la raíz.Las fotos ya tienen el tono correcto. Reviso el resto del set y espero a que termine el andamio.El andamio ya está. Reviso las últimas fotos y subo el proyecto a la raíz.Las fotos clave funcionan. Limpio tres detalles, muevo el proyecto a la raíz y empiezo a construir el sitio.Antes de escribir código, reviso las convenciones de Next.js 16 para no pelear con la API nueva.Las fotos ya están en `public`. Ahora armo el sistema de diseño, los datos en español de Chile y las páginas.Ajusto tipografías, tipos y detalles de pulido, y dejo el README listo para que revises el sitio.**ETER** está armado: un laboratorio clínico en Santiago que se siente más cerca de una editorial que de una ficha médica.
+
+La marca toma el éter como medio por el que viaja la luz. El laboratorio hace lo mismo con el cuerpo: lo vuelve claro. Paleta de papel cálido, sage y tinta; Cormorant Garamond + Outfit; fotografía propia (jacarandás de Providencia, gota de suero, cordillera, toma de muestra en lino).
+
+Para verlo:
+
+```bash
+npm run dev
+```
+
+Luego abre [http://localhost:3000](http://localhost:3000).
+
+**Recorrido**
+
+| Ruta | Qué hay |
+|---|---|
+| `/` | Manifiesto, catálogo, domicilio, sucursales |
+| `/examenes` | 34 exámenes con precios en CLP; busca TSH o vitamina D |
+| `/chequeos` | Esencial, completo, mujer, hombre, metabólico, deportivo |
+| `/sucursales` | Providencia, Las Condes, Ñuñoa, Vitacura |
+| `/domicilio` | 16 comunas + formulario |
+| `/resultados` | Informe de demo con el RUT **16.482.339-3** |
+| `/nosotros` | Equipo y el porqué del nombre |
+| `/contacto` | Agenda (sucursal o domicilio) |
+| `/preparacion` | Ayuno, orina, hormonas, niños |
+
+El informe de resultados incluye un detalle chileno deliberado: vitamina D insuficiente, típica de Santiago en invierno. Los formularios confirman en pantalla; no hay backend.
+
+El build de producción compiló las 50 rutas estáticas. Cuando lo abras, el grano, el cursor luminoso y las revelaciones al scroll están pensados para escritorio; en móvil el menú ocupa la pantalla con tipografía de revista.

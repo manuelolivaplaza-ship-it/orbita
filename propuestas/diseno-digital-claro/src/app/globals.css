@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f5f2eb;
+  --paper-2: #ebe6dc;
+  --foam: #fbf9f4;
+  --ink: #171614;
+  --muted: #6a655c;
+  --line: #e3ddd2;
+  --norte: #3e6a58;
+  --norte-deep: #2f5345;
+  --sol: #e7c56a;
+  --header: 4.35rem;
+  --nx: 62%;
+  --ny: 8%;
+  --scroll: 0;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-foam: var(--foam);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-norte: var(--norte);
+  --color-norte-deep: var(--norte-deep);
+  --color-sol: var(--sol);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Instrument Serif Fallback", ui-serif, Georgia, serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header) + 12px);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-feature-settings: "ss01" 1, "cv11" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--sol) 62%, var(--paper));
+  color: var(--ink);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--norte);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nums {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.wrap {
+  width: min(1220px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    width: min(1320px, calc(100% - 4.5rem));
+  }
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+}
+
+.north-light {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      820px 520px at var(--nx) var(--ny),
+      rgba(231, 197, 106, 0.34),
+      transparent 62%
+    ),
+    radial-gradient(1100px 640px at 88% -8%, rgba(190, 214, 208, 0.28), transparent 56%),
+    radial-gradient(900px 560px at -8% 108%, rgba(231, 197, 106, 0.1), transparent 52%);
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.1  0 0 0 0 0.06  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  height: 2px;
+  width: calc(var(--scroll) * 100%);
+  background: linear-gradient(90deg, var(--norte), var(--sol));
+  pointer-events: none;
+}
+
+.img-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.img-frame img {
+  transition: transform 1.2s var(--ease);
+}
+
+.group:hover .img-frame img,
+.group:focus-within .img-frame img {
+  transform: scale(1.035);
+}
+
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.4s var(--ease);
+}
+
+.link-line:hover,
+.link-line:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.95s var(--ease),
+      transform 0.95s var(--ease);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.rise {
+  animation: rise 1.1s var(--ease) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.7;
+  }
+}
+
+.luz-dot {
+  animation: pulse-dot 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise,
+  .reveal,
+  .marquee-track,
+  .img-frame img,
+  .luz-dot {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .north-light {
+    background: radial-gradient(
+      900px 500px at 70% 0%,
+      rgba(231, 197, 106, 0.22),
+      transparent 60%
+    );
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--paper);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--norte);
+}

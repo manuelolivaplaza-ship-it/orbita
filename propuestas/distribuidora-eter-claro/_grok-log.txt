@@ -1,0 +1,23 @@
+Voy a empezar por entender el espacio de trabajo y el contexto de la marca, para diseñar ETER como un sitio etéreo y de alto impacto, no como un template genérico.Hay un sistema de propuestas y una concesionaria ETER hermanada. Voy a leer la plantilla, los prompts de calidad y el sitio existente para no inventar una marca distinta.Voy a fijar ETER como distribuidora de insumos para cocina profesional: seco, líquido y frío. Paleta de harina y hielo, no de showroom. Empiezo por la fotografía y el andamiaje.Reviso las tomas y cierro las dos que faltaron: el macro de aceite y el exterior del centro de distribución.La bandeja del salmón quedó flotando; la rehago apoyada. El resto del mundo visual ya está: harina en el aire, aceite, cámara de frío, ronda al amanecer.El salmón ya está en la mesa. Copio el archivo visual y empiezo a construir el sitio: tokens, catálogo y la arquitectura de páginas.Sigo con el sistema visual y los componentes mientras se instalan las dependencias.El typecheck pasó. Ajusto el hero a `<picture>` para que desktop sea 16:9 y móvil 9:16 de verdad.El build ya pasó; dejo `next.config` como estaba para no meter un `import.meta` innecesario.**ETER** quedó armada como una distribuidora de insumos para cocina profesional: seco, líquido y frío, desde un CD en Pudahuel. Next.js, español de Chile, tema claro. No levanté ningún servidor.
+
+La idea no es un mayorista genérico. El nombre es el oficio: lo que funciona bien no se nota. La metáfora visual es **harina en suspensión** — materia que se vuelve aire — y el sitio se organiza por temperatura, no por categorías de catálogo.
+
+**Decisiones que marcan el sitio**
+- Tres cámaras, no tres cards: **18–22 °C / +3 °C / −18 °C**. Cada una es una página con su carta de SKU.
+- Hero 16:9 en desktop y 9:16 en móvil, alto de clave, texto oscuro sobre polvo de harina. Sin overlay negro.
+- Paleta de hueso y hielo (`#f2ece3` / `#5f818c`). Tipografía Newsreader + Sora + IBM Plex Mono.
+- Precios netos en CLP, pedido mínimo **$180.000**, ronda AM a las **04:30**, corte a las **14:00**.
+- Cuenta comercial con validación de RUT (módulo 11), no un formulario de “contacto”.
+
+**Rutas**
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Manifiesto, tres estados, carta, ronda, umbral comercial |
+| `/lineas` | Las tres cámaras + inventario |
+| `/lineas/seco` · `/liquido` · `/frio` | Altar de temperatura + SKU |
+| `/red` | CD, plazos RM / V / VI, protocolo de cadena de frío |
+| `/cuenta` | Solicitud de cuenta corriente |
+| `/nosotros` | 2014, Pudahuel, oficio |
+
+El build de producción compiló las 15 páginas. Cuando quieras verla: `npm run propuesta -- distribuidora-eter-claro` desde Órbita, o `npm run dev` dentro de la carpeta.

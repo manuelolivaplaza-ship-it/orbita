@@ -1,0 +1,28 @@
+Voy a diseñar y construir ETER como un sitio Next.js claro y etéreo, con cada decisión visual y de contenido pensada. Primero reviso el workspace y las convenciones de diseño e imagen.El workspace está vacío; voy a mirar otras propuestas de Órbita para alinear el nivel, y después armo el concepto de marca y el sitio.Hay un sistema de propuestas Órbita y una carpeta `_tmp_vinedo`. Voy a leer la plantilla, un sitio ETER de referencia y los prompts del builder.El sitio será Next.js, marca ETER, niebla de Casablanca: paleta y tipografía propias, no el cliché de cava oscura. Empiezo por las imágenes canónicas y el andamiaje.La metáfora es la niebla de Casablanca: el aire como quinto elemento. Genero las fotos canónicas y armo el proyecto Next.js.Reviso que las fotos canónicas coincidan con el viñedo y la botella, y sigo con las variantes.Las fotos canónicas funcionan: niebla, parra, cava clara. Sigo con botellas por cepa, el hero móvil y el resto del sitio.Las fotos están alineadas con la niebla de Casablanca. Copio el material y escribo el contenido, los tokens y el esqueleto de la app.El build compiló las 19 páginas. Ajusto el carrito para la caja de la casa y cierro detalles de conversión.**ETER** quedó armado como sitio Next.js: viña de niebla en Lo Ovalle, Casablanca. No es cava oscura ni e-commerce genérico. El aire es el quinto elemento; la camanchaca es el método.
+
+## Decisiones que importan
+
+- **Metáfora:** la niebla costera, no la barrica. Paleta hueso/lino (`#F6F1E8`), tinta tierra, acento salvia apenas visible.
+- **Tipo:** Instrument Serif (titulares que se disuelven) + Figtree + DM Mono (datos de cuartel, precios, kickers).
+- **Foto sin etiqueta:** las botellas van en blanco; el nombre vive en la tipografía.
+- **Oficio chileno:** cuartel, cata, guarda, despacho, retiro en viña, boleta/factura. Precios en CLP, cupo máximo 12, última cata 16:00.
+- **Motion:** la niebla se levanta (blur + opacity), no un fade genérico. Respeta `prefers-reduced-motion`.
+- **Hero desktop 16:9**, móvil 9:16. Radios 0, filetes 1px, sin negro/blanco puros.
+
+## Qué hay
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero, manifiesto, riel de vinos, terroir, visitas, despacho, FAQ, reserva |
+| `/vinos` | Seis etiquetas + caja de la casa (una de cada una, suma honesta) |
+| `/vinos/niebla` … `/camanchaca` | Ficha: nota de cata, cuartel, guarda, carrito |
+| `/terroir` | Fundo, suelo, parra, cava |
+| `/visitas` | 4 experiencias con incluye/no incluye y formulario de reserva |
+| `/seleccion` | Caja: despacho RM / retiro, boleta o factura |
+| `/contacto` | Lo Ovalle, teléfono, WhatsApp |
+
+Vinos: **Niebla** (SB $16.900), **Alba** (Chardonnay $24.900), **Quinta** (ensamblaje $34.900), **Bruma** (Pinot $29.900), **Viento** (Syrah $27.900), **Camanchaca** (brut nature $32.900).
+
+El build estático compiló las 19 páginas. No levanté localhost, como pediste.
+
+Para revisarlo: en la carpeta del proyecto, `npm run dev`; o desde Órbita, `npm run propuesta -- vinedo-eter-claro`.

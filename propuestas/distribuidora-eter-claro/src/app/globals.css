@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f2ece3;
+  --paper-2: #e7dfd3;
+  --ink: #1e1b17;
+  --ink-soft: #4a443c;
+  --muted: #8a8276;
+  --line: #d6cec2;
+  --frost: #5f818c;
+  --frost-soft: #9fb7be;
+  --wheat: #b7a48a;
+}
+
+@theme inline {
+  --color-paper: #f2ece3;
+  --color-paper-2: #e7dfd3;
+  --color-ink: #1e1b17;
+  --color-ink-soft: #4a443c;
+  --color-muted: #8a8276;
+  --color-line: #d6cec2;
+  --color-frost: #5f818c;
+  --color-frost-soft: #9fb7be;
+  --color-wheat: #b7a48a;
+  --font-sans: "Sora", "Sora Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader", "Newsreader Fallback", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", "IBM Plex Mono Fallback", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sora), var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  min-height: 100%;
+}
+
+.font-display {
+  font-family: var(--font-newsreader), var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-ibm_plex_mono), var(--font-mono);
+}
+
+::selection {
+  background: #c5d5d8;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 1px solid var(--frost);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 34rem;
+  background: var(--paper-2);
+}
+
+@media (max-width: 767px) {
+  .hero {
+    aspect-ratio: 9 / 16;
+    min-height: 100svh;
+  }
+}
+
+.hero-veil {
+  background: linear-gradient(
+    90deg,
+    rgb(242 236 227 / 0.88) 0%,
+    rgb(242 236 227 / 0.42) 38%,
+    rgb(242 236 227 / 0.08) 62%,
+    transparent 78%
+  );
+}
+
+@media (max-width: 767px) {
+  .hero-veil {
+    background: linear-gradient(
+      180deg,
+      rgb(242 236 227 / 0.18) 18%,
+      rgb(242 236 227 / 0.55) 52%,
+      rgb(242 236 227 / 0.94) 100%
+    );
+  }
+}
+
+.float-media {
+  animation: float-media 28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes float-media {
+  from {
+    transform: translate3d(0, 10px, 0) scale(1.045);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.trace {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.trace:hover,
+.trace[aria-current="page"] {
+  background-size: 100% 1px;
+}
+
+.btn {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.45rem;
+  border-radius: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+}
+
+.btn-ink:hover {
+  background: var(--frost);
+  border-color: var(--frost);
+  color: var(--paper);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.input-line {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 0.85rem 0;
+  color: var(--ink);
+  border-radius: 0;
+  letter-spacing: 0.01em;
+  transition: border-color 0.3s ease;
+}
+
+.input-line:focus {
+  outline: none;
+  border-color: var(--frost);
+}
+
+.input-line::placeholder {
+  color: var(--muted);
+}
+
+select.input-line {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%238a8276' stroke-width='1.2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 1.4rem;
+}
+
+textarea.input-line {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.nav-paper {
+  background: rgb(242 236 227 / 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.frame {
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.frame img {
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.frame:hover img {
+  transform: scale(1.03);
+}
+
+.carta-row {
+  display: grid;
+  grid-template-columns: 5.4rem 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .carta-row {
+    grid-template-columns: 6.2rem 1.4fr 1fr 7.5rem 7.2rem;
+  }
+}
+
+.dust span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 0;
+  background: rgb(30 27 23 / 0.22);
+  animation: dust 9s ease-in-out infinite;
+}
+
+@keyframes dust {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.12;
+  }
+  50% {
+    transform: translate3d(18px, -36px, 0);
+    opacity: 0.42;
+  }
+}
+
+.hair {
+  height: 1px;
+  background: var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .rise,
+  .float-media,
+  .dust span,
+  .frame img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

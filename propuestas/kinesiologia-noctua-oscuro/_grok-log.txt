@@ -1,0 +1,15 @@
+Voy a revisar el workspace y las convenciones de diseño/imagen antes de construir NOCTUA: una web oscura, nocturna y precisa, con contenido en español de Chile.El workspace está vacío. Voy a mirar otras propuestas de órbita para no pelear con el contexto, y después armo NOCTUA desde cero.Hay un sistema de marcas (NOCTUA oscuro, ÉTER claro). Voy a leer las propuestas hermanas y la plantilla para alinear calidad y diferenciar el concepto.Empiezo por el andamiaje y, en paralelo, la fotografía nocturna que va a cargar toda la marca.Cuatro fotos ya están. Reintento las verticales con proporción válida y sigo con el resto del set.Reviso las fotografías y, mientras termina `npm install`, empiezo a escribir el sistema de diseño.El pasillo y dos interiores se ven de consultorio genérico. Los rehago con la piedra y la lámpara del hero, y mientras tanto armo el sistema.Las fotos ya calzan: piedra volcánica, ámbar, silencio. Sigo con componentes y páginas.Eslint de Next 16 marca `setState` síncrono en effects. Lo reescribo para que quede limpio.**NOCTUA** está armado: un centro de kinesiología que se lee de noche, no una clínica diurna pintada de negro.
+
+La idea de marca es precisa. Santiago de día es ruido; el cuerpo compensa y miente. NOCTUA abre a las **15:00** en Vitacura y cierra a las **22:30**, con último cupo a las **21:30**. La primera hora es una **lectura de 75 minutos**, con mapa por escrito. Sin pack por adelantado.
+
+**Qué vas a ver**
+
+- Hero a pantalla completa: box de piedra, lámpara ámbar, el Mapocho al otro lado del vidrio. Titular: *Se lee de noche.*
+- Reloj de Santiago en vivo, fase lunar y un punto ámbar cuando la casa está abierta.
+- **Constelación del cuerpo**: cada articulación es una estrella; al pasar el cursor se enciende el oficio (columna, hombro, carga, persistente, atleta).
+- Horario tratado como objeto: 15:00 · 18:00 · 21:00 · **21:30**.
+- Seis oficios, método en cuatro vértebras, casa, equipo, valores, formulario de hora con RUT chileno, ISAPRE/FONASA, privacidad y aviso legal.
+
+**Páginas:** `/` · `/oficio` · `/oficio/[slug]` · `/metodo` · `/espacio` · `/equipo` · `/valores` · `/hora` · legales.
+
+Stack: Next.js 16, React 19, TypeScript, Tailwind 4. Paleta NOCTUA (void, ámbar, papel). Copy en español de Chile. Typecheck y lint pasan. No levanté servidor, como pediste.

@@ -5,6 +5,7 @@ build/
 dist/
 propuestas/**/node_modules
 propuestas/**/dist
+propuestas/**/.next
 coverage/
 .DS_Store
 *.log
@@ -16,5 +17,12 @@ coverage/
 COLA-V2*
 scripts/_shots/
 _shots/
+propuestas/alba/
+propuestas/bruma/
+propuestas/casonorte/
+propuestas/lumen/
+propuestas/minimayorista/
+propuestas/pausa/
+propuestas/**/.env*
 nul
 

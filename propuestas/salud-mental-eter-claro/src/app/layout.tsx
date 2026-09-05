@@ -1,0 +1,105 @@
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
+import { Cormorant_Garamond, JetBrains_Mono, Outfit } from "next/font/google";
+import { EtherField } from "@/components/ether-field";
+import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
+import { Nav } from "@/components/nav";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { StickyCta } from "@/components/sticky-cta";
+import { site } from "@/data/site";
+import "./globals.css";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: {
+    default: "ETER — Centro de salud mental",
+    template: "%s — ETER",
+  },
+  description: site.description,
+  applicationName: "ETER",
+  authors: [{ name: "ETER Salud Mental SpA" }],
+  keywords: [
+    "salud mental",
+    "psicólogo",
+    "psicóloga",
+    "psiquiatra",
+    "terapia",
+    "ansiedad",
+    "depresión",
+    "Providencia",
+    "Santiago",
+    "ETER",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "ETER",
+    title: "ETER — Un lugar para lo que no se ve",
+    description: site.description,
+    images: [{ url: "/images/hero.jpg", width: 1920, height: 1080 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ETER — Centro de salud mental",
+    description: site.description,
+    images: ["/images/hero.jpg"],
+  },
+  alternates: { canonical: "/" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#F7F4EF",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <html
+      lang="es-CL"
+      className={`${outfit.variable} ${cormorant.variable} ${jetbrains.variable} h-full antialiased`}
+    >
+      <body className="relative min-h-full bg-papel text-tinta">
+        <JsonLd />
+        <a href="#contenido" className="skip">
+          Saltar al contenido
+        </a>
+        <EtherField />
+        <div className="grain" aria-hidden="true" />
+        <ScrollProgress />
+        <Nav />
+        <main id="contenido" className="relative z-10">
+          {children}
+        </main>
+        <Footer />
+        <StickyCta />
+      </body>
+    </html>
+  );
+}

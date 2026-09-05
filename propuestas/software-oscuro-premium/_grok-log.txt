@@ -1,0 +1,33 @@
+Voy a construir un sitio oscuro premium de alto contraste, con identidad propia y contenido en español de Chile. Primero reviso el workspace y las convenciones de diseño/imagen para no improvisar a ciegas.El workspace está vacío: voy a partir de un Next.js a medida, con identidad propia (no un look de dashboard). En paralelo armo el andamiaje y los assets visuales.Mientras Next.js termina de instalarse, genero las texturas y fotografías de los casos.El scaffold chocó con un archivo del workspace. Lo aparto, reviso las imágenes y vuelvo a crear el proyecto.Las fotos quedaron con el tono correcto. El scaffold sigue bloqueado por un archivo de log; lo saco y armo el proyecto a mano si hace falta.El proyecto Next.js ya está. Lo subo a la raíz, copio las imágenes y reviso la config de Tailwind.Las dependencias cayeron en la carpeta padre. Las instalo dentro de `obsidiana` y empiezo a escribir el sitio.Empiezo por el sistema visual, el contenido y la estructura. Después armo cada página con el mismo criterio: oscuro, editorial, preciso.Sigo con las secciones de la home: hero, trabajo, manifiesto y el resto del relato.El typecheck pasó. Ajusto los efectos que el linter marca para no setear estado en el cuerpo del `useEffect`.Listo. El sitio es **OBSIDIANA**, un estudio de software en Lastarria, Santiago: negro volcánico, marfil y un solo acento oro champagne. Sin neón, sin cards de SaaS, sin “transformación digital”.
+
+La metáfora manda el resto: la obsidiana es lava que se enfría de golpe y queda vidrio. El copy, los casos y el ritmo visual siguen esa idea — densidad, filo, poca superficie.
+
+**Cómo verlo** (cuando quieras; no dejé nada corriendo):
+
+```bash
+cd obsidiana
+npm run dev
+```
+
+Luego [http://localhost:3000](http://localhost:3000).
+
+**Páginas**
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero tipográfico, marquee, cinco encargos a pantalla completa, manifiesto, oficio, método |
+| `/trabajo` | Archivo editorial; en desktop la foto sigue el cursor |
+| `/trabajo/[slug]` | Caso con nudo, tajo, resultado y métricas |
+| `/estudio` | El nombre, principios, la mesa |
+| `/contacto` | Formulario con presupuesto en UF + la calle de noche |
+
+Los encargos están anclados en Chile: Colchagua, Antofagasta, teatro, crédito pyme, productores del sur. El formulario habla en UF, hay WhatsApp, horario chileno y reloj SCL en el footer.
+
+**Decisiones que importan**
+
+- Tipografía: Syne (display) + Instrument Serif (el filo) + Outfit + IBM Plex Mono
+- Cursor propio, grano, viñeta, preloader que escribe OBSIDIANA
+- Motion reducido respetado; el intro no se repite en la misma sesión
+- Compiló en producción: 15 rutas estáticas
+
+El proyecto vive en `obsidiana/`. Cuando lo abras, el primer impacto debería ser el hero: *Tallamos software que aguanta **presión.***Eso era un intento viejo de crear el proyecto en la raíz; falló y ya no importa. El sitio quedó en `obsidiana/`.

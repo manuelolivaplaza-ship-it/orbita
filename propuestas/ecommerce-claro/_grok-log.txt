@@ -1,0 +1,25 @@
+Voy a revisar el workspace y las skills de diseño/comercio para armar un ecommerce claro, luminoso y en español de Chile, sin levantar localhost.El workspace es una carpeta de propuestas; voy a mirar la plantilla y sitios “claro” vecinos para alinear estructura, tono y calidad.Marca asignada: **Bazar Austral**. Voy a armar una casa de objetos chilena — catálogo editorial, carrito y checkout en CLP — y generar la fotografía con una misma luz de mañana.La luz de estudio ya está. Ahora derivo cada pieza desde esa misma referencia y armo el esqueleto del proyecto.Copio la fotografía al proyecto y escribo datos, tokens y el catálogo.La fotografía quedó editorial y luminosa. Sigo con el catálogo, los tokens y las páginas.Dependencias listas. Compilo el sitio para cazar errores de TypeScript, sin levantar el servidor.La colección quedó dinámica por el filtro de URL; la paso a estática para que el export de la propuesta genere HTML.Quedó **Bazar Austral**: una casa de objetos en Lastarria, no un catálogo genérico. Next.js 16, React 19, contenido en español de Chile. El build compiló limpio (27 rutas estáticas). No levanté localhost.
+
+## La decisión que ordena el sitio
+
+La tienda abre a las **once**, como la once chilena. Todo lo que se vende cabe en esa mesa: lino, gres, madera, aceite, cera. Catorce piezas, no un inventario. Precio con IVA. Sin banners, sin cuenta regresiva, sin descuentos inventados.
+
+Paleta fija: papel `#F7F4EF`, tinta `#17140F`, bronce `#9C6B3F` en menos del 5%. Radios 0, filetes 1px. Tipografía: Newsreader + Figtree + IBM Plex Mono.
+
+## Qué hay para recorrer
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero partido: copy a la izquierda, la mesa a la luz a la derecha |
+| `/coleccion` | Índice editorial: hover a la izquierda, altar fotográfico sticky a la derecha |
+| `/coleccion/[pieza]` | Ficha de museo + variantes + carrito |
+| `/carrito` y drawer | Cantidad, umbral de despacho gratis |
+| `/pagar` | Boleta/factura, RUT, región, retiro en Lastarria, Webpay o transferencia |
+| `/pedido` | Confirmación |
+| `/la-casa` | Lastarria 84, oficio, horario |
+| `/envios` | Tarifas por región (Aysén y Magallanes no entran en el gratis) |
+| `/contacto` | Formulario + WhatsApp |
+
+Carrito en `localStorage`. Búsqueda con `Ctrl/Cmd+K`. Despacho sin costo desde **$59.990**.
+
+Cuando lo quieras ver: desde la raíz de Órbita, `npm run propuesta -- ecommerce-claro`.

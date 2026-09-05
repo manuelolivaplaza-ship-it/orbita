@@ -4,24 +4,28 @@ export const BASE_PRICES = {
   Sonda: 490_000,
   Estación: 990_000,
   Constelación: 1_690_000,
+  Aplicación: 1_890_000,
 } as const;
 
 export const BASE_PRICES_UF = {
   Sonda: 12.5,
   Estación: 25.0,
   Constelación: 42.5,
+  Aplicación: 48.0,
 } as const;
 
 export const MONTHLY_PRICES = {
-  Sonda: 49_000,
-  Estación: 89_000,
-  Constelación: 149_000,
+  Sonda: 89_000,
+  Estación: 149_000,
+  Constelación: 298_000,
+  Aplicación: 189_000,
 } as const;
 
 export const MONTHLY_PRICES_UF = {
-  Sonda: 1.25,
-  Estación: 2.25,
-  Constelación: 3.75,
+  Sonda: 2.25,
+  Estación: 3.75,
+  Constelación: 7.5,
+  Aplicación: 4.8,
 } as const;
 
 export const UF_APPROX_CLP = 39_600;
@@ -32,6 +36,7 @@ export const PLAN_HINTS: Record<PlanId, string> = {
   Sonda: 'Landing de validación / campaña',
   Estación: 'Web comercial + Panel CRM',
   Constelación: 'Multi-sección / Plataforma',
+  Aplicación: 'Web App interactiva / PWA / Portales',
 };
 
 export const plans: PlanItem[] = [
@@ -42,11 +47,17 @@ export const plans: PlanItem[] = [
     priceRaw: BASE_PRICES.Sonda,
     priceUf: '12,5 UF',
     priceUfRaw: BASE_PRICES_UF.Sonda,
-    monthlyPrice: '$49.000 CLP',
+    monthlyPrice: '$89.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Sonda,
-    monthlyPriceUf: '1,25 UF',
+    monthlyPriceUf: '2,25 UF',
     monthlyPriceUfRaw: MONTHLY_PRICES_UF.Sonda,
     description: 'Ideal para validar una oferta, lanzar una campaña o tener presencia profesional con máxima claridad y velocidad.',
+    aiAssistant: {
+      conversations: 'Hasta 2.000 conversaciones / mes',
+      shortLabel: 'Asistente IA Opcional',
+      optional: true,
+      description: 'Es 100% opcional sumarlo a tu plan. Si lo requieres, puedes integrar un asistente con IA adaptado a tu negocio (o conectar a Orb) con capacidad de hasta 2.000 conversaciones/mes para responder preguntas frecuentes y derivar prospectos a WhatsApp 24/7.',
+    },
     features: [
       'Landing page de alta conversión: diseñada desde cero en código limpio para captar y convertir prospectos.',
       'Estructura de 5 a 6 bloques estratégicos: hero persuasivo, servicios, propuesta de valor, testimonios, formulario y contacto.',
@@ -55,6 +66,8 @@ export const plans: PlanItem[] = [
       'Diseño responsive mobile-first: maquetación ultra-fluida optimizada al milímetro para teléfonos móviles y tablets.',
       'Formularios automáticos: conexión directa con tu correo corporativo y sincronización en Google Sheets.',
       'SEO técnico on-page: configuración de metadatos, títulos semánticos y vista previa OpenGraph para compartir en redes.',
+      'Rendimiento y velocidad sub-segundo: arquitectura estática ultraligera sin plugins pesados que ralenticen la carga.',
+      '1 ronda de revisiones completas: ajuste fino de contenidos, colores y detalles antes de la publicación final.',
       'Propiedad 100% del código: sin licencias ocultas ni ataduras de permanencia. El código y los accesos son tuyos.',
       'Sprint de entrega: de 10 a 14 días hábiles (o sprint prioritario de 7 días con Modo Turbo bonificado).',
     ],
@@ -63,8 +76,11 @@ export const plans: PlanItem[] = [
       'Hosting cloud ultra-rápido + SSL: servidores de alta disponibilidad con certificado de seguridad y carga instantánea.',
       'Botón WhatsApp y captador de leads: canal directo para recibir consultas de clientes potenciales todos los días.',
       'Panel CRM Órbita Esencial en la nube: gestión ágil de tus contactos desde tu teléfono o computador sin hojas de cálculo.',
+      'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un asistente adaptado a tu negocio o conectar a Orb con hasta 2.000 conversaciones mensuales.',
       'Bolsa mensual de cambios de contenido: actualizamos textos, precios, fotos o banners cada vez que lo necesites.',
       'Mantenimiento técnico y copias de seguridad: monitoreo continuo contra caídas y respaldos periódicos en la nube.',
+      'Optimización de carga y Core Web Vitals: mantención técnica para asegurar máxima velocidad en Google y redes sociales.',
+      'Soporte directo vía WhatsApp: atención cercana de nuestro equipo ante cualquier consulta o ajuste menor.',
       'Libertad de suscripción: cuota mensual predecible sin contratos forzados; puedes pausar o cancelar cuando desees.',
     ],
     ctaText: 'Pedir presupuesto Sonda',
@@ -76,12 +92,18 @@ export const plans: PlanItem[] = [
     priceRaw: BASE_PRICES.Estación,
     priceUf: '25,0 UF',
     priceUfRaw: BASE_PRICES_UF.Estación,
-    monthlyPrice: '$89.000 CLP',
+    monthlyPrice: '$149.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Estación,
-    monthlyPriceUf: '2,25 UF',
+    monthlyPriceUf: '3,75 UF',
     monthlyPriceUfRaw: MONTHLY_PRICES_UF.Estación,
     popular: true,
     description: 'La opción predilecta de pymes, clínicas y empresas que buscan presencia sólida, automatización de prospectos y conversión.',
+    aiAssistant: {
+      conversations: 'Hasta 10.000 conversaciones / mes',
+      shortLabel: 'Asistente IA Opcional',
+      optional: true,
+      description: 'Es 100% opcional sumarlo a tu plan. Si lo requieres, puedes integrar un asistente con IA personalizado con catálogo y servicios (o conectar a Orb) con capacidad de hasta 10.000 conversaciones/mes para cualificar leads y registrarlos en tu CRM.',
+    },
     features: [
       'Sitio comercial completo o landing Pro: arquitectura estratégica de 5 a 8 bloques para ventas y servicios.',
       'Panel CRM Órbita Pro integrado: embudo Kanban interactivo para mover prospectos de "Nuevo" a "Cerrado" con drag & drop.',
@@ -89,6 +111,8 @@ export const plans: PlanItem[] = [
       'Dashboard con analítica en vivo: visualiza visitas reales, clics a WhatsApp, conversiones y tasa de cierre en un solo lugar.',
       'Copywriting persuasivo profesional: redacción de textos comerciales enfocados en derribar objeciones y generar confianza.',
       'SEO técnico avanzado + Schema Markup: indexación optimizada para posicionar tus servicios y datos de contacto en Google.',
+      'Micro-interacciones y motion suave: detalles visuales interactivos que elevan la percepción de valor y profesionalismo.',
+      'Exportación de base de prospectos: descarga tus contactos filtrados a CSV o Excel con un solo clic.',
       '2 rondas de revisiones completas: afinamos y pulimos cada detalle interactivo antes del lanzamiento definitivo.',
       'Código fuente y propiedad absoluta: arquitectura moderna en React/TypeScript sin depender de plugins vulnerables.',
       'Modo Turbo bonificado: sprint prioritario de entrega en 7 días hábiles con 15 días de soporte post-lanzamiento.',
@@ -98,7 +122,9 @@ export const plans: PlanItem[] = [
       'Hosting cloud de alto rendimiento + CDN: infraestructura veloz con 99.9% de uptime garantizado y carga sub-segundo.',
       'Panel CRM Órbita Pro completo: embudo Kanban multi-columna para gestionar tu pipeline de ventas de manera profesional.',
       'Alertas automáticas a WhatsApp: tu equipo de ventas recibe el aviso en su teléfono en el segundo exacto que entra un lead.',
+      'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un asistente adaptado a tu negocio o conectar a Orb con hasta 10.000 conversaciones mensuales.',
       'Hasta 2 horas mensuales de ajustes: solicitud de nuevas secciones, actualización de casos de éxito o piezas comerciales.',
+      'Dashboard de analítica en vivo: métricas continuas de visitas, clics a WhatsApp y tasa de conversión.',
       'Monitoreo y seguridad proactiva 24/7: protección perimetral, renovación de certificados SSL y copias de seguridad continuas.',
       'Soporte prioritario continuo: línea directa por WhatsApp con nuestro equipo de desarrollo para cualquier requerimiento.',
       'Publicación rápida en 7 días hábiles: ponemos tu plataforma en marcha con todas las integraciones activas.',
@@ -112,18 +138,26 @@ export const plans: PlanItem[] = [
     priceRaw: BASE_PRICES.Constelación,
     priceUf: '42,5 UF',
     priceUfRaw: BASE_PRICES_UF.Constelación,
-    monthlyPrice: '$149.000 CLP',
+    monthlyPrice: '$298.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Constelación,
-    monthlyPriceUf: '3,75 UF',
+    monthlyPriceUf: '7,5 UF',
     monthlyPriceUfRaw: MONTHLY_PRICES_UF.Constelación,
     description: 'Para empresas con múltiples servicios, rediseños completos o marcas que necesitan arquitectura a medida y extras creativos.',
+    aiAssistant: {
+      conversations: 'Hasta 20.000 conversaciones / mes',
+      shortLabel: 'Asistente IA Opcional',
+      optional: true,
+      description: 'Es 100% opcional sumarlo a tu plan. Si lo requieres, puedes integrar un agente con IA autónomo a medida (o conectar a Orb) con capacidad de hasta 20.000 conversaciones/mes, flujos complejos y soporte multicanal.',
+    },
     features: [
       'Sitio multi-sección o rediseño integral: estructura profunda para empresas con múltiples áreas, servicios o filiales.',
       'Panel CRM Multi-usuario avanzado: permisos jerárquicos por roles para administradores, ejecutivos y ejecutivos de ventas.',
       'Integraciones a medida: conexión nativa con Google Analytics 4, Meta Pixel, API externas o webhooks personalizados.',
       'Dirección de arte y pack visual: curaduría fotográfica de alta resolución, iconografía a medida y micro-interacciones.',
       'Estrategia SEO estructural completa: arquitectura de información, enlazado interno y cumplimiento estricto de Core Web Vitals.',
+      'Reportería analítica con benchmarks: comparativa de comportamiento de usuarios, conversión por sección y fuentes de tráfico.',
       '3 rondas de revisiones colaborativas: iteración cercana con diseñador senior para alinear la web al 100% con tu identidad corporativa.',
+      'Entrega de repositorio y documentación: código de nivel empresarial, modular y limpio, con guía de despliegue.',
       'Código de nivel empresarial: desarrollo escalable, modular y limpio, con entrega de repositorio y documentación técnica.',
       'Soporte VIP post-lanzamiento de 30 días: acompañamiento directo para resolver consultas y garantizar un despegue comercial perfecto.',
     ],
@@ -131,10 +165,13 @@ export const plans: PlanItem[] = [
       'Plataforma multi-página corporativa: desarrollo y evolución continua sin barreras de entrada ni inversión inicial elevada.',
       'Infraestructura Enterprise dedicada: servidores cloud dedicados, CDN global de baja latencia y respaldos diarios.',
       'Panel CRM Órbita Multi-usuario en la nube: roles para todo tu equipo comercial con reportería exportable.',
+      'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un agente a medida o conectar a Orb con hasta 20.000 conversaciones mensuales.',
       'Evolución web continua (hasta 4 hrs/mes): creación de nuevas páginas de servicios, campañas estacionales o mejoras UX.',
       'Mantenimiento SEO mensual proactivo: auditorías de posicionamiento y ajustes técnicos para ganar terreno frente a la competencia.',
       'Pack gráfico y diseño de piezas: adaptación de creatividades, banners de temporada y recursos visuales para tu sitio.',
       'SLA de soporte prioritario 24/7: respuesta técnica en menos de 2 horas hábiles ante cualquier incidencia o consulta.',
+      'Auditorías trimestrales de conversión: recomendaciones estratégicas de diseño y copywriting para maximizar ventas.',
+      'Tranquilidad total sin permanencia: plataforma siempre actualizada con las últimas tecnologías web.',
     ],
     ctaText: 'Pedir presupuesto Constelación',
   },
@@ -184,13 +221,14 @@ export const EXTRAS_PRICING: ExtraItem[] = [
     description: 'Estructura bilingüe nativa con selector de idiomas, metadatos hreflang para SEO y traducción adaptada.',
   },
   {
-    id: 'fotografia',
-    name: 'Pack Audiovisual & Fotos (Santiago)',
-    priceClp: '$390.000',
-    priceUf: '10,0 UF',
-    priceClpRaw: 390_000,
-    priceUfRaw: 10.0,
-    description: 'Sesión de fotos y video corporativo en tus instalaciones o clínica para darle autenticidad real a tu sitio.',
+    id: 'app-pwa',
+    name: 'Módulo Web App & PWA Instalable',
+    priceClp: '$490.000',
+    priceUf: '12,5 UF',
+    priceClpRaw: 490_000,
+    priceUfRaw: 12.5,
+    tag: 'Agregado de Software',
+    description: 'Convierte tu web en una aplicación instalable en iOS y Android con acceso offline, login de usuarios, portal privado y notificaciones push.',
   },
 ];
 
@@ -256,14 +294,52 @@ export const PRICING_FAQS = [
   },
 ];
 
+export const APP_PLAN = {
+  id: 'aplicacion',
+  name: 'Plan Aplicación & Software',
+  tagline: 'Web App interactiva, PWA instalable en móviles y portales de clientes a medida.',
+  price: '$1.890.000 CLP',
+  priceRaw: 1_890_000,
+  priceUf: '48,0 UF',
+  monthlyPrice: '$189.000 CLP',
+  monthlyPriceRaw: 189_000,
+  monthlyPriceUf: '4,8 UF',
+  description: 'Para negocios que necesitan algo más que una web informativa: plataformas con login de usuarios, bases de datos en tiempo real, cotizadores dinámicos, pasarelas de pago o automatizaciones complejas.',
+  features: [
+    'PWA Instalable en iOS y Android: acceso directo en la pantalla del celular sin comisiones de tiendas de aplicaciones.',
+    'Autenticación segura y roles: registro con Google / Email, perfiles privados, dashboards protegidos y permisos administrativos.',
+    'Base de datos en tiempo real: integración nativa con PostgreSQL / Supabase, almacenamiento seguro y copias de respaldo continuas.',
+    'Pasarelas de cobro automatizadas: conexión con Webpay Plus, Fintoc o Stripe con generación de boletas y suscripciones.',
+    'Panel de administración y CRM avanzado: control total de usuarios, transacciones, métricas de actividad y exportación a Excel.',
+    'Asistente IA (Orbit) nativo: copiloto conversacional integrado dentro de la app para asistir y resolver dudas a tus usuarios 24/7.',
+    'Código 100% propio y sin dependencias propietarias: desarrollo en React, TypeScript y Tailwind con entrega de repositorio.',
+    'Soporte técnico VIP de 45 días: inducción completa a tu equipo, monitoreo de rendimiento y garantía post-lanzamiento.',
+  ],
+  monthlyFeatures: [
+    'Infraestructura Cloud dedicada de alta disponibilidad con balanceo de carga y CDN global.',
+    'Mantenimiento preventivo de base de datos, APIs externas y respaldos automáticos diarios.',
+    'Bolsa mensual de 4 horas de evolución técnica para mejoras de interfaz, nuevos reportes o funciones.',
+    'Asistente IA (Orbit) incluido con hasta 20k conversaciones mensuales para soporte automatizado.',
+    'Monitoreo perimetral de seguridad, renovación de certificados SSL y línea directa por WhatsApp.',
+  ],
+  aiAssistant: {
+    conversations: 'Hasta 20.000 conversaciones / mes',
+    shortLabel: 'Hasta 20k conversaciones',
+    optional: false,
+    description: 'Copiloto de IA integrado de forma nativa dentro de la aplicación para soporte y automatización.',
+  },
+};
+
 export const PLAN_SUMMARIES: { plan: PlanId; price: string; priceUf: string; for: string }[] = [
   { plan: 'Sonda', price: 'desde $490.000', priceUf: '12,5 UF', for: 'Landing o campaña puntual' },
   { plan: 'Estación', price: 'desde $990.000', priceUf: '25,0 UF', for: 'Landing premium o sitio 5–8 bloques' },
   { plan: 'Constelación', price: 'desde $1.690.000', priceUf: '42,5 UF', for: 'Multi-sección, rediseño o pack creativo' },
+  { plan: 'Aplicación', price: 'desde $1.890.000', priceUf: '48,0 UF', for: 'Web App, PWA instalable o plataforma a medida' },
 ];
 
 export function planKeyFromName(name?: string): PlanId {
   if (!name) return 'Estación';
+  if (/aplicaci|pwa|app|software/i.test(name)) return 'Aplicación';
   const clean = name.replace(/^Plan\s+/i, '').trim();
   if (clean in BASE_PRICES) return clean as PlanId;
   return 'Estación';

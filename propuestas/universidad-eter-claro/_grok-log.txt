@@ -1,0 +1,22 @@
+Voy a empezar por ver qué hay en el workspace y armar la dirección creativa de ETER antes de tocar código. Cada decisión de marca, contenido y estructura tiene que sostener esa web clara y etérea.El workspace está vacío. Voy a mirar propuestas hermanas para calibrar el nivel y, en paralelo, definir la identidad de ETER.Hay un sistema de propuestas con Next y export estático. Voy a leer la plantilla, el diseño y un par de sitios ETER para no romper el formato, pero sí hacer algo propio.Identidad fijada: Instituto Universitario ETER, campus El Arrayán, voz chilena precisa. Empiezo por la fotografía del campus y el esqueleto del proyecto.Reintento las verticales en 3:4 y reviso las que sí salieron, para no arrastrar un look que no sea etéreo.Las fotos del campus ya tienen el tono. Ahora reviso retratos y cierro identidad, datos y sistema visual.Los retratos quedan en el mismo registro que el campus. Sigo con identidad, contenido y componentes mientras termina la instalación.El linter nuevo se queja de `setState` síncrono en effects. Lo ajusto al patrón de React 19.Listo. ETER es un instituto universitario de sede única en El Arrayán, no una universidad genérica con banner de matrícula.
+
+**La idea.** El éter era el medio de la luz. El campus está a 847 metros, en la precordillera de Lo Barnechea. El titular —*A esta altura.*— vale por cota, por rigor y por el giro chileno. Ocho carreras, mil doscientos cuarenta estudiantes, taller de doce. Nada de “excelencia e innovación”.
+
+**Lo visual.** Paleta fría (papel `#F3F5F4`, un solo acento cielo). Fraunces + Outfit + IBM Plex Mono. La marca es un círculo con meridiano vertical —la esfera, el eje del claustro—. Fotografía editorial del predio vacío: columnata, acequia, quillay, Andes, biblioteca, seminario, laboratorio, residencia. El cuerpo académico son seis retratos con la misma luz norte.
+
+**El sitio (Next.js, contenido en español de Chile).**
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero, manifiesto, cifras, franja de cielo, índice de carreras, campus, voces, calendario, FAQ |
+| `/instituto` | Cuatro reglas, tres escuelas |
+| `/campus` | Seis recintos, altímetro con hora de Santiago |
+| `/carreras` y `/carreras/[slug]` | Las ocho, con arancel, ponderaciones PAES y plan |
+| `/admision` | Calendario 2027, becas Altura/Territorio/equidad, formulario |
+| `/cuerpo` | Rectora, decanas, titulares |
+| `/investigacion` | Cuatro unidades y tres magíster |
+| `/contacto` | Admisión, no call center |
+
+Las carreras: Arquitectura, Paisaje, Diseño, Ciencias del Clima, Geografía y Territorio, Computación, Literatura y Edición, Gobierno.
+
+No levanté servidor: lo revisas tú cuando quieras.El `tsc` que falló al inicio ya está resuelto: era `LayoutProps` antes de generar tipos de Next. El typecheck posterior pasó. El sitio queda listo para que lo revises.

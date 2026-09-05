@@ -1,0 +1,17 @@
+Voy a diseñar y construir el sitio de ETER como una experiencia clara y etérea, empezando por el contexto del proyecto y las convenciones de diseño.El workspace está vacío salvo un log; voy a revisar propuestas hermanas y definir la dirección visual antes de construir el sitio.Hay un sistema de propuestas ETER; voy a estudiar la plantilla y un sitio hermano para respetar la marca y elevar el diseño.Hay un prompt de arquitectura y una cola de rubros; los leo para alinear ETER con el criterio del sistema.La dirección está clara: un patio editorial, no un catálogo. Empiezo por las imágenes canónicas y el esqueleto del proyecto.Reviso las primeras imágenes y sigo con el resto del set.Copio el set a `public/images` y reviso que la luz y el encuadre sirvan para el sitio.El set fotográfico quedó coherente: patio en orden, luz norte, nada de ferretería naranja. Ahora armo el sitio sobre esa metáfora del corte.El copy se me fue a voseo argentino; lo paso a español de Chile y corrijo el valor del formulario.`/cotizar` quedó dinámica y no exportaba HTML; la dejo estática para que el build de propuesta la sirva.El sitio de **ETER** ya está armado: una ferretería industrial clara, sin naranja de seguridad ni catálogo genérico. La metáfora es el **corte**: una línea de 1 px que ordena el peso.
+
+**Decisión de marca.** El fierro suele verse sucio y ruidoso. ETER pide lo contrario: patio a las 07:30, luz norte, todo rotulado. H1: *El peso, en claro.* Marca = un corte (dos tiras y un trazo vertical). Tipografía: Instrument Serif + IBM Plex. Paleta papel/acero/óxido, sin blanco ni negro puros.
+
+**Qué hay**
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Hero del patio, seis familias como índice de mesón, lista de despacho con precio IVA |
+| `/familias` y `/familias/[calle]` | Fichas (fierro, pernos, maderas, cemento, planchas, herramientas) |
+| `/corte` | Oficio: tira de 6 m incluida, $900 el corte extra, $1.200 la curva |
+| `/patio` | 10 de Julio + retiro en Puente Alto, día de patio |
+| `/cotizar` | Lista de obra con RUT, WhatsApp, `localStorage` |
+
+Copy en español de Chile. Precios referenciales con IVA (fierro A-63 8 mm a $2.490 la tira, cemento 25 kg a $5.490). CTA persistente en móvil.
+
+Fotos propias del patio, no stock. Build estático en `dist/`, listo para `/propuesta/ferreteria-industrial-eter-claro`. No corrí localhost.

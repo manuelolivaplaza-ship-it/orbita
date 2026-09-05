@@ -1,0 +1,23 @@
+Voy a diseñar ETER como un sitio de neumáticos etéreo y preciso, en español de Chile. Primero reviso el workspace y las convenciones de diseño e imagen para que cada decisión visual y de producto tenga intención.El workspace está vacío: voy a mirar otras propuestas de Órbita para alinear calidad y luego armar el concepto visual de ETER.Hay un sistema de propuestas Órbita y sitios ETER claros ya hechos. Voy a leer la plantilla, el brief y un sitio hermano para no inventar convenciones.Concepto: ETER es el aire que sostiene el auto. Voy a construir un Next.js propio — altar circular, compositor de medida, paleta de goma y niebla — y generar la fotografía editorial.Reviso las fotos y completo el pasillo y las variantes de llanta. Mientras tanto armo el esqueleto del proyecto.Las fotos quedaron bien. Copio el archivo visual y empiezo a escribir el sitio completo.Escribo el sistema de diseño, los datos y los componentes base. El compositor de medida es el corazón de conversión.**ETER** es una casa de neumáticos en La Reina: el aire que sostiene el auto, no un galpón de ofertas. Sitio Next.js 16, claro y etéreo, en español de Chile. Compila (31 rutas estáticas). No levanté el servidor.
+
+## La decisión que organiza todo
+
+Un auto toca Chile en **cuatro huellas del tamaño de una mano**. El logo es un círculo con el contacto abajo. El hero es un neumático como escultura, con texto orbitando el aro. El gesto de conversión no es un formulario: es **el costado del neumático puesto en tipo** — `205 / 55 R 16` — que se gira como se lee el flanco.
+
+Paleta de niebla y goma (`#F3F5F4` / `#0F4C5C`). Tipografía: Newsreader + Sora + IBM Plex Mono. Cero radios, salvo el círculo.
+
+## Rutas
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Altar, compositor de medida, manifiesto, terrenos, precios, oficio |
+| `/medida` | Buscador por ancho / perfil / aro + cómo leer el costado |
+| `/compuestos` | Ciudad, ruta, cordillera, invierno, carga |
+| `/compuestos/[slug]` | Ficha (Michelin, Continental, Bridgestone…) |
+| `/montaje` | Ritual y carta de oficio |
+| `/casa` | La Reina, Av. Larraín 5860 |
+| `/cita` | Hora con patente chilena y WhatsApp |
+
+Precios en CLP, IVA y montaje incluidos, stock honesto. WhatsApp: *¿Ponchada?*
+
+Para revisarlo: `npm run dev` dentro de `propuestas/neumaticos-eter-claro`.

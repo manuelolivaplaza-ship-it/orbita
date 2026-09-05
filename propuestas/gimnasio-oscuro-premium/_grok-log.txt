@@ -1,0 +1,13 @@
+Voy a armar un sitio de gimnasio oscuro premium en Next.js, con contenido en español de Chile. Primero reviso el workspace y las convenciones de diseño para que cada decisión visual y de contenido sea deliberada.El workspace está vacío: voy a construir **OBSIDIANA**, un club privado en Vitacura, con estética de piedra volcánica y cobre chileno. Primero dejo el proyecto en marcha y genero la fotografía de marca.Las primeras tres fotografías ya están. Sigo con el resto del set visual y dejo Next.js listo en el mismo paso.El scaffold chocó con un archivo de log; lo aparto y reintento, y reviso el resto de las fotografías.El log está bloqueado, así que armo Next.js en una carpeta temporal. Las fotos ya tienen el tono: cobre, piedra y silencio.Next.js ya está. Ahora subo el proyecto a la raíz, copio las fotos y dejo las dependencias de motion.Mientras instalan las librerías, escribo el sistema de diseño, el contenido y el chrome del sitio.Las dependencias ya están. Compilo el proyecto para cazar errores de TypeScript y de layout, sin levantar el servidor.Listo: el sitio es **Obsidiana**, un club privado de entrenamiento en Vitacura. Next.js 16, oscuro, editorial, con fotografía propia.
+
+**La idea.** No es un gimnasio con pantallas. Es un recinto de piedra volcánica y cobre: 180 socios, precios en UF, visita individual de 40 minutos. El nombre viene del vidrio volcánico chileno — presión que se vuelve filo.
+
+**Qué vas a ver.** Preloader con el wordmark, cursor de cobre, scroll suave, hero a pantalla completa con los Andes, manifiesto, cuatro prácticas, el recinto, coaches, membresías Studio / Club / Reservado, voces y un formulario de visita. Además: El club, Entrenamiento, El espacio, Coaches, Membresía, Visita y un 404 a tono.
+
+Para abrirlo cuando quieras:
+
+```bash
+npm run dev
+```
+
+El build de producción ya compiló las 8 rutas. No levanté el servidor, como pediste.

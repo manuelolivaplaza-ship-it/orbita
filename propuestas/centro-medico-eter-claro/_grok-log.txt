@@ -1,0 +1,11 @@
+Voy a revisar el workspace y las convenciones del stack para diseñar ETER con una identidad etérea y precisa, sin levantar un servidor local.Hay una carpeta de propuestas con la marca ETER. Voy a mirar la plantilla, clínicas similares y cómo se construye esa identidad para no repetir un sitio genérico.Hay un brief específico para este centro. Lo leo junto con las reglas de Órbita para construir sobre eso, no sobre un sitio genérico.Identidad: una casa en Providencia, horizonte de luz, la hora que sí ocurre. Empiezo por la fotografía editorial y el andamiaje de Next.Sigo con bodegones y detalles, y reviso que las primeras fotos no se vayan al cliché de clínica.La sala de espera es el horizonte del sitio. Limpio el pasillo y el laboratorio para que toda la casa hable el mismo idioma.Empiezo a construir el sitio: configuración, paleta y el contenido en español de Chile.El build pasó; corrijo los avisos de ESLint en el formulario, el contador y el menú.**ETER** está listo: un centro médico en Next.js, en español de Chile, con una casa de luz en Providencia.
+
+La idea no es un mall médico. Es un intervalo: el aire entre «llame mañana a las ocho» y la hora que sí ocurre. El horizonte es la marca (círculo + línea), el acento es un acero de niebla (`#3F6A72`, menos del 5% de la UI) y el papel es hueso, no blanco de hospital.
+
+**Home.** Campo de papel, tipografía enorme —«La hora que sí ocurre.»— y abajo un horizonte fotográfico: el pabellón de espera con lino y la cordillera. Debajo, una cinta del día con la hora de Santiago. Sin doctores posando; la evidencia es cupo en 48 horas.
+
+**Páginas.** Especialidades (8, con ficha), La casa (planta dibujada), Equipo, Laboratorio (valores y portal el mismo día), Agenda (ficha de reserva, RUT, previsión, bono electrónico), privacidad y aviso legal.
+
+**Oficio chileno.** FONASA / ISAPRE / particular, bono electrónico antes de llegar, copago informado al agendar, derivación si el caso no es de la casa, y un aviso claro: no somos urgencia.
+
+El build compiló limpio (21 rutas). No levanté servidor; la revisión la haces tú.

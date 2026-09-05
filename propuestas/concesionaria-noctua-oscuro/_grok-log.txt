@@ -1,0 +1,14 @@
+Voy a armar NOCTUA como un sitio oscuro, nocturno y preciso. Primero reviso el workspace y las convenciones de diseño para decidir arquitectura, estética y contenido.El workspace está vacío: voy a construir NOCTUA desde cero. Reviso propuestas vecinas y el entorno para alinear stack y calidad.Hay un patrón claro en las propuestas. Voy a mirar la concesionaria hermana y una oscura premium para no romper el molde, y sí superarlo.Identidad lista: NOCTUA abre de noche en Vitacura, con mirada de búho y precisión de instrumento. Genero la fotografía cinematográfica y armo el proyecto Next.js en paralelo.Ocho autos ya están. Sigo con el resto de la fotografía de atmósfera y empiezo a escribir el sitio.Reviso las fotos clave y las copio al proyecto con nombres definitivos.Las fotos clave están a la altura. Copio el set y escribo el sitio completo.La fotografía quedó cinematográfica. Ahora armo el sistema de diseño, los datos y las páginas.La fotografía cierra el universo. Espero a que terminen las dependencias para verificar el build.El build compiló. Dejo `/visita` estática —hace falta para el visor de Órbita— y silencioso el aviso de Turbopack.**NOCTUA** está armada: una casa nocturna de automóviles en Vitacura, no un patio de autos.
+
+La marca toma el búho pequeño (*Athene noctua*): ve en la oscuridad, no alza la voz. El sitio abre de martes a sábado, **18:00–00:00**. Fondo casi negro, un ámbar de iris, tipografía geométrica (Syne) y ficha en mono. Cada foto es nocturna, mojada, precisa.
+
+**Páginas**
+- `/` — hero del 911 bajo la lluvia, reloj de Santiago, fase lunar, filmstrip de la colección
+- `/coleccion` — nueve piezas (corte / estela / territorio)
+- `/coleccion/[slug]` — ficha, galería, precio CLP/UF
+- `/la-casa` — el pabellón de vidrio y el protocolo de visita
+- `/visita` — agenda nocturna + WhatsApp
+
+La colección incluye un GT3 Touring, un DB12 verde ónix, un RS6, un Range Rover, una Alpine reservada y un RS e-tron GT que llega en octubre. Copy en español de Chile: UF, transferencia, permiso, Costanera, Manquehue, Zapallar.
+
+El build de producción compiló sin errores (19 rutas estáticas). No corrí servidor: lo revisas tú.

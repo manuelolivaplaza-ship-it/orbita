@@ -1,0 +1,18 @@
+Voy a explorar el workspace y las convenciones de diseño antes de construir NOCTUA: una web oscura, precisa y con identidad propia.Hay una familia de propuestas en esta carpeta. Voy a leer la plantilla, las otras NOCTUA y el laboratorio claro para no repetir fórmulas.Voy a leer el laboratorio ETER y un NOCTUA terminado para fijar el listón: mismo oficio, otra voz.Concepto: el laboratorio como observatorio nocturno. Mientras Santiago duerme, NOCTUA lee. Empiezo por la fotografía y el esqueleto del proyecto.Reintento las fotos que fallaron y reviso las que sí salieron.La fotografía ya tiene carácter: Santiago de noche, la fachada de piedra, el suero como ojo. Sigo con el resto de imágenes y el código.Sigo con los datos, el sistema visual y las páginas. Retrato a Antonia en un momento.Los retratos funcionan. Voy a corregir la sala de espera (texto en inglés) y la foto de domicilio, y copiar todo a `public/images`.**NOCTUA** es un laboratorio clínico de turno nocturno: toma al amanecer o al ocaso, análisis mientras Santiago duerme, informe a las 06:12.
+
+El sitio está en Next.js (App Router), oscuro, con fotografía propia y contenido en español de Chile. No corrí el servidor.
+
+**La idea**
+Un observatorio del cuerpo, no un mall de exámenes. La marca es el búho; el suero, ámbar; el método, la noche. Vitacura es la casa madre. Providencia y Ñuñoa toman. El procesamiento no se apaga.
+
+**Lo que no es una web de laboratorio genérica**
+- Reloj de 24 horas en vivo (hora de Santiago): arcos de toma y de procesamiento
+- Constelación de exámenes: cada categoría es una estrella
+- Viaje de la muestra, de las 18:12 a las 06:12
+- Informe demo con RUT chileno (`17.829.456-3`)
+- Chequeo Ocaso: sales del trabajo, te toman a las 19:00
+- Pupilas del búho que siguen el cursor
+
+**Páginas:** inicio, exámenes (catálogo + ficha), chequeos, turno, espacio, equipo, sucursales, domicilio, preparación, informe, pedir hora, privacidad y aviso legal.
+
+Para verlo cuando quieras, desde esta carpeta: `npm run dev`. Dependencias ya instaladas; TypeScript y ESLint pasan.

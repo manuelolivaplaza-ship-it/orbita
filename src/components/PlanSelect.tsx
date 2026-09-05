@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
-import { Check, ChevronDown, Compass, Orbit, Satellite, Sparkles } from 'lucide-react';
+import { Check, ChevronDown, Compass, Orbit, Satellite, Sparkles, Smartphone } from 'lucide-react';
 import { BASE_PRICES, formatCLP, planKeyFromName } from '../data/pricing';
 
-export type ContactPlanValue = 'Sonda' | 'Estación' | 'Constelación' | 'Personalizado';
+export type ContactPlanValue = 'Sonda' | 'Estación' | 'Constelación' | 'Aplicación' | 'Personalizado';
 
 type PlanOption = {
   value: ContactPlanValue;
@@ -37,6 +37,13 @@ export const CONTACT_PLAN_OPTIONS: PlanOption[] = [
     Icon: Sparkles,
   },
   {
+    value: 'Aplicación',
+    name: 'Plan Aplicación (Web App / PWA)',
+    hint: 'Plataforma con login, base de datos y pagos',
+    price: `desde ${formatCLP(BASE_PRICES.Aplicación)} · 48,0 UF`,
+    Icon: Smartphone,
+  },
+  {
     value: 'Personalizado',
     name: 'Proyecto a medida',
     hint: 'Si aún no estás seguro o es algo fuera de catálogo',
@@ -47,9 +54,10 @@ export const CONTACT_PLAN_OPTIONS: PlanOption[] = [
 
 export function normalizeContactPlan(name?: string): ContactPlanValue {
   if (!name) return 'Estación';
+  if (/aplicaci|pwa|app|software/i.test(name)) return 'Aplicación';
   if (/medida|custom|personalizado/i.test(name)) return 'Personalizado';
   const key = planKeyFromName(name);
-  return key;
+  return key as ContactPlanValue;
 }
 
 function optionByValue(value: string): PlanOption {

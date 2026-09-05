@@ -1,0 +1,15 @@
+Voy a armar NOCTUA como un sitio oscuro, preciso y con impacto visual. Primero reviso el workspace y las convenciones de diseño para no improvisar el stack.El workspace está vacío: voy a construir NOCTUA desde cero como casa de repuestos de precisión, con estética nocturna y contenido chileno. Reviso el entorno y arranco el scaffold junto con los assets.Hay un sistema de marca NOCTUA en las propuestas. Voy a leer la plantilla y sitios hermanos para alinear el lenguaje visual y luego llevarlo más lejos.El sitio tiene que encajar en el sistema de propuestas (export estático, `meta.json`, marca NOCTUA). Voy a extraer tokens, stack y convenciones de los hermanos más cercanos.Marca NOCTUA ya tiene un lenguaje propio: voy a usarlo y construir la pieza distintiva — el cruce nocturno por patente. Genero la atmósfera visual y el esqueleto del proyecto.La primera tanda de fotos ya está. Sigo con bahía, mesón, despacho y el resto de piezas, y en paralelo armo el esqueleto del sitio.Copio los assets al proyecto y empiezo a escribir datos, sistema de diseño y el cruce por patente.El cruce tiene que sentirse como un instrumento: voy a hacer que la patente se cierre sola al completar seis caracteres, y después instalo dependencias para verificar que compile.**NOCTUA** quedó armada como bodega de cruce nocturno: oscura, precisa, con contenido en español de Chile. No corrí localhost.
+
+La idea no es un catálogo genérico. Es una casa que abre cuando el resto cierra. El mesón no adivina: lee patente, motor y OEM. Si la ficha entra antes de las **23:30**, está en bahía a las **05:30**.
+
+### Qué vas a ver
+- Hero a pantalla completa: pasillo de bodega, sodio, tipografía Big Shoulders.
+- **Cruce por patente** (el instrumento del sitio): seis casillas, formato chileno nuevo o antiguo. Al completar una ficha de demostración se cierra sola y lista las piezas.
+- Ocho bahías (frenos, motor, filtros, suspensión, eléctrico, óptica, refrigeración, transmisión) con ficha de pieza: SKU, OEM, torque, stock de noche, precio con IVA.
+- Turno con reloj de Santiago, tablero de bahía y despacho de madrugada a la RM.
+- Cotización con RUT chileno, giro, comuna y WhatsApp.
+
+### Prueba el cruce con estas patentes
+`RKJD27` Hilux · `BCDF18` Tucson · `LPRT45` Morning · `GG1234` Sail · `FGHJ91` L200
+
+Cuando lo quieras ver: `npm run dev` dentro de `repuestos-noctua-oscuro`.

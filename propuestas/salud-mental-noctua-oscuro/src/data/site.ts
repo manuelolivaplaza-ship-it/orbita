@@ -1,0 +1,58 @@
+export const site = {
+  name: "NOCTUA",
+  legalName: "NOCTUA Salud Mental SpA",
+  rut: "77.441.890-2",
+  tagline: "Lo que no se duerme.",
+  description:
+    "Centro de salud mental en Las Condes. Psicología clínica y psiquiatría. Cincuenta minutos, la misma persona. Abrimos a las 16:00. Último cupo 22:00.",
+  url: "https://noctuasalud.cl",
+  email: "hora@noctuasalud.cl",
+  phone: "+56 2 3288 4770",
+  phoneHref: "tel:+56232884770",
+  mobile: "+56 9 7612 4770",
+  mobileHref: "tel:+56976124770",
+  whatsapp: "+56 9 7612 4770",
+  whatsappHref:
+    "https://wa.me/56976124770?text=Hola%20NOCTUA%2C%20quiero%20pedir%20una%20primera%20hora.",
+  instagram: "https://instagram.com/noctua.salud",
+  instagramHandle: "@noctua.salud",
+  coords: { lat: "33°24′S", lng: "70°35′W" },
+  geo: { lat: -33.408, lng: -70.588 },
+  address: {
+    line1: "Los Militares 4770",
+    commune: "Las Condes",
+    city: "Santiago",
+    region: "Región Metropolitana",
+    country: "Chile",
+    maps: "https://maps.google.com/?q=Los+Militares+4770+Las+Condes",
+  },
+  metro: "Escuela Militar · 8 min a pie",
+  parking: "Seis cupos en el predio · aviso al agendar",
+  hoursShort: "Lun–Vie 16:00–23:00 · Sáb 10:00–14:00",
+  hours: [
+    { days: "Lunes a viernes", time: "16:00 – 23:00" },
+    { days: "Sábado", time: "10:00 – 14:00" },
+    { days: "Domingo y festivos", time: "Cerrado" },
+  ],
+  lastSlot: "22:00",
+  openHour: 16,
+  closeHour: 23,
+  saturdayOpen: 10,
+  saturdayClose: 14,
+  founded: 2019,
+  crisis: {
+    label: "Si ahora es demasiado",
+    line: "Salud Responde 600 360 7777 · *4141 prevención del suicidio",
+    phone: "600 360 7777",
+    phoneHref: "tel:6003607777",
+    alt: "*4141",
+    altHref: "tel:*4141",
+  },
+} as const;
+
+export const navLinks = [
+  { href: "/enfoque", label: "Enfoque" },
+  { href: "/areas", label: "Áreas" },
+  { href: "/equipo", label: "Equipo" },
+  { href: "/noche", label: "La noche" },
+] as const;

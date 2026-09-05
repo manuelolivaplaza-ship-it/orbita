@@ -1,0 +1,17 @@
+Voy a revisar el workspace y armar NOCTUA como un sitio oscuro, nocturno y preciso. Primero miro qué hay y cómo conviene construirlo.Hay un ecosistema de propuestas: voy a mirar la plantilla, la distribuidora clara y otros sitios NOCTUA para alinear marca, contenido y nivel de ejecución.Voy a estudiar el lenguaje visual de NOCTUA y cómo está armada la distribuidora ETER para no copiarla: misma seriedad, otro concepto.El concepto: NOCTUA opera solo de noche, entre el último cubierto y el primer cuchillo. Empiezo por las imágenes y el esqueleto del sitio.Sigo con still lifes y el esqueleto del proyecto. Voy a revisar las imágenes clave para confirmar que el tono nocturno calza.Las imágenes quedaron en la carpeta de sesión; las localizo y las copio al proyecto.Las imágenes están a la altura: luna, vapor, ámbar, cordillera. Copio el set y empiezo a construir el sitio.Imágenes listas. Ahora armo el sistema de diseño, los datos y los componentes de instrumento.**NOCTUA** es una distribuidora nocturna de insumos para cocina profesional. Next.js, español de Chile, paleta void/ámbar, marca del búho.
+
+La decisión de fondo: no es un mayorista de día pintado de negro. Opera entre el último cubierto y el primer cuchillo. El producto no es el SKU; es la hora.
+
+**Se llega de noche.** Quilicura. Ronda 21:00–05:30. Corte de pedido a las 19:00. Tres ventanas:
+
+| Ventana | Hora | Qué viaja |
+|---|---|---|
+| **Cierre** | 21:00 – 00:30 | Barra, seco, aceite, vino |
+| **Oscuro** | 00:30 – 03:30 | Mar, carne, lácteo, IQF |
+| **Umbral** | 03:30 – 05:30 | Harina, fruta, huevo, hierba |
+
+Páginas: inicio, carta (con las tres ventanas), ronda, la casa, abrir cuenta, privacidad y aviso legal.
+
+Instrumentos vivos (hora de Santiago): reloj de 24 h con el arco de ronda, sonda de las tres cámaras, barra de estado (ronda en curso / silencio + fase lunar) y la parada actual de la ronda marcada.
+
+TypeScript y ESLint pasan. No levanté el servidor: lo revisas tú.El lint anterior ya está resuelto: el error de `nav.tsx` se corrigió y el ESLint volvió a pasar en limpio.

@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --ink: #07080b;
+  --bone: #e7dfd1;
+  --brass: #b8956a;
+}
+
+html {
+  background: var(--ink);
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--ink);
+  color: var(--bone);
+  font-feature-settings: "ss01" on, "kern" on;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--brass);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07080b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242833;
+  border: 2px solid #07080b;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@layer components {
+  .kicker {
+    @apply font-mono text-[10px] uppercase tracking-kicker text-mist;
+  }
+
+  .rule {
+    @apply h-px w-full bg-bone/10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 rounded-none border border-brass bg-brass px-7 py-3.5 font-sans text-[11px] uppercase tracking-[0.22em] text-ink transition duration-500 ease-night hover:bg-bone hover:border-bone disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-3 rounded-none border border-bone/25 bg-transparent px-7 py-3.5 font-sans text-[11px] uppercase tracking-[0.22em] text-bone transition duration-500 ease-night hover:border-brass hover:text-brass;
+  }
+
+  .field {
+    @apply w-full border-0 border-b border-bone/20 bg-transparent py-3 text-sm text-bone outline-none transition placeholder:text-mist/70 focus:border-brass;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

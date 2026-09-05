@@ -1,1 +1,12 @@
-Voy a revisar el workspace y las convenciones de diseño para armar un sitio luminoso, en español de Chile, con decisiones de producto claras.El workspace está vacío salvo un log; voy a mirar la plantilla y sitios vecinos para alinear estructura, build estático y tono.
+Voy a revisar el workspace y las convenciones de diseño para armar un sitio luminoso, en español de Chile, con decisiones de producto claras.El workspace está vacío salvo un log; voy a mirar la plantilla y sitios vecinos para alinear estructura, build estático y tono.Voy a leer el lenguaje visual de los sitios hermanos para que este estudio se sienta propio, no una copia.Las fotos del estudio ya están; sigo con retratos y encargos, y armo el esqueleto de Next.Las fotos están a la altura. Copio assets y empiezo a escribir marca, contenido y estructura.Quedó **Nítida**, un estudio de diseño digital en Avenida Italia, Ñuñoa. Next.js, claro, en español de Chile. El build compiló las 27 páginas.
+
+La tesis del sitio es chilena: **en el sur el norte es el sol de la casa**. De ahí el lema —*Diseño a luz norte*—, el yeso luminoso, el acento arrayán y una luz que sigue el cursor. No es otra agencia de cobre sobre crema.
+
+**Qué vas a ver**
+- Inicio tipográfico, encargos, oficio, honorarios en UF
+- Cuatro casos con ficha real (color, tipo, grilla, soportes): **Loica**, **Matta 980**, **Atalaya**, **Pliego**
+- Oficio: identidad, producto, sitios, sistemas
+- El estudio y las seis personas de la mesa
+- Contacto con formulario, WhatsApp y reloj de Santiago (*luz de trabajo* / *el estudio en silencio*)
+
+No levanté servidor. Cuando lo abras: `npm run dev` en esta carpeta.

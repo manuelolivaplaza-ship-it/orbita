@@ -1,0 +1,21 @@
+Voy a explorar el workspace y el contexto de la propuesta para armar ETER como un sitio claro, etéreo y memorable.El workspace está vacío salvo un log: voy a leer los prompts de Órbita y una propuesta similar para alinear estructura, calidad y convenciones.El hero canónico ya está. Sigo derivando el resto del mundo visual desde esa misma luz y, en paralelo, armo el esqueleto de Next.js.Voy a identificar cada still y copiarlos al proyecto; después escribo data, tokens y páginas.El mundo visual quedó coherente. Genero tres piezas más y empiezo a escribir el sitio.Las fotos ya tienen un mundo propio. Copio el media y escribo tokens, catálogo y layout.**ETER** es una sala de piezas, no un garage. Independencia con luz de museo: cada repuesto fotografiado como objeto de precisión, de pie en agua quieta.
+
+El sitio está en Next.js 16. El build pasó (39 rutas). No levanté el servidor.
+
+**Qué vas a ver**
+- Hero 16:9 con el disco en la niebla y el título *La pieza que falta.*
+- Banco de consulta por patente chilena o marca / modelo / año
+- Índice de seis familias (hover que cambia la foto, no tres cards)
+- Fichas con precio en CLP, IVA incluido, stock de mostrador
+- Despacho hoy en la RM si cruzan antes de las 13:00
+- Formulario + WhatsApp, español de Chile
+
+**Tipo y paleta**
+Cormorant Garamond + Outfit + IBM Plex Mono. Niebla `#F1F3F5`, tinta `#1B242C`, acento acero `#5F7F8C`. Cero radios, filetes de 1 px.
+
+Cuando lo quieras abrir:
+
+```bash
+cd propuestas/repuestos-eter-claro
+npm run dev
+```

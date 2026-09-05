@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { LiquidGlass } from '../components/LiquidGlass';
+import { Orb } from '../components/orb';
 import {
   plans,
   EXTRAS_PRICING,
@@ -265,13 +266,40 @@ export default function PreciosPage() {
                         </div>
                       )}
                     </div>
+
+                    {/* Módulo Opcional: Asistente con IA personalizado - Compacto y no seleccionable */}
+                    {isMonthly && plan.aiAssistant && (
+                      <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5 transition-colors">
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-2xs border border-zinc-200/60 overflow-hidden">
+                              <Orb size={22} state="idle" tone="ink" playful shadow={false} />
+                            </div>
+                            <span className="text-xs font-semibold text-zinc-900 tracking-tight">
+                              Asistente con IA personalizado
+                            </span>
+                          </div>
+                          <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
+                            {plan.aiAssistant.shortLabel}
+                          </span>
+                        </div>
+
+                        <p className="text-[11px] text-zinc-600 leading-relaxed pl-8">
+                          {plan.aiAssistant.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* CTA Button */}
                   <div>
                     <button
                       type="button"
-                      onClick={() => onOpenQuoteModal(plan.name)}
+                      onClick={() =>
+                        onOpenQuoteModal(
+                          isMonthly ? `${plan.name} (Mensual)` : plan.name
+                        )
+                      }
                       className={`group flex w-full items-center justify-center gap-2 rounded-full py-3.5 px-6 text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
                         plan.popular
                           ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md'
@@ -393,19 +421,19 @@ export default function PreciosPage() {
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Sonda
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$49.000/mes' : '$490.000 (12,5 UF)'}
+                        {billingMode === 'monthly' ? '$89.000/mes (2,25 UF)' : '$490.000 (12,5 UF)'}
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center bg-zinc-100/60 w-1/5">
                       Estación (Recomendado)
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$89.000/mes' : '$990.000 (25,0 UF)'}
+                        {billingMode === 'monthly' ? '$149.000/mes (3,75 UF)' : '$990.000 (25,0 UF)'}
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Constelación
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$149.000/mes' : '$1.690.000 (42,5 UF)'}
+                        {billingMode === 'monthly' ? '$298.000/mes (7,5 UF)' : '$1.690.000 (42,5 UF)'}
                       </div>
                     </th>
                   </tr>

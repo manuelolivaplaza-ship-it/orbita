@@ -1,0 +1,58 @@
+import { careers } from "@/data/content";
+import { site } from "@/data/site";
+
+export function JsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "CollegeOrUniversity",
+    name: site.name,
+    legalName: site.legalName,
+    url: site.url,
+    image: `${site.url}/images/hero.jpg`,
+    telephone: site.phone,
+    email: site.email,
+    description: site.description,
+    foundingDate: String(site.founded),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.line1,
+      addressLocality: site.address.commune,
+      addressRegion: site.address.region,
+      addressCountry: "CL",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.geo.lat,
+      longitude: site.geo.lng,
+    },
+    areaServed: "Santiago, Chile",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "17:30",
+        closes: "01:00",
+      },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Pregrado",
+      itemListElement: careers.map((career) => ({
+        "@type": "Course",
+        name: career.title,
+        description: career.lead,
+        provider: { "@type": "CollegeOrUniversity", name: site.name },
+        educationalCredentialAwarded: career.degree,
+        timeRequired: `P${career.years}Y`,
+        url: `${site.url}/carreras/${career.slug}`,
+      })),
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

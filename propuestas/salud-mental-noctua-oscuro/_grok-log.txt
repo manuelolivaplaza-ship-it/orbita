@@ -1,0 +1,23 @@
+Voy a construir un sitio NOCTUA con identidad nocturna y precisa. Primero reviso el workspace y las convenciones de diseño para no improvisar sobre algo que ya exista.Hay un sistema de propuestas y una marca NOCTUA ya definida. Voy a leer la plantilla, el brief visual y sitios hermanos para no romper esa identidad.El sitio claro hermano ya existe; voy a leer su contenido, el sistema NOCTUA y un par de propuestas oscuras fuertes para armar una versión nocturna a esa altura.Tengo el lenguaje de ambas casas. Ahora reviso componentes reutilizables, el sistema de imágenes y las páginas internas para construir NOCTUA a la misma altura.Arranco el andamiaje y, en paralelo, la fotografía nocturna: salas vacías, bodegones y retratos con la misma luz 2700K.Siguen los bodegones, la lámpara y los retratos del equipo, con la misma luz y el mismo silencio.Copio las fotos al proyecto y escribo el contenido clínico: copy chileno, preciso, sin wellness.Las fotos tienen el tono correcto. Sigo con los componentes de marca y las páginas.Turbopack no acepta el enlace a `node_modules`. Instalo dependencias propias y vuelvo a construir.**NOCTUA** quedó armado como un centro de salud mental nocturno: oscuro, preciso, chileno. La frase de la casa es *Lo que no se duerme.*
+
+No corrí el servidor. El build de producción compiló las 29 páginas estáticas. Cuando quieras verlo: `npm run dev` en esta carpeta.
+
+### La decisión
+ETER es luz norte y lino. Este NOCTUA es otra cosa: el pensamiento no cierra a las 18. Casa de piedra en **Los Militares 4770, Las Condes**. Lun–vie **16:00–23:00**, último cupo **22:00**. Psicología y psiquiatría. Cincuenta minutos. La misma persona. Emparejamos, no asignamos el hueco.
+
+Paleta void `#050506` / papel `#ece7dc` / ámbar `#e0b15a`. Syne, Manrope, IBM Plex Mono. El búho de la marca parpadea.
+
+### Lo que no es un sitio más
+- **Hero a pantalla completa** con la sala de noche y Santiago al otro lado del vidrio.
+- **Barra de noche viva**: hora de Santiago, casa abierta o en silencio, fase lunar.
+- **Constelación clínica**: ocho áreas como estrellas; al pasar el cursor se nombra el pensamiento (*El pecho no abre. Las tres de la mañana.*).
+- **03:00**: las líneas de la rumiación se escriben solas, y después se nombran.
+- **Lámpara**: un minuto de respiración 4–6. No es terapia. Es un segundo.
+- **Protocolo de crisis** a la vista, sin alarma: Salud Responde y `*4141`.
+
+### Páginas
+Inicio, Enfoque, Áreas (8), Equipo (6 fichas), La casa, **La noche**, Primera hora, Valores, Privacidad, Aviso legal.
+
+Equipo: Catalina Errázuriz (psiquiatra, dirige), Tomás Vidal, Magdalena Rojas, Ignacio Peña, Antonia Silva, Josefina Araya. Fotografía editorial propia — salas vacías, bodegones, retratos con luz 2700K.
+
+Formulario de primera hora con validación de RUT chileno; al enviar, confirma en la casa (sin backend). Boleta reembolsable, ISAPRE/FONASA, presencial y online.
