@@ -84,7 +84,7 @@ export const ShowcasePanel: React.FC<ShowcasePanelProps> = ({ onOpenQuoteModal }
         </div>
 
         {/* RIGHT — panel visual */}
-        <div className="relative rounded-3xl overflow-hidden min-h-[520px] sm:min-h-[600px] md:min-h-[680px] shadow-xl shadow-zinc-300/50 border border-zinc-200/80 flex flex-col justify-end bg-zinc-100">
+        <div className="relative rounded-3xl overflow-hidden min-h-[380px] sm:min-h-[480px] md:min-h-[680px] shadow-xl shadow-zinc-300/50 border border-zinc-200/80 flex flex-col justify-end bg-zinc-100">
           {!reducedMotion && (
             <video
               src={VIDEO_SHOWCASE}
@@ -97,7 +97,7 @@ export const ShowcasePanel: React.FC<ShowcasePanelProps> = ({ onOpenQuoteModal }
             />
           )}
 
-          <div className="absolute top-6 left-6 z-10 bg-white/95 border border-zinc-200/80 px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-800 flex items-center gap-2 shadow-sm">
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 bg-white/95 border border-zinc-200/80 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-semibold text-zinc-800 flex items-center gap-2 shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             <span>Ejemplo de resultado</span>
           </div>
@@ -106,11 +106,11 @@ export const ShowcasePanel: React.FC<ShowcasePanelProps> = ({ onOpenQuoteModal }
             className="absolute inset-0 z-0 pointer-events-none"
             style={{
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.88) 68%, rgba(255,255,255,0.98) 100%)',
+                'linear-gradient(180deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.9) 65%, rgba(255,255,255,0.98) 100%)',
             }}
           />
 
-          <div className="relative z-10 p-8 sm:p-10 md:p-12">
+          <div className="relative z-10 p-5 sm:p-8 md:p-12">
             <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-2">
               Para servicios y negocios
             </p>

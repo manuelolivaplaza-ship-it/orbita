@@ -172,7 +172,7 @@ export default function PreciosPage() {
               return (
                 <div
                   key={plan.id}
-                  className={`relative flex flex-col justify-between rounded-3xl bg-white p-7 sm:p-9 transition-all duration-300 ${
+                  className={`relative flex flex-col justify-between rounded-3xl bg-white p-5 sm:p-7 md:p-9 transition-all duration-300 ${
                     plan.popular
                       ? 'border-2 border-zinc-950 shadow-xl lg:-translate-y-2'
                       : 'border border-zinc-200/80 shadow-xs hover:border-zinc-300 hover:shadow-md'
@@ -284,7 +284,7 @@ export default function PreciosPage() {
                           </span>
                         </div>
 
-                        <p className="text-[11px] text-zinc-600 leading-relaxed pl-8">
+                        <p className="text-[11px] text-zinc-600 leading-relaxed pl-0 mt-2 sm:pl-8 sm:mt-0">
                           {plan.aiAssistant.description}
                         </p>
                       </div>
@@ -411,8 +411,11 @@ export default function PreciosPage() {
           </div>
 
           <div className="rounded-3xl border border-zinc-200/90 bg-white shadow-xs overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <p className="sm:hidden text-center text-zinc-400 text-[11px] py-2 bg-zinc-50 border-b border-zinc-100 font-mono">
+              ← Desliza para comparar todos los planes →
+            </p>
+            <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <table className="w-full min-w-[640px] text-left border-collapse text-xs sm:text-sm">
                 <thead>
                   <tr className="border-b border-zinc-200 bg-zinc-50/80">
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 w-2/5 sm:w-1/3">

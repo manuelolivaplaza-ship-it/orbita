@@ -43,11 +43,11 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur-md">
       {/* Upper bar: Brand, Company selector, Live pulse, Actions */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <div className="flex items-center gap-3 sm:gap-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:px-6 sm:py-3">
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
           <Link
             to="/"
-            className="font-mono text-xs font-semibold tracking-widest text-zinc-900 uppercase transition-opacity hover:opacity-75"
+            className="font-mono text-xs font-semibold tracking-widest text-zinc-900 uppercase transition-opacity hover:opacity-75 shrink-0"
           >
             ÓRBITA
           </Link>
@@ -64,11 +64,11 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
         </div>
 
         {/* Right action buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button
             type="button"
             onClick={onSimulateLead}
-            className="group inline-flex items-center gap-1.5 rounded-lg border border-zinc-900 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white shadow-xs transition-all hover:bg-zinc-800 active:scale-[0.98]"
+            className="group inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border border-zinc-900 bg-zinc-900 px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-xs font-medium text-white shadow-xs transition-all hover:bg-zinc-800 active:scale-[0.98]"
             title="Simula la entrada de un nuevo prospecto con notificación en tiempo real"
           >
             <Zap className="h-3.5 w-3.5 text-amber-400 transition-transform group-hover:scale-110" />
@@ -88,7 +88,7 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
           <Link
             to={`/propuesta/${currentSlug}`}
             target="_blank"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 shadow-xs transition-colors hover:bg-zinc-50"
+            className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-xs font-medium text-zinc-700 shadow-xs transition-colors hover:bg-zinc-50"
             title="Abrir la página web en una pestaña nueva"
           >
             <span className="hidden sm:inline">Ver Sitio</span>
@@ -97,8 +97,8 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
         </div>
       </div>
 
-      {/* Lower tab navigation (Vercel hairline tabs) */}
-      <div className="mx-auto flex max-w-7xl space-x-1 px-4 sm:px-6">
+      {/* Lower tab navigation (Vercel hairline tabs with native horizontal scroll on mobile) */}
+      <div className="mx-auto flex max-w-7xl space-x-1 px-3 sm:px-6 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {[
           { id: 'analytics' as CrmTab, label: 'Analítica & Vistas', icon: TrendingUp },
           { id: 'leads' as CrmTab, label: 'Bandeja de Leads', icon: Inbox, count: leadsCount },
@@ -112,7 +112,7 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
               key={tab.id}
               type="button"
               onClick={() => onTabChange(tab.id)}
-              className={`relative flex items-center gap-2 py-3 px-3.5 text-xs font-medium transition-colors ${
+              className={`relative flex items-center gap-2 py-3 px-3.5 text-xs font-medium transition-colors shrink-0 whitespace-nowrap ${
                 isActive
                   ? 'text-zinc-950 font-semibold'
                   : 'text-zinc-500 hover:text-zinc-900'

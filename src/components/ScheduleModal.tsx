@@ -177,22 +177,25 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
       >
         <div className="flex flex-col lg:flex-row min-h-0 flex-1">
           {/* Left rail */}
-          <aside className="relative lg:w-[18.5rem] shrink-0 bg-[#0B0B12] text-white px-6 py-6 sm:px-7 sm:py-8 overflow-hidden">
+          <aside className="relative lg:w-[18.5rem] shrink-0 bg-[#0B0B12] text-white px-5 py-4 sm:px-7 sm:py-8 overflow-hidden">
             <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full border border-white/10 pointer-events-none" />
             <div className="absolute top-24 -right-10 w-36 h-36 rounded-full border border-white/8 pointer-events-none" />
             <div className="absolute bottom-10 right-6 w-2 h-2 rounded-full bg-white/70 pointer-events-none" />
 
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45 mb-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45 mb-1 sm:mb-3">
               Órbita · Agenda
             </p>
-            <h2 id="schedule-title" className="text-2xl font-medium tracking-tight leading-tight mb-2">
+            <h2 id="schedule-title" className="text-xl sm:text-2xl font-medium tracking-tight leading-tight mb-1 sm:mb-2">
               Reunión de 30 minutos
             </h2>
-            <p className="text-sm text-white/60 leading-relaxed mb-6">
+            <p className="text-xs text-white/60 mb-2 sm:hidden">
+              30 min · Google Meet · {BOOKING.timezoneLabel}
+            </p>
+            <p className="hidden sm:block text-sm text-white/60 leading-relaxed mb-6">
               Una llamada para entender qué vendes y si tiene sentido trabajar juntos.
             </p>
 
-            <ul className="space-y-3 text-sm text-white/80">
+            <ul className="hidden sm:block space-y-3 text-sm text-white/80">
               <li className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 mt-0.5 text-white/45 shrink-0" />
                 30 min · lun a vie, 8:00–19:00

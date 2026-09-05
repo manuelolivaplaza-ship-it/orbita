@@ -61,7 +61,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
   };
 
   return (
-    <section id="contacto" className="bg-[#F7F8FC] px-6 py-24 sm:py-28 pb-32 sm:pb-36 relative z-10 overflow-hidden">
+    <section id="contacto" className="bg-[#F7F8FC] px-4 sm:px-6 py-20 sm:py-28 pb-28 sm:pb-36 relative z-10 overflow-hidden">
       <div className="max-w-[88rem] mx-auto grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
         
         {/* LEFT COLUMN */}
@@ -91,17 +91,17 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               <button
                 type="button"
                 onClick={onOpenSchedule}
-                className="w-full max-w-md text-left rounded-2xl border border-zinc-200/90 bg-white p-5 shadow-sm hover:shadow-md hover:border-[#0B0B12]/20 transition-all group mb-6"
+                className="w-full max-w-md text-left rounded-2xl border border-zinc-200/90 bg-white p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-[#0B0B12]/20 transition-all group mb-6"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#0B0B12] text-white flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3.5 sm:gap-4">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#0B0B12] text-white flex items-center justify-center shrink-0">
                     <CalendarDays className="w-5 h-5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-0.5">
+                    <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-0.5">
                       Agenda directa
                     </p>
-                    <p className="text-base font-medium text-[#0B0B12] tracking-tight">
+                    <p className="text-sm sm:text-base font-medium text-[#0B0B12] tracking-tight">
                       Agendar una reunión
                     </p>
                     <p className="text-xs text-zinc-500 mt-0.5">
@@ -146,7 +146,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
         </div>
 
         {/* RIGHT COLUMN: Form Card */}
-        <div className="bg-white rounded-2xl border border-zinc-200/90 p-8 sm:p-10 shadow-sm relative z-10">
+        <div className="bg-white rounded-2xl border border-zinc-200/90 p-5 sm:p-8 md:p-10 shadow-xs relative z-10">
           {submitted ? (
             <div className="py-12 text-center space-y-4 animate-fade-in-up">
               <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
@@ -166,7 +166,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               </button>
             </div>
           ) : (
-            <form id="contact-form" onSubmit={handleSubmit} className="space-y-5 relative">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 relative">
               <HoneypotField value={honey} onChange={setHoney} />
               <div>
                 <label htmlFor="contacto-nombre" className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
@@ -180,7 +180,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                   value={formData.nombre}
                   onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                   placeholder="Tu nombre o empresa"
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
+                  className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
                 />
               </div>
 
@@ -197,7 +197,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="hola@tumarca.com"
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
                   />
                 </div>
 
@@ -211,7 +211,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                     placeholder="+56 9 1234 5678"
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
                   />
                 </div>
               </div>

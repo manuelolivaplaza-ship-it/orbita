@@ -12,7 +12,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
   return (
     <section
       id="hero"
-      className="relative isolate min-h-[100svh] overflow-hidden flex items-center pt-20 pb-8 sm:pt-24 sm:pb-12 lg:h-[100svh] lg:block lg:py-0"
+      className="relative isolate min-h-[100svh] overflow-hidden flex flex-col justify-between pt-20 pb-4 sm:pt-24 sm:pb-8 lg:h-[100svh] lg:block lg:py-0"
     >
       <div
         className="pointer-events-none absolute right-[-18%] top-[28%] h-[22rem] w-[22rem] rounded-full lg:right-[-8%] lg:top-[6%] lg:h-[42rem] lg:w-[42rem]"
@@ -20,17 +20,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
         aria-hidden
       />
 
-      {/* Copy content: on mobile top/center-aligned, on desktop vertically centered */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[88rem] items-center px-5 sm:px-6 lg:absolute lg:inset-0 lg:px-6">
-        <div className="pointer-events-auto relative w-full max-w-[21.5rem] sm:max-w-xl lg:max-w-[30rem] xl:max-w-xl">
-          {/* Subtle gradient wash on mobile to guarantee crystal-clear text readability over passing cards */}
-          <div
-            className="pointer-events-none absolute -inset-x-4 -inset-y-6 -z-10 rounded-3xl bg-gradient-to-r from-[#F7F8FC]/95 via-[#F7F8FC]/80 to-transparent backdrop-blur-[2px] lg:hidden"
-            aria-hidden
-          />
-
+      {/* Copy content: on mobile positioned at top with generous breathing room; on desktop vertically centered */}
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[88rem] items-center px-5 sm:px-6 pt-2 sm:pt-4 lg:absolute lg:inset-0 lg:px-6 lg:pt-0">
+        <div className="pointer-events-auto relative w-full max-w-xl lg:max-w-[30rem] xl:max-w-xl">
           <h1
-            className="mb-5 text-[2.4rem] font-medium leading-[0.96] tracking-tight text-[#0B0B12] sm:mb-6 sm:text-6xl lg:text-7xl"
+            className="mb-4 sm:mb-6 text-[2.35rem] font-medium leading-[0.98] tracking-tight text-[#0B0B12] sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
           >
             <span className="block overflow-hidden py-0.5">
@@ -44,7 +38,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
           </h1>
 
           <p
-            className="mb-7 max-w-[20rem] animate-fade-in-up text-[15px] leading-[1.6] text-zinc-700/90 sm:mb-8 sm:max-w-md sm:text-base md:text-lg"
+            className="mb-6 max-w-md animate-fade-in-up text-[15px] leading-[1.55] text-zinc-700/90 sm:mb-8 sm:text-base md:text-lg"
             style={{ animationDelay: '0.25s' }}
           >
             Diseñamos sitios que se sienten de otro planeta — claros, rápidos y obsesionados con que
@@ -52,7 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
           </p>
 
           <div
-            className="flex animate-fade-in-up flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+            className="flex animate-fade-in-up flex-col items-stretch gap-3.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
             style={{ animationDelay: '0.35s' }}
           >
             <button
@@ -68,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 to="/galeria"
-                className="group inline-flex items-center gap-2 rounded-full border border-zinc-300/90 bg-white/80 px-5 py-2.5 text-sm font-medium text-[#0B0B12] transition-all hover:border-zinc-400 hover:bg-white hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280]"
+                className="group inline-flex items-center gap-2 rounded-full border border-zinc-300/90 bg-white/90 px-4 sm:px-5 py-2.5 text-sm font-medium text-[#0B0B12] transition-all hover:border-zinc-400 hover:bg-white hover:shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280]"
               >
                 <Compass className="h-4 w-4 text-zinc-500 transition-colors group-hover:text-[#0B0B12]" />
                 Explorar la galería
@@ -86,9 +80,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
         </div>
       </div>
 
-      {/* Visual stage: fills the entire hero both on mobile and desktop */}
+      {/* Visual stage: dedicated theater below copy on mobile; right-half positioning on desktop */}
       <div
-        className="absolute inset-0 z-0 h-full w-full pointer-events-auto animate-fade-in-up lg:left-[50%] xl:left-[42%] 2xl:left-[38%] lg:w-auto"
+        className="relative w-full h-[370px] sm:h-[430px] shrink-0 overflow-hidden pointer-events-auto animate-fade-in-up mt-4 lg:absolute lg:inset-0 lg:left-[50%] xl:left-[42%] 2xl:left-[38%] lg:w-auto lg:h-full lg:mt-0"
         style={{ animationDelay: '0.2s' }}
       >
         <OrbitCarousel />

@@ -130,7 +130,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
             return (
               <div
                 key={plan.id}
-                className={`bg-white rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
+                className={`bg-white rounded-2xl p-5 sm:p-7 md:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                   plan.popular
                     ? 'ring-2 ring-zinc-950 md:scale-[1.03] shadow-xl z-20'
                     : 'border border-zinc-200/80 hover:border-zinc-300 shadow-xs hover:shadow-md'
@@ -231,7 +231,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                         </span>
                       </div>
 
-                      <p className="text-[11px] text-zinc-600 leading-relaxed pl-8">
+                      <p className="text-[11px] text-zinc-600 leading-relaxed pl-0 mt-2 sm:pl-8 sm:mt-0">
                         {plan.aiAssistant.description}
                       </p>
                     </div>
