@@ -77,37 +77,23 @@ export const OrbitCarousel: React.FC = () => {
   const n = anillo.length;
 
   const [box, setBox] = useState({ w: 560, h: 560 });
-  const [mobileStage, setMobileStage] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches,
-  );
   const [liveIdx, setLiveIdx] = useState<number[]>(() => liveForAngle(Math.PI, anillo.length, new Set()));
-
-  // Touch Drag Interaction
-  const touchStartY = useRef<number | null>(null);
-  const touchLastY = useRef<number | null>(null);
-  const touchDragged = useRef(false);
-  const inertiaTimer = useRef<number | null>(null);
 
   reducedRef.current = reducedMotion;
   liveSetRef.current = new Set(liveIdx);
 
   const geo = useMemo(() => {
-    const phone = mobileStage;
-    const cardW = Math.min(
-      phone ? 235 : box.w < 640 ? 275 : 352,
-      Math.max(180, box.w * (phone ? 0.62 : 0.40)),
-    );
-    const cardH = cardW * 0.61;
-    // Mobile: center slightly to the right so cards swing in a broad, visible arc without clipping
-    const cx = box.w * (phone ? 1.08 : 1.40);
-    const cy = box.h * (phone ? 0.50 : 0.50);
-    const rWant = phone ? Math.min(box.h * 0.82, box.w * 0.78) : Math.max(box.h * 0.94, 210);
-    const rMax = cx - box.w * (phone ? 0.28 : 0.10);
-    const r = Math.max(185, Math.min(rWant, rMax));
-    return { w: box.w, h: box.h, cardW, cardH, r, cx, cy, phone };
-  }, [box, mobileStage]);
+    const cardW = box.w < 640 ? 275 : 352;
+    const cardH = cardW * 0.62;
+    const cx = box.w * 1.40;
+    const cy = box.h * 0.50;
+    const rWant = Math.max(box.h * 0.94, 210);
+    const rMax = cx - box.w * 0.10;
+    const r = Math.max(180, Math.min(rWant, rMax));
+    return { w: box.w, h: box.h, cardW, cardH, r, cx, cy };
+  }, [box]);
 
-  geoRef.current = geo;
+  geoRef.current = { ...geo, phone: false };
   const shotScale = geo.cardW / SHOT_W;
 
   const apply = useCallback(() => {
@@ -124,7 +110,7 @@ export const OrbitCarousel: React.FC = () => {
       const dist = Math.abs(signed);
       const fade = VISIBLE;
 
-      if (dist > fade + (g.phone ? 0.15 : 0.18)) {
+      if (dist > fade + 0.18) {
         el.style.visibility = 'hidden';
         el.style.pointerEvents = 'none';
         el.style.opacity = '0';
@@ -135,10 +121,10 @@ export const OrbitCarousel: React.FC = () => {
 
       const x = g.cx + g.r * Math.cos(θ);
       const y = g.cy + g.r * Math.sin(θ);
-      const rot = signed * (180 / Math.PI) * (g.phone ? 0.72 : 1);
+      const rot = signed * (180 / Math.PI);
       const t = Math.min(1, dist / fade);
       const opacity = t < 0.6 ? 1 : Math.max(0, 1 - (t - 0.6) / 0.4);
-      const scale = 1 - t * (g.phone ? 0.05 : 0.07);
+      const scale = 1 - t * 0.07;
 
       el.style.visibility = 'visible';
       el.style.pointerEvents = dist < 0.7 ? 'auto' : 'none';
@@ -162,14 +148,6 @@ export const OrbitCarousel: React.FC = () => {
       setLiveIdx(next);
     }
   }, [anillo, n]);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 1023px)');
-    const sync = () => setMobileStage(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
 
   useEffect(() => {
     const el = boxRef.current;
@@ -211,48 +189,8 @@ export const OrbitCarousel: React.FC = () => {
     <div className="relative h-full w-full select-none" aria-label="Propuestas en órbita">
       <div
         ref={boxRef}
-        className="orbit-arc absolute inset-0 cursor-grab active:cursor-grabbing touch-pan-y"
-        onTouchStart={(e) => {
-          if (e.touches.length !== 1) return;
-          touchStartY.current = e.touches[0].clientY;
-          touchLastY.current = e.touches[0].clientY;
-          touchDragged.current = false;
-          hoverRef.current = true;
-          if (inertiaTimer.current) {
-            window.clearTimeout(inertiaTimer.current);
-            inertiaTimer.current = null;
-          }
-        }}
-        onTouchMove={(e) => {
-          if (touchStartY.current === null || touchLastY.current === null) return;
-          const currentY = e.touches[0].clientY;
-          const dy = currentY - touchLastY.current;
-          const totalDy = Math.abs(currentY - touchStartY.current);
-
-          if (totalDy > 6) {
-            touchDragged.current = true;
-          }
-
-          touchLastY.current = currentY;
-          const g = geoRef.current;
-          const dTheta = -dy / (g.r * 1.35);
-          angleRef.current += dTheta;
-          apply();
-        }}
-        onTouchEnd={() => {
-          touchStartY.current = null;
-          touchLastY.current = null;
-          inertiaTimer.current = window.setTimeout(() => {
-            hoverRef.current = false;
-          }, 2200);
-        }}
-        onTouchCancel={() => {
-          touchStartY.current = null;
-          touchLastY.current = null;
-          hoverRef.current = false;
-        }}
+        className="orbit-arc absolute inset-0"
         onClick={(e) => {
-          if (touchDragged.current) return;
           if (!isCoarsePointer()) return;
           if ((e.target as HTMLElement).closest('a')) return;
           hoverRef.current = false;
@@ -292,10 +230,6 @@ export const OrbitCarousel: React.FC = () => {
                   hoverRef.current = false;
                 }}
                 onClick={(e) => {
-                  if (touchDragged.current) {
-                    e.preventDefault();
-                    return;
-                  }
                   if (!isCoarsePointer()) return;
                   if (pausedSlug === item.slug) return;
                   e.preventDefault();
@@ -350,11 +284,11 @@ export const OrbitCarousel: React.FC = () => {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-20 h-10 bg-gradient-to-b from-[#F7F8FC] to-transparent lg:h-16"
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 bg-gradient-to-b from-[#F7F8FC] to-transparent"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-8 bg-gradient-to-t from-[#F7F8FC] to-transparent lg:h-14"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 bg-gradient-to-t from-[#F7F8FC] to-transparent"
         aria-hidden
       />
     </div>

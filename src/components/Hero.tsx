@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Compass } from 'lucide-react';
 import { OrbitCarousel } from './home/OrbitCarousel';
+import { MobileHeroCarousel } from './home/MobileHeroCarousel';
 
 interface HeroProps {
   onOpenQuoteModal: (planName?: string) => void;
@@ -80,9 +81,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onOpenSchedule }) 
         </div>
       </div>
 
-      {/* Visual stage: dedicated theater below copy on mobile; right-half positioning on desktop */}
+      {/* Mobile: carrusel horizontal ordenado hacia la izquierda */}
+      <div className="lg:hidden relative w-full overflow-hidden mt-6 pb-2 pointer-events-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <MobileHeroCarousel />
+      </div>
+
+      {/* Desktop: signature orbital arc on the right half */}
       <div
-        className="relative w-full h-[370px] sm:h-[430px] shrink-0 overflow-hidden pointer-events-auto animate-fade-in-up mt-4 lg:absolute lg:inset-0 lg:left-[50%] xl:left-[42%] 2xl:left-[38%] lg:w-auto lg:h-full lg:mt-0"
+        className="hidden lg:block lg:absolute lg:inset-0 lg:left-[50%] xl:left-[42%] 2xl:left-[38%] lg:w-auto lg:h-full pointer-events-auto animate-fade-in-up"
         style={{ animationDelay: '0.2s' }}
       >
         <OrbitCarousel />
