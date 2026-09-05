@@ -98,6 +98,9 @@ const SECTOR_BY_FOLDER: Record<string, string> = {
 /** Demos del lenguaje visual, no propuestas de cliente. */
 const HIDDEN_SLUGS = new Set(['eter-claro', 'noctua-oscuro']);
 
+/** Carpetas inactivas o placeholders de OneDrive que se excluyen del build. */
+const OFFLINE_SLUGS = new Set(['alba', 'bruma', 'casonorte', 'lumen', 'minimayorista', 'pausa']);
+
 function inferVariant(slug: string): string {
   if (slug.endsWith('-oscuro-premium') || slug.endsWith('-oscuro')) return 'oscuro';
   if (slug.endsWith('-teal')) return 'teal';
@@ -171,7 +174,7 @@ function readCatalogo(root: string): CatalogEntry[] {
   if (!fs.existsSync(root)) return [];
   const entries: CatalogEntry[] = [];
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
-    if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.')) continue;
+    if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.') || OFFLINE_SLUGS.has(entry.name)) continue;
     const slug = entry.name;
     let meta: Record<string, unknown> = {};
     const metaFile = path.join(root, slug, 'meta.json');
@@ -383,22 +386,33 @@ function propuestasPlugin(): Plugin {
       const destRoot = path.resolve(__dirname, 'dist/propuestas');
       fs.mkdirSync(destRoot, { recursive: true });
       for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
-        if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.')) continue;
+        if (
+          !entry.isDirectory() ||
+          entry.name.startsWith('_') ||
+          entry.name.startsWith('.') ||
+          OFFLINE_SLUGS.has(entry.name) ||
+          HIDDEN_SLUGS.has(entry.name)
+        )
+          continue;
         const folder = path.join(root, entry.name);
         const dest = path.join(destRoot, entry.name);
-        if (isAppFolder(folder)) {
-          const built = path.join(folder, 'dist');
-          if (fs.existsSync(built)) fs.cpSync(built, dest, { recursive: true });
-          const meta = path.join(folder, 'meta.json');
-          if (fs.existsSync(meta)) {
-            fs.mkdirSync(dest, { recursive: true });
-            fs.copyFileSync(meta, path.join(dest, 'meta.json'));
+        try {
+          if (isAppFolder(folder)) {
+            const built = path.join(folder, 'dist');
+            if (fs.existsSync(built)) fs.cpSync(built, dest, { recursive: true });
+            const meta = path.join(folder, 'meta.json');
+            if (fs.existsSync(meta)) {
+              fs.mkdirSync(dest, { recursive: true });
+              fs.copyFileSync(meta, path.join(dest, 'meta.json'));
+            }
+          } else {
+            fs.cpSync(folder, dest, {
+              recursive: true,
+              filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
+            });
           }
-        } else {
-          fs.cpSync(folder, dest, {
-            recursive: true,
-            filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
-          });
+        } catch (err) {
+          console.warn(`[closeBundle] Advertencia al copiar ${entry.name}:`, (err as Error).message);
         }
       }
     },

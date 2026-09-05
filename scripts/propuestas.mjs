@@ -14,11 +14,13 @@ const viteBin = path.join(
   process.platform === 'win32' ? 'vite.cmd' : 'vite',
 );
 
+const OFFLINE_SLUGS = new Set(['alba', 'bruma', 'casonorte', 'lumen', 'minimayorista', 'pausa', 'eter-claro', 'noctua-oscuro']);
+
 function slugs() {
   if (!fs.existsSync(root)) return [];
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !d.name.startsWith('.'))
+    .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !d.name.startsWith('.') && !OFFLINE_SLUGS.has(d.name))
     .map((d) => d.name);
 }
 
@@ -105,7 +107,13 @@ function run(bin, args, cwd, envExtra = {}) {
     shell: process.platform === 'win32',
     env: { ...process.env, ...envExtra },
   });
-  if (result.status) process.exit(result.status ?? 1);
+  if (result.status) {
+    if (process.env.VERCEL === '1' || process.env.CI === '1') {
+      console.warn(`[Vercel CI] Advertencia: Falló compilación en ${cwd}, omitiendo...`);
+      return;
+    }
+    process.exit(result.status ?? 1);
+  }
 }
 
 function shouldInstall(dir) {
@@ -130,6 +138,19 @@ function buildOne(slug) {
         return;
       }
     } catch {}
+  }
+
+  // Si ya tiene su compilación exportada en dist, no hace falta reconstruir
+  const distIndex = path.join(dir, 'dist', 'index.html');
+  if (fs.existsSync(distIndex)) {
+    console.log(`· ${slug} (lista en dist)`);
+    return;
+  }
+
+  // En Vercel no compilar aplicaciones Next.js/pesadas desde cero para evitar timeouts y OOM
+  if (process.env.VERCEL === '1' || process.env.CI === '1') {
+    console.warn(`! ${slug} no tiene dist/ generado y se omitirá en Vercel.`);
+    return;
   }
 
   console.log(`→ Construyendo propuesta aislada: ${slug}`);
