@@ -140,10 +140,25 @@ function buildOne(slug) {
     } catch {}
   }
 
-  // Si ya tiene su compilación exportada en dist, no hace falta reconstruir
+  // Si ya tiene su compilación exportada en dist, verificar si .next fue recompilado más recientemente
   const distIndex = path.join(dir, 'dist', 'index.html');
+  const appServerIndex = path.join(dir, '.next', 'server', 'app', 'index.html');
+  const hasAppServer = fs.existsSync(appServerIndex);
+
   if (fs.existsSync(distIndex)) {
+    if (hasAppServer && fs.statSync(appServerIndex).mtimeMs > fs.statSync(distIndex).mtimeMs) {
+      console.log(`↻ ${slug} (.next actualizado, reexportando a dist)...`);
+      exportNextDist(slug);
+      return;
+    }
     console.log(`· ${slug} (lista en dist)`);
+    return;
+  }
+
+  // Si no tiene dist pero ya tiene .next compilado, exportar directamente
+  if (isNext(dir) && hasAppServer) {
+    console.log(`→ ${slug} (exportando desde .next existente a dist)...`);
+    exportNextDist(slug);
     return;
   }
 
@@ -155,8 +170,7 @@ function buildOne(slug) {
 
   console.log(`→ Construyendo propuesta aislada: ${slug}`);
   if (isNext(dir)) {
-    const appServerIndex = path.join(dir, '.next', 'server', 'app', 'index.html');
-    if (!fs.existsSync(appServerIndex)) {
+    if (!hasAppServer) {
       if (shouldInstall(dir)) {
         run('npm', ['install', '--include=dev'], dir, {
           NODE_ENV: 'development',
@@ -184,9 +198,16 @@ function buildOne(slug) {
   run(viteBin, ['build', '--base', `/propuestas/${slug}/`, '--outDir', 'dist'], dir);
 }
 
-if (cmd === 'build') {
+if (cmd === 'build' || cmd === 'export') {
   const list = slugs().filter((slug) => !only || only === slug);
-  for (const slug of list) buildOne(slug);
+  for (const slug of list) {
+    if (cmd === 'export') {
+      console.log(`→ Exportando ${slug} a dist...`);
+      exportNextDist(slug);
+    } else {
+      buildOne(slug);
+    }
+  }
   process.exit(0);
 }
 
