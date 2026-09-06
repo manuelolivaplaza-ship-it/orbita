@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import {
   Search,
@@ -33,19 +34,43 @@ export default function GaleriaPage() {
 
   const [sectorMenuOpen, setSectorMenuOpen] = useState(false);
   const [sectorFilterQuery, setSectorFilterQuery] = useState('');
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar menú al hacer clic afuera
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setSectorMenuOpen(false);
-      }
+  useLayoutEffect(() => {
+    if (!sectorMenuOpen || !triggerRef.current) return;
+    const place = () => {
+      const r = triggerRef.current!.getBoundingClientRect();
+      const width = 320;
+      const left = Math.min(Math.max(12, r.left), window.innerWidth - width - 12);
+      setMenuPos({ top: r.bottom + 8, left });
     };
-    if (sectorMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, true);
+    return () => {
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, true);
+    };
+  }, [sectorMenuOpen]);
+
+  useEffect(() => {
+    if (!sectorMenuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (triggerRef.current?.contains(target) || menuRef.current?.contains(target)) return;
+      setSectorMenuOpen(false);
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSectorMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKey);
+    };
   }, [sectorMenuOpen]);
 
   const counts = useMemo(() => {
@@ -121,16 +146,19 @@ export default function GaleriaPage() {
       <div className="relative z-30 px-4 sm:px-6 pt-24 sm:pt-28">
         <h1 className="sr-only">Galería de propuestas</h1>
         <div className="max-w-[88rem] mx-auto">
-          <div className="bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-2xl sm:rounded-full p-2 sm:p-2.5 shadow-[0_12px_40px_-15px_rgba(15,15,40,0.12)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5">
+          <div className="relative z-40 overflow-visible bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-2xl sm:rounded-full p-2 sm:p-2.5 shadow-[0_12px_40px_-15px_rgba(15,15,40,0.12)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5">
             
             {/* LADO IZQUIERDO: SELECTOR DE RUBROS & ACCESOS DIRECTOS */}
-            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto no-scrollbar py-0.5">
+            <div className="flex items-center gap-2 flex-1 min-w-0 py-0.5">
               
-              {/* Botón Dropdown de Rubro con Popover */}
-              <div className="relative shrink-0" ref={dropdownRef}>
+              {/* Botón Dropdown de Rubro — el menú se porta al body para no recortarse */}
+              <div className="relative shrink-0">
                 <button
+                  ref={triggerRef}
                   type="button"
-                  onClick={() => setSectorMenuOpen(!sectorMenuOpen)}
+                  aria-expanded={sectorMenuOpen}
+                  aria-haspopup="listbox"
+                  onClick={() => setSectorMenuOpen((open) => !open)}
                   className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
                     selectedSector !== 'todas'
                       ? 'bg-[#0B0B12] text-white border-[#0B0B12] shadow-xs'
@@ -153,98 +181,102 @@ export default function GaleriaPage() {
                   />
                 </button>
 
-                {/* Menú Desplegable con Todos los Rubros */}
-                {sectorMenuOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-zinc-200 rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,15,40,0.22)] p-2 z-50 animate-fade-in-up">
-                    <div className="p-1.5 mb-1.5 border-b border-zinc-100">
-                      <div className="relative">
-                        <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-                        <input
-                          type="text"
-                          value={sectorFilterQuery}
-                          onChange={(e) => setSectorFilterQuery(e.target.value)}
-                          placeholder="Buscar rubro..."
-                          className="w-full pl-8 pr-3 py-1.5 text-xs bg-zinc-50 border border-zinc-200/80 rounded-xl text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-400 transition-colors"
-                          autoFocus
-                        />
+                {sectorMenuOpen &&
+                  createPortal(
+                    <div
+                      ref={menuRef}
+                      role="listbox"
+                      style={{ top: menuPos.top, left: menuPos.left }}
+                      className="fixed z-[200] w-72 sm:w-80 bg-white border border-zinc-200 rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,15,40,0.22)] p-2"
+                    >
+                      <div className="p-1.5 mb-1.5 border-b border-zinc-100">
+                        <div className="relative">
+                          <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            value={sectorFilterQuery}
+                            onChange={(e) => setSectorFilterQuery(e.target.value)}
+                            placeholder="Buscar rubro..."
+                            className="w-full pl-8 pr-3 py-1.5 text-xs bg-zinc-50 border border-zinc-200/80 rounded-xl text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-400 transition-colors"
+                            autoFocus
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="max-h-72 overflow-y-auto space-y-0.5 pr-1 text-xs">
-                      {/* Opción Todas */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          updateParam('sector', 'todas');
-                          setSectorMenuOpen(false);
-                          setSectorFilterQuery('');
-                        }}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
-                          selectedSector === 'todas'
-                            ? 'bg-[#0B0B12] text-white font-semibold'
-                            : 'hover:bg-zinc-100 text-[#0B0B12]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <LayoutGrid className="w-3.5 h-3.5" />
-                          <span>Todos los rubros</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span
-                            className={`text-[11px] px-1.5 py-0.2 rounded-md ${
-                              selectedSector === 'todas' ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
-                            }`}
-                          >
-                            {catalogo.length}
-                          </span>
-                          {selectedSector === 'todas' && <Check className="w-3.5 h-3.5 text-white" />}
-                        </div>
-                      </button>
+                      <div className="max-h-72 overflow-y-auto space-y-0.5 pr-1 text-xs">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateParam('sector', 'todas');
+                            setSectorMenuOpen(false);
+                            setSectorFilterQuery('');
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
+                            selectedSector === 'todas'
+                              ? 'bg-[#0B0B12] text-white font-semibold'
+                              : 'hover:bg-zinc-100 text-[#0B0B12]'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <LayoutGrid className="w-3.5 h-3.5" />
+                            <span>Todos los rubros</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`text-[11px] px-1.5 py-0.2 rounded-md ${
+                                selectedSector === 'todas' ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
+                              }`}
+                            >
+                              {catalogo.length}
+                            </span>
+                            {selectedSector === 'todas' && <Check className="w-3.5 h-3.5 text-white" />}
+                          </div>
+                        </button>
 
-                      {/* Lista de sectores */}
-                      {menuSectores.map((s) => {
-                        const Icon = s.icon;
-                        const isSelected = selectedSector === s.slug;
-                        const count = counts.get(s.slug) ?? 0;
-                        return (
-                          <button
-                            key={s.slug}
-                            type="button"
-                            onClick={() => {
-                              updateParam('sector', s.slug);
-                              setSectorMenuOpen(false);
-                              setSectorFilterQuery('');
-                            }}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
-                              isSelected
-                                ? 'bg-[#0B0B12] text-white font-semibold'
-                                : 'hover:bg-zinc-100 text-[#0B0B12]'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              <Icon className="w-3.5 h-3.5 shrink-0" />
-                              <span className="truncate">{s.label}</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span
-                                className={`text-[11px] px-1.5 py-0.2 rounded-md ${
-                                  isSelected ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
-                                }`}
-                              >
-                                {count}
-                              </span>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                        {menuSectores.map((s) => {
+                          const Icon = s.icon;
+                          const isSelected = selectedSector === s.slug;
+                          const count = counts.get(s.slug) ?? 0;
+                          return (
+                            <button
+                              key={s.slug}
+                              type="button"
+                              onClick={() => {
+                                updateParam('sector', s.slug);
+                                setSectorMenuOpen(false);
+                                setSectorFilterQuery('');
+                              }}
+                              className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
+                                isSelected
+                                  ? 'bg-[#0B0B12] text-white font-semibold'
+                                  : 'hover:bg-zinc-100 text-[#0B0B12]'
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <Icon className="w-3.5 h-3.5 shrink-0" />
+                                <span className="truncate">{s.label}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <span
+                                  className={`text-[11px] px-1.5 py-0.2 rounded-md ${
+                                    isSelected ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
+                                  }`}
+                                >
+                                  {count}
+                                </span>
+                                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>,
+                    document.body,
+                  )}
               </div>
 
               {/* Pastillas de acceso rápido a rubros principales (Desktop) */}
-              <div className="hidden lg:flex items-center gap-1">
+              <div className="hidden lg:flex items-center gap-1 min-w-0 overflow-x-auto no-scrollbar">
                 <FilterChip
                   active={selectedSector === 'todas'}
                   onClick={() => updateParam('sector', 'todas')}

@@ -16,6 +16,10 @@ export const CrmNotificationConfig: React.FC<CrmNotificationConfigProps> = ({
   const [form, setForm] = useState<NotificationSettings>(settings);
   const [savedSuccess, setSavedSuccess] = useState(false);
 
+  React.useEffect(() => {
+    setForm(settings);
+  }, [settings]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(form);
