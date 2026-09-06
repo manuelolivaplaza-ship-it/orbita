@@ -131,16 +131,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-16">
           {/* Brand col */}
           <div className="col-span-2 md:col-span-2 space-y-4 pr-0 md:pr-6">
-            <Link to="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white shadow-xs">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M6 4h7a4.5 4.5 0 0 1 4.5 4.5 4.5 4.5 0 0 1-4.5 4.5H6V4z" />
-                  <path d="M13 13l5 7" />
-                  <path d="M6 13v7" />
-                </svg>
-              </div>
-              <span className="text-xl font-medium tracking-tight text-[#0B0B12] group-hover:text-zinc-600 transition-colors">
-                Reclu
+            <Link to="/" className="inline-flex items-center group">
+              <span className="text-2xl font-bold tracking-tight text-[#0B0B12] group-hover:text-zinc-600 transition-colors">
+                reclu
               </span>
             </Link>
             <p className="text-sm text-zinc-500 leading-relaxed max-w-sm">
