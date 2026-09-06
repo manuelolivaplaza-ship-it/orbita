@@ -9,7 +9,6 @@ import {
   Moon,
   Check,
   RotateCcw,
-  Sparkles,
 } from 'lucide-react';
 import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
@@ -34,28 +33,7 @@ export default function GaleriaPage() {
 
   const [sectorMenuOpen, setSectorMenuOpen] = useState(false);
   const [sectorFilterQuery, setSectorFilterQuery] = useState('');
-  const [navHidden, setNavHidden] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const lastY = useRef(0);
-
-  // Sincronizar posición fija adaptativa con el desplazamiento del navbar
-  useEffect(() => {
-    lastY.current = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - lastY.current;
-      if (Math.abs(delta) > 6) {
-        if (delta > 0 && y > 80) {
-          setNavHidden(true);
-        } else if (delta < 0) {
-          setNavHidden(false);
-        }
-        lastY.current = y;
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   // Cerrar menú al hacer clic afuera
   useEffect(() => {
@@ -140,29 +118,8 @@ export default function GaleriaPage() {
         description="Catálogo de propuestas web en vivo por sector en Reclu."
       />
 
-      {/* CABECERA COMPACTA */}
-      <section className="relative z-10 px-4 sm:px-6 pt-24 sm:pt-28 pb-3">
-        <div className="max-w-[88rem] mx-auto flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
-              Propuestas
-            </h1>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-200/80 text-zinc-700">
-              {filtered.length} {filtered.length === 1 ? 'sitio' : 'sitios'}
-            </span>
-          </div>
-          <p className="text-xs sm:text-sm text-zinc-500 font-medium">
-            Recorre cada sitio en vivo y navega antes de elegir una dirección.
-          </p>
-        </div>
-      </section>
-
-      {/* SELECTOR FIJO / STICKY CONTROL DOCK */}
-      <div
-        className={`sticky z-30 px-4 sm:px-6 transition-[top] duration-300 ease-out ${
-          navHidden ? 'top-3 sm:top-4' : 'top-20 sm:top-22'
-        }`}
-      >
+      <div className="relative z-30 px-4 sm:px-6 pt-24 sm:pt-28">
+        <h1 className="sr-only">Galería de propuestas</h1>
         <div className="max-w-[88rem] mx-auto">
           <div className="bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-2xl sm:rounded-full p-2 sm:p-2.5 shadow-[0_12px_40px_-15px_rgba(15,15,40,0.12)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5">
             
