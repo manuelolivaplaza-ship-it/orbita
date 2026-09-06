@@ -14,3 +14,14 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a revisar el workspace y las referencias de diseño para armar una web oscura premium, en español de Chile, sin levantar el servidor.Hay varias propuestas hermanas en la carpeta. Voy a leer el prompt oscuro, la plantilla y los sitios de software ya hechos para no repetir el mismo lenguaje visual.Ya tengo el marco: estrategia B (una firma interactiva), anti-slop, y hay que alejarse de Obsidiana y Meridiano. Empiezo por la derivación del oficio y el look canónico de las imágenes.Meridiano ya se quedó con el tablero de dibujo. Cambio el eje: **Sextante**, en Valparaíso — un instrumento de medición, no un plano.La imagen canónica ya está. La reviso y derivo el resto del ensayo fotográfico con el mismo tratamiento.El sextante canónico quedó bien: laca, marfil, sin texto. Ahora armo el resto del ensayo fotográfico y los datos del sitio.Copio las cinco fotos y las reviso para asignar cada una a su obra.Las fotos funcionan: misma noche, sin gente ni texto. Las nombro y paso a construir el sitio y el arco interactivo.Instalo dependencias y compilo el sitio estático, sin levantar el servidor.El build compiló limpio. Exporto el `dist` para que Órbita pueda servir la propuesta.Listo. **Sextante** es un estudio de software en el plan de Valparaíso: laca negra, arco de marfil, bahía de noche.
+
+**La idea.** No es otro dark genérico ni un calco de Obsidiana o Meridiano. El oficio se deriva del instrumento: primero se toma altura, después se construye. El H1 es una sola cara — *Primero la mira.* — sin kicker ni palabra en color.
+
+**La firma.** En el hero hay un sextante SVG. Se arrastra el alidada (mouse, touch o flechas) y encaja en las cuatro obras: Molo Sur, Naviera Chacao, Frío Talcahuano, Bodega Casablanca. Con `prefers-reduced-motion` el brazo queda quieto.
+
+**El resto, callado.** Alumni Sans + Source Serif 4 + Azeret Mono. Paleta de laca, marfil y un rojo de faro apenas en foco y WhatsApp. Honorarios en UF, en tabla. Sticky CTA en móvil. Copy en español de Chile, de usted.
+
+**Páginas.** Inicio, obra (4 casos), oficio, taller, contacto, privacidad. Seis fotos del mismo tratamiento: el instrumento, la bahía, el taller, el molo, el canal, la cámara de frío. Sin gente ni texto.
+
+No levanté localhost, como pediste. El build estático quedó en `dist`. Cuando lo abras en Órbita: `/propuesta/software-b-oscuro-premium`.

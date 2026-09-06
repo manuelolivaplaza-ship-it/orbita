@@ -64,3 +64,38 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a diseñar y construir el sitio completo en Next.js, con una variante clara distinta a la otra del rubro. Primero reviso el workspace y el contexto de la variante B.Hay una versión clara previa del rubro; voy a leer el brief, esa variante y el patrón de los sitios B para diferenciar esta.Reviso el patrón de las propuestas B (config, datos, formulario, imágenes) para que esta variante se distinga de VETA.La variante A (VETA) es beige, serif itálica y hero cinematográfico. COTA será lo opuesto: yeso frío, cobre chileno y el corte como interfaz. Empiezo a generar las fotografías y a armar el proyecto.Sigo con el resto de las obras, el estudio y el equipo, y armo el sistema de diseño.Quedan el refugio, la luz norte y los retratos; mientras tanto escribo el sistema visual y los datos.El sistema visual ya está. Ahora armo el contenido, los componentes y copio las fotos; el retrato que faltó lo genero después.Ahora armo la home — el corte como interfaz — y el resto de las páginas.Voy a comprobar que las fotos coincidan con cada obra antes de copiarlas.Las fotos calzan. Ajusto el texto de la escuela (es una rehabilitación) y copio el archivo a `public/images`.Las fotos del taller, la luz y el cobre están bien. Instalo dependencias y hago el build (sin levantar localhost).El linter marca un `setState` en un efecto del header. Lo corrijo y vuelvo a pasar lint.Listo: **COTA Arquitectura**, variante B clara, en Next.js. El build compiló (21 páginas estáticas). No levanté localhost.
+
+## Qué es, y por qué no es VETA
+
+La otra versión clara del rubro (VETA) es atelier romántico: beige, Garamond itálica, hero cinematográfico a pantalla completa, “lugar / materia / luz”, Buenos Aires.
+
+COTA es otra tesis:
+
+| | VETA (A) | COTA (B) |
+|---|---|---|
+| Papel | Beige cálido | Yeso frío `#f3f4f1` |
+| Acento | Terracota | Cobre chileno + verdín |
+| Tipo | Cormorant + Outfit | Bricolage Grotesque + Instrument Serif |
+| Hero | Foto full-bleed | Campo blanco + cota de cobre + la casa *sentada* en la línea |
+| Metáfora | La veta del lugar | El corte como proyecto |
+| Ciudad | Buenos Aires | Santiago, Pedro de Valdivia Norte |
+
+La decisión que organiza todo: **el sitio es un corte**. Una línea de cota recorre las páginas. Un riel a la derecha marca `+12.40 → ±0.00` mientras bajás. El sol en el diagrama entra **por el norte** (latitud 33° S), no por el sur europeo.
+
+## Estudio
+
+**COTA Arquitectura SpA** — El Cerro 2140, Pedro de Valdivia Norte, Providencia. Seis mesas. Casas en talud, patios al norte, NCh433, permiso de edificación en la DOM. Honorarios en UF.
+
+Tagline: *El corte es el proyecto.*
+
+## Páginas
+
+- **Home** — hero con cota, diagrama solar, índice de láminas, oficio, taller, ficha de encargo
+- **Obras** — filtro + tabla de dibujo + grilla (8 obras: Lo Curro, Matanzas, Bodega Maipo, Patio Ñuñoa, Pabellón San Cristóbal, Escuela Pirque, Refugio Conguillío, el taller)
+- **Estudio** — mesa de seis, premios AOA / Bienal
+- **Oficio** — predio → corte → permiso → obra → recepción final
+- **Contacto** — ficha con RUT chileno, comuna, m²
+- Privacidad (Ley 19.628), aviso legal, 404
+
+Cuando lo abras: `npm run dev` en esta carpeta.

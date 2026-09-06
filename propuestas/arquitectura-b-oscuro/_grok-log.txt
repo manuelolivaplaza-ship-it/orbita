@@ -14,3 +14,18 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a revisar el workspace, la carpeta de propuestas y las referencias de diseño para construir la variante B oscura con criterio, sin levantar localhost.Hay varias variantes de arquitectura y un sistema de propuestas. Voy a leer los prompts, la plantilla y sitios B oscuros recientes para alinear tono, estructura y calidad.Encontré el prompt de arquitectura B oscuro. Lo leo junto con las convenciones de stack y un sitio B oscuro ya cerrado para no copiar, pero sí respetar el sistema.El prompt fija marca UMBRAL y un arco de conversión. Voy a ver cómo están armados los Next recientes y el export estático, para construir un sitio más ambicioso sin romper el sistema.La marca es UMBRAL: sala de exposición a media luz, no el cine de la otra variante. Genero la fotografía y armo el esqueleto de Next en paralelo.Primera tanda de fotos lista. Sigo con el resto de obras y el scaffold del proyecto.Tengo 13 fotografías. Copio el material al proyecto y empiezo a escribir datos, tokens y la estructura. El lago del sur lo genero en cuanto baje el límite.La foto del sur está. Ahora armo los componentes de firma: umbral, índice de obras, cursor y el resto de la cáscara.La foto de la escalera no estaba en el recorrido. La cuelgo como pieza de sala y verifico que el proyecto compile, sin levantar el servidor.**UMBRAL** está listo: estudio de arquitectura en Las Condes, variante B oscura, Next.js. Compila. No levanté localhost.
+
+La diferencia respecto de un dark cinematográfico genérico es estructural: el sitio se comporta como una sala a media luz. A la izquierda, una placa. Al centro, un filete de latón (el umbral). A la derecha, la obra. El índice de proyectos es el cuerpo del sitio, no una grilla de cards.
+
+### Decisiones
+- **Marca:** UMBRAL. H1: *La obra habla. El resto calla.*
+- **Paleta:** negro cálido `#131210`, hueso `#EAE4D8`, latón `#B99A62` en menos del 5%. Cero radios, cero sombras, grano fílmico.
+- **Tipo:** Bodoni Moda (placa de museo) + Figtree + IBM Plex Mono (números de inventario U-01…U-08).
+- **Copy:** español de Chile. DOM, UF, predio, faena, permisería. Honorarios a la vista: anteproyecto desde 0,55 UF/m²; proyecto completo 1,45 UF/m²; administración 6%.
+- **Fotos:** 15 tomas al anochecer, sin personas. Lo Curro, Zapallar, Pucón, Farellones, Recoleta, Maitencillo, Puerto Varas, Chicureo.
+
+### Recorrido
+Inicio (hero + cifras + índice + estudio + oficio + precios + FAQ + encargo) · Obras con ficha · Estudio · Oficio · Encargo · legal.
+
+Cuando lo revises: `npm run propuesta -- arquitectura-b-oscuro` desde la raíz de Órbita, o el `dist/` ya exportado.

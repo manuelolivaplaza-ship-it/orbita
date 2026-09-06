@@ -14,3 +14,18 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a revisar el workspace y armar un sitio de software con paleta azul-cian, contenido en español de Chile y un diseño que se sienta premium. Primero miro qué hay ya y cómo conviene construirlo.El workspace está vacío, así que voy a mirar otras propuestas del mismo folder para alinear calidad y estilo, y después armo el sitio desde cero.Hay un sistema de propuestas ya armado. Voy a leer las plantillas, los prompts y un sitio `b-azul-cian` para calzar el mismo nivel de calidad.Esta propuesta es estrategia B: una sola firma interactiva (una traza viva) y el resto disciplinado. Empiezo por la derivación, las imágenes y el esqueleto del proyecto.Regenero las dos fotos verticales con un ratio válido y reviso las otras para que no se cuele texto, logos ni personas.Las seis fotos quedaron coherentes y sin gente. Ahora copio assets y armo el proyecto completo.Listo: **Traza**, un estudio de software en Ñuñoa. Next.js, paleta azul-cian, contenido en español de Chile. El build de producción compiló limpio; no levanté servidor.
+
+La osadía está en un solo lugar: **La Traza**, un waterfall de observabilidad en el hero. Un request real (camión en San Vicente) se reproduce, se pausa, se arrastra y se pincha; la ficha del span se escribe sola. En móvil se toca. Con `prefers-reduced-motion` queda estático. Eso no se pega en una clínica ni en un estudio jurídico.
+
+El resto va callado: papel frío, cian de cable UTP, navy de terminal, IBM Plex (condensada / sans / mono). Seis fotos del mismo tratamiento — mesa, ventana a Ñuñoa, rack, pórtico, faena, mutual — sin personas ni texto.
+
+**Páginas**
+- `/` — hero con el instrumento
+- `/trabajo` — Puerto San Vicente, Mutual del Sur, Cobre Loa
+- `/oficio` — servicios y honorarios desde en CLP
+- `/estudio` — siete personas, sin retratos de stock
+- `/contacto` — formulario + WhatsApp
+- `/privacidad`
+
+Cuando lo quieras ver: `npm run dev` en esta carpeta.

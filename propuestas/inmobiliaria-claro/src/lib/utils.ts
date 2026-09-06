@@ -2,16 +2,16 @@ export function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function formatUF(value: number) {
-  return `UF ${value.toLocaleString("es-CL")}`;
+export function formatUf(value: number) {
+  return new Intl.NumberFormat("es-CL").format(value);
 }
 
 export function formatM2(value: number) {
-  return `${value.toLocaleString("es-CL")} m²`;
+  return `${new Intl.NumberFormat("es-CL").format(value)} m²`;
 }
 
-export function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+export function ufPerM2(uf: number, m2: number) {
+  return Math.round(uf / m2);
 }
 
 export function isValidRut(value: string): boolean {
@@ -31,11 +31,6 @@ export function isValidRut(value: string): boolean {
   return expected === dv;
 }
 
-export function formatRut(value: string) {
-  const clean = value.replace(/[^0-9kK]/g, "").toUpperCase();
-  if (clean.length < 2) return value;
-  const body = clean.slice(0, -1);
-  const dv = clean.slice(-1);
-  const withDots = body.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return `${withDots}-${dv}`;
+export function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }

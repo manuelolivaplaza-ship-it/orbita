@@ -64,3 +64,16 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a explorar el workspace y el contexto de Órbita para diseñar un sitio oscuro de agencia de marketing con identidad propia, sin levantar servidor.Hay un sistema de propuestas de Órbita y prompts de builder. Voy a leer la meta, las reglas de calidad y un sitio similar para anclar el estándar.Voy a leer el prompt de sitios oscuros, la plantilla y el estado de esta propuesta para construir una identidad propia, no un clon.Voy a leer las otras variantes de marketing y un sitio Next ya cerrado, para no repetir marca ni estructura.Concepto cerrado: **SEÑAL**, estudio en Barrio Yungay. Lima de consola de radio, no cobre ni ember. Empiezo por el mundo visual y el esqueleto del proyecto.Reviso el tono de las fotos y armo casos y retratos en paralelo.El mundo quedó: techo, casona, patio con níspero, mesa con el LED. Sigo con casos y retratos.Faltan tres retratos. Los genero y, mientras, armo el proyecto.Las fotos cierran el mundo. Copio assets y escribo el sistema visual y el contenido.Imágenes en `public`. Sigo con el sistema visual, layout y componentes.El sitio es **SEÑAL**: un estudio de marketing digital en Barrio Yungay. Next.js 16, React 19, Tailwind v4. El build compiló las 31 rutas. No levanté el servidor.
+
+**La decisión de marca.** No es cobre, ember ni teal. Es **lima de consola de radio** (`#d6f25c`) sobre noche fría. Una casona de 1912 en Maturana 612, mástil en el techo, patio con níspero. El enemigo es el ruido. El eslogan es el criterio: *Si no llega, no es marketing.*
+
+**Qué hay adentro**
+- Home cinética: tipografía condensada (Big Shoulders) a tamaño de afiche, medidor de aire de Santiago (`America/Santiago`), bitácora de transmisiones, dial de seis bandas
+- Páginas: El aire (6 casos), Bandas (6 oficios), El estudio, Mesa (5 fichas), Lectura, aviso legal y privacidad
+- Lectura, pauta, pieza, sitio, marca, eco. **No hacen community barato ni markup de media**
+- Honorarios en UF + IVA, lectura $84.000 (se descuenta si cierran), retainer desde 42 UF. Diez cuentas, no más
+
+**Casos:** Textil Tomé, Sierra Blanca (Antofagasta), Molino San Carlos (Talca), Puerto Seco (San Antonio), Editora Trama, Deriva (Pichilemu). Copy en español de Chile: usted, pauta, pieza, Business Manager, WhatsApp, UF.
+
+Cuando lo abras, es Next en esta carpeta.

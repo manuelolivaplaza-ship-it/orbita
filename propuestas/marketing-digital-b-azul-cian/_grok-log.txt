@@ -14,3 +14,16 @@ Error: Internal error: {
   "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
   "http_status": 402
 }
+Voy a revisar el workspace y las convenciones de diseño antes de armar el sitio, para que cada decisión (paleta, tipografía, estructura) quede alineada con una agencia digital chilena.El workspace está casi vacío. Voy a mirar `meta.json` y las propuestas hermanas para entender el formato y no inventar un patrón distinto.Hay una serie de propuestas hermanas. Voy a leer las pautas de diseño, el prompt y un sitio `b-azul-cian` ya resuelto para calzar paleta, stack y nivel de detalle.La marca queda **MAREA**, en Valparaíso: la firma es una tabla de mareas de la atención chilena, no otro hero partido. Empiezo por las imágenes y el esqueleto del proyecto.Las fotos ya están. Copio el tratamiento a `public/images` y armo el esqueleto: tokens, datos y la tabla de mareas.Las seis fotos quedan coherentes: Valparaíso, cian, sin stock. Ahora escribo tokens, datos, la tabla de mareas y las páginas.Instalo dependencias y compilo el sitio. No levanto el servidor de desarrollo.Quedó **MAREA**, una agencia de marketing digital en Barrio Puerto, Valparaíso. Next.js, paleta clara con acentos azul y cian, copy en español de Chile.
+
+La primera pantalla no es un hero partido: es **la tabla de mareas**. Una curva SVG de la atención digital chilena (huso Santiago). Se arrastra con el dedo, el mouse o las flechas; escribe sola la hora, el coeficiente y el canal de esa franja. Si hay `prefers-reduced-motion`, se vuelve una tabla estática de cuatro horas.
+
+**Decisiones que no son decorado**
+- Tipografía: Petrona (foundry chileno) + Figtree + IBM Plex Mono para horas y UF.
+- Vocabulario del oficio: pleamar, bajamar, corte, estaciones. No “servicios / nosotros / blog”.
+- Cero markup de pauta. Lectura **$92.000**. Retainer **desde 36 UF**. WhatsApp `+56 9 8142 7703`. Sticky CTA en móvil.
+- Seis fotos del mismo tratamiento (Valparaíso, cian, sin stock de sonrisas).
+
+**Rutas:** `/` · `/tabla` · `/canales` · `/cuentas` · `/estudio` · `/mesa` · `/lectura`
+
+El build ya está en `dist/`. Para verlo en Órbita: `/propuesta/marketing-digital-b-azul-cian`. No levanté localhost, como pediste.

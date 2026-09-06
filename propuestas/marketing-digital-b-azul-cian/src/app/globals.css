@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-foam: var(--foam);
+  --color-foam-2: var(--foam-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-cyan: var(--cyan);
+  --color-cyan-deep: var(--cyan-deep);
+  --color-blue: var(--blue);
+  --color-navy: var(--navy);
+  --font-display: "Petrona", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root {
+  --foam: #eef5f8;
+  --foam-2: #dceaf0;
+  --ink: #0e2436;
+  --muted: #4a6574;
+  --line: #c5d6e0;
+  --cyan: #12c4d4;
+  --cyan-deep: #0b9aa8;
+  --blue: #1a5fd0;
+  --navy: #0a3358;
+  --header: 4.35rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  color-scheme: light;
+  background: var(--foam);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header) + 12px);
+}
+
+body {
+  background: var(--foam);
+  color: var(--ink);
+  font-family: var(--font-figtree), var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--cyan) 38%, transparent);
+  color: var(--ink);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+img {
+  user-select: none;
+}
+
+.font-display {
+  font-family: var(--font-petrona), var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.font-sans {
+  font-family: var(--font-figtree), var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-plex), var(--font-mono);
+}
+
+.nums {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 2.25rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    width: min(1180px, calc(100% - 4rem));
+  }
+}
+
+.mark {
+  font-family: var(--font-plex), var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan-deep);
+}
+
+.link-line {
+  background-image: linear-gradient(var(--cyan), var(--cyan));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1.5px;
+  transition: background-size 0.18s var(--ease);
+}
+
+.link-line:hover {
+  background-size: 100% 1.5px;
+}
+
+.rule {
+  height: 2px;
+  background: var(--cyan);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise 0.78s var(--ease) forwards;
+  animation-play-state: paused;
+}
+
+.reveal.is-in {
+  animation-play-state: running;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fill-tide {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.tide-draw {
+  animation: fill-tide 0.78s var(--ease) both;
+}
+
+.loading-line {
+  transform-origin: left;
+  animation: draw 0.9s var(--ease) infinite alternate;
+}
+
+@keyframes draw {
+  from {
+    transform: scaleX(0.15);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .tide-draw,
+  .loading-line,
+  .img-zoom img {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+}
+
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 1.4s var(--ease);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.035);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-zoom:hover img {
+    transform: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--foam);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--foam);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan-deep);
+}

@@ -1,789 +1,827 @@
-export type Operation = "venta" | "arriendo";
-export type PropertyType = "casa" | "departamento" | "parcela" | "loft";
-export type Orientation =
-  | "Norte"
-  | "Norte-Oriente"
-  | "Norte-Poniente"
-  | "Oriente"
-  | "Poniente";
+import { formatM2, formatUf, ufPerM2 } from "./utils";
+
+export type PropertyType = "departamento" | "casa";
+export type Orientacion = "N" | "NE" | "NO" | "cruzada";
+export type Status = "disponible" | "reservado";
 
 export type Property = {
   slug: string;
-  title: string;
+  folio: string;
+  name: string;
   type: PropertyType;
-  operation: Operation;
   comuna: string;
   barrio: string;
-  region: string;
-  address: string;
-  priceUF: number;
-  priceNote?: string;
-  m2util: number;
-  m2total?: number;
+  barrioSlug: string;
+  status: Status;
+  uf: number;
+  m2: number;
+  terraza?: number;
+  terreno?: number;
+  piso?: number;
+  pisosEdificio?: number;
   dormitorios: number;
   banos: number;
   estacionamientos: number;
   bodega: boolean;
-  orientacion: Orientation;
-  horaLuz: string;
-  year: number;
-  restored?: number;
-  gastosComunes?: number;
-  featured: boolean;
-  image: string;
-  gallery: string[];
-  excerpt: string;
-  story: string;
-  features: string[];
-  barrioSlug: string;
-};
-
-export type Barrio = {
-  slug: string;
-  name: string;
-  comuna: string;
-  region: string;
-  image: string;
-  kicker: string;
-  lead: string;
-  body: string;
-  north: string;
+  orientacion: Orientacion;
+  orientacionLabel: string;
+  solInvierno: number;
+  solVerano: number;
+  visitaIdeal: string;
+  ano: number;
+  gastosComunes: number;
+  contribuciones: string;
+  dfl2: boolean;
+  metro: string;
+  cafe: string;
+  coords: string;
+  cover: string;
+  gallery: { src: string; alt: string }[];
+  lede: string;
+  body: string[];
+  porQue: string;
+  facts: string[];
+  featured?: boolean;
+  agente: string;
 };
 
 export type Person = {
   slug: string;
   name: string;
   role: string;
+  beat: string;
   image: string;
-  bio: string;
+  email: string;
+  phone: string;
+  bio: string[];
+};
+
+export type Barrio = {
+  slug: string;
+  n: string;
+  name: string;
+  comuna: string;
+  kicker: string;
+  lead: string;
+  image: string;
+  body: string[];
+  notes: { title: string; text: string }[];
+};
+
+export const typeLabel: Record<PropertyType, string> = {
+  departamento: "Departamento",
+  casa: "Casa",
+};
+
+export const statusLabel: Record<Status, string> = {
+  disponible: "En lista",
+  reservado: "Reservado",
+};
+
+export const orientacionLabel: Record<Orientacion, string> = {
+  N: "Norte",
+  NE: "Nororiente",
+  NO: "Norponiente",
+  cruzada: "Luz cruzada",
 };
 
 export const properties: Property[] = [
   {
-    slug: "casa-cerro-alvarado",
-    title: "Casa Cerro Alvarado",
-    type: "casa",
-    operation: "venta",
-    comuna: "Lo Barnechea",
-    barrio: "La Dehesa",
-    region: "Metropolitana",
-    address: "Cerro Alvarado 11890",
-    priceUF: 28400,
-    m2util: 312,
-    m2total: 890,
-    dormitorios: 5,
-    banos: 4,
-    estacionamientos: 3,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "09:20",
-    year: 2018,
-    featured: true,
-    image: "/images/prop-lo-barnechea.jpg",
-    gallery: [
-      "/images/prop-lo-barnechea.jpg",
-      "/images/hero.jpg",
-      "/images/luz.jpg",
-    ],
-    excerpt:
-      "Cinco dormitorios mirando la cordillera. El living se enciende a las nueve y veinte.",
-    story:
-      "La casa se abre al norte y a la cordillera. A las 9:20 el living se pone blanco: no hay lámpara que iguale esa hora. Cinco dormitorios, tres de ellos con vista. El jardín está plantado con especies del valle — no hay pasto inglés que se muera en enero. La piscina está alineada con el cerro. Llegamos un martes de agosto, a esa hora, y nadie habló durante un rato.",
-    features: [
-      "Piscina alineada con la cordillera",
-      "Cocina abierta con isla de piedra",
-      "Suite principal con terraza norte",
-      "Quincho cerrado",
-      "Logia independiente",
-      "Calefacción por losa radiante",
-      "Portón eléctrico y portería de condominio",
-    ],
-    barrioSlug: "lo-barnechea",
-  },
-  {
-    slug: "penthouse-santa-maria",
-    title: "Penthouse Santa María",
+    slug: "conquistadores",
+    folio: "H-044",
+    name: "Los Conquistadores",
     type: "departamento",
-    operation: "venta",
-    comuna: "Vitacura",
-    barrio: "Santa María de Manquehue",
-    region: "Metropolitana",
-    address: "Av. Santa María 6900",
-    priceUF: 19800,
-    m2util: 198,
-    m2total: 262,
-    dormitorios: 3,
-    banos: 3,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte-Oriente",
-    horaLuz: "08:40",
-    year: 2021,
-    gastosComunes: 18,
-    featured: true,
-    image: "/images/prop-vitacura.jpg",
-    gallery: [
-      "/images/prop-vitacura.jpg",
-      "/images/prop-el-golf.jpg",
-      "/images/barrio-vitacura.jpg",
-    ],
-    excerpt:
-      "Terraza de travertino, olivos en maceta y la cordillera a primera hora.",
-    story:
-      "El departamento ocupa el último piso de un edificio bajo. La terraza — sesenta y cuatro metros — está pensada como living: travertino, olivos, una mesa larga. A las 8:40 el sol entra de norte-oriente y el valle se ve nítido. Tres dormitorios en suite. La cocina no se esconde. Gastos comunes serios, administración seria. No es un edificio de amenities: es un edificio de silencio.",
-    features: [
-      "Terraza 64 m² con parrilla a gas",
-      "Tres suites",
-      "Termopanel en todo el perímetro",
-      "Bodega 9 m²",
-      "Dos estacionamientos contiguos",
-      "Bodega de vinos",
-    ],
-    barrioSlug: "vitacura",
-  },
-  {
-    slug: "casa-patio-los-robles",
-    title: "Casa Patio Los Robles",
-    type: "casa",
-    operation: "venta",
-    comuna: "Ñuñoa",
-    barrio: "Plaza Ñuñoa",
-    region: "Metropolitana",
-    address: "Los Robles 148",
-    priceUF: 14600,
-    m2util: 220,
-    m2total: 412,
-    dormitorios: 4,
-    banos: 3,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "11:10",
-    year: 1938,
-    restored: 2022,
-    featured: true,
-    image: "/images/prop-nunoa.jpg",
-    gallery: [
-      "/images/prop-nunoa.jpg",
-      "/images/luz.jpg",
-      "/images/barrio-nunoa.jpg",
-    ],
-    excerpt:
-      "Una republicana con patio de cítricos. Restaurada sin borrar la casa.",
-    story:
-      "La casa es de 1938. El patio — baldosa de greda, naranjos, una fuente baja — es el centro. A las 11:10 el sol llena el cuadrado y huele a azahar en octubre. Se restauró en 2022: instalaciones nuevas, muros de adobe consolidados, ventanas de madera con termopanel. Cuatro dormitorios. La cocina mira al patio. No se tocó la escala original. A dos cuadras de la plaza, sin oírla.",
-    features: [
-      "Patio central con cítricos",
-      "Adobe consolidado",
-      "Cocina nueva mirando al patio",
-      "Piso de lenga original recuperado",
-      "Dos estacionamientos en el fondo",
-      "Bodega de jardín",
-    ],
-    barrioSlug: "nunoa",
-  },
-  {
-    slug: "departamento-lastarria-1927",
-    title: "Departamento Lastarria 1927",
-    type: "departamento",
-    operation: "venta",
-    comuna: "Santiago",
-    barrio: "Lastarria",
-    region: "Metropolitana",
-    address: "José Victorino Lastarria 90",
-    priceUF: 8900,
-    m2util: 112,
-    dormitorios: 2,
-    banos: 2,
-    estacionamientos: 1,
-    bodega: false,
-    orientacion: "Oriente",
-    horaLuz: "16:05",
-    year: 1927,
-    gastosComunes: 6.4,
-    featured: false,
-    image: "/images/prop-lastarria.jpg",
-    gallery: [
-      "/images/prop-lastarria.jpg",
-      "/images/barrio-lastarria.jpg",
-      "/images/luz.jpg",
-    ],
-    excerpt:
-      "Cielos altos, piso original y la luz de la tarde sobre el barrio.",
-    story:
-      "Un departamento de 1927 en un edificio que todavía se porta como edificio. Cielos de 3,40. Molduras. El piso de madera se lijó, no se cambió. A las 16:05 el oriente se pone dorado y Lastarria se oye abajo, lejos. Dos dormitorios, uno en suite. La cocina se renovó sin fingir loft. Un estacionamiento en el mismo predio — raro en el barrio, y se nota en el precio.",
-    features: [
-      "Cielo 3,40 m",
-      "Piso de madera original",
-      "Estacionamiento en el predio",
-      "Edificio con conserje",
-      "A pasos del Parque Forestal",
-    ],
-    barrioSlug: "lastarria",
-  },
-  {
-    slug: "casa-renaca-alta",
-    title: "Casa Reñaca Alta",
-    type: "casa",
-    operation: "venta",
-    comuna: "Viña del Mar",
-    barrio: "Reñaca",
-    region: "Valparaíso",
-    address: "Camino Internacional 3120",
-    priceUF: 22100,
-    m2util: 268,
-    m2total: 540,
-    dormitorios: 4,
-    banos: 4,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte-Poniente",
-    horaLuz: "10:00",
-    year: 2016,
-    featured: true,
-    image: "/images/prop-renaca.jpg",
-    gallery: [
-      "/images/prop-renaca.jpg",
-      "/images/barrio-renaca.jpg",
-      "/images/luz.jpg",
-    ],
-    excerpt:
-      "Volúmenes blancos, terraza al Pacífico y el viento de las diez.",
-    story:
-      "La casa está en Reñaca Alta, donde el mar se ve entero. Volúmenes blancos, hormigón visto, madera. El norte-poniente le da sol de mañana en los dormitorios y la tarde en la terraza. A las 10:00 el Pacífico está plano y la cortina de lino se mueve. Cuatro suites. La piscina no compite con el horizonte: se esconde un metro. Pensada para vivir, no solo para enero.",
-    features: [
-      "Terraza continua al mar",
-      "Cuatro suites",
-      "Piscina desbordante baja",
-      "Cocina de frente al poniente",
-      "Dormitorio de visitas independiente",
-      "Calefacción y aire por zonas",
-    ],
-    barrioSlug: "renaca",
-  },
-  {
-    slug: "casa-lago-llanquihue",
-    title: "Casa Lago Llanquihue",
-    type: "casa",
-    operation: "venta",
-    comuna: "Puerto Varas",
-    barrio: "Orilla del lago",
-    region: "Los Lagos",
-    address: "Camino Ensenada km 4,2",
-    priceUF: 18400,
-    m2util: 240,
-    m2total: 2100,
-    dormitorios: 4,
-    banos: 3,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "17:30",
-    year: 2019,
-    featured: true,
-    image: "/images/prop-puerto-varas.jpg",
-    gallery: [
-      "/images/prop-puerto-varas.jpg",
-      "/images/luz.jpg",
-      "/images/mesa.jpg",
-    ],
-    excerpt:
-      "Madera nativa, el lago quieto y el Osorno al fondo, a las cinco y media.",
-    story:
-      "Una casa de madera y vidrio sobre el Llanquihue. El norte mira al volcán. A las 17:30 — en verano, más tarde — el agua se pone de cobre y la casa se apaga sola. Cuatro dormitorios, uno en planta baja. Estufa de combustión lenta y losa radiante. El terreno tiene bosque nativo al fondo y no se tocó. A doce minutos del pueblo. No es una casa de fin de semana disfrazada: está aislada para el invierno.",
-    features: [
-      "Frente al lago, 2.100 m² de terreno",
-      "Madera nativa y termopanel",
-      "Losa radiante + combustión lenta",
-      "Muelle privado",
-      "Bosque nativo al fondo",
-      "Pozo y respaldo eléctrico",
-    ],
-    barrioSlug: "puerto-varas",
-  },
-  {
-    slug: "departamento-el-golf-228",
-    title: "Departamento El Golf 228",
-    type: "departamento",
-    operation: "venta",
-    comuna: "Las Condes",
-    barrio: "El Golf",
-    region: "Metropolitana",
-    address: "Isidora Goyenechea 2934",
-    priceUF: 12750,
-    m2util: 145,
-    dormitorios: 3,
-    banos: 2,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "09:00",
-    year: 2014,
-    gastosComunes: 12,
-    featured: false,
-    image: "/images/prop-el-golf.jpg",
-    gallery: [
-      "/images/prop-el-golf.jpg",
-      "/images/prop-vitacura.jpg",
-      "/images/barrio-vitacura.jpg",
-    ],
-    excerpt:
-      "Piso alto, norte verdadero y el damero de El Golf a las nueve.",
-    story:
-      "El Golf sigue siendo El Golf cuando el departamento tiene norte de verdad. Este lo tiene. A las 9:00 el living entero se ilumina y no hace falta encender nada hasta las cinco. Tres dormitorios, dos baños, cocina integrada con criterio. El edificio es de 2014, bien llevado. Dos estacionamientos juntos. A dos cuadras de Apoquindo, sin oír Apoquindo.",
-    features: [
-      "Norte despejado, piso 14",
-      "Cocina integrada",
-      "Dos estacionamientos contiguos",
-      "Bodega",
-      "Conserjería 24 h",
-    ],
-    barrioSlug: "vitacura",
-  },
-  {
-    slug: "casa-los-leones-norte",
-    title: "Casa Los Leones Norte",
-    type: "casa",
-    operation: "venta",
     comuna: "Providencia",
     barrio: "Pedro de Valdivia Norte",
-    region: "Metropolitana",
-    address: "Los Conquistadores 2155",
-    priceUF: 16200,
-    m2util: 198,
-    m2total: 380,
-    dormitorios: 4,
+    barrioSlug: "pedro-de-valdivia-norte",
+    status: "disponible",
+    uf: 16800,
+    m2: 156,
+    terraza: 28,
+    piso: 4,
+    pisosEdificio: 6,
+    dormitorios: 3,
     banos: 3,
     estacionamientos: 2,
     bodega: true,
-    orientacion: "Norte",
-    horaLuz: "10:35",
-    year: 1952,
-    restored: 2020,
-    featured: false,
-    image: "/images/prop-providencia.jpg",
+    orientacion: "N",
+    orientacionLabel: "Norte — parque y cordillera",
+    solInvierno: 4.8,
+    solVerano: 8.1,
+    visitaIdeal: "10:15 a 12:00",
+    ano: 2019,
+    gastosComunes: 9.4,
+    contribuciones: "$428.000 el trimestre",
+    dfl2: false,
+    metro: "Pedro de Valdivia · 8 min",
+    cafe: "Café del Cerro · 4 min",
+    coords: "33°25′ S · 70°37′ W",
+    cover: "/images/conquistadores.jpg",
     gallery: [
-      "/images/prop-providencia.jpg",
-      "/images/barrio-providencia.jpg",
-      "/images/fachada.jpg",
+      {
+        src: "/images/conquistadores.jpg",
+        alt: "Edificio bajo de hormigón visto hacia el parque y la cordillera",
+      },
+      {
+        src: "/images/conquistadores-int.jpg",
+        alt: "Estar abierto a la terraza norte, con el parque y los Andes",
+      },
+      {
+        src: "/images/hero.jpg",
+        alt: "Luz de mañana sobre el piso de roble y el ventanal",
+      },
     ],
-    excerpt:
-      "Jardín con árboles grandes, hortensias y una casa de los cincuenta bien restaurada.",
-    story:
-      "Pedro de Valdivia Norte todavía tiene casas con jardín. Esta es de 1952, restaurada en 2020 con respeto: se agrandó la cocina, se tocó lo justo. A las 10:35 el sol entra por el living y llega al fondo del jardín. Cuatro dormitorios. Los árboles son más viejos que la casa y se notan en verano. A una cuadra del río. No es un proyecto: es una casa.",
-    features: [
-      "Jardín con árboles maduros",
-      "Cocina ampliada al norte",
-      "Cuatro dormitorios",
-      "Dos estacionamientos cubiertos",
-      "Cerca del Parque Bicentenario",
+    lede: "Ciento cincuenta y seis metros que no le dan la espalda al cerro. El estar corre al norte; la terraza, también. El parque hace de antejardín.",
+    body: [
+      "Pedro de Valdivia Norte es una comuna dentro de otra: el río abajo, el cerro atrás, la ciudad al otro lado. Este departamento no «tiene vista». Tiene el parque a la altura de la copa de los eucaliptus, y la cordillera cuando el smog se levanta.",
+      "Piso 4 de 6. El estar, el comedor y la cocina se leen como una sola pieza de 62 m² con carpintería de roble y un ventanal que no pide cortina blackout. Tres dormitorios en suite. Los dos de atrás miran al edificio; el principal, al norte.",
+      "Dos estacionamientos juntos en −1 y bodega. El edificio es bajo a propósito: no hay conserjería de hotel ni pileta que nadie usa. Gastos comunes serios, administración al día.",
     ],
-    barrioSlug: "providencia",
+    porQue:
+      "La familia se muda a Valdivia. No hay apuro de precio: hay apuro de fecha. Mandato exclusivo hasta noviembre.",
+    facts: [
+      "Rol de avalúo vigente, sin deuda de contribuciones",
+      "Reglamento de copropiedad de 2019, sin juicios en curso",
+      "La terraza está en el título, no es un uso precario",
+      "Sin letrero en fachada",
+    ],
+    featured: true,
+    agente: "amalia-riesco",
   },
   {
-    slug: "loft-italia-841",
-    title: "Loft Italia 841",
-    type: "loft",
-    operation: "venta",
-    comuna: "Ñuñoa",
-    barrio: "Barrio Italia",
-    region: "Metropolitana",
-    address: "Av. Italia 841",
-    priceUF: 6480,
-    m2util: 89,
-    dormitorios: 1,
-    banos: 1,
+    slug: "suecia",
+    folio: "H-041",
+    name: "Suecia 7",
+    type: "departamento",
+    comuna: "Providencia",
+    barrio: "Suecia",
+    barrioSlug: "ines-de-suarez",
+    status: "disponible",
+    uf: 12400,
+    m2: 118,
+    terraza: 8,
+    piso: 7,
+    pisosEdificio: 9,
+    dormitorios: 3,
+    banos: 2,
     estacionamientos: 1,
-    bodega: false,
-    orientacion: "Poniente",
-    horaLuz: "15:45",
-    year: 2020,
-    gastosComunes: 4.2,
-    featured: false,
-    image: "/images/prop-italia.jpg",
-    gallery: ["/images/prop-italia.jpg", "/images/luz.jpg", "/images/mesa.jpg"],
-    excerpt:
-      "Un solo recinto, un lucernario y la tarde entera sobre la mesa.",
-    story:
-      "No es un departamento recortado: es un recinto. Ladrillo pintado, vigas, un lucernario que a las 15:45 deja la mesa de roble en un cuadrado de sol. Un dormitorio en altillo. Cocina seria. Un estacionamiento. Italia abajo, la casa arriba. Para alguien que trabaja en casa y no quiere un living de catálogo.",
-    features: [
-      "Lucernario",
-      "Altillo dormitorio",
-      "Cocina profesional compacta",
-      "Estacionamiento",
-      "Edificio de ocho lofts",
+    bodega: true,
+    orientacion: "N",
+    orientacionLabel: "Norte — cordillera",
+    solInvierno: 4.4,
+    solVerano: 7.2,
+    visitaIdeal: "10:30 a 12:00",
+    ano: 2011,
+    gastosComunes: 6.8,
+    contribuciones: "$312.000 el trimestre",
+    dfl2: true,
+    metro: "Los Leones · 9 min",
+    cafe: "Colmado · 5 min",
+    coords: "33°25′ S · 70°36′ W",
+    cover: "/images/suecia.jpg",
+    gallery: [
+      {
+        src: "/images/suecia.jpg",
+        alt: "Edificio de hormigón en Suecia, jacarandás y la cordillera al fondo",
+      },
+      {
+        src: "/images/suecia-int.jpg",
+        alt: "Comedor junto al ventanal norte, con la ciudad y el cerro",
+      },
+      {
+        src: "/images/cocina.jpg",
+        alt: "Cocina con sol de mañana sobre el mármol",
+      },
     ],
-    barrioSlug: "nunoa",
+    lede: "Piso 7, ventanal corrido, tres dormitorios. El jacinto de la calle no es un adorno de foto: es noviembre en Providencia.",
+    body: [
+      "Suecia entre Nueva de Lyon y General Holley. El edificio es de 2011, sin pretensión de torre: nueve pisos, un conserje de día, un patio interior que no se usa y un norte que sí.",
+      "Ciento dieciocho metros útiles. El estar-comedor mira al norte y a la cordillera; la cocina se abre a esa misma luz. Tres dormitorios, el tercero sirve de estudio sin mentir. Un baño completo y un baño de visita que alguien llamó «de servicio» en el plano original.",
+      "DFL2. Un estacionamiento. La bodega está en −2, no al lado del auto. Gastos comunes de edificio vivo, no de hotel.",
+    ],
+    porQue:
+      "Se vende porque el dueño se va a un cargo en Antofagasta. Disponible para escritura en 45 días.",
+    facts: [
+      "DFL2 vigente",
+      "Sin hipoteca a la fecha de la ficha",
+      "El piso 8 no vuela sobre esta planta: el retiro es de 4,2 m",
+      "Jacarandás de vereda: la municipalidad no tiene tala programada",
+    ],
+    featured: true,
+    agente: "joaquin-matte",
   },
   {
-    slug: "parcela-el-melocoton",
-    title: "Parcela El Melocotón",
-    type: "parcela",
-    operation: "venta",
-    comuna: "San José de Maipo",
-    barrio: "El Melocotón",
-    region: "Metropolitana",
-    address: "Camino al Volcán s/n",
-    priceUF: 11900,
-    m2util: 148,
-    m2total: 5000,
+    slug: "suarez",
+    folio: "H-036",
+    name: "Plaza Inés de Suárez",
+    type: "departamento",
+    comuna: "Providencia",
+    barrio: "Inés de Suárez",
+    barrioSlug: "ines-de-suarez",
+    status: "disponible",
+    uf: 14900,
+    m2: 142,
+    terraza: 6,
+    piso: 5,
+    pisosEdificio: 6,
     dormitorios: 3,
     banos: 2,
     estacionamientos: 2,
     bodega: true,
-    orientacion: "Norte",
-    horaLuz: "08:15",
-    year: 2015,
-    featured: false,
-    image: "/images/prop-maipo.jpg",
+    orientacion: "N",
+    orientacionLabel: "Norte — plaza",
+    solInvierno: 4.6,
+    solVerano: 7.6,
+    visitaIdeal: "10:00 a 11:45",
+    ano: 1964,
+    gastosComunes: 8.1,
+    contribuciones: "$356.000 el trimestre",
+    dfl2: false,
+    metro: "Manuel Montt · 12 min",
+    cafe: "Panadería Castaño de la plaza · 2 min",
+    coords: "33°25′ S · 70°37′ W",
+    cover: "/images/suarez.jpg",
     gallery: [
-      "/images/prop-maipo.jpg",
-      "/images/luz.jpg",
-      "/images/prop-puerto-varas.jpg",
+      {
+        src: "/images/suarez.jpg",
+        alt: "Edificio blanco de seis pisos frente a la plaza Inés de Suárez",
+      },
+      {
+        src: "/images/suarez-int.jpg",
+        alt: "Living con cortinas de lino y la plaza a través del ventanal",
+      },
+      {
+        src: "/images/oficina.jpg",
+        alt: "Luz de ventana sobre una mesa de trabajo",
+      },
     ],
-    excerpt:
-      "Adobe, terraza al valle y la primera luz del Cajón.",
-    story:
-      "Cinco mil metros en El Melocotón. La casa es de adobe y madera, baja, sin ganas de competir con el cerro. A las 8:15 el valle se enciende y la terraza se usa aunque sea invierno. Tres dormitorios. Pozo propio. El viento de la tarde es parte del trato. A una hora de Santiago, si no hay nieve en el camino. No es un lodge: es una casa de valle.",
-    features: [
-      "5.000 m² de terreno",
-      "Adobe y madera",
-      "Pozo propio",
-      "Terraza continua al valle",
-      "Estufa de combustión lenta",
-      "Acceso todo el año, salvo nieve puntual",
+    lede: "Ciento cuarenta y dos metros de 1964 que nadie ha «abierto». El norte es la plaza. Los árboles hacen de cortina.",
+    body: [
+      "Los edificios que miran Inés de Suárez no se publican todos los meses. Este es de 1964, planta generosa, muros que todavía pesan. El living da a la plaza: en la visita de las 10:30 el sol entra hasta el pasillo.",
+      "Tres dormitorios de verdad, no de plano de marketing. Cocina cerrada — se puede abrir, el cálculo está hecho, no es un encargo de esta mesa. Dos estacionamientos en el mismo edificio, cosa rara en la cuadra.",
+      "El edificio tiene seis pisos y un mayordomo que lleva diecinueve años. Gastos comunes altos para el año de construcción: se nota en el hall y en que el ascensor no es un proyecto.",
     ],
-    barrioSlug: "lo-barnechea",
+    porQue:
+      "Sucesión de tres hermanos. Hay acuerdo. La tasación bancaria ya está; no se pelea el número en la primera visita.",
+    facts: [
+      "Edificio de 1964, sin daños estructurales declarados en el último informe",
+      "La plaza es bien nacional; no hay torre proyectada al frente",
+      "Dos estacionamientos inscritos, no «de uso»",
+      "Piso 5 de 6: no hay terraza de penthouse ni ruido de roof",
+    ],
+    featured: true,
+    agente: "amalia-riesco",
   },
   {
-    slug: "casa-chicureo-lomas",
-    title: "Casa Chicureo Lomas",
-    type: "casa",
-    operation: "venta",
-    comuna: "Colina",
-    barrio: "Chicureo",
-    region: "Metropolitana",
-    address: "Lomas de Chicureo 2210",
-    priceUF: 15800,
-    m2util: 260,
-    m2total: 1050,
-    dormitorios: 4,
-    banos: 3,
-    estacionamientos: 2,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "08:55",
-    year: 2017,
-    featured: false,
-    image: "/images/prop-chicureo.jpg",
-    gallery: [
-      "/images/prop-chicureo.jpg",
-      "/images/prop-lo-barnechea.jpg",
-      "/images/luz.jpg",
-    ],
-    excerpt:
-      "Patio con olivo, muros blancos y el secano de las nueve.",
-    story:
-      "Chicureo cuando está bien hecho: un patio, un olivo, muros que cortan el viento. La casa mira al norte y a las 8:55 el patio ya está caliente. Cuatro dormitorios. Piscina al costado, no al frente. El condominio es de casas, no de torres. Colegios cerca, el cerro más cerca. Pensada para una familia que no quiere el oriente denso.",
-    features: [
-      "Patio central con olivo",
-      "Piscina lateral",
-      "Cuatro dormitorios",
-      "Terreno 1.050 m²",
-      "Condominio de casas",
-      "Colegios a 8 minutos",
-    ],
-    barrioSlug: "lo-barnechea",
-  },
-  {
-    slug: "departamento-plaza-nunoa",
-    title: "Departamento Plaza Ñuñoa",
+    slug: "italia",
+    folio: "H-038",
+    name: "Caupolicán",
     type: "departamento",
-    operation: "arriendo",
-    comuna: "Ñuñoa",
-    barrio: "Plaza Ñuñoa",
-    region: "Metropolitana",
-    address: "Irarrázaval 3470",
-    priceUF: 32,
-    priceNote: "mensual · 11 meses + mes de garantía",
-    m2util: 78,
+    comuna: "Providencia",
+    barrio: "Barrio Italia",
+    barrioSlug: "barrio-italia",
+    status: "disponible",
+    uf: 6850,
+    m2: 78,
+    piso: 3,
+    pisosEdificio: 3,
     dormitorios: 2,
+    banos: 1,
+    estacionamientos: 0,
+    bodega: false,
+    orientacion: "NE",
+    orientacionLabel: "Nororiente",
+    solInvierno: 3.6,
+    solVerano: 6.4,
+    visitaIdeal: "9:45 a 11:30",
+    ano: 1934,
+    gastosComunes: 1.8,
+    contribuciones: "$94.000 el trimestre",
+    dfl2: true,
+    metro: "Irarrázaval · 11 min",
+    cafe: "Café de la casona, Italia 1214 · 3 min",
+    coords: "33°26′ S · 70°37′ W",
+    cover: "/images/italia.jpg",
+    gallery: [
+      {
+        src: "/images/italia.jpg",
+        alt: "Casona de ladrillo en Barrio Italia, con jacarandá en la esquina",
+      },
+      {
+        src: "/images/italia-int.jpg",
+        alt: "Pieza de cielos altos, vanos originales y un sillón al sol",
+      },
+      {
+        src: "/images/lastarria-int.jpg",
+        alt: "Dormitorio con piso de madera y sol de mañana",
+      },
+    ],
+    lede: "Setenta y ocho metros en una casona de 1934. Los vanos miden lo que tenían que medir. El nororiente entra hasta el mediodía.",
+    body: [
+      "Barrio Italia todavía es un barrio, no solo una vitrina. Esta planta es el tercer piso de una casona de ladrillo: no hay ascensor, no hay conserje, no hay estacionamiento. Hay 3,40 m de cielo y ventanas que no se fabrican más.",
+      "Dos dormitorios. El estar y el dormitorio principal miran al nororiente; la cocina, al patio interior. En invierno el sol llega hasta las 12:10. No es un norte puro: está escrito en la ficha, no en letra chica.",
+      "DFL2. Gastos comunes de casa convertida. La copropiedad es de cuatro unidades y se lleva en una libreta, no en una app.",
+    ],
+    porQue:
+      "La dueña se va a vivir al sur. Quiere una venta limpia, no una subasta entre inversionistas de Airbnb.",
+    facts: [
+      "Sin estacionamiento: la calle tiene permiso de residente",
+      "Cielos de 3,40 m, medidos",
+      "El patio interior no es de uso exclusivo",
+      "No acepta uso comercial ni hospedaje transitorio",
+    ],
+    featured: true,
+    agente: "laura-silva",
+  },
+  {
+    slug: "duble",
+    folio: "H-033",
+    name: "Casa Dublé Almeyda",
+    type: "casa",
+    comuna: "Ñuñoa",
+    barrio: "Dublé Almeyda",
+    barrioSlug: "nunoa",
+    status: "disponible",
+    uf: 11200,
+    m2: 148,
+    terreno: 312,
+    dormitorios: 3,
     banos: 2,
     estacionamientos: 1,
-    bodega: true,
-    orientacion: "Norte",
-    horaLuz: "09:50",
-    year: 2018,
-    gastosComunes: 5.8,
-    featured: false,
-    image: "/images/prop-nunoa-depto.jpg",
+    bodega: false,
+    orientacion: "N",
+    orientacionLabel: "Norte — patio",
+    solInvierno: 5.1,
+    solVerano: 8.4,
+    visitaIdeal: "11:00 a 13:00",
+    ano: 1946,
+    gastosComunes: 0,
+    contribuciones: "$186.000 el trimestre",
+    dfl2: true,
+    metro: "Ñuñoa · 14 min",
+    cafe: "Panadería de Dublé con Campo de Deportes · 6 min",
+    coords: "33°27′ S · 70°35′ W",
+    cover: "/images/duble.jpg",
     gallery: [
-      "/images/prop-nunoa-depto.jpg",
-      "/images/barrio-nunoa.jpg",
-      "/images/luz.jpg",
+      {
+        src: "/images/duble.jpg",
+        alt: "Casa de un piso en Ñuñoa, teja y un limonero en el antejardín",
+      },
+      {
+        src: "/images/patio.jpg",
+        alt: "Patio norte con limonero, baldosa de greda y sol de mediodía",
+      },
+      {
+        src: "/images/cocina.jpg",
+        alt: "Cocina con sol sobre el mesón de mármol y un bol de limones",
+      },
     ],
-    excerpt:
-      "Dos dormitorios, norte a la plaza y arriendo con dueño que responde.",
-    story:
-      "Un departamento de 78 m² con norte a la plaza. A las 9:50 el living está claro. Dos dormitorios, dos baños, un estacionamiento, bodega. El edificio es de 2018 y se nota: no hay humedad de pasillo. El arriendo incluye dueño que responde por WhatsApp y un contrato de once meses, renovable. Gastos comunes aparte. No se arrienda amoblado: se arrienda para vivir.",
-    features: [
-      "Norte a la plaza",
-      "Dos baños",
-      "Estacionamiento y bodega",
-      "Sin amoblar",
-      "Contrato 11 meses",
+    lede: "Trescientos doce metros de sitio, patio al norte, limonero plantado. La casa se puede tocar. El solar, no.",
+    body: [
+      "Dublé Almeyda entre Campo de Deportes y Grecia. Una casa de 1946 que no ha sido «intervenida» por un arquitecto de revista: se le cambió el mesón, se le respetó el patio. El estar da al norte; el patio también. En invierno, a las 11:30, el limonero tiene sombra corta.",
+      "Ciento cuarenta y ocho metros útiles, tres dormitorios, un baño y medio que alguien convirtió en dos. Estacionamiento interior para un auto. El vecino oriente es una casa de un piso; el poniente, también. Lo leímos en el plano antes de fotografiar.",
+      "DFL2. Constructibilidad residual: un segundo piso de unos 50 m², no un edificio. Si el encargo es demoler, esta no es la ficha.",
     ],
-    barrioSlug: "nunoa",
-  },
-];
-
-export const barrios: Barrio[] = [
-  {
-    slug: "vitacura",
-    name: "Vitacura",
-    comuna: "Vitacura / Las Condes",
-    region: "Metropolitana",
-    image: "/images/barrio-vitacura.jpg",
-    kicker: "El valle, de frente",
-    lead: "Calles bajas, árboles altos, la cordillera al fondo de cada persiana norte.",
-    body: "Vitacura no es un estilo: es una luz. El aire es más seco, las casas más bajas, el silencio más caro. Trabajamos Santa María, Juan XXIII, el Golf cuando el departamento tiene norte de verdad — no el norte del plano. Aquí se vende despacio y se compra con lupa: gastos comunes, administración, si el edificio mira un cerro o un muro.",
-    north: "El norte aquí vale un piso. Lo medimos a las 9.",
+    porQue:
+      "Los dueños se van a un departamento en Ñuñoa plaza. Quieren vecinos, no una inmobiliaria en la puerta.",
+    facts: [
+      "Frente 9,4 m · fondo 33,2 m, medidos",
+      "Patio norte de 86 m²",
+      "Sin hipotecas ni prohibiciones al 2 de septiembre de 2026",
+      "Plan regulador: zona de vivienda, no de conjuntos",
+    ],
+    agente: "laura-silva",
   },
   {
-    slug: "lo-barnechea",
-    name: "Lo Barnechea",
-    comuna: "Lo Barnechea / Colina",
-    region: "Metropolitana",
-    image: "/images/prop-lo-barnechea.jpg",
-    kicker: "El cerro, cerca",
-    lead: "La Dehesa, Los Trapenses, Chicureo: casas que negocian con el viento y la vista.",
-    body: "Lo Barnechea pide otra conversación. Terreno, orientación, agua, condominio. Una casa puede ser hermosa a las 16 y dura a las 8 si el norte está tapado por el vecino de arriba. Caminamos el predio. Miramos el cerro. Preguntamos por el riego. Chicureo entra cuando el patio está bien resuelto — no cuando el master plan se ve bien en el brochure.",
-    north: "En ladera, el norte se gana o se pierde con un muro.",
-  },
-  {
-    slug: "providencia",
-    name: "Providencia",
-    comuna: "Providencia",
-    region: "Metropolitana",
-    image: "/images/barrio-providencia.jpg",
-    kicker: "Árboles de verdad",
-    lead: "Pedro de Valdivia Norte, Los Leones, el río. Casas que todavía tienen jardín.",
-    body: "Providencia es nuestro barrio. La oficina está en Holanda. Aquí todavía hay casas con árboles más viejos que la escritura, y departamentos en calles que no son avenida. El metro está cerca y no se oye si uno elige bien. Vendemos poco, a gente que quiere caminar. El norte, en una casa de los cincuenta, es un living que no necesita lámpara hasta las cinco.",
-    north: "El plátano oriental hace sombra; el norte tiene que ganarle.",
-  },
-  {
-    slug: "nunoa",
-    name: "Ñuñoa",
-    comuna: "Ñuñoa",
-    region: "Metropolitana",
-    image: "/images/barrio-nunoa.jpg",
-    kicker: "Plaza, patio, jacarandá",
-    lead: "La plaza, Italia, los patios republicanos que todavía no se torres.",
-    body: "Ñuñoa se densificó. Por eso las casas que quedan importan más. Plaza Ñuñoa, Los Robles, Italia: buscamos patios, adobe, árboles, y departamentos con norte que no den a un living ajeno a tres metros. El barrio tiene comercio de verdad y colegios de verdad. El precio se discute; la luz, no.",
-    north: "Un patio norte en Ñuñoa es más raro que un penthouse.",
+    slug: "isidora",
+    folio: "H-029",
+    name: "Isidora 14",
+    type: "departamento",
+    comuna: "Las Condes",
+    barrio: "El Golf",
+    barrioSlug: "el-golf",
+    status: "disponible",
+    uf: 13800,
+    m2: 95,
+    terraza: 7,
+    piso: 14,
+    pisosEdificio: 21,
+    dormitorios: 2,
+    banos: 2,
+    estacionamientos: 2,
+    bodega: true,
+    orientacion: "N",
+    orientacionLabel: "Norte — cordillera",
+    solInvierno: 4.9,
+    solVerano: 8.0,
+    visitaIdeal: "10:00 a 11:30",
+    ano: 2016,
+    gastosComunes: 11.4,
+    contribuciones: "$401.000 el trimestre",
+    dfl2: false,
+    metro: "El Golf · 6 min",
+    cafe: "Café de Isidora con Palacio · 4 min",
+    coords: "33°25′ S · 70°35′ W",
+    cover: "/images/isidora.jpg",
+    gallery: [
+      {
+        src: "/images/isidora.jpg",
+        alt: "Torre de piedra clara en El Golf, con la cordillera al fondo",
+      },
+      {
+        src: "/images/isidora-int.jpg",
+        alt: "Estar blanco con ventanal norte y los Andes nevados",
+      },
+      {
+        src: "/images/suecia-int.jpg",
+        alt: "Comedor junto al vidrio, luz de mañana",
+      },
+    ],
+    lede: "Noventa y cinco metros en el piso 14. El norte es la cordillera, no el edificio de al lado. El Golf, de este lado de Isidora.",
+    body: [
+      "Hay departamentos en El Golf que miran a otra torre y se venden como «sector El Golf». Este mira al norte y al macizo. Piso 14 de 21: lo suficientemente alto para que el Plomo entre en el living, no tanto como para vivir en un hall de hotel.",
+      "Dos dormitorios en suite, cocina cerrada con pasaplatos, terraza de 7 m² que se usa. Dos estacionamientos juntos en −3. Los gastos comunes son los de un edificio de este tipo: se informan, no se esconden detrás del precio en UF.",
+      "No es un penthouse y no se presenta como uno. Es una planta clara, bien resuelta, en una calle que se camina.",
+    ],
+    porQue:
+      "Cambio de comuna, no de país. El dueño compra más cerca del colegio de los niños, en Vitacura.",
+    facts: [
+      "Vista norte despejada: no hay anteproyecto de torre al frente en DOM",
+      "Gastos comunes incluyen agua caliente y calefacción",
+      "Bodega de 6 m² en el mismo piso de estacionamientos",
+      "Administración Welsch, sin deudas del edificio",
+    ],
+    agente: "joaquin-matte",
   },
   {
     slug: "lastarria",
-    name: "Lastarria",
+    folio: "H-027",
+    name: "Lastarria 2",
+    type: "departamento",
     comuna: "Santiago",
-    region: "Metropolitana",
-    image: "/images/barrio-lastarria.jpg",
-    kicker: "Piedra y cielo alto",
-    lead: "Edificios de los veinte, Forestal a dos cuadras, la tarde sobre el empedrado.",
-    body: "Lastarria no es para todo el mundo y no lo disimulamos. Estacionamiento escaso, fiesta el sábado, luz de oriente que a las cuatro es de postal. Si el edificio está bien llevado y el departamento tiene cielo, vale la pena. Si no, hay otros barrios. Publicamos aquí dos o tres veces al año, no más.",
-    north: "Aquí el oriente de la tarde sustituye al norte. Hay que decirlo.",
+    barrio: "Lastarria",
+    barrioSlug: "lastarria",
+    status: "disponible",
+    uf: 5420,
+    m2: 52,
+    piso: 2,
+    pisosEdificio: 3,
+    dormitorios: 1,
+    banos: 1,
+    estacionamientos: 0,
+    bodega: false,
+    orientacion: "NE",
+    orientacionLabel: "Nororiente",
+    solInvierno: 3.2,
+    solVerano: 5.8,
+    visitaIdeal: "9:30 a 11:00",
+    ano: 1928,
+    gastosComunes: 2.1,
+    contribuciones: "$71.000 el trimestre",
+    dfl2: true,
+    metro: "Universidad Católica · 6 min",
+    cafe: "Café del Museo · 3 min",
+    coords: "33°26′ S · 70°38′ W",
+    cover: "/images/lastarria.jpg",
+    gallery: [
+      {
+        src: "/images/lastarria.jpg",
+        alt: "Fachada de dos pisos en Lastarria, postigos verdes y puerta de madera",
+      },
+      {
+        src: "/images/lastarria-int.jpg",
+        alt: "Pieza de cielos altos con sol de mañana sobre el piso de madera",
+      },
+      {
+        src: "/images/italia-int.jpg",
+        alt: "Vanos altos y un sillón al sol",
+      },
+    ],
+    lede: "Cincuenta y dos metros, un dormitorio, cielos que no se vuelven a hacer. El nororiente entra hasta las 11:40. No es un norte puro: lo decimos aquí.",
+    body: [
+      "Lastarria se vende como postal. Esta planta no es un loft de revista: es un departamento de 1928, un dormitorio, cocina al patio de luz. El vano principal mira al nororiente. En invierno el sol entra hasta las 11:40. Si el encargo es «norte todo el día», esta ficha no calza — y por eso está escrita así.",
+      "Piso 2 de 3, sin ascensor. El edificio tiene seis unidades y una copropiedad que se junta de verdad. DFL2. No hay estacionamiento; el barrio se camina o se usa el metro.",
+      "Sirve para quien vive en el centro y no quiere un estudio de 28 m² con un ventanal al sur. No sirve para inversionista de fines de semana: el reglamento lo prohíbe y esta mesa tampoco lo presenta para eso.",
+    ],
+    porQue:
+      "El dueño se casa y se muda a Ñuñoa. Quiere una venta a alguien que viva, no a un fondo.",
+    facts: [
+      "Nororiente, no norte: 3,2 horas de sol en el solsticio de invierno",
+      "Sin estacionamiento",
+      "Prohibido hospedaje transitorio en el reglamento",
+      "El patio de luz no es de uso exclusivo",
+    ],
+    agente: "diego-urrejola",
   },
   {
-    slug: "renaca",
-    name: "Reñaca",
-    comuna: "Viña del Mar",
-    region: "Valparaíso",
-    image: "/images/barrio-renaca.jpg",
-    kicker: "El Pacífico, entero",
-    lead: "Reñaca Alta, Cochoa, el viento, las casas que se usan en julio.",
-    body: "La costa se vende mal cuando se fotografía solo en enero. Nosotros vamos en agosto. Reñaca Alta tiene vista y viento; Cochoa, otra luz. Preguntamos si la casa se calienta, si el fierro del balcón está bien, si el condominio funciona en invierno. Una casa de mar que no se puede habitar en junio no es una casa.",
-    north: "Norte-poniente: sol de mañana en la cama, tarde en la terraza.",
-  },
-  {
-    slug: "puerto-varas",
-    name: "Puerto Varas",
-    comuna: "Puerto Varas",
-    region: "Los Lagos",
-    image: "/images/prop-puerto-varas.jpg",
-    kicker: "Lago y volcán",
-    lead: "Orilla, bosque nativo, casas aisladas para el invierno — no solo para el verano.",
-    body: "Puerto Varas se llenó de casas de revista. Las que nos interesan están aisladas de verdad, tienen pozo o red seria, y un norte que mira el lago o el Osorno. El invierno es el test. Si la casa se siente bien un martes de julio a las cinco de la tarde, se puede publicar.",
-    north: "El norte aquí es el volcán. El resto es paisaje.",
+    slug: "locontador",
+    folio: "H-022",
+    name: "Casa Lo Contador",
+    type: "casa",
+    comuna: "Providencia",
+    barrio: "Lo Contador",
+    barrioSlug: "pedro-de-valdivia-norte",
+    status: "reservado",
+    uf: 9850,
+    m2: 168,
+    terreno: 240,
+    dormitorios: 3,
+    banos: 2,
+    estacionamientos: 1,
+    bodega: false,
+    orientacion: "N",
+    orientacionLabel: "Norte — corredor",
+    solInvierno: 4.7,
+    solVerano: 7.9,
+    visitaIdeal: "11:00 a 12:30",
+    ano: 1912,
+    gastosComunes: 0,
+    contribuciones: "$154.000 el trimestre",
+    dfl2: true,
+    metro: "Salvador · 18 min · bus 2N en la esquina",
+    cafe: "Café de la Escuela de Arquitectura · 7 min",
+    coords: "33°25′ S · 70°38′ W",
+    cover: "/images/locontador.jpg",
+    gallery: [
+      {
+        src: "/images/locontador.jpg",
+        alt: "Casa de adobe y teja en Lo Contador, corredor norte con naranjo",
+      },
+      {
+        src: "/images/patio.jpg",
+        alt: "Patio interior con limonero y sol",
+      },
+      {
+        src: "/images/cocina.jpg",
+        alt: "Cocina clara con sol de mañana",
+      },
+    ],
+    lede: "Adobe, teja, un corredor que mira al norte. Lo Contador todavía es un pueblo pegado a Providencia. Reservada: queda en la lista para quien pregunte.",
+    body: [
+      "Una casa de 1912 en la calle que le da el nombre al barrio. El corredor da al norte; el naranjo está plantado donde tiene que estar. Los muros de adobe se leyeron con un calculista antes de publicarla: no es un proyecto de demolición disfrazado de «casona con potencial».",
+      "Ciento sesenta y ocho metros, tres dormitorios, un patio que no es residual. El plan regulador de Providencia protege la trama. Quien compre para levantar un edificio de seis pisos va a perder el tiempo — y esta mesa no toma ese encargo.",
+      "DFL2. Un auto entra al costado. La Escuela de Arquitectura de la UC queda a siete minutos: el barrio tiene estudiantes, no nightlife de Bellavista.",
+    ],
+    porQue:
+      "Reservada por un encargo en curso. Si se cae, vuelve a lista con aviso a quienes escribieron.",
+    facts: [
+      "Inmueble de conservación, no monumento",
+      "Adobe revisado, informe de 2025 disponible en la visita",
+      "Sitio de 240 m², frente 8,1 m",
+      "No se presenta a inmobiliarias ni a fondos",
+    ],
+    agente: "diego-urrejola",
   },
 ];
 
 export const team: Person[] = [
   {
-    slug: "emilia-claro",
-    name: "Emilia Claro",
-    role: "Fundadora · corredora",
-    image: "/images/team-emilia.jpg",
-    bio: "Fundó Claro en 2014, después de diez años vendiendo casas que no habría habitado. Hoy decide qué se publica. Si una casa no tiene norte, no entra. Vive en Providencia, a seis cuadras de la oficina.",
+    slug: "amalia-riesco",
+    name: "Amalia Riesco",
+    role: "Socia",
+    beat: "Criterio y lista",
+    image: "/images/amalia.jpg",
+    email: "amalia@helio.cl",
+    phone: "+56 9 7762 1088",
+    bio: [
+      "Fundó HELIO en 2018, después de ocho años en una corredora que publicaba de todo. El filtro del norte no es un eslogan: es la forma de no volver a vender un departamento que en junio se enciende a las 17:00.",
+      "Toma los encargos de Pedro de Valdivia Norte y de las plantas que no calzan en una ficha corta. Si una propiedad no entra a la lista, la llama ella.",
+    ],
   },
   {
-    slug: "tomas-valdes",
-    name: "Tomás Valdés",
-    role: "Socio · oriente y cerro",
-    image: "/images/team-tomas.jpg",
-    bio: "Vitacura, Lo Barnechea, Chicureo. Ingeniero comercial reconvertido. Mide la luz con el reloj, no con el plano. Lleva las casas grandes y las conversaciones largas.",
+    slug: "joaquin-matte",
+    name: "Joaquín Matte",
+    role: "Corredor",
+    beat: "Providencia oriente y Las Condes",
+    image: "/images/joaquin.jpg",
+    email: "joaquin@helio.cl",
+    phone: "+56 9 7614 2203",
+    bio: [
+      "Suecia, El Golf, Isidora, Nueva Costanera baja. Joaquín lee un edificio por el retiro, no por el hall. Antes de fotografiar, pide el plano de copropiedad y marca el norte en el living.",
+      "Trabaja con crédito hipotecario de verdad: no promete un pie que el banco no va a tomar.",
+    ],
   },
   {
-    slug: "isidora-pena",
-    name: "Isidora Peña",
-    role: "Departamentos y barrios",
-    image: "/images/team-isidora.jpg",
-    bio: "Ñuñoa, Providencia, Lastarria, El Golf. Arquitecta de formación. Lee un edificio en diez minutos: administración, ruidos, si el norte es norte. Escribe las fichas.",
+    slug: "laura-silva",
+    name: "Laura Silva",
+    role: "Corredora",
+    beat: "Ñuñoa y Barrio Italia",
+    image: "/images/laura.jpg",
+    email: "laura@helio.cl",
+    phone: "+56 9 7988 4412",
+    bio: [
+      "Ñuñoa de casas, Italia de casonas, los bordes donde Providencia todavía no se come la cuadra. Laura mide el patio con huincha, no con el ojo del portal.",
+      "Si el encargo es una casa en sitio, la visita es al mediodía. El limonero no miente.",
+    ],
   },
   {
-    slug: "mateo-rojas",
-    name: "Mateo Rojas",
-    role: "Costa y sur",
-    image: "/images/team-mateo.jpg",
-    bio: "Reñaca, Puerto Varas, el Cajón. Pasa la mitad del mes fuera de Santiago. Fotografía a la hora que dice la ficha, aunque llueva. No publica una casa de mar fotografiada solo en enero.",
-  },
-  {
-    slug: "antonia-vidal",
-    name: "Antonia Vidal",
-    role: "Primeras visitas",
-    image: "/images/team-antonia.jpg",
-    bio: "Recibe en Holanda 1427. Agenda las visitas a la hora de la luz, no a la hora del cliente — y explica por qué. Si escribe, responde el mismo día.",
+    slug: "diego-urrejola",
+    name: "Diego Urrejola",
+    role: "Luz y plano",
+    beat: "Orientación, títulos, DOM",
+    image: "/images/diego.jpg",
+    email: "diego@helio.cl",
+    phone: "+56 9 7540 1190",
+    bio: [
+      "Arquitecto de formación, corredor por oficio. Diego no vende: comprueba. Cada ficha de HELIO tiene una hora de sol de invierno medida en terreno, no estimada por la app del teléfono.",
+      "Lee el plan regulador, el rol, las prohibiciones y el reglamento de copropiedad antes de que la planta llegue a la web.",
+    ],
   },
 ];
 
-export const steps = [
+export const barrios: Barrio[] = [
   {
+    slug: "pedro-de-valdivia-norte",
     n: "01",
-    title: "Caminamos a las 9 y a las 17",
-    text: "Una casa miente a mediodía. Vamos temprano y al atardecer. Si el norte no es norte, se lo decimos al dueño antes de firmar el mandato.",
+    name: "Pedro de Valdivia Norte",
+    comuna: "Providencia",
+    kicker: "El cerro hace de muralla",
+    lead: "El río abajo, el parque al medio, la cordillera cuando se deja. Aquí el norte no es un lujo: es la ladera.",
+    image: "/images/conquistadores.jpg",
+    body: [
+      "Pedro de Valdivia Norte no se parece al resto de Providencia. El tráfico se queda al otro lado del Mapocho. Los edificios son más bajos, los árboles más altos, y el sol de mañana entra sin pedirle permiso a una torre de veinte pisos.",
+      "HELIO trabaja Los Conquistadores, El Cerro, Santa María y las calles que suben al Parque Metropolitano. Un departamento aquí se compra por la planta y por lo que no se construye al frente.",
+    ],
+    notes: [
+      {
+        title: "Caminar",
+        text: "Metro Pedro de Valdivia a 8–14 min, según la cuadra. El cerro se sube; no se usa de postal.",
+      },
+      {
+        title: "La luz",
+        text: "La ladera mira al norte y al valle. Un piso bajo con árboles densos puede perder el invierno: lo medimos.",
+      },
+      {
+        title: "El riesgo",
+        text: "No todo lo que dice «vista al cerro» recibe sol. Hay plantas que miran al sur del parque y se venden como las otras.",
+      },
+    ],
   },
   {
+    slug: "ines-de-suarez",
     n: "02",
-    title: "Publicamos poco",
-    text: "No tenemos vitrina infinita. Si la casa no entra, no entra. Preferimos diez mandatos serios a cuarenta avisos apagados.",
+    name: "Inés de Suárez",
+    comuna: "Providencia",
+    kicker: "La plaza como antejardín",
+    lead: "Suecia, El Cerro bajo, la plaza. Edificios de los sesenta y plantas que todavía miden metros de verdad.",
+    image: "/images/suarez.jpg",
+    body: [
+      "La plaza Inés de Suárez organiza el barrio. Los edificios que la miran tienen una condición que no se compra en una torre nueva: el frente no se va a llenar de retail. El norte, aquí, es césped y tipas.",
+      "Trabajamos también Suecia y las calles entre Manuel Montt y Pedro de Valdivia, donde el edificio de nueve pisos todavía es un vecino, no un horizonte.",
+    ],
+    notes: [
+      {
+        title: "Caminar",
+        text: "Los Leones y Manuel Montt. La plaza se usa: perros, feria de domingo, niños a las seis.",
+      },
+      {
+        title: "La luz",
+        text: "Un quinto piso al norte de la plaza rinde más que un décimo mirando a otro décimo.",
+      },
+      {
+        title: "El riesgo",
+        text: "Gastos comunes de edificios antiguos bien llevados. Preguntamos la deuda, no el «ambiente».",
+      },
+    ],
   },
   {
+    slug: "barrio-italia",
     n: "03",
-    title: "La foto es a la hora verdadera",
-    text: "Cada ficha trae su hora de luz. Fotografiamos entonces. El aviso no es un catálogo de interiores: es la casa a la hora en que se entiende.",
+    name: "Barrio Italia",
+    comuna: "Providencia / Ñuñoa",
+    kicker: "Casonas, no vitrinas",
+    lead: "Caupolicán, Italia, Condell. Vanos altos, copropiedades chicas, un nororiente que hay que ir a ver a las diez.",
+    image: "/images/italia.jpg",
+    body: [
+      "Italia se volvió un destino. HELIO no vende el destino: vende la planta que todavía se vive. Casonas de los treinta partidas en tres o cuatro departamentos, cielos de más de tres metros, un patio que no es de nadie y por eso es de todos.",
+      "El filtro es el mismo. Si el vano principal mira al sur, por más ladrillo y más jacarandá, no entra.",
+    ],
+    notes: [
+      {
+        title: "Caminar",
+        text: "Irarrázaval y Santa Isabel. El barrio se recorre a pie; el auto es un problema, no un dato.",
+      },
+      {
+        title: "La luz",
+        text: "Muchas plantas son nororiente, no norte. La ficha lo dice. La visita, a la mañana.",
+      },
+      {
+        title: "El riesgo",
+        text: "Airbnb y local comercial. Leemos el reglamento antes de agendar.",
+      },
+    ],
   },
   {
+    slug: "nunoa",
     n: "04",
-    title: "Menos visitas, más serias",
-    text: "No abrimos la casa un domingo para que pasen treinta personas. Agendamos. Acompañamos. Si alguien no calza, no va.",
+    name: "Ñuñoa",
+    comuna: "Ñuñoa",
+    kicker: "El patio es el programa",
+    lead: "Dublé, Grecia baja, Plaza Ñuñoa. Casas en sitio donde el norte se mide en el limonero, no en el living.",
+    image: "/images/nunoa.jpg",
+    body: [
+      "Ñuñoa todavía tiene cuadras de un piso. Esa es la condición que buscamos: un solar donde el patio mira al norte y el vecino no es una torre. Dublé Almeyda, Campo de Deportes, las calles entre Irarrázaval y Grecia.",
+      "Una casa aquí no se presenta como «terreno». Se presenta como casa. Si el encargo es densificar, hay otras mesas.",
+    ],
+    notes: [
+      {
+        title: "Caminar",
+        text: "Metro Ñuñoa y Plaza Ñuñoa. La feria de Dublé es un dato, no un souvenir.",
+      },
+      {
+        title: "La luz",
+        text: "El patio norte en invierno es la prueba. Visitamos entre 11:00 y 13:00.",
+      },
+      {
+        title: "El riesgo",
+        text: "Plan regulador y constructibilidad residual. Lo leemos antes de la foto.",
+      },
+    ],
+  },
+  {
+    slug: "el-golf",
+    n: "05",
+    name: "El Golf",
+    comuna: "Las Condes",
+    kicker: "La cordillera, no el hall",
+    lead: "Isidora, El Golf, el borde que todavía mira al macizo. Plantas claras en edificios que no necesitan presentarse.",
+    image: "/images/isidora.jpg",
+    body: [
+      "El Golf se vende solo. Por eso HELIO publica poco. Un departamento entra si el norte está despejado — la cordillera, no la torre de enfrente — y si los gastos comunes se pueden decir en voz alta.",
+      "No tomamos penthouses de presentación privada ni mandatos que no se puedan escribir. Isidora se camina. El metro está. El resto es la planta.",
+    ],
+    notes: [
+      {
+        title: "Caminar",
+        text: "Metro El Golf y Tobalaba. La vereda de Isidora es el barrio.",
+      },
+      {
+        title: "La luz",
+        text: "Piso alto no es sinónimo de norte. Hay plantas al poniente que se tuestan a las 16:00.",
+      },
+      {
+        title: "El riesgo",
+        text: "Gastos comunes de edificio full service. Van en la ficha, en UF, todos los meses.",
+      },
+    ],
   },
 ];
-
-export const principles = [
-  {
-    title: "El norte no se negocia",
-    text: "En Chile el sol está al norte. Un living al sur es otra casa, otro precio, otra vida. Lo decimos en la primera línea.",
-  },
-  {
-    title: "El silencio es un metro más",
-    text: "Medimos distancia a la avenida, al colegio, al mall. Una casa hermosa sobre un eje no es una casa hermosa.",
-  },
-  {
-    title: "Honorarios por escrito",
-    text: "2% + IVA en la venta. En el arriendo, un mes + IVA. Antes de firmar el mandato, el número está en el papel.",
-  },
-  {
-    title: "Si no es nuestro, se lo decimos",
-    text: "No tomamos lo que no sabemos vender. Hay colegas para eso. Se lo diremos en la primera conversación.",
-  },
-];
-
-export const stats = [
-  { value: "12", label: "años en la misma casa" },
-  { value: "40", label: "propiedades al año, no más" },
-  { value: "87%", label: "vendidas antes de 90 días" },
-  { value: "9:20", label: "la hora que más repetimos" },
-];
-
-export const testimonials = [
-  {
-    quote:
-      "Emilia nos dijo que el departamento de Santa María no tenía norte de verdad, aunque el plano lo decía. Fuimos a las 10 de la mañana. Tenía razón. Después encontramos este.",
-    name: "Javiera y Andrés M.",
-    place: "Vitacura · 2024",
-  },
-  {
-    quote:
-      "Vendimos la casa de Ñuñoa en seis semanas. No hicieron open house. Vinieron ocho personas, tres ofertas. La que ganó había ido a las 11, como decía la ficha.",
-    name: "Rosa H.",
-    place: "Ñuñoa · 2025",
-  },
-  {
-    quote:
-      "Mateo fotografió la casa de Reñaca un martes de agosto, con viento. El aviso se veía menos lindo y se vendió más rápido. Nadie llegó a quejarse del viento.",
-    name: "Familia Oyarzún",
-    place: "Reñaca · 2025",
-  },
-];
-
-export const faqs = [
-  {
-    q: "¿Cobran por tasar o por la primera visita?",
-    a: "La primera conversación y la visita a la casa — a la hora de la luz — no tienen costo. Si tomamos el mandato, el honorario es 2% + IVA sobre el precio de escritura, pagadero al cierre. En arriendo, un mes de renta + IVA.",
-  },
-  {
-    q: "¿Trabajan con crédito hipotecario?",
-    a: "Sí. Coordinamos con el banco del comprador, el estudio de títulos y el conservador. No somos el banco: somos la mesa donde las partes no se pierden.",
-  },
-  {
-    q: "¿Por qué tan pocas propiedades?",
-    a: "Porque cada casa se camina dos veces, se fotografía a una hora precisa y se muestra con cita. Eso no escala a doscientas fichas. No queremos que escale.",
-  },
-  {
-    q: "¿Van a Viña y al sur?",
-    a: "Reñaca, Puerto Varas y el Cajón del Maipo, cuando la casa se puede habitar de verdad — no solo fotografiar en enero. Mateo lleva esas visitas.",
-  },
-  {
-    q: "¿Qué pasa si mi casa da al sur?",
-    a: "Se lo decimos. A veces hay un patio, un segundo piso, un precio que lo hace sentido. A veces conviene otro corredor. No publicamos un sur como si fuera norte.",
-  },
-];
-
-export const typeLabel: Record<PropertyType, string> = {
-  casa: "Casa",
-  departamento: "Departamento",
-  parcela: "Parcela",
-  loft: "Loft",
-};
-
-export const operationLabel: Record<Operation, string> = {
-  venta: "Venta",
-  arriendo: "Arriendo",
-};
 
 export function getProperty(slug: string) {
   return properties.find((item) => item.slug === slug);
+}
+
+export function getPerson(slug: string) {
+  return team.find((item) => item.slug === slug);
 }
 
 export function getBarrio(slug: string) {
   return barrios.find((item) => item.slug === slug);
 }
 
-export function propertiesInBarrio(slug: string) {
-  return properties.filter((item) => item.barrioSlug === slug);
-}
-
-export function similarProperties(slug: string, limit = 3) {
+export function similarTo(slug: string, count = 3) {
   const current = getProperty(slug);
-  if (!current) return properties.slice(0, limit);
+  if (!current) return [];
   return properties
-    .filter(
-      (item) =>
-        item.slug !== slug &&
-        (item.barrioSlug === current.barrioSlug || item.type === current.type)
-    )
-    .slice(0, limit);
+    .filter((item) => item.slug !== slug)
+    .sort((a, b) => {
+      const sameBarrio =
+        Number(b.barrioSlug === current.barrioSlug) -
+        Number(a.barrioSlug === current.barrioSlug);
+      if (sameBarrio) return sameBarrio;
+      return Math.abs(a.uf - current.uf) - Math.abs(b.uf - current.uf);
+    })
+    .slice(0, count);
 }
 
-export const comunas = Array.from(
-  new Set(properties.map((item) => item.comuna))
-).sort((a, b) => a.localeCompare(b, "es"));
+export function specList(p: Property) {
+  return [
+    { label: "Valor", value: `UF ${formatUf(p.uf)}` },
+    { label: "Útiles", value: formatM2(p.m2) },
+    { label: "Orientación", value: p.orientacionLabel },
+    { label: "Sol en invierno", value: `${p.solInvierno.toString().replace(".", ",")} h` },
+    {
+      label: p.type === "casa" ? "Terreno" : "Piso",
+      value: p.terreno
+        ? formatM2(p.terreno)
+        : p.piso
+          ? `${p.piso} de ${p.pisosEdificio}`
+          : "—",
+    },
+    { label: "Dormitorios", value: String(p.dormitorios) },
+    { label: "Baños", value: String(p.banos) },
+    {
+      label: "Estacionamiento",
+      value: p.estacionamientos ? String(p.estacionamientos) : "No",
+    },
+    {
+      label: "Gastos comunes",
+      value: p.gastosComunes ? `UF ${p.gastosComunes.toString().replace(".", ",")}` : "No aplica",
+    },
+    { label: "UF / m²", value: formatUf(ufPerM2(p.uf, p.m2)) },
+    { label: "Visita de sol", value: p.visitaIdeal },
+    { label: "Año", value: String(p.ano) },
+  ];
+}
+
+export const comunas = [...new Set(properties.map((p) => p.comuna))];
