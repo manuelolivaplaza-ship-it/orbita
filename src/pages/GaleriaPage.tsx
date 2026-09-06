@@ -1,75 +1,166 @@
-import { useMemo, type ReactNode } from 'react';
-import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { useMemo, useState, type ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Search, X } from 'lucide-react';
 import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
-import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function GaleriaPage() {
-  const { onOpenQuoteModal } = useOutletContext<LayoutOutletContext>();
   const [params, setParams] = useSearchParams();
-  const selected = params.get('sector') ?? 'todas';
+  const selectedSector = params.get('sector') ?? 'todas';
+  const selectedStyle = params.get('estilo') ?? 'todos';
+  const [query, setQuery] = useState(params.get('q') ?? '');
 
   const counts = useMemo(() => {
     const map = new Map<string, number>();
-    for (const entry of catalogo) map.set(entry.sector, (map.get(entry.sector) ?? 0) + 1);
+    for (const entry of catalogo) {
+      map.set(entry.sector, (map.get(entry.sector) ?? 0) + 1);
+    }
     return map;
   }, []);
 
   const conocidos = useMemo(() => SECTORES.filter((s) => (counts.get(s.slug) ?? 0) > 0), [counts]);
-  const extras = useMemo(
-    () => catalogo.filter((e) => !getSector(e.sector)),
-    [],
-  );
 
-  const setSector = (slug: string) => {
-    const next = new URLSearchParams();
-    if (slug !== 'todas') next.set('sector', slug);
+  const updateParam = (key: string, val: string) => {
+    const next = new URLSearchParams(params);
+    if (!val || val === 'todas' || val === 'todos') {
+      next.delete(key);
+    } else {
+      next.set(key, val);
+    }
     setParams(next, { replace: true });
   };
 
-  const filtered = selected === 'todas' ? null : catalogo.filter((e) => e.sector === selected);
-  const selectedInfo = selected === 'todas' ? null : getSector(selected);
+  const handleQueryChange = (q: string) => {
+    setQuery(q);
+    const next = new URLSearchParams(params);
+    if (q.trim()) next.set('q', q.trim());
+    else next.delete('q');
+    setParams(next, { replace: true });
+  };
+
+  const clearAllFilters = () => {
+    setQuery('');
+    setParams(new URLSearchParams(), { replace: true });
+  };
+
+  const filtered = useMemo(() => {
+    const qLower = query.trim().toLowerCase();
+    return catalogo.filter((entry) => {
+      if (selectedSector !== 'todas' && entry.sector !== selectedSector) return false;
+      if (selectedStyle === 'claro' && !entry.variant.includes('claro')) return false;
+      if (selectedStyle === 'oscuro' && !entry.variant.includes('oscuro')) return false;
+      if (qLower) {
+        const sectorObj = getSector(entry.sector);
+        const matchBrand = entry.brand.toLowerCase().includes(qLower);
+        const matchTitle = entry.title.toLowerCase().includes(qLower);
+        const matchSector = (sectorObj?.label ?? entry.sector).toLowerCase().includes(qLower);
+        const matchDesc = (entry.description ?? '').toLowerCase().includes(qLower);
+        if (!matchBrand && !matchTitle && !matchSector && !matchDesc) return false;
+      }
+      return true;
+    });
+  }, [selectedSector, selectedStyle, query]);
 
   return (
     <>
       <PageMeta
-        title="Galería de propuestas | Reclu"
-        description="Explora propuestas web listas por sector: dental, legal, arquitectura, inmobiliaria y más. Recorre cada sitio en vivo y elige una dirección de diseño."
+        title="Propuestas | Reclu"
+        description="Explora propuestas web listas por sector en Reclu. Sitios en vivo para recorrer y elegir."
       />
 
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-10 sm:pb-14">
+      {/* 1. BARRA SUPERIOR COMPACTA */}
+      <section className="relative z-10 px-4 sm:px-6 pt-24 sm:pt-28 pb-4">
         <div className="max-w-[88rem] mx-auto">
-          <div className="max-w-3xl">
-            <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
-              Galería de propuestas
-            </p>
-            <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-[#0B0B12] leading-[0.95] mb-6"
-              style={{ letterSpacing: '-0.045em' }}
-            >
-              Diseños listos para tu sector.
-            </h1>
-            <p className="text-zinc-600 text-lg sm:text-xl max-w-2xl leading-relaxed">
-              {catalogo.length} propuestas que puedes recorrer ahora mismo, en vivo. Elige un rubro,
-              entra a un sitio y navega como lo haría tu cliente: la que te guste, la adaptamos a tu
-              marca.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0B0B12]">
+                Propuestas
+              </h1>
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-200/80 text-zinc-700">
+                {filtered.length} {filtered.length === 1 ? 'sitio' : 'sitios'}
+              </span>
+            </div>
+
+            {/* Búsqueda y Selector de estilo */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="relative flex-1 sm:w-64">
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => handleQueryChange(e.target.value)}
+                  placeholder="Buscar por rubro o nombre..."
+                  className="w-full bg-white border border-zinc-200/90 rounded-full pl-9 pr-8 py-1.5 text-xs sm:text-sm text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:border-zinc-500 shadow-2xs transition-all"
+                />
+                {query && (
+                  <button
+                    onClick={() => handleQueryChange('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-0.5"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Selector de estilo */}
+              <div className="inline-flex items-center p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-xs font-medium">
+                <button
+                  type="button"
+                  onClick={() => updateParam('estilo', 'todos')}
+                  className={`px-3 py-1 rounded-full transition-all ${
+                    selectedStyle === 'todos'
+                      ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
+                      : 'text-zinc-500 hover:text-zinc-800'
+                  }`}
+                >
+                  Todos
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateParam('estilo', 'claro')}
+                  className={`px-3 py-1 rounded-full transition-all ${
+                    selectedStyle === 'claro'
+                      ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
+                      : 'text-zinc-500 hover:text-zinc-800'
+                  }`}
+                >
+                  Claro
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateParam('estilo', 'oscuro')}
+                  className={`px-3 py-1 rounded-full transition-all ${
+                    selectedStyle === 'oscuro'
+                      ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
+                      : 'text-zinc-500 hover:text-zinc-800'
+                  }`}
+                >
+                  Oscuro
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Filtros por sector */}
-      <section className="relative z-20 px-6">
-        <div className="max-w-[88rem] mx-auto sticky top-20 sm:top-24 z-30 -mx-2 px-2 py-2">
-          <div className="glass-light rounded-full inline-flex flex-wrap items-center gap-1.5 px-2.5 py-2 shadow-[0_10px_35px_-15px_rgba(15,15,40,0.25)] max-w-full">
-            <FilterChip active={selected === 'todas'} onClick={() => setSector('todas')}>
+      {/* 2. OPCIONES / FILTROS DE SECTOR (STICKY) */}
+      <section className="relative z-20 px-4 sm:px-6 sticky top-[4.25rem] sm:top-20 py-2">
+        <div className="max-w-[88rem] mx-auto">
+          <div className="glass-light rounded-2xl sm:rounded-full p-1.5 shadow-[0_8px_30px_-12px_rgba(15,15,40,0.18)] overflow-x-auto no-scrollbar flex items-center gap-1.5">
+            <FilterChip
+              active={selectedSector === 'todas'}
+              onClick={() => updateParam('sector', 'todas')}
+            >
               Todas · {catalogo.length}
             </FilterChip>
             {conocidos.map((s) => (
-              <FilterChip key={s.slug} active={selected === s.slug} onClick={() => setSector(s.slug)}>
+              <FilterChip
+                key={s.slug}
+                active={selectedSector === s.slug}
+                onClick={() => updateParam('sector', s.slug)}
+              >
                 {s.label} · {counts.get(s.slug)}
               </FilterChip>
             ))}
@@ -77,132 +168,37 @@ export default function GaleriaPage() {
         </div>
       </section>
 
-      {filtered ? (
-        <section className="relative z-10 px-6 pt-10 pb-24 sm:pb-28">
-          <div className="max-w-[88rem] mx-auto">
-            {filtered.length > 0 ? (
-              <div key={selected} className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
-                {filtered.map((entry, i) => (
-                  <PropuestaCard key={entry.slug} {...entry} index={i} variantProp={i === 0 ? 'wide' : 'default'} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-3xl border border-zinc-200/80 bg-white px-8 py-16 text-center">
-                <h2 className="text-2xl font-medium tracking-tight text-[#0B0B12] mb-2">
-                  Todavía no hay propuestas de {selectedInfo?.label ?? 'este sector'}.
-                </h2>
-                <p className="text-sm text-zinc-600 max-w-md mx-auto mb-6">
-                  Podemos preparar una dirección de diseño a medida para tu rubro.
-                </p>
-                <button
-                  onClick={() => onOpenQuoteModal()}
-                  className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-sm font-medium px-6 py-3 rounded-full hover:bg-zinc-800 transition-colors"
-                >
-                  Pedir propuesta
-                  <ArrowRight className="w-4 h-4 text-zinc-300" />
-                </button>
-              </div>
-            )}
-          </div>
-        </section>
-      ) : (
-        <section className="relative z-10 px-6 pt-12 pb-24 sm:pb-28">
-          <div className="max-w-[88rem] mx-auto space-y-16 sm:space-y-20">
-            {conocidos.map((sector) => {
-              const entries = catalogo.filter((e) => e.sector === sector.slug);
-              const Icon = sector.icon;
-              return (
-                <div key={sector.slug}>
-                  <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-3.5">
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center border border-zinc-200/80 bg-white shadow-sm"
-                        style={{ color: sector.accent }}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-medium tracking-tight text-[#0B0B12]">
-                          {sector.label}
-                        </h2>
-                        <p className="text-sm text-zinc-500">
-                          {entries.length} {entries.length === 1 ? 'propuesta' : 'propuestas'}
-                        </p>
-                      </div>
-                    </div>
-                    <Link
-                      to={`/galeria/${sector.slug}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0B0B12] hover:text-[#6B7280] transition-colors"
-                    >
-                      Ver sector
-                      <ArrowUpRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
-                    {entries.map((entry, i) => (
-                      <PropuestaCard
-                        key={entry.slug}
-                        {...entry}
-                        index={i}
-                        variantProp={i === 0 && entries.length > 1 ? 'wide' : 'default'}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-
-            {extras.length > 0 && (
-              <div>
-                <div className="flex items-center gap-3.5 mb-6">
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-zinc-200/80 bg-white shadow-sm text-zinc-500">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-medium tracking-tight text-[#0B0B12]">Otras</h2>
-                    <p className="text-sm text-zinc-500">
-                      {extras.length} {extras.length === 1 ? 'propuesta' : 'propuestas'}
-                    </p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
-                  {extras.map((entry, i) => (
-                    <PropuestaCard key={entry.slug} {...entry} index={i} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      <section className="relative z-10 px-6 pb-28">
+      {/* 3. GRID DE PROPUESTAS */}
+      <section className="relative z-10 px-4 sm:px-6 pt-6 pb-28">
         <div className="max-w-[88rem] mx-auto">
-          <div className="rounded-3xl bg-[#0B0B12] text-white px-8 sm:px-12 py-14 sm:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-72 h-72 bg-[#6B7280]/30 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/3 w-56 h-56 bg-[#A1A1AA]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="relative z-10 max-w-xl">
-              <h2
-                className="text-3xl sm:text-4xl font-medium tracking-tight mb-3"
-                style={{ letterSpacing: '-0.03em' }}
-              >
-                ¿Tu rubro no está en la lista?
-              </h2>
-              <p className="text-white/70 text-base leading-relaxed">
-                Estas propuestas son puntos de partida. Diseñamos una dirección propia para tu
-                marca: cuéntanos qué haces y te enviamos una propuesta a medida.
-              </p>
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+              {filtered.map((entry, i) => (
+                <PropuestaCard
+                  key={entry.slug}
+                  {...entry}
+                  index={i}
+                  variantProp="default"
+                />
+              ))}
             </div>
-            <button
-              onClick={() => onOpenQuoteModal()}
-              className="relative z-10 inline-flex items-center gap-3 bg-white text-[#0B0B12] text-sm font-medium pl-6 pr-1.5 py-1.5 rounded-full hover:bg-zinc-100 transition-colors shrink-0"
-            >
-              <span>Pedir propuesta a medida</span>
-              <span className="rounded-full bg-[#0B0B12] p-2">
-                <ArrowRight className="w-4 h-4 text-white" />
-              </span>
-            </button>
-          </div>
+          ) : (
+            <div className="rounded-3xl border border-zinc-200/80 bg-white px-8 py-16 text-center max-w-md mx-auto my-8">
+              <p className="text-base font-semibold text-[#0B0B12] mb-1">
+                No se encontraron propuestas
+              </p>
+              <p className="text-xs sm:text-sm text-zinc-500 mb-5">
+                Prueba ajustando los filtros o el término de búsqueda.
+              </p>
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full hover:bg-zinc-800 transition-colors"
+              >
+                Restablecer opciones
+              </button>
+            </div>
+          )}
         </div>
       </section>
     </>
@@ -222,9 +218,9 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`text-[13px] font-medium px-3.5 py-1.5 rounded-full transition-colors duration-200 ${
+      className={`text-xs sm:text-[13px] font-medium px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors duration-200 ${
         active
-          ? 'bg-[#0B0B12] text-white'
+          ? 'bg-[#0B0B12] text-white shadow-2xs'
           : 'text-zinc-600 hover:text-[#0B0B12] hover:bg-white/60'
       }`}
     >
