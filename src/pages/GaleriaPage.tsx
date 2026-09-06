@@ -1,16 +1,74 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
+import {
+  Search,
+  X,
+  ChevronDown,
+  LayoutGrid,
+  Sun,
+  Moon,
+  Check,
+  RotateCcw,
+  Sparkles,
+} from 'lucide-react';
 import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
+
+const POPULAR_SLUGS = [
+  'legal',
+  'dental',
+  'arquitectura',
+  'inmobiliaria',
+  'marketing',
+  'software',
+  'veterinaria',
+];
 
 export default function GaleriaPage() {
   const [params, setParams] = useSearchParams();
   const selectedSector = params.get('sector') ?? 'todas';
   const selectedStyle = params.get('estilo') ?? 'todos';
   const [query, setQuery] = useState(params.get('q') ?? '');
+
+  const [sectorMenuOpen, setSectorMenuOpen] = useState(false);
+  const [sectorFilterQuery, setSectorFilterQuery] = useState('');
+  const [navHidden, setNavHidden] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const lastY = useRef(0);
+
+  // Sincronizar posición fija adaptativa con el desplazamiento del navbar
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+      if (Math.abs(delta) > 6) {
+        if (delta > 0 && y > 80) {
+          setNavHidden(true);
+        } else if (delta < 0) {
+          setNavHidden(false);
+        }
+        lastY.current = y;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Cerrar menú al hacer clic afuera
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setSectorMenuOpen(false);
+      }
+    };
+    if (sectorMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [sectorMenuOpen]);
 
   const counts = useMemo(() => {
     const map = new Map<string, number>();
@@ -63,53 +121,217 @@ export default function GaleriaPage() {
     });
   }, [selectedSector, selectedStyle, query]);
 
+  const activeSectorObj = selectedSector === 'todas' ? null : getSector(selectedSector);
+  const ActiveSectorIcon = activeSectorObj?.icon ?? LayoutGrid;
+  const activeSectorLabel = activeSectorObj?.label ?? 'Todos los rubros';
+  const hasActiveFilters = selectedSector !== 'todas' || selectedStyle !== 'todos' || Boolean(query.trim());
+
+  // Rubros en el menú modal filtrados por búsqueda
+  const menuSectores = useMemo(() => {
+    if (!sectorFilterQuery.trim()) return conocidos;
+    const q = sectorFilterQuery.trim().toLowerCase();
+    return conocidos.filter((s) => s.label.toLowerCase().includes(q));
+  }, [conocidos, sectorFilterQuery]);
+
   return (
     <>
       <PageMeta
         title="Propuestas | Reclu"
-        description="Explora propuestas web listas por sector en Reclu. Sitios en vivo para recorrer y elegir."
+        description="Catálogo de propuestas web en vivo por sector en Reclu."
       />
 
-      {/* 1. BARRA SUPERIOR COMPACTA */}
-      <section className="relative z-10 px-4 sm:px-6 pt-24 sm:pt-28 pb-4">
-        <div className="max-w-[88rem] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0B0B12]">
-                Propuestas
-              </h1>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-200/80 text-zinc-700">
-                {filtered.length} {filtered.length === 1 ? 'sitio' : 'sitios'}
-              </span>
-            </div>
+      {/* CABECERA COMPACTA */}
+      <section className="relative z-10 px-4 sm:px-6 pt-24 sm:pt-28 pb-3">
+        <div className="max-w-[88rem] mx-auto flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
+              Propuestas
+            </h1>
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-200/80 text-zinc-700">
+              {filtered.length} {filtered.length === 1 ? 'sitio' : 'sitios'}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-zinc-500 font-medium">
+            Recorre cada sitio en vivo y navega antes de elegir una dirección.
+          </p>
+        </div>
+      </section>
 
-            {/* Búsqueda y Selector de estilo */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 sm:w-64">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => handleQueryChange(e.target.value)}
-                  placeholder="Buscar por rubro o nombre..."
-                  className="w-full bg-white border border-zinc-200/90 rounded-full pl-9 pr-8 py-1.5 text-xs sm:text-sm text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:border-zinc-500 shadow-2xs transition-all"
-                />
-                {query && (
-                  <button
-                    onClick={() => handleQueryChange('')}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-0.5"
+      {/* SELECTOR FIJO / STICKY CONTROL DOCK */}
+      <div
+        className={`sticky z-30 px-4 sm:px-6 transition-[top] duration-300 ease-out ${
+          navHidden ? 'top-3 sm:top-4' : 'top-20 sm:top-22'
+        }`}
+      >
+        <div className="max-w-[88rem] mx-auto">
+          <div className="bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-2xl sm:rounded-full p-2 sm:p-2.5 shadow-[0_12px_40px_-15px_rgba(15,15,40,0.12)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5">
+            
+            {/* LADO IZQUIERDO: SELECTOR DE RUBROS & ACCESOS DIRECTOS */}
+            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto no-scrollbar py-0.5">
+              
+              {/* Botón Dropdown de Rubro con Popover */}
+              <div className="relative shrink-0" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setSectorMenuOpen(!sectorMenuOpen)}
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
+                    selectedSector !== 'todas'
+                      ? 'bg-[#0B0B12] text-white border-[#0B0B12] shadow-xs'
+                      : 'bg-zinc-100 hover:bg-zinc-200/80 text-[#0B0B12] border-zinc-200/70'
+                  }`}
+                >
+                  <ActiveSectorIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate max-w-[130px] sm:max-w-[160px]">{activeSectorLabel}</span>
+                  <span
+                    className={`text-[11px] px-1.5 py-0.2 rounded-full font-bold ${
+                      selectedSector !== 'todas' ? 'bg-white/20 text-white' : 'bg-white text-zinc-700'
+                    }`}
                   >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
+                    {selectedSector === 'todas' ? catalogo.length : counts.get(selectedSector) ?? 0}
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      sectorMenuOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Menú Desplegable con Todos los Rubros */}
+                {sectorMenuOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-zinc-200 rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,15,40,0.22)] p-2 z-50 animate-fade-in-up">
+                    <div className="p-1.5 mb-1.5 border-b border-zinc-100">
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          value={sectorFilterQuery}
+                          onChange={(e) => setSectorFilterQuery(e.target.value)}
+                          placeholder="Buscar rubro..."
+                          className="w-full pl-8 pr-3 py-1.5 text-xs bg-zinc-50 border border-zinc-200/80 rounded-xl text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-400 transition-colors"
+                          autoFocus
+                        />
+                      </div>
+                    </div>
+
+                    <div className="max-h-72 overflow-y-auto space-y-0.5 pr-1 text-xs">
+                      {/* Opción Todas */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateParam('sector', 'todas');
+                          setSectorMenuOpen(false);
+                          setSectorFilterQuery('');
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
+                          selectedSector === 'todas'
+                            ? 'bg-[#0B0B12] text-white font-semibold'
+                            : 'hover:bg-zinc-100 text-[#0B0B12]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <LayoutGrid className="w-3.5 h-3.5" />
+                          <span>Todos los rubros</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`text-[11px] px-1.5 py-0.2 rounded-md ${
+                              selectedSector === 'todas' ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
+                            }`}
+                          >
+                            {catalogo.length}
+                          </span>
+                          {selectedSector === 'todas' && <Check className="w-3.5 h-3.5 text-white" />}
+                        </div>
+                      </button>
+
+                      {/* Lista de sectores */}
+                      {menuSectores.map((s) => {
+                        const Icon = s.icon;
+                        const isSelected = selectedSector === s.slug;
+                        const count = counts.get(s.slug) ?? 0;
+                        return (
+                          <button
+                            key={s.slug}
+                            type="button"
+                            onClick={() => {
+                              updateParam('sector', s.slug);
+                              setSectorMenuOpen(false);
+                              setSectorFilterQuery('');
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-colors text-left ${
+                              isSelected
+                                ? 'bg-[#0B0B12] text-white font-semibold'
+                                : 'hover:bg-zinc-100 text-[#0B0B12]'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <Icon className="w-3.5 h-3.5 shrink-0" />
+                              <span className="truncate">{s.label}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className={`text-[11px] px-1.5 py-0.2 rounded-md ${
+                                  isSelected ? 'bg-white/20 text-white' : 'bg-zinc-100 text-zinc-600'
+                                }`}
+                              >
+                                {count}
+                              </span>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 )}
               </div>
 
-              {/* Selector de estilo */}
-              <div className="inline-flex items-center p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-xs font-medium">
+              {/* Pastillas de acceso rápido a rubros principales (Desktop) */}
+              <div className="hidden lg:flex items-center gap-1">
+                <FilterChip
+                  active={selectedSector === 'todas'}
+                  onClick={() => updateParam('sector', 'todas')}
+                >
+                  Todas
+                </FilterChip>
+                {POPULAR_SLUGS.map((slug) => {
+                  const s = getSector(slug);
+                  if (!s) return null;
+                  const isSelected = selectedSector === s.slug;
+                  return (
+                    <FilterChip
+                      key={s.slug}
+                      active={isSelected}
+                      onClick={() => updateParam('sector', s.slug)}
+                    >
+                      {s.label}
+                    </FilterChip>
+                  );
+                })}
+
+                {/* Si se seleccionó un rubro que no está en la lista rápida, mostrarlo aquí con botón para quitar */}
+                {selectedSector !== 'todas' && !POPULAR_SLUGS.includes(selectedSector) && (
+                  <button
+                    type="button"
+                    onClick={() => updateParam('sector', 'todas')}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#0B0B12] text-white shadow-2xs"
+                  >
+                    <span>{activeSectorLabel}</span>
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* LADO DERECHO: SELECTOR DE ESTILO & BUSCADOR */}
+            <div className="flex items-center gap-2 shrink-0">
+              
+              {/* Selector de estilo segmentado */}
+              <div className="inline-flex items-center p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-xs font-medium shrink-0">
                 <button
                   type="button"
                   onClick={() => updateParam('estilo', 'todos')}
-                  className={`px-3 py-1 rounded-full transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 rounded-full transition-all text-xs ${
                     selectedStyle === 'todos'
                       ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
                       : 'text-zinc-500 hover:text-zinc-800'
@@ -120,59 +342,71 @@ export default function GaleriaPage() {
                 <button
                   type="button"
                   onClick={() => updateParam('estilo', 'claro')}
-                  className={`px-3 py-1 rounded-full transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 rounded-full transition-all text-xs flex items-center gap-1 ${
                     selectedStyle === 'claro'
                       ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
                       : 'text-zinc-500 hover:text-zinc-800'
                   }`}
                 >
-                  Claro
+                  <Sun className="w-3 h-3" />
+                  <span>Claro</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => updateParam('estilo', 'oscuro')}
-                  className={`px-3 py-1 rounded-full transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 rounded-full transition-all text-xs flex items-center gap-1 ${
                     selectedStyle === 'oscuro'
                       ? 'bg-white text-[#0B0B12] shadow-2xs font-semibold'
                       : 'text-zinc-500 hover:text-zinc-800'
                   }`}
                 >
-                  Oscuro
+                  <Moon className="w-3 h-3" />
+                  <span>Oscuro</span>
                 </button>
               </div>
+
+              {/* Buscador reactivo */}
+              <div className="relative flex-1 sm:w-56">
+                <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => handleQueryChange(e.target.value)}
+                  placeholder="Buscar..."
+                  className="w-full bg-zinc-100/90 hover:bg-zinc-100 focus:bg-white border border-transparent focus:border-zinc-300 rounded-full pl-8 pr-7 py-1 text-xs sm:text-sm text-[#0B0B12] placeholder-zinc-400 focus:outline-none shadow-2xs transition-all"
+                />
+                {query && (
+                  <button
+                    onClick={() => handleQueryChange('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-0.5"
+                    aria-label="Limpiar búsqueda"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+
+              {/* Botón rápido para restablecer todos los filtros */}
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  title="Restablecer filtros"
+                  className="p-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-[#0B0B12] transition-colors shrink-0"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* 2. OPCIONES / FILTROS DE SECTOR (STICKY) */}
-      <section className="relative z-20 px-4 sm:px-6 sticky top-[4.25rem] sm:top-20 py-2">
-        <div className="max-w-[88rem] mx-auto">
-          <div className="glass-light rounded-2xl sm:rounded-full p-1.5 shadow-[0_8px_30px_-12px_rgba(15,15,40,0.18)] overflow-x-auto no-scrollbar flex items-center gap-1.5">
-            <FilterChip
-              active={selectedSector === 'todas'}
-              onClick={() => updateParam('sector', 'todas')}
-            >
-              Todas · {catalogo.length}
-            </FilterChip>
-            {conocidos.map((s) => (
-              <FilterChip
-                key={s.slug}
-                active={selectedSector === s.slug}
-                onClick={() => updateParam('sector', s.slug)}
-              >
-                {s.label} · {counts.get(s.slug)}
-              </FilterChip>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. GRID DE PROPUESTAS */}
+      {/* CUADRÍCULA DE PROPUESTAS (3 COLUMNAS) */}
       <section className="relative z-10 px-4 sm:px-6 pt-6 pb-28">
         <div className="max-w-[88rem] mx-auto">
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filtered.map((entry, i) => (
                 <PropuestaCard
                   key={entry.slug}
@@ -183,19 +417,23 @@ export default function GaleriaPage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-zinc-200/80 bg-white px-8 py-16 text-center max-w-md mx-auto my-8">
+            <div className="rounded-3xl border border-zinc-200/80 bg-white px-8 py-16 text-center max-w-md mx-auto my-12 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-zinc-100 text-zinc-400 flex items-center justify-center mx-auto mb-4">
+                <Search className="w-5 h-5" />
+              </div>
               <p className="text-base font-semibold text-[#0B0B12] mb-1">
                 No se encontraron propuestas
               </p>
-              <p className="text-xs sm:text-sm text-zinc-500 mb-5">
-                Prueba ajustando los filtros o el término de búsqueda.
+              <p className="text-xs sm:text-sm text-zinc-500 mb-6">
+                No hay resultados para los filtros o el término de búsqueda actual.
               </p>
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full hover:bg-zinc-800 transition-colors"
+                className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full hover:bg-zinc-800 transition-colors shadow-xs"
               >
-                Restablecer opciones
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Restablecer opciones</span>
               </button>
             </div>
           )}
@@ -218,10 +456,10 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`text-xs sm:text-[13px] font-medium px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors duration-200 ${
+      className={`text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap transition-all duration-200 ${
         active
-          ? 'bg-[#0B0B12] text-white shadow-2xs'
-          : 'text-zinc-600 hover:text-[#0B0B12] hover:bg-white/60'
+          ? 'bg-[#0B0B12] text-white shadow-2xs font-semibold'
+          : 'text-zinc-600 hover:text-[#0B0B12] hover:bg-zinc-100'
       }`}
     >
       {children}
