@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ArrowRight, Sparkles, CalendarDays } from 'lucide-react';
+import { Menu, X, ArrowRight, CalendarDays } from 'lucide-react';
 import { LiquidGlass } from './LiquidGlass';
 
 interface NavbarProps {
@@ -98,11 +98,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
             to="/"
             className="flex items-center gap-2.5 pl-2 pr-4 py-1.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280] rounded-full"
           >
-            <div className="relative w-8 h-8 flex items-center justify-center rounded-full bg-white/80 border border-white/70">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="5" fill="#0B0B12" />
-                <ellipse cx="12" cy="12" rx="9" ry="4" stroke="#0B0B12" strokeWidth="1.8" strokeDasharray="100" transform="rotate(-25 12 12)" />
-                <circle cx="18.5" cy="8.5" r="1.8" fill="#6B7280" />
+            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white shadow-xs">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 4h7a4.5 4.5 0 0 1 4.5 4.5 4.5 4.5 0 0 1-4.5 4.5H6V4z" />
+                <path d="M13 13l5 7" />
+                <path d="M6 13v7" />
               </svg>
             </div>
             <span className="text-xl font-medium tracking-tight text-[#0B0B12] group-hover:text-[#6B7280] transition-colors">
@@ -185,8 +185,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
           <div className="absolute inset-x-3 top-3 bottom-3 sm:left-auto sm:w-[22rem] flex flex-col rounded-[1.75rem] bg-white border border-zinc-200/80 shadow-[0_24px_60px_-20px_rgba(15,15,40,0.35)] overflow-hidden">
             <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-zinc-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white">
-                  <Sparkles className="w-4 h-4 text-[#D4D4D8]" />
+                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white shadow-xs">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 4h7a4.5 4.5 0 0 1 4.5 4.5 4.5 4.5 0 0 1-4.5 4.5H6V4z" />
+                    <path d="M13 13l5 7" />
+                    <path d="M6 13v7" />
+                  </svg>
                 </div>
                 <span className="text-lg font-medium text-[#0B0B12] tracking-tight">Reclu</span>
               </div>
