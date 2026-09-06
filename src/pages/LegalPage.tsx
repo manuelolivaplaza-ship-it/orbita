@@ -8,8 +8,8 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
   return (
     <>
       <PageMeta
-        title={`${privacy ? 'Privacidad' : 'Términos'} | Órbita`}
-        description={privacy ? 'Política de privacidad de Órbita.' : 'Términos de uso de Órbita.'}
+        title={`${privacy ? 'Privacidad' : 'Términos'} | Reclu`}
+        description={privacy ? 'Política de privacidad de Reclu.' : 'Términos de uso de Reclu.'}
       />
       <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-24">
         <div className="max-w-2xl mx-auto">
@@ -24,7 +24,7 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
             {privacy ? (
               <>
                 <p>
-                  Responsable: Órbita, {site.city}. Contacto:{' '}
+                  Responsable: Reclu, {site.city}. Contacto:{' '}
                   <a className="underline" href={`mailto:${site.email}`}>
                     {site.email}
                   </a>
@@ -69,7 +69,7 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
                   Las propuestas en /propuesta son enlaces privados de trabajo. No constituyen un sitio publicado del
                   cliente hasta que se acuerde lo contrario.
                 </p>
-                <p>Órbita opera desde {site.city}. Para cualquier reclamo: {site.email}.</p>
+                <p>Reclu opera desde {site.city}. Para cualquier reclamo: {site.email}.</p>
               </>
             )}
           </div>

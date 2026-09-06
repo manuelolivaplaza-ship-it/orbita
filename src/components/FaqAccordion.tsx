@@ -8,7 +8,7 @@ export const FaqAccordion: React.FC = () => {
   const faqs: FaqItem[] = [
     {
       question: '¿Cuánto tarda un proyecto típico?',
-      answer: 'Un proyecto promedio toma entre 2 y 4 semanas según el nivel de complejidad y la órbita seleccionada. Definimos un calendario estricto desde el día 1.',
+      answer: 'Un proyecto promedio toma entre 2 y 4 semanas según el nivel de complejidad y el plan seleccionado. Definimos un calendario estricto desde el día 1.',
     },
     {
       question: '¿Los textos los escriben ustedes?',

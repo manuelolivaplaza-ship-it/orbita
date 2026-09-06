@@ -39,7 +39,7 @@ export default function GaleriaSectorPage() {
   return (
     <>
       <PageMeta
-        title={`${sector.label} | Galería de propuestas Órbita`}
+        title={`${sector.label} | Galería de propuestas Reclu`}
         description={`${sector.heroTitle}. ${sector.description}`}
       />
 

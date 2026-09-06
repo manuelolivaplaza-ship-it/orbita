@@ -77,14 +77,14 @@ export default function PreciosPage() {
   const categories = Array.from(new Set(COMPARISON_TABLE.map((row) => row.category)));
 
   const handleWhatsAppConsult = () => {
-    const text = 'Hola Órbita! Estuve revisando los planes de precios y me gustaría hacer unas consultas sobre mi proyecto web.';
+    const text = 'Hola Reclu! Estuve revisando los planes de precios y me gustaría hacer unas consultas sobre mi proyecto web.';
     window.open(whatsappUrl(text), '_blank', 'noopener,noreferrer');
   };
 
   return (
     <>
       <PageMeta
-        title="Precios y Planes Web 2026 | Órbita"
+        title="Precios y Planes Web 2026 | Reclu"
         description="Elige entre compra única con propiedad 100% o suscripción mensual todo incluido. Panel CRM integrado y WhatsApp."
       />
 

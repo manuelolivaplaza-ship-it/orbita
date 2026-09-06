@@ -47,10 +47,10 @@ function linesFrom(data: LeadPayload): string {
 export function leadSummary(data: LeadPayload): string {
   const header =
     data.source === 'newsletter'
-      ? 'Hola Órbita — quiero novedades.'
+      ? 'Hola Reclu — quiero novedades.'
       : data.source === 'reunion'
-        ? 'Hola Órbita — quiero agendar una reunión.'
-        : 'Hola Órbita — quiero cotizar.';
+        ? 'Hola Reclu — quiero agendar una reunión.'
+        : 'Hola Reclu — quiero cotizar.';
   return `${header}\n\n${linesFrom(data)}`;
 }
 
@@ -141,10 +141,10 @@ export async function submitLead(
 
   const subject = encodeURIComponent(
     payload.source === 'newsletter'
-      ? 'Newsletter Órbita'
+      ? 'Newsletter Reclu'
       : payload.source === 'reunion'
-        ? `Reunión Órbita — ${payload.fecha || 'nueva'}`
-        : `Cotización Órbita — ${payload.plan || 'nuevo proyecto'}`,
+        ? `Reunión Reclu — ${payload.fecha || 'nueva'}`
+        : `Cotización Reclu — ${payload.plan || 'nuevo proyecto'}`,
   );
   const body = encodeURIComponent(leadSummary(payload));
   window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;

@@ -46,7 +46,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
             Inversión transparente
           </span>
           <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-[#0B0B12] mb-3">
-            Órbitas de inversión
+            Planes de inversión
           </h2>
           <p className="text-zinc-600 text-base leading-relaxed mb-6">
             Elige el modelo que mejor se adapte a tu negocio: comprar tu web por una única vez o suscribirte a un plan mensual todo incluido.

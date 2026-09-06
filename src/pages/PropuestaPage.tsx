@@ -115,7 +115,7 @@ export default function PropuestaPage() {
   if (kind === 'missing') {
     return (
       <div className="min-h-svh bg-[#F7F8FC] text-[#0B0B12] flex items-center justify-center px-6">
-        <PageMeta title="Propuesta no encontrada | Órbita" />
+        <PageMeta title="Propuesta no encontrada | Reclu" />
         <div className="max-w-md text-center">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-3">
             Propuesta
@@ -144,9 +144,9 @@ export default function PropuestaPage() {
   return (
     <div className="h-svh w-full bg-[#0B0B12] relative overflow-hidden">
       <PageMeta
-        title={`${label} | Propuesta Órbita`}
+        title={`${label} | Propuesta Reclu`}
         description={
-          current?.description ?? (meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Órbita.')
+          current?.description ?? (meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Reclu.')
         }
       />
       {kind === 'loading' ? (
@@ -169,7 +169,7 @@ export default function PropuestaPage() {
 
       <PreviewReturnPopup
         name={label}
-        labelTag="Propuesta Órbita"
+        labelTag="Propuesta Reclu"
         backUrl={backUrl}
         crmUrl={`/crm/${slug}`}
       />

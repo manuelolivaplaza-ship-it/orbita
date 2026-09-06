@@ -20,7 +20,7 @@ export default function CaseStudyPage() {
   return (
     <>
       <PageMeta
-        title={`${caseStudy.name} | Creaciones Órbita`}
+        title={`${caseStudy.name} | Creaciones Reclu`}
         description={caseStudy.summary}
       />
 

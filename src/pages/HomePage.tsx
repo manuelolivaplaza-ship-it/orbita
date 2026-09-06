@@ -16,9 +16,9 @@ export default function HomePage() {
   return (
     <>
       <PageMeta
-        title="Órbita | Sitios web que venden"
-        description="Estudio web orbital. Diseñamos landings y sitios de alto impacto: claros, rápidos y obsesionados con que te escriban."
-        image="https://orbita.studio/og-image.jpg"
+        title="Reclu | Sitios web que venden"
+        description="Estudio web. Diseñamos landings y sitios de alto impacto: claros, rápidos y obsesionados con que te escriban."
+        image="https://reclu.studio/og-image.jpg"
       />
       <Hero onOpenQuoteModal={onOpenQuoteModal} onOpenSchedule={onOpenSchedule} />
       <GaleriaTeaser />

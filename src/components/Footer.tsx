@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, MapPin } from 'lucide-react';
 import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
-import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion';
 import { HoneypotField } from './HoneypotField';
-import { LiquidGlass } from './LiquidGlass';
-
-const VIDEO_SOFT = '/video/footer-loop.mp4';
+import { site, whatsappUrl } from '../data/site';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,88 +13,13 @@ export const Footer: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [inView, setInView] = useState(false);
-  const [loadVideo, setLoadVideo] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const endedRef = useRef(false);
   const currentYear = new Date().getFullYear();
-  const reducedMotion = usePrefersReducedMotion();
-
-  const freezeLastFrame = (video: HTMLVideoElement) => {
-    const dur = video.duration;
-    if (Number.isFinite(dur) && dur > 0) {
-      video.currentTime = Math.max(0, dur - 0.04);
-    }
-    video.pause();
-  };
-
-  useEffect(() => {
-    const update = () => {
-      const main = document.querySelector('main');
-      if (!main) return;
-      setInView(main.getBoundingClientRect().bottom < window.innerHeight - 48);
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, []);
-
-  // Precarga del video en segundo plano apenas la página queda ociosa,
-  // para que ya esté bufferado cuando el usuario llegue al footer.
-  useEffect(() => {
-    if (reducedMotion) return;
-    let timer: number | undefined;
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-    let idleHandle: number | undefined;
-    const start = () => setLoadVideo(true);
-    if (typeof w.requestIdleCallback === 'function') {
-      idleHandle = w.requestIdleCallback(start, { timeout: 4000 });
-    } else {
-      timer = window.setTimeout(start, 2000);
-    }
-    return () => {
-      if (typeof idleHandle === 'number' && w.cancelIdleCallback) w.cancelIdleCallback(idleHandle);
-      if (timer !== undefined) window.clearTimeout(timer);
-    };
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !loadVideo) return;
-    if (!inView) {
-      video.pause();
-      return;
-    }
-    if (endedRef.current) {
-      freezeLastFrame(video);
-      return;
-    }
-    let cancelled = false;
-    const play = () => {
-      if (cancelled || endedRef.current) return;
-      void video.play().catch(() => {});
-    };
-    if (video.readyState >= 2) play();
-    else video.addEventListener('loadeddata', play, { once: true });
-    return () => {
-      cancelled = true;
-      video.removeEventListener('loadeddata', play);
-    };
-  }, [inView, loadVideo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     if (!consent) {
-      setError('Marcá el consentimiento para suscribirte.');
+      setError('Marca el consentimiento para suscribirte.');
       return;
     }
     setSending(true);
@@ -108,192 +30,189 @@ export const Footer: React.FC = () => {
       setEmail('');
       setConsent(false);
     } catch {
-      setError('No se pudo suscribir. Probá de nuevo.');
+      setError('No se pudo suscribir. Inténtalo de nuevo.');
     } finally {
       setSending(false);
     }
   };
 
   return (
-    <footer className="footer-reveal sticky bottom-0 z-0 min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0C14] text-white">
-      {/* Fondo: se reproduce una vez y queda en el último frame */}
-      {!reducedMotion && loadVideo && (
-        <video
-          ref={videoRef}
-          src={VIDEO_SOFT}
-          muted
-          playsInline
-          preload="auto"
-          disablePictureInPicture
-          aria-hidden="true"
-          tabIndex={-1}
-          onCanPlay={(e) => {
-            setVideoReady(true);
-            if (inView && !endedRef.current) void e.currentTarget.play().catch(() => {});
-          }}
-          onTimeUpdate={(e) => {
-            if (endedRef.current) return;
-            const video = e.currentTarget;
-            if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-            if (video.currentTime >= video.duration - 0.08) {
-              endedRef.current = true;
-              freezeLastFrame(video);
-            }
-          }}
-          onEnded={(e) => {
-            endedRef.current = true;
-            freezeLastFrame(e.currentTarget);
-          }}
-          onError={(e) => {
-            e.currentTarget.remove();
-          }}
-          className={`absolute inset-0 z-0 h-full w-full object-cover pointer-events-none transition-opacity duration-1000 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
-        />
-      )}
+    <footer className="relative z-10 bg-[#090A0F] text-zinc-300 border-t border-zinc-800/80 selection:bg-zinc-700 selection:text-white">
+      <div className="max-w-[88rem] mx-auto px-6 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-12 sm:pb-16">
+        {/* 1. TOP CTA & NEWSLETTER BANNER */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 pb-16 border-b border-zinc-800/80 items-start">
+          {/* Headline & Value Proposition */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-semibold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Estudio Digital · Santiago, Chile</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-tight">
+              Construyamos una web que convierta visitas en clientes.
+            </h2>
+            <p className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+              Desarrollamos landings de alta conversión y sitios corporativos con CRM integrado, entregados con máxima velocidad y soporte continuo.
+            </p>
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <Link
+                to="/#contacto"
+                className="inline-flex items-center gap-2.5 rounded-full bg-white text-[#0B0B12] hover:bg-zinc-200 px-5 py-2.5 text-sm font-medium transition-all shadow-sm"
+              >
+                <span>Cotizar proyecto</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/?agendar=1"
+                className="inline-flex items-center gap-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white px-5 py-2.5 text-sm font-medium border border-zinc-800 transition-all"
+              >
+                <span>Agendar llamada de 30 min</span>
+              </Link>
+            </div>
+          </div>
 
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(10,12,20,0.08) 0%, rgba(10,12,20,0.42) 100%), linear-gradient(180deg, rgba(10,12,20,0.12) 0%, rgba(10,12,20,0.5) 100%)',
-        }}
-      />
-
-      <div className="footer-reveal__veil" aria-hidden />
-
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-36 sm:pt-44 pb-16 max-w-4xl mx-auto w-full">
-        {/* Large Centered Headline */}
-        <h2 
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-white mb-8"
-          style={{ letterSpacing: '-0.035em' }}
-        >
-          Tu marca, sin ruido.
-        </h2>
-
-        {/* Newsletter Form */}
-        <div className="w-full max-w-lg">
-          {submitted ? (
-            <LiquidGlass pill className="inline-flex">
-              <div className="inline-flex items-center gap-2 text-white px-6 py-3 text-sm font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                <span>Listo. Te escribimos pronto.</span>
+          {/* Newsletter Box */}
+          <div className="lg:col-span-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 sm:p-7">
+            <h3 className="text-white text-base font-semibold mb-1">
+              Recibe novedades y análisis web
+            </h3>
+            <p className="text-zinc-400 text-xs sm:text-sm mb-4 leading-relaxed">
+              Estrategias de conversión, diseño digital y casos reales. Sin spam.
+            </p>
+            {submitted ? (
+              <div className="flex items-center gap-2.5 text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 rounded-xl p-3.5 text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>¡Listo! Te avisaremos con cada nueva publicación.</span>
               </div>
-            </LiquidGlass>
-          ) : (
-            <form onSubmit={handleSubmit} className="w-full relative">
-              <HoneypotField value={honey} onChange={setHoney} />
-              <LiquidGlass pill>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-1.5 pl-5">
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <HoneypotField value={honey} onChange={setHoney} />
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="email"
                     value={email}
                     maxLength={FIELD_MAX.email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="¿Tu mejor email?"
+                    placeholder="tu@empresa.com"
                     required
-                    className="w-full sm:flex-1 bg-transparent text-white placeholder-white/55 py-2.5 text-sm outline-none"
+                    className="flex-1 bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors"
                   />
                   <button
                     type="submit"
                     disabled={sending || !consent}
-                    className="rounded-full bg-[#0B0B12]/80 hover:bg-black text-white px-6 py-2.5 text-sm font-medium tracking-wide transition-all shrink-0 flex items-center justify-center gap-2 border border-white/15 disabled:opacity-70"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-[#0B0B12] hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl px-5 py-2.5 text-sm font-medium transition-colors shrink-0"
                   >
-                    <span>{sending ? 'Enviando…' : 'AVÍSAME'}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>{sending ? 'Enviando...' : 'Suscribirme'}</span>
                   </button>
                 </div>
-              </LiquidGlass>
-              <label className="mt-3 flex items-start gap-2 text-left text-[11px] text-white/55 max-w-lg mx-auto">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 shrink-0"
-                />
-                <span>
-                  Acepto que Órbita use este email para novedades. Podés darte de baja cuando quieras.{' '}
-                  <Link to="/privacidad" className="underline text-white/75 hover:text-white">
-                    Privacidad
-                  </Link>
-                </span>
-              </label>
-              {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
-            </form>
-          )}
+                <label className="flex items-start gap-2 text-left text-[11px] text-zinc-400 cursor-pointer pt-1">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-0.5 rounded border-zinc-700 bg-zinc-950 text-white focus:ring-0 shrink-0"
+                  />
+                  <span>
+                    Acepto que Reclu me contacte por correo.{' '}
+                    <Link to="/privacidad" className="underline text-zinc-300 hover:text-white">
+                      Ver política de privacidad
+                    </Link>
+                    .
+                  </span>
+                </label>
+                {error && <p className="text-xs text-rose-400">{error}</p>}
+              </form>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* 3) BOTTOM GLASS BAR (Lumina signature) */}
-      <div className="relative z-20 px-4 md:px-8 pb-4 md:pb-6 w-full max-w-[88rem] mx-auto">
-        <LiquidGlass className="p-6 sm:p-8 md:p-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-start">
-            
-            {/* COL 1 — Brand */}
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 flex items-center justify-center rounded-full bg-white">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="5" fill="#0B0B12" />
-                    <ellipse cx="12" cy="12" rx="9" ry="4" stroke="#0B0B12" strokeWidth="1.8" transform="rotate(-25 12 12)" />
-                  </svg>
-                </div>
-                <span className="text-xl font-medium tracking-tight text-white">Órbita</span>
+        {/* 2. NAVIGATION COLUMNS */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 py-16">
+          {/* Brand col */}
+          <div className="col-span-2 md:col-span-2 space-y-4 pr-0 md:pr-6">
+            <Link to="/" className="inline-flex items-center gap-2.5 group">
+              <div className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-[#0B0B12]">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="5" fill="#0B0B12" />
+                  <ellipse cx="12" cy="12" rx="9" ry="4" stroke="#0B0B12" strokeWidth="1.8" strokeDasharray="100" transform="rotate(-25 12 12)" />
+                  <circle cx="18.5" cy="8.5" r="1.8" fill="#6B7280" />
+                </svg>
               </div>
-              <p className="text-white/65 text-sm max-w-xs leading-relaxed font-normal">
-                Órbita diseña sitios y landings de alto impacto — claros, rápidos y hechos para convertir.
-              </p>
+              <span className="text-xl font-medium tracking-tight text-white group-hover:text-zinc-300 transition-colors">
+                Reclu
+              </span>
+            </Link>
+            <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
+              Reclu diseña y desarrolla sitios web de alto impacto orientados a resultados comerciales. Sitios claros, rápidos y optimizados para convertir.
+            </p>
+            <div className="pt-2 space-y-2 text-xs text-zinc-400">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <span>Santiago, Chile · Cobertura internacional</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <a href={`mailto:${site.email}`} className="hover:text-white transition-colors">
+                  {site.email}
+                </a>
+              </div>
             </div>
-
-            {/* COL 2 — DESCUBRIR */}
-            <div>
-              <h4 className="text-white/50 text-xs font-semibold tracking-widest uppercase mb-4">
-                DESCUBRIR
-              </h4>
-              <ul className="space-y-2 text-sm text-white/85">
-                <li><Link to="/creaciones" className="hover:text-white transition-colors">Creaciones</Link></li>
-                <li><Link to="/galeria" className="hover:text-white transition-colors">Galería de propuestas</Link></li>
-                <li><Link to="/servicios" className="hover:text-white transition-colors">Servicios</Link></li>
-                <li><Link to="/crm" className="hover:text-white transition-colors">Panel CRM</Link></li>
-                <li><Link to="/precios" className="hover:text-white transition-colors">Precios</Link></li>
-                <li><Link to="/#contacto" className="hover:text-white transition-colors">Contacto</Link></li>
-              </ul>
-            </div>
-
-            {/* COL 3 — EL ESTUDIO */}
-            <div>
-              <h4 className="text-white/50 text-xs font-semibold tracking-widest uppercase mb-4">
-                EL ESTUDIO
-              </h4>
-              <ul className="space-y-2 text-sm text-white/85">
-                <li><Link to="/" className="hover:text-white transition-colors">Origen</Link></li>
-                <li><Link to="/precios" className="hover:text-white transition-colors">Planes y Precios</Link></li>
-                <li><Link to="/#faq" className="hover:text-white transition-colors">Preguntas</Link></li>
-                <li><a href="mailto:hola@orbita.studio" className="hover:text-white transition-colors">Unirse</a></li>
-              </ul>
-            </div>
-
-            {/* COL 4 — CONCIERGE */}
-            <div>
-              <h4 className="text-white/50 text-xs font-semibold tracking-widest uppercase mb-4">
-                CONCIERGE
-              </h4>
-              <ul className="space-y-2 text-sm text-white/85">
-                <li><Link to="/#contacto" className="hover:text-white transition-colors">Pedir presupuesto</Link></li>
-                <li><Link to="/?agendar=1" className="hover:text-white transition-colors">Agendar reunión</Link></li>
-                <li><Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link></li>
-                <li><Link to="/terminos" className="hover:text-white transition-colors">Términos</Link></li>
-                <li><a href="mailto:soporte@orbita.studio" className="hover:text-white transition-colors">Reportar problema</a></li>
-              </ul>
-            </div>
-
           </div>
 
-          {/* Legal line inside bottom bar */}
-          <div className="mt-8 pt-4 border-t border-white/10 text-xs text-white/40 flex flex-col sm:flex-row justify-between items-center gap-2">
-            <span>© {currentYear} Órbita. Todos los derechos reservados.</span>
-            <span>Santiago, CL · Hecho con precisión</span>
+          {/* Soluciones */}
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Soluciones</p>
+            <ul className="space-y-2.5 text-sm text-zinc-400">
+              <li><Link to="/servicios" className="hover:text-white transition-colors">Sitios Web & Landings</Link></li>
+              <li><Link to="/crm" className="hover:text-white transition-colors">Panel CRM con WhatsApp</Link></li>
+              <li><Link to="/galeria" className="hover:text-white transition-colors">Galería de Propuestas</Link></li>
+              <li><Link to="/precios" className="hover:text-white transition-colors">Planes y Precios</Link></li>
+              <li><Link to="/servicios" className="hover:text-white transition-colors">Rediseño & Optimización</Link></li>
+            </ul>
           </div>
-        </LiquidGlass>
+
+          {/* Explorar */}
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Explorar</p>
+            <ul className="space-y-2.5 text-sm text-zinc-400">
+              <li><Link to="/creaciones" className="hover:text-white transition-colors">Creaciones en vivo</Link></li>
+              <li><Link to="/galeria" className="hover:text-white transition-colors">Propuestas por rubro</Link></li>
+              <li><Link to="/#sistema" className="hover:text-white transition-colors">Cómo trabajamos</Link></li>
+              <li><Link to="/#faq" className="hover:text-white transition-colors">Preguntas frecuentes</Link></li>
+              <li><Link to="/" className="hover:text-white transition-colors">Inicio</Link></li>
+            </ul>
+          </div>
+
+          {/* Contacto & Legal */}
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Contacto & Legal</p>
+            <ul className="space-y-2.5 text-sm text-zinc-400">
+              <li><Link to="/#contacto" className="hover:text-white transition-colors">Pedir cotización</Link></li>
+              <li><Link to="/?agendar=1" className="hover:text-white transition-colors">Agendar reunión</Link></li>
+              <li>
+                <a
+                  href={whatsappUrl('Hola Reclu — quisiera cotizar un proyecto web')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  WhatsApp directo
+                </a>
+              </li>
+              <li><Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link></li>
+              <li><Link to="/terminos" className="hover:text-white transition-colors">Términos de servicio</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* 3. LEGAL BAR */}
+        <div className="pt-8 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+          <p>© {currentYear} Reclu. Todos los derechos reservados.</p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacidad" className="hover:text-zinc-300 transition-colors">Privacidad</Link>
+            <Link to="/terminos" className="hover:text-zinc-300 transition-colors">Términos</Link>
+            <span>Santiago, CL · Desarrollado con precisión</span>
+          </div>
+        </div>
       </div>
     </footer>
   );

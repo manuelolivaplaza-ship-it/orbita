@@ -13,8 +13,8 @@ export default function CreacionesPage() {
   return (
     <>
       <PageMeta
-        title="Creaciones | Órbita"
-        description="Casos de éxito y sitios creados por Órbita. Creaciones seleccionadas: landings y sitios que convierten."
+        title="Creaciones | Reclu"
+        description="Casos de éxito y sitios creados por Reclu. Creaciones seleccionadas: landings y sitios que convierten."
       />
 
       <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
@@ -53,7 +53,7 @@ export default function CreacionesPage() {
             <div className="absolute bottom-0 left-1/3 w-56 h-56 bg-[#A1A1AA]/15 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10 max-w-xl">
               <h2 className="text-3xl sm:text-4xl font-medium tracking-tight mb-3" style={{ letterSpacing: '-0.03em' }}>
-                ¿Tu marca es la siguiente órbita?
+                ¿Listo para potenciar tu marca con Reclu?
               </h2>
               <p className="text-white/70 text-base leading-relaxed">
                 Cuéntanos qué vendes y a quién. Preparamos una propuesta clara, sin relleno.

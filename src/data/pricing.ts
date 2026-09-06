@@ -62,7 +62,7 @@ export const plans: PlanItem[] = [
       'Landing page de alta conversión: diseñada desde cero en código limpio para captar y convertir prospectos.',
       'Estructura de 5 a 6 bloques estratégicos: hero persuasivo, servicios, propuesta de valor, testimonios, formulario y contacto.',
       'Botón WhatsApp inteligente: mensaje predeterminado configurado para iniciar conversaciones comerciales al instante.',
-      'Panel CRM Órbita (Nivel Esencial): bandeja centralizada para registrar cada prospecto que ingresa desde tu web en tiempo real.',
+      'Panel CRM Reclu (Nivel Esencial): bandeja centralizada para registrar cada prospecto que ingresa desde tu web en tiempo real.',
       'Diseño responsive mobile-first: maquetación ultra-fluida optimizada al milímetro para teléfonos móviles y tablets.',
       'Formularios automáticos: conexión directa con tu correo corporativo y sincronización en Google Sheets.',
       'SEO técnico on-page: configuración de metadatos, títulos semánticos y vista previa OpenGraph para compartir en redes.',
@@ -75,7 +75,7 @@ export const plans: PlanItem[] = [
       'Landing page comercial publicada: diseño exclusivo sin costo inicial alto, lista para promocionar tus servicios.',
       'Hosting cloud ultra-rápido + SSL: servidores de alta disponibilidad con certificado de seguridad y carga instantánea.',
       'Botón WhatsApp y captador de leads: canal directo para recibir consultas de clientes potenciales todos los días.',
-      'Panel CRM Órbita Esencial en la nube: gestión ágil de tus contactos desde tu teléfono o computador sin hojas de cálculo.',
+      'Panel CRM Reclu Esencial en la nube: gestión ágil de tus contactos desde tu teléfono o computador sin hojas de cálculo.',
       'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un asistente adaptado a tu negocio o conectar a Orb con hasta 2.000 conversaciones mensuales.',
       'Bolsa mensual de cambios de contenido: actualizamos textos, precios, fotos o banners cada vez que lo necesites.',
       'Mantenimiento técnico y copias de seguridad: monitoreo continuo contra caídas y respaldos periódicos en la nube.',
@@ -106,7 +106,7 @@ export const plans: PlanItem[] = [
     },
     features: [
       'Sitio comercial completo o landing Pro: arquitectura estratégica de 5 a 8 bloques para ventas y servicios.',
-      'Panel CRM Órbita Pro integrado: embudo Kanban interactivo para mover prospectos de "Nuevo" a "Cerrado" con drag & drop.',
+      'Panel CRM Reclu Pro integrado: embudo Kanban interactivo para mover prospectos de "Nuevo" a "Cerrado" con drag & drop.',
       'Alertas instantáneas vía Webhook: notificación en tiempo real a tu WhatsApp cada vez que entra un nuevo interesado.',
       'Dashboard con analítica en vivo: visualiza visitas reales, clics a WhatsApp, conversiones y tasa de cierre en un solo lugar.',
       'Copywriting persuasivo profesional: redacción de textos comerciales enfocados en derribar objeciones y generar confianza.',
@@ -120,7 +120,7 @@ export const plans: PlanItem[] = [
     monthlyFeatures: [
       'Sitio web comercial de alto impacto: desarrollo completo sin desembolso inicial alto, optimizado para captar clientes.',
       'Hosting cloud de alto rendimiento + CDN: infraestructura veloz con 99.9% de uptime garantizado y carga sub-segundo.',
-      'Panel CRM Órbita Pro completo: embudo Kanban multi-columna para gestionar tu pipeline de ventas de manera profesional.',
+      'Panel CRM Reclu Pro completo: embudo Kanban multi-columna para gestionar tu pipeline de ventas de manera profesional.',
       'Alertas automáticas a WhatsApp: tu equipo de ventas recibe el aviso en su teléfono en el segundo exacto que entra un lead.',
       'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un asistente adaptado a tu negocio o conectar a Orb con hasta 10.000 conversaciones mensuales.',
       'Hasta 2 horas mensuales de ajustes: solicitud de nuevas secciones, actualización de casos de éxito o piezas comerciales.',
@@ -151,7 +151,7 @@ export const plans: PlanItem[] = [
     },
     features: [
       'Sitio multi-sección o rediseño integral: estructura profunda para empresas con múltiples áreas, servicios o filiales.',
-      'Panel CRM Multi-usuario avanzado: permisos jerárquicos por roles para administradores, ejecutivos y ejecutivos de ventas.',
+      'Panel CRM Reclu Multi-usuario avanzado: permisos jerárquicos por roles para administradores, ejecutivos y ejecutivos de ventas.',
       'Integraciones a medida: conexión nativa con Google Analytics 4, Meta Pixel, API externas o webhooks personalizados.',
       'Dirección de arte y pack visual: curaduría fotográfica de alta resolución, iconografía a medida y micro-interacciones.',
       'Estrategia SEO estructural completa: arquitectura de información, enlazado interno y cumplimiento estricto de Core Web Vitals.',
@@ -164,7 +164,7 @@ export const plans: PlanItem[] = [
     monthlyFeatures: [
       'Plataforma multi-página corporativa: desarrollo y evolución continua sin barreras de entrada ni inversión inicial elevada.',
       'Infraestructura Enterprise dedicada: servidores cloud dedicados, CDN global de baja latencia y respaldos diarios.',
-      'Panel CRM Órbita Multi-usuario en la nube: roles para todo tu equipo comercial con reportería exportable.',
+      'Panel CRM Reclu Multi-usuario en la nube: roles para todo tu equipo comercial con reportería exportable.',
       'Asistente con IA (Integración opcional): tú decides si sumarlo a tu web; permite integrar un agente a medida o conectar a Orb con hasta 20.000 conversaciones mensuales.',
       'Evolución web continua (hasta 4 hrs/mes): creación de nuevas páginas de servicios, campañas estacionales o mejoras UX.',
       'Mantenimiento SEO mensual proactivo: auditorías de posicionamiento y ajustes técnicos para ganar terreno frente a la competencia.',
@@ -202,7 +202,7 @@ export const EXTRAS_PRICING: ExtraItem[] = [
   },
   {
     id: 'mantenimiento',
-    name: 'Plan Órbita Care (Hosting + Soporte)',
+    name: 'Plan Reclu Care (Hosting + Soporte)',
     priceClp: '$60.000',
     priceUf: '1,5 UF',
     priceClpRaw: 60_000,
@@ -249,7 +249,7 @@ export const COMPARISON_TABLE: ComparisonRow[] = [
   { category: 'Diseño & Arquitectura', feature: 'Animaciones suaves y micro-interacciones', sonda: 'Esenciales', estacion: 'Avanzadas (Spline/Motion)', constelacion: 'Personalizadas a medida' },
 
   // Conversión & CRM
-  { category: 'Conversión & CRM', feature: 'Panel CRM Órbita incluido', sonda: 'Nivel Esencial', estacion: 'Nivel Pro Completo', constelacion: 'Multi-usuario Avanzado' },
+  { category: 'Conversión & CRM', feature: 'Panel CRM Reclu incluido', sonda: 'Nivel Esencial', estacion: 'Nivel Pro Completo', constelacion: 'Multi-usuario Avanzado' },
   { category: 'Conversión & CRM', feature: 'Embudo Kanban de prospectos', sonda: false, estacion: true, constelacion: true },
   { category: 'Conversión & CRM', feature: 'Gráficos de analítica en vivo', sonda: 'Métricas base', estacion: 'Gráfico interactivo con benchmarks', constelacion: 'Analítica integral + GA4' },
   { category: 'Conversión & CRM', feature: 'Alertas inmediatas a WhatsApp', sonda: 'Formulario estándar', estacion: 'Webhook WhatsApp instantáneo', constelacion: 'Multi-destinatario Webhook' },
@@ -278,7 +278,7 @@ export const PRICING_FAQS = [
   },
   {
     question: '¿Hay mensualidades o cobros ocultos obligatorios?',
-    answer: 'No. El desarrollo del sitio web y la configuración de tu CRM se pagan una sola vez (50% al iniciar y 50% al publicar con tu conformidad). El código y los accesos son 100% tuyos. Solo si deseas que nosotros nos encarguemos de tu hosting, copias de seguridad y soporte continuo puedes contratar opcionalmente el Plan Órbita Care (1,5 UF/mes).',
+    answer: 'No. El desarrollo del sitio web y la configuración de tu CRM se pagan una sola vez (50% al iniciar y 50% al publicar con tu conformidad). El código y los accesos son 100% tuyos. Solo si deseas que nosotros nos encarguemos de tu hosting, copias de seguridad y soporte continuo puedes contratar opcionalmente el Plan Reclu Care (1,5 UF/mes).',
   },
   {
     question: '¿Cómo funciona la forma de pago?',

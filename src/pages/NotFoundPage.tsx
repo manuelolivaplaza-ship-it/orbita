@@ -5,7 +5,7 @@ import { PageMeta } from '../components/PageMeta';
 export default function NotFoundPage() {
   return (
     <>
-      <PageMeta title="404 | Órbita" description="Página no encontrada." />
+      <PageMeta title="404 | Reclu" description="Página no encontrada." />
       <section className="relative z-10 min-h-[70vh] flex items-center px-6 py-24">
         <div className="max-w-xl mx-auto text-center">
           <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
@@ -15,7 +15,7 @@ export default function NotFoundPage() {
             className="text-4xl sm:text-5xl font-medium tracking-tight text-[#0B0B12] mb-4"
             style={{ letterSpacing: '-0.04em' }}
           >
-            Fuera de órbita.
+            Página no encontrada.
           </h1>
           <p className="text-zinc-600 mb-8 leading-relaxed">
             Esta ruta no existe. Vuelve al inicio o mira las creaciones.

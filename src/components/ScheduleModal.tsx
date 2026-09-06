@@ -183,7 +183,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
             <div className="absolute bottom-10 right-6 w-2 h-2 rounded-full bg-white/70 pointer-events-none" />
 
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45 mb-1 sm:mb-3">
-              Órbita · Agenda
+              Reclu · Agenda
             </p>
             <h2 id="schedule-title" className="text-xl sm:text-2xl font-medium tracking-tight leading-tight mb-1 sm:mb-2">
               Reunión de 30 minutos

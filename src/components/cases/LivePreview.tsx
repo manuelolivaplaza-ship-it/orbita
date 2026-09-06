@@ -14,7 +14,7 @@ export function LivePreview({ caseStudy }: { caseStudy: CaseStudy }) {
   );
   const embedSrc = getPreviewPath(caseStudy, true);
   const fullSrc = getPreviewPath(caseStudy, false);
-  const url = `preview.orbita.studio/${caseStudy.previewSlug}`;
+  const url = `preview.reclu.studio/${caseStudy.previewSlug}`;
 
   if (!embedSrc || !fullSrc) return null;
 

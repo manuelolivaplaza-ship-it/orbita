@@ -49,7 +49,7 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
             to="/"
             className="font-mono text-xs font-semibold tracking-widest text-zinc-900 uppercase transition-opacity hover:opacity-75 shrink-0"
           >
-            ÓRBITA
+            RECLU
           </Link>
           <span className="text-zinc-300">/</span>
 

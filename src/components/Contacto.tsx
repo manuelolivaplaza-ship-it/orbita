@@ -56,7 +56,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
   };
 
   const handleWhatsAppClick = () => {
-    const text = `Hola Órbita! Quisiera pedir un presupuesto para mi sitio web. Nombre: ${formData.nombre || 'Interesado'}`;
+    const text = `Hola Reclu! Quisiera pedir un presupuesto para mi sitio web. Nombre: ${formData.nombre || 'Interesado'}`;
     window.open(whatsappUrl(text), '_blank', 'noopener,noreferrer');
   };
 
@@ -79,8 +79,8 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#0B0B12] leading-[1.02] mb-6"
               style={{ letterSpacing: '-0.04em' }}
             >
-              Pon tu marca<br />
-              en órbita.
+              Impulsa tu marca<br />
+              con Reclu.
             </h2>
 
             <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-sm mb-7">

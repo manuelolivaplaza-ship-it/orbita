@@ -44,16 +44,14 @@ export const MainLayout: React.FC = () => {
       <ScrollToTop />
       <LiquidGlassFilter />
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} onOpenSchedule={handleOpenSchedule} />
-      <main className="relative z-20 rounded-b-[2rem] shadow-[0_30px_80px_-20px_rgba(15,15,40,0.18)]">
-        <div className="overflow-hidden rounded-b-[2rem] bg-[#F7F8FC]">
-          <Outlet
-            context={{
-              onOpenQuoteModal: handleOpenQuoteModal,
-              onOpenSchedule: handleOpenSchedule,
-              selectedPlan,
-            }}
-          />
-        </div>
+      <main className="relative z-10 bg-[#F7F8FC]">
+        <Outlet
+          context={{
+            onOpenQuoteModal: handleOpenQuoteModal,
+            onOpenSchedule: handleOpenSchedule,
+            selectedPlan,
+          }}
+        />
       </main>
       <Footer />
       <BudgetModal

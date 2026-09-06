@@ -47,7 +47,7 @@ export const services: OrbitService[] = [
   {
     id: 'redesign',
     name: 'Rediseño de sitio',
-    tagline: 'Tu marca ya existe. Ahora que se vea en órbita.',
+    tagline: 'Tu marca ya existe. Ahora dale el impacto que merece con Reclu.',
     description:
       'Partimos de lo que tienes, diagnosticamos fricción y reconstruimos con claridad, velocidad y un camino único a contacto.',
     idealFor: 'Marcas con sitio desactualizado, lento o que no genera leads.',

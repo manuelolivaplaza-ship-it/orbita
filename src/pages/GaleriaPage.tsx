@@ -36,7 +36,7 @@ export default function GaleriaPage() {
   return (
     <>
       <PageMeta
-        title="Galería de propuestas | Órbita"
+        title="Galería de propuestas | Reclu"
         description="Explora propuestas web listas por sector: dental, legal, arquitectura, inmobiliaria y más. Recorre cada sitio en vivo y elige una dirección de diseño."
       />
 

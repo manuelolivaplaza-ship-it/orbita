@@ -74,7 +74,7 @@ export const SistemaOrbita: React.FC<SistemaOrbitaProps> = ({ onOpenQuoteModal }
               className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#0B0B12] leading-[1.05] tracking-tight mb-8"
               style={{ letterSpacing: '-0.03em' }}
             >
-              El sistema Órbita.
+              El sistema Reclu.
             </h2>
             <a
               href="#sistema-cards"

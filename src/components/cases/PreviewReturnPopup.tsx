@@ -32,7 +32,7 @@ export function PreviewReturnPopup({
   caseSlug,
   backUrl,
   crmUrl,
-  labelTag = 'Preview Órbita',
+  labelTag = 'Preview Reclu',
 }: {
   name: string;
   caseSlug?: string;

@@ -139,7 +139,7 @@ export default function AdminPage() {
 
   if (!configured) {
     return (
-      <Shell title="Admin | Órbita">
+      <Shell title="Admin | Reclu">
         <Card>
           <h1 className="text-2xl font-medium tracking-tight mb-2">Falta conectar Supabase</h1>
           <p className="text-sm text-zinc-600 leading-relaxed">
@@ -154,7 +154,7 @@ export default function AdminPage() {
 
   if (booting) {
     return (
-      <Shell title="Admin | Órbita">
+      <Shell title="Admin | Reclu">
         <p className="text-sm text-zinc-500">Cargando…</p>
       </Shell>
     );
@@ -162,7 +162,7 @@ export default function AdminPage() {
 
   if (!session) {
     return (
-      <Shell title="Entrar | Admin Órbita">
+      <Shell title="Entrar | Admin Reclu">
         <Card className="max-w-md">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-2">Panel</p>
           <h1 className="text-2xl font-medium tracking-tight mb-6">Entrar</h1>
@@ -202,7 +202,7 @@ export default function AdminPage() {
 
   if (!admin) {
     return (
-      <Shell title="Sin acceso | Admin Órbita" email={session.user.email} onOut={() => getSupabase().auth.signOut()}>
+      <Shell title="Sin acceso | Admin Reclu" email={session.user.email} onOut={() => getSupabase().auth.signOut()}>
         <Card>
           <h1 className="text-2xl font-medium tracking-tight mb-2">Esta cuenta no es admin</h1>
           <p className="text-sm text-zinc-600">
@@ -215,7 +215,7 @@ export default function AdminPage() {
   }
 
   return (
-    <Shell title="Panel | Órbita" email={session.user.email} onOut={() => getSupabase().auth.signOut()}>
+    <Shell title="Panel | Reclu" email={session.user.email} onOut={() => getSupabase().auth.signOut()}>
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-1">Panel</p>
@@ -464,11 +464,11 @@ function Shell({
 }) {
   return (
     <div className="min-h-svh bg-[#F7F8FC] text-[#0B0B12]">
-      <PageMeta title={title} description="Panel interno de Órbita." />
+      <PageMeta title={title} description="Panel interno de Reclu." />
       <header className="border-b border-zinc-200/80 bg-white">
         <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-3">
           <Link to="/" className="text-sm font-medium tracking-tight">
-            Órbita
+            Reclu
           </Link>
           <div className="flex items-center gap-3 text-xs text-zinc-500">
             {email && <span className="hidden sm:inline">{email}</span>}

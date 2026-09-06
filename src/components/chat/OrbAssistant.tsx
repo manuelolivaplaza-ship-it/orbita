@@ -36,7 +36,7 @@ interface ChatMessage {
 const INITIAL_MESSAGE: ChatMessage = {
   id: 'init-1',
   sender: 'orb',
-  text: '¡Hola! Soy **Orb** 🫧, tu copiloto con IA en Órbita.\n\nPuedo ayudarte a encontrar la propuesta exacta para tu rubro, comparar planes en **CLP** o **UF**, o mostrarte cómo funciona el CRM con WhatsApp. ¿Qué tipo de negocio tienes o qué buscas para tu web?',
+  text: '¡Hola! Soy **Orb** 🫧, tu copiloto con IA en Reclu.\n\nPuedo ayudarte a encontrar la propuesta exacta para tu rubro, comparar planes en **CLP** o **UF**, o mostrarte cómo funciona el CRM con WhatsApp. ¿Qué tipo de negocio tienes o qué buscas para tu web?',
   timestamp: 'Ahora',
 };
 
@@ -205,7 +205,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
                   </span>
                 </div>
                 <p className="text-[11px] text-zinc-500">
-                  {isTyping ? 'Pensando respuesta...' : 'Asistente de Estudio Órbita'}
+                  {isTyping ? 'Pensando respuesta...' : 'Asistente de Reclu'}
                 </p>
               </div>
             </div>
@@ -400,7 +400,7 @@ function generateOrbResponse(query: string): {
   // 1. GREETINGS
   if (/hola|buenos dias|buenas|hey|que tal/i.test(q)) {
     return {
-      text: '¡Hola! 🫧 Qué gusto saludarte. Soy **Orb**, el asistente de Órbita. ¿Estás buscando una web nueva para tu empresa, rediseñar la actual o quieres saber sobre nuestros precios en CLP o UF?',
+      text: '¡Hola! 🫧 Qué gusto saludarte. Soy **Orb**, el asistente de Reclu. ¿Estás buscando una web nueva para tu empresa, rediseñar la actual o quieres saber sobre nuestros precios en CLP o UF?',
       state: 'happy',
     };
   }
@@ -436,7 +436,7 @@ function generateOrbResponse(query: string): {
   // 3. CRM & WHATSAPP QUESTIONS
   if (/crm|whatsapp|panel|lead|prospecto|alerta|kanban/i.test(q)) {
     return {
-      text: '¡El CRM es nuestra especialidad! 🔥 Con Órbita, tu sitio no es solo una vitrina: incluye un **Panel CRM privado** donde ves en tiempo real:\n\n1. **Alertas inmediatas a tu WhatsApp** cuando alguien llena el formulario.\n2. **Embudo Kanban** para arrastrar prospectos (Nuevo → Contactado → Cotizado → Cerrado).\n3. **Analítica en vivo**: visitas únicas, clics en tu WhatsApp y comunas de Santiago.\n\nPuedes probarlo directamente en la sección CRM de nuestra web.',
+      text: '¡El CRM es nuestra especialidad! 🔥 Con Reclu, tu sitio no es solo una vitrina: incluye un **Panel CRM privado** donde ves en tiempo real:\n\n1. **Alertas inmediatas a tu WhatsApp** cuando alguien llena el formulario.\n2. **Embudo Kanban** para arrastrar prospectos (Nuevo → Contactado → Cotizado → Cerrado).\n3. **Analítica en vivo**: visitas únicas, clics en tu WhatsApp y comunas de Santiago.\n\nPuedes probarlo directamente en la sección CRM de nuestra web.',
       state: 'happy',
     };
   }
@@ -519,7 +519,7 @@ function generateOrbResponse(query: string): {
 
   // DEFAULT / FALLBACK RESPONSE
   return {
-    text: 'Entiendo perfectamente. En Órbita creamos sitios de alto impacto con **Panel CRM y WhatsApp integrados**, entregados en 7 días con Modo Turbo.\n\nPuedes ver nuestra **Galería de 25 propuestas**, consultar nuestros **Planes desde $490.000 / 12,5 UF**, o agendar una videollamada para orientarte mejor.',
+    text: 'Entiendo perfectamente. En Reclu creamos sitios de alto impacto con **Panel CRM y WhatsApp integrados**, entregados en 7 días con Modo Turbo.\n\nPuedes ver nuestra **Galería de 25 propuestas**, consultar nuestros **Planes desde $490.000 / 12,5 UF**, o agendar una videollamada para orientarte mejor.',
     state: 'idle',
   };
 }

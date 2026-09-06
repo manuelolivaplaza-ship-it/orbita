@@ -297,7 +297,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
   };
 
   const handleWhatsAppDirect = () => {
-    window.open(whatsappUrl(`Hola Órbita — quiero cotizar.\n\n${buildSummaryText()}`), '_blank', 'noopener,noreferrer');
+    window.open(whatsappUrl(`Hola Reclu — quiero cotizar.\n\n${buildSummaryText()}`), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -322,7 +322,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
             </div>
             <div className="min-w-0">
               <h3 id="budget-modal-title" className="text-lg sm:text-xl font-medium text-[#0B0B12] tracking-tight truncate">
-                Cotización orbital
+                Cotización de proyecto
               </h3>
               <p className="text-xs text-zinc-500">
                 Plan + extras + plazos · estimación en CLP

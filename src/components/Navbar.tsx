@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
               </svg>
             </div>
             <span className="text-xl font-medium tracking-tight text-[#0B0B12] group-hover:text-[#6B7280] transition-colors">
-              Órbita
+              Reclu
             </span>
           </Link>
         </LiquidGlass>
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0B0B12] text-white">
                   <Sparkles className="w-4 h-4 text-[#D4D4D8]" />
                 </div>
-                <span className="text-lg font-medium text-[#0B0B12] tracking-tight">Órbita</span>
+                <span className="text-lg font-medium text-[#0B0B12] tracking-tight">Reclu</span>
               </div>
               <button
                 type="button"

@@ -13,7 +13,7 @@ export interface NotificationSettings {
 const DEFAULT_SETTINGS: NotificationSettings = {
   whatsappNumber: '+56 9 8452 1190',
   whatsappEnabled: true,
-  webhookUrl: 'https://api.orbita.cl/v1/leads/webhook',
+  webhookUrl: 'https://api.reclu.cl/v1/leads/webhook',
   webhookEnabled: false,
   notifyOnEveryLead: true,
   soundEnabled: true,
@@ -168,7 +168,7 @@ export function useCrmStore(slug: string, brandName: string, sector: string) {
       notes: [
         {
           id: `note-${Date.now()}`,
-          author: 'Sistema Órbita',
+          author: 'Sistema Reclu',
           text: `Prospecto capturado en tiempo real desde ${channel}`,
           createdAt: 'Recién',
         },
