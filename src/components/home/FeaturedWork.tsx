@@ -22,14 +22,13 @@ export const FeaturedWork: React.FC = () => {
               className="text-4xl font-medium leading-[1.02] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
               style={{ letterSpacing: '-0.04em' }}
             >
-              Sitios que ya están
-              <br className="hidden sm:block" /> en órbita.
+              Sitios de clientes,
+              <br className="hidden sm:block" /> en producción.
             </h2>
           </div>
           <div className="max-w-md lg:col-span-5 lg:justify-self-end lg:pb-1">
             <p className="text-base leading-relaxed text-zinc-600">
-              Trabajo en producción, no maquetas. Entra a cada caso y recorre el sitio como lo
-              haría un cliente.
+              Casos reales: ProgramBI y Maverlang. Las demos de rubro están en la galería.
             </p>
             <Link
               to="/creaciones"

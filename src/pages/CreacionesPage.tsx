@@ -14,14 +14,14 @@ export default function CreacionesPage() {
     <>
       <PageMeta
         title="Creaciones | Reclu"
-        description="Casos de éxito y sitios creados por Reclu. Creaciones seleccionadas: landings y sitios que convierten."
+        description="Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería."
       />
 
       <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
         <div className="max-w-[88rem] mx-auto">
           <div className="max-w-3xl">
             <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
-              Portfolio
+              Casos reales
             </p>
             <h1
               className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-[#0B0B12] leading-[0.95] mb-6"
@@ -30,7 +30,8 @@ export default function CreacionesPage() {
               Creaciones.
             </h1>
             <p className="text-zinc-600 text-lg sm:text-xl max-w-xl leading-relaxed">
-              Sitios en producción. Entra a un caso y recorre el resultado como lo haría un cliente.
+              Sitios de clientes en producción: ProgramBI y Maverlang. Las demos de rubro están en
+              la galería.
             </p>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
 import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
 import { HoneypotField } from './HoneypotField';
-import { site, whatsappUrl } from '../data/site';
+import { site, sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
               <p className="text-zinc-600 text-base sm:text-lg max-w-2xl leading-relaxed">
                 Desarrollamos landings de alta conversión y sitios corporativos con CRM integrado, entregados con máxima velocidad y soporte continuo.
               </p>
-              <div className="pt-2 flex flex-wrap items-center gap-3">
+              <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <Link
                   to="/#contacto"
                   className="inline-flex items-center gap-2.5 rounded-full bg-[#0B0B12] text-white hover:bg-zinc-800 px-6 py-2.5 text-sm font-medium transition-all shadow-sm active:scale-[0.99]"
@@ -64,9 +64,9 @@ export const Footer: React.FC = () => {
                 </Link>
                 <Link
                   to="/?agendar=1"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-white text-zinc-800 hover:text-[#0B0B12] px-6 py-2.5 text-sm font-medium border border-zinc-200 hover:border-zinc-300 transition-all shadow-xs"
+                  className="text-sm font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-[#0B0B12] hover:decoration-[#0B0B12]"
                 >
-                  <span>Agendar llamada de 30 min</span>
+                  Agendar llamada de 30 min
                 </Link>
               </div>
             </div>
@@ -100,11 +100,17 @@ export const Footer: React.FC = () => {
                     <button
                       type="submit"
                       disabled={sending || !consent}
+                      title={!consent ? 'Marca el consentimiento para habilitar el envío' : undefined}
                       className="inline-flex items-center justify-center gap-2 bg-[#0B0B12] text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl px-5 py-2.5 text-sm font-medium transition-colors shrink-0 shadow-xs"
                     >
                       <span>{sending ? 'Enviando...' : 'Suscribirme'}</span>
                     </button>
                   </div>
+                  {!consent && (
+                    <p className="text-[11px] text-zinc-400">
+                      El botón se habilita cuando aceptas el contacto por correo.
+                    </p>
+                  )}
                   <label className="flex items-start gap-2 text-left text-[11px] text-zinc-500 cursor-pointer pt-1">
                     <input
                       type="checkbox"
@@ -143,6 +149,12 @@ export const Footer: React.FC = () => {
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                 <span>Santiago, Chile · Cobertura internacional</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                <a href={siteTelHref} className="hover:text-[#0B0B12] transition-colors">
+                  {sitePhoneDisplay}
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-zinc-400 shrink-0" />

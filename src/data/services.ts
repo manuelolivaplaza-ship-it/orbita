@@ -19,7 +19,7 @@ export const services: OrbitService[] = [
     idealFor: 'Lanzamientos, campañas, validar una oferta o un servicio nuevo.',
     deliverables: [
       'Hero con media de alto impacto',
-      'Hasta 5–7 bloques estratégicos',
+      'Hasta 5–6 bloques estratégicos',
       'Copy orientado a conversión',
       'Formulario o WhatsApp listo',
       'Mobile real + SEO base',

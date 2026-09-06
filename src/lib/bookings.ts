@@ -31,18 +31,25 @@ const BOOKING_KNOWN_ERRORS = [
   'Fecha inválida',
   'Solo lunes a viernes',
   'No se puede reservar una fecha pasada',
-  'Elegí una fecha dentro de los próximos 60 días',
+  'Elige una fecha dentro de los próximos 60 días',
   'Horario inválido',
   'Ese horario ya no está disponible',
   'El mensaje es demasiado largo',
-  'La agenda está ocupada. Probá de nuevo en un momento',
-  'Ya tenés una reunión pendiente con ese email',
+  'La agenda está ocupada. Prueba de nuevo en un momento',
+  'Ya tienes una reunión pendiente con ese email',
   'Ese horario ya está reservado',
 ];
 
+const BOOKING_ERROR_MAP: Record<string, string> = {
+  'Elegí una fecha dentro de los próximos 60 días': 'Elige una fecha dentro de los próximos 60 días',
+  'La agenda está ocupada. Probá de nuevo en un momento': 'La agenda está ocupada. Prueba de nuevo en un momento',
+  'Ya tenés una reunión pendiente con ese email': 'Ya tienes una reunión pendiente con ese email',
+};
+
 function publicBookingError(message: string | undefined): Error {
-  if (message && BOOKING_KNOWN_ERRORS.includes(message)) return new Error(message);
-  return new Error('No se pudo reservar ese horario. Probá de nuevo.');
+  const mapped = message ? BOOKING_ERROR_MAP[message] ?? message : undefined;
+  if (mapped && BOOKING_KNOWN_ERRORS.includes(mapped)) return new Error(mapped);
+  return new Error('No se pudo reservar ese horario. Prueba de nuevo.');
 }
 
 export async function createBooking(input: {

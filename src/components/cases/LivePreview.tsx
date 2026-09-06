@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Lock, Maximize2, Monitor, Smartphone } from 'lucide-react';
 import type { CaseStudy } from '../../data/cases';
 import { getPreviewPath } from '../../data/cases';
+import { site } from '../../data/site';
 
 type Viewport = 'desktop' | 'mobile';
 
@@ -14,7 +15,7 @@ export function LivePreview({ caseStudy }: { caseStudy: CaseStudy }) {
   );
   const embedSrc = getPreviewPath(caseStudy, true);
   const fullSrc = getPreviewPath(caseStudy, false);
-  const url = `preview.reclu.studio/${caseStudy.previewSlug}`;
+  const url = `${site.origin.replace(/^https:\/\//, '')}/preview/${caseStudy.previewSlug}`;
 
   if (!embedSrc || !fullSrc) return null;
 

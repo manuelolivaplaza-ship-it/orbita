@@ -17,7 +17,15 @@ import {
   Rocket,
   Clock,
 } from 'lucide-react';
-import { BASE_PRICES, formatCLP, planKeyFromName, type PlanId } from '../data/pricing';
+import {
+  BASE_PRICES,
+  IVA_SHORT,
+  PLAN_HINTS,
+  TURBO_PROMO_UNTIL_SHORT,
+  formatCLP,
+  planKeyFromName,
+  type PlanId,
+} from '../data/pricing';
 import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
 import { whatsappUrl } from '../data/site';
@@ -161,7 +169,7 @@ function PriceTag({
             dark ? 'text-white/50' : 'text-zinc-400'
           }`}
         >
-          tiempo limitado
+          hasta el {TURBO_PROMO_UNTIL_SHORT}
         </span>
       </span>
     );
@@ -301,7 +309,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div
         className="fixed inset-0 bg-[#0B0B12]/45 backdrop-blur-md"
         onClick={onClose}
@@ -350,7 +358,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
               {addons.turbo ? ' con Modo Turbo (7 días)' : ''}.
             </p>
             <p className="text-zinc-500 text-xs max-w-sm mx-auto mb-8">
-              Estimación de referencia: {formatCLP(calculateTotal())} + IVA. Te contactamos con la propuesta exacta.
+              Estimación de referencia: {formatCLP(calculateTotal())} {IVA_SHORT}. Te contactamos con la propuesta exacta.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <button
@@ -378,15 +386,15 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">01</span>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-700">
-                    Elige tu plan base
+                    Elige tu plan (recomendamos Estación)
                   </h4>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(
                     [
-                      { id: 'Sonda', label: 'Sonda', hint: 'Landing / campaña' },
-                      { id: 'Estación', label: 'Estación', hint: 'Web premium' },
-                      { id: 'Constelación', label: 'Constelación', hint: 'Multi / rediseño' },
+                      { id: 'Sonda' as const, label: 'Sonda', hint: PLAN_HINTS.Sonda },
+                      { id: 'Estación' as const, label: 'Estación', hint: PLAN_HINTS.Estación, recommended: true },
+                      { id: 'Constelación' as const, label: 'Constelación', hint: PLAN_HINTS.Constelación },
                     ] as const
                   ).map((plan) => (
                     <button
@@ -399,11 +407,19 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                           : 'border-zinc-200 bg-white hover:border-zinc-300'
                       }`}
                     >
-                      <div className="text-sm font-medium text-[#0B0B12]">{plan.label}</div>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="text-sm font-medium text-[#0B0B12]">{plan.label}</div>
+                        {'recommended' in plan && plan.recommended && (
+                          <span className="text-[9px] font-semibold uppercase tracking-wider text-zinc-600 bg-zinc-100 px-1.5 py-0.5 rounded-full">
+                            Recomendado
+                          </span>
+                        )}
+                      </div>
                       <div className="text-[11px] text-zinc-500 mt-0.5">{plan.hint}</div>
                       <div className="text-sm font-semibold text-[#0B0B12] mt-2">
                         desde {formatCLP(BASE_PRICES[plan.id])}
                       </div>
+                      <div className="text-[10px] text-zinc-400 mt-0.5">{IVA_SHORT}</div>
                     </button>
                   ))}
                 </div>
@@ -453,7 +469,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                               : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           }`}
                         >
-                          Gratis · tiempo limitado
+                          Gratis hasta el {TURBO_PROMO_UNTIL_SHORT}
                         </span>
                       </div>
                       <p
@@ -461,7 +477,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                           addons.turbo ? 'text-white/75' : 'text-zinc-600'
                         }`}
                       >
-                        Sitio listo para publicar en 7 días hábiles. Ideal para lanzamientos, campañas y fechas límite. Promo temporal: sin costo extra.
+                        Sitio listo para publicar en 7 días hábiles. Promo a $0 hasta el {TURBO_PROMO_UNTIL_SHORT}.
                       </p>
                     </div>
                     <div className="text-right shrink-0">
@@ -667,7 +683,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                   </span>
                   <div className="text-2xl sm:text-3xl font-semibold text-[#0B0B12] tracking-tight">
                     {formatCLP(calculateTotal())}
-                    <span className="text-xs font-normal text-zinc-500 ml-1.5">+ IVA ref.</span>
+                    <span className="text-xs font-normal text-zinc-500 ml-1.5">{IVA_SHORT}</span>
                   </div>
                   {promoSavings() > 0 && (
                     <p className="text-[11px] text-emerald-600 font-medium mt-1">

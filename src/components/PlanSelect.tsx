@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Check, ChevronDown, Compass, Orbit, Satellite, Sparkles, Smartphone } from 'lucide-react';
-import { BASE_PRICES, formatCLP, planKeyFromName } from '../data/pricing';
+import { BASE_PRICES, BASE_PRICES_UF, formatCLP, formatUF, PLAN_HINTS, planKeyFromName } from '../data/pricing';
 
 export type ContactPlanValue = 'Sonda' | 'Estación' | 'Constelación' | 'Aplicación' | 'Personalizado';
 
@@ -17,23 +17,23 @@ export const CONTACT_PLAN_OPTIONS: PlanOption[] = [
   {
     value: 'Sonda',
     name: 'Plan Sonda',
-    hint: 'Landing o campaña puntual',
-    price: `desde ${formatCLP(BASE_PRICES.Sonda)} · 12,5 UF`,
+    hint: PLAN_HINTS.Sonda,
+    price: `desde ${formatCLP(BASE_PRICES.Sonda)} · ${formatUF(BASE_PRICES_UF.Sonda)}`,
     Icon: Satellite,
   },
   {
     value: 'Estación',
     name: 'Plan Estación',
-    hint: 'Landing premium o sitio 5–8 bloques',
-    price: `desde ${formatCLP(BASE_PRICES.Estación)} · 25,0 UF`,
+    hint: PLAN_HINTS.Estación,
+    price: `desde ${formatCLP(BASE_PRICES.Estación)} · ${formatUF(BASE_PRICES_UF.Estación)}`,
     popular: true,
     Icon: Orbit,
   },
   {
     value: 'Constelación',
     name: 'Plan Constelación',
-    hint: 'Multi-sección, rediseño o pack creativo',
-    price: `desde ${formatCLP(BASE_PRICES.Constelación)} · 42,5 UF`,
+    hint: PLAN_HINTS.Constelación,
+    price: `desde ${formatCLP(BASE_PRICES.Constelación)} · ${formatUF(BASE_PRICES_UF.Constelación)}`,
     Icon: Sparkles,
   },
   {

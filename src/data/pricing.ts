@@ -1,18 +1,29 @@
 import type { PlanItem } from '../types';
 
 export const BASE_PRICES = {
-  Sonda: 490_000,
+  Sonda: 420_000,
   Estación: 990_000,
-  Constelación: 1_690_000,
+  Constelación: 1_490_000,
   Aplicación: 1_890_000,
 } as const;
 
 export const BASE_PRICES_UF = {
-  Sonda: 12.5,
+  Sonda: 10.5,
   Estación: 25.0,
-  Constelación: 42.5,
+  Constelación: 37.5,
   Aplicación: 48.0,
 } as const;
+
+/** Referencia para cotizaciones grandes / alcance extendido, no el precio de lista. */
+export const LARGE_QUOTE_CLP = 1_690_000;
+
+export const IVA_RATE = 0.19;
+export const IVA_NOTE = 'valores netos + 19% IVA';
+export const IVA_SHORT = 'neto + 19% IVA';
+
+/** Promo Turbo: entrega en 7 días hábiles a $0. */
+export const TURBO_PROMO_UNTIL = '31/10/2026';
+export const TURBO_PROMO_UNTIL_SHORT = '31/10';
 
 export const MONTHLY_PRICES = {
   Sonda: 89_000,
@@ -33,9 +44,9 @@ export const UF_APPROX_CLP = 39_600;
 export type PlanId = keyof typeof BASE_PRICES;
 
 export const PLAN_HINTS: Record<PlanId, string> = {
-  Sonda: 'Landing de validación / campaña',
-  Estación: 'Web comercial + Panel CRM',
-  Constelación: 'Multi-sección / Plataforma',
+  Sonda: 'Landing / campaña',
+  Estación: 'Sitio comercial + CRM',
+  Constelación: 'Multi-sección / rediseño',
   Aplicación: 'Web App interactiva / PWA / Portales',
 };
 
@@ -43,9 +54,10 @@ export const plans: PlanItem[] = [
   {
     id: 'sonda',
     name: 'Plan Sonda',
-    price: '$490.000 CLP',
+    subtitle: PLAN_HINTS.Sonda,
+    price: '$420.000 CLP',
     priceRaw: BASE_PRICES.Sonda,
-    priceUf: '12,5 UF',
+    priceUf: '10,5 UF',
     priceUfRaw: BASE_PRICES_UF.Sonda,
     monthlyPrice: '$89.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Sonda,
@@ -88,6 +100,7 @@ export const plans: PlanItem[] = [
   {
     id: 'estacion',
     name: 'Plan Estación',
+    subtitle: PLAN_HINTS.Estación,
     price: '$990.000 CLP',
     priceRaw: BASE_PRICES.Estación,
     priceUf: '25,0 UF',
@@ -97,7 +110,7 @@ export const plans: PlanItem[] = [
     monthlyPriceUf: '3,75 UF',
     monthlyPriceUfRaw: MONTHLY_PRICES_UF.Estación,
     popular: true,
-    description: 'La opción predilecta de pymes, clínicas y empresas que buscan presencia sólida, automatización de prospectos y conversión.',
+    description: 'Sitio comercial con panel CRM y alertas a WhatsApp. La opción de referencia para pymes, clínicas y servicios que necesitan captar y gestionar prospectos.',
     aiAssistant: {
       conversations: 'Hasta 10.000 conversaciones / mes',
       shortLabel: 'Asistente IA Opcional',
@@ -105,7 +118,7 @@ export const plans: PlanItem[] = [
       description: 'Es 100% opcional sumarlo a tu plan. Si lo requieres, puedes integrar un asistente con IA personalizado con catálogo y servicios (o conectar a Orb) con capacidad de hasta 10.000 conversaciones/mes para cualificar leads y registrarlos en tu CRM.',
     },
     features: [
-      'Sitio comercial completo o landing Pro: arquitectura estratégica de 5 a 8 bloques para ventas y servicios.',
+      'Sitio comercial completo: arquitectura estratégica de 5 a 8 bloques para ventas y servicios, con CRM incluido.',
       'Panel CRM Reclu Pro integrado: embudo Kanban interactivo para mover prospectos de "Nuevo" a "Cerrado" con drag & drop.',
       'Alertas instantáneas vía Webhook: notificación en tiempo real a tu WhatsApp cada vez que entra un nuevo interesado.',
       'Dashboard con analítica en vivo: visualiza visitas reales, clics a WhatsApp, conversiones y tasa de cierre en un solo lugar.',
@@ -134,15 +147,16 @@ export const plans: PlanItem[] = [
   {
     id: 'constelacion',
     name: 'Plan Constelación',
-    price: '$1.690.000 CLP',
+    subtitle: PLAN_HINTS.Constelación,
+    price: '$1.490.000 CLP',
     priceRaw: BASE_PRICES.Constelación,
-    priceUf: '42,5 UF',
+    priceUf: '37,5 UF',
     priceUfRaw: BASE_PRICES_UF.Constelación,
     monthlyPrice: '$298.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Constelación,
     monthlyPriceUf: '7,5 UF',
     monthlyPriceUfRaw: MONTHLY_PRICES_UF.Constelación,
-    description: 'Para empresas con múltiples servicios, rediseños completos o marcas que necesitan arquitectura a medida y extras creativos.',
+    description: 'Para empresas con múltiples servicios, rediseños completos o marcas que necesitan arquitectura a medida. Alcances mayores se cotizan aparte (referencia desde $1.690.000).',
     aiAssistant: {
       conversations: 'Hasta 20.000 conversaciones / mes',
       shortLabel: 'Asistente IA Opcional',
@@ -197,19 +211,8 @@ export const EXTRAS_PRICING: ExtraItem[] = [
     priceUf: '0 UF',
     priceClpRaw: 0,
     priceUfRaw: 0,
-    tag: 'Tiempo limitado (Valor normal: $280.000 / 7 UF)',
-    description: 'Entregamos tu sitio listo para publicar en solo 7 días hábiles sin comprometer un ápice de diseño ni rendimiento.',
-  },
-  {
-    id: 'mantenimiento',
-    name: 'Plan Reclu Care (Hosting + Soporte)',
-    priceClp: '$60.000',
-    priceUf: '1,5 UF',
-    priceClpRaw: 60_000,
-    priceUfRaw: 1.5,
-    period: '/ mes',
-    tag: 'Opcional recurrente',
-    description: 'Hosting ultra-rápido en CDN global, SSL, backups semanales automáticos, soporte prioritario por WhatsApp y hosting continuo de tu Panel CRM.',
+    tag: `Gratis hasta el ${TURBO_PROMO_UNTIL_SHORT} (valor normal: $280.000 / 7 UF)`,
+    description: `Entregamos tu sitio listo para publicar en 7 días hábiles. Promo vigente hasta el ${TURBO_PROMO_UNTIL}.`,
   },
   {
     id: 'idiomas',
@@ -232,6 +235,20 @@ export const EXTRAS_PRICING: ExtraItem[] = [
   },
 ];
 
+/** Mantención post-venta. No es un plan gemelo de Sonda/Estación: se contrata después de publicar. */
+export const CARE_PLAN: ExtraItem = {
+  id: 'mantenimiento',
+  name: 'Reclu Care',
+  priceClp: '$60.000',
+  priceUf: '1,5 UF',
+  priceClpRaw: 60_000,
+  priceUfRaw: 1.5,
+  period: '/ mes',
+  tag: 'Mantención post-venta',
+  description:
+    'Después de publicar: hosting en CDN, SSL, backups, soporte por WhatsApp y el Panel CRM en la nube. Opcional; el código del sitio sigue siendo tuyo si no lo contratas.',
+};
+
 export interface ComparisonRow {
   category: string;
   feature: string;
@@ -243,8 +260,8 @@ export interface ComparisonRow {
 
 export const COMPARISON_TABLE: ComparisonRow[] = [
   // Arquitectura y Diseño
-  { category: 'Diseño & Arquitectura', feature: 'Tipo de sitio', sonda: 'Landing de 1 página', estacion: 'Sitio comercial o landing 5-8 bloques', constelacion: 'Multi-sección completo / Rediseño' },
-  { category: 'Diseño & Arquitectura', feature: 'Bloques estratégicos de contenido', sonda: '5 a 6 bloques', estacion: 'Hasta 8 bloques', constelacion: 'Ilimitados según arquitectura' },
+  { category: 'Diseño & Arquitectura', feature: 'Tipo de sitio', sonda: 'Landing / campaña', estacion: 'Sitio comercial + CRM', constelacion: 'Multi-sección / rediseño' },
+  { category: 'Diseño & Arquitectura', feature: 'Bloques estratégicos de contenido', sonda: '5 a 6 bloques', estacion: '5 a 8 bloques', constelacion: 'Ilimitados según arquitectura' },
   { category: 'Diseño & Arquitectura', feature: 'Diseño responsive 100% mobile-first', sonda: true, estacion: true, constelacion: true },
   { category: 'Diseño & Arquitectura', feature: 'Animaciones suaves y micro-interacciones', sonda: 'Esenciales', estacion: 'Avanzadas (Spline/Motion)', constelacion: 'Personalizadas a medida' },
 
@@ -263,7 +280,7 @@ export const COMPARISON_TABLE: ComparisonRow[] = [
   // Entrega & Soporte
   { category: 'Entrega & Soporte', feature: 'Rondas de revisión incluidas', sonda: '1 ronda', estacion: '2 rondas', constelacion: '3 rondas' },
   { category: 'Entrega & Soporte', feature: 'Plazo de entrega estándar', sonda: '10–14 días hábiles', estacion: '14–20 días hábiles', constelacion: '25–35 días hábiles' },
-  { category: 'Entrega & Soporte', feature: 'Modo Turbo (7 días hábiles)', sonda: 'Disponible (Gratis promo)', estacion: 'Disponible (Gratis promo)', constelacion: 'Consultar calendario' },
+  { category: 'Entrega & Soporte', feature: `Modo Turbo 7 días (gratis hasta el ${TURBO_PROMO_UNTIL_SHORT})`, sonda: 'Incluido en promo', estacion: 'Incluido en promo', constelacion: 'Consultar calendario' },
   { category: 'Entrega & Soporte', feature: 'Soporte técnico post-lanzamiento', sonda: '7 días de garantía', estacion: '15 días de soporte', constelacion: '30 días de soporte VIP' },
 ];
 
@@ -274,11 +291,11 @@ export const PRICING_FAQS = [
   },
   {
     question: '¿Los precios incluyen IVA?',
-    answer: 'Los precios de referencia se indican en valores netos. Si requieres Factura Electrónica emitida a nombre de tu empresa o SpA, se agrega el 19% de IVA correspondiente.',
+    answer: 'No. Todos los valores publicados son netos; se suma el 19% de IVA al facturar (boleta o factura electrónica). En las tarjetas y el cotizador verás “valores netos + 19% IVA” junto al precio.',
   },
   {
     question: '¿Hay mensualidades o cobros ocultos obligatorios?',
-    answer: 'No. El desarrollo del sitio web y la configuración de tu CRM se pagan una sola vez (50% al iniciar y 50% al publicar con tu conformidad). El código y los accesos son 100% tuyos. Solo si deseas que nosotros nos encarguemos de tu hosting, copias de seguridad y soporte continuo puedes contratar opcionalmente el Plan Reclu Care (1,5 UF/mes).',
+    answer: 'No. El sitio y el CRM se pagan una sola vez (50% al iniciar y 50% al publicar). El código y los accesos son tuyos. Si después quieres que nos encarguemos de hosting, backups y soporte, está Reclu Care ($60.000 / 1,5 UF al mes), opcional y post-venta. También puedes pagar el desarrollo en cuotas; no es un plan distinto.',
   },
   {
     question: '¿Cómo funciona la forma de pago?',
@@ -286,7 +303,7 @@ export const PRICING_FAQS = [
   },
   {
     question: '¿Realmente el Modo Turbo es gratis?',
-    answer: 'Sí. Actualmente tenemos una promoción de temporada donde el Modo Turbo (entrega garantizada en 7 días hábiles) está bonificado a $0 para los planes Sonda y Estación, sujeto a la entrega oportuna de tus contenidos y accesos.',
+    answer: `Sí, hasta el ${TURBO_PROMO_UNTIL}. El Modo Turbo (entrega en 7 días hábiles) está a $0 para Sonda y Estación, sujeto a que nos entregues contenidos y accesos a tiempo. Después de esa fecha vuelve a su valor normal ($280.000 / 7 UF).`,
   },
   {
     question: '¿Qué pasa si necesito agregar funciones más adelante?',
@@ -331,10 +348,10 @@ export const APP_PLAN = {
 };
 
 export const PLAN_SUMMARIES: { plan: PlanId; price: string; priceUf: string; for: string }[] = [
-  { plan: 'Sonda', price: 'desde $490.000', priceUf: '12,5 UF', for: 'Landing o campaña puntual' },
-  { plan: 'Estación', price: 'desde $990.000', priceUf: '25,0 UF', for: 'Landing premium o sitio 5–8 bloques' },
-  { plan: 'Constelación', price: 'desde $1.690.000', priceUf: '42,5 UF', for: 'Multi-sección, rediseño o pack creativo' },
-  { plan: 'Aplicación', price: 'desde $1.890.000', priceUf: '48,0 UF', for: 'Web App, PWA instalable o plataforma a medida' },
+  { plan: 'Sonda', price: 'desde $420.000', priceUf: '10,5 UF', for: PLAN_HINTS.Sonda },
+  { plan: 'Estación', price: 'desde $990.000', priceUf: '25,0 UF', for: PLAN_HINTS.Estación },
+  { plan: 'Constelación', price: 'desde $1.490.000', priceUf: '37,5 UF', for: PLAN_HINTS.Constelación },
+  { plan: 'Aplicación', price: 'desde $1.890.000', priceUf: '48,0 UF', for: PLAN_HINTS.Aplicación },
 ];
 
 export function planKeyFromName(name?: string): PlanId {

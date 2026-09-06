@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   Search,
   X,
@@ -139,8 +139,8 @@ export default function GaleriaPage() {
   return (
     <>
       <PageMeta
-        title="Propuestas | Reclu"
-        description="Catálogo de propuestas web en vivo por sector en Reclu."
+        title="Galería de demos | Reclu"
+        description="Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones."
       />
 
       <div className="relative z-30 px-4 sm:px-6 pt-24 sm:pt-28">
@@ -394,6 +394,14 @@ export default function GaleriaPage() {
       {/* CUADRÍCULA DE PROPUESTAS (3 COLUMNAS) */}
       <section className="relative z-10 px-4 sm:px-6 pt-6 pb-28">
         <div className="max-w-[88rem] mx-auto">
+          <p className="mb-6 text-sm text-zinc-500">
+            Demos de rubro para elegir dirección de diseño. No son clientes — los casos reales
+            están en{' '}
+            <Link to="/creaciones" className="font-medium text-zinc-800 underline decoration-zinc-300 underline-offset-2 hover:text-[#0B0B12]">
+              Creaciones
+            </Link>
+            .
+          </p>
           {filtered.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filtered.map((entry, i) => (
@@ -402,6 +410,7 @@ export default function GaleriaPage() {
                   {...entry}
                   index={i}
                   variantProp="default"
+                  eager={i < 4}
                 />
               ))}
             </div>

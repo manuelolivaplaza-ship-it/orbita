@@ -16,7 +16,7 @@ export const FaqAccordion: React.FC = () => {
     },
     {
       question: '¿Incluye hosting y dominio?',
-      answer: 'No por defecto. Nos enfocamos en el diseño y desarrollo. Te dejamos el proyecto optimizado y listo para desplegar en Vercel, Cloud Run o tu servidor de preferencia.',
+      answer: 'El desarrollo es compra única: el código es tuyo. Hosting y dominio no van en el plan base. Si quieres que nosotros nos encarguemos después de publicar, está Reclu Care ($60.000/mes): hosting, SSL, backups y soporte.',
     },
     {
       question: '¿Solo trabajan en Chile?',
@@ -44,7 +44,7 @@ export const FaqAccordion: React.FC = () => {
     <section id="faq" className="bg-white px-6 py-24 relative z-10 border-t border-zinc-100">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-medium mb-10 text-center text-[#0B0B12] tracking-tight">
-          Preguntas en tierra firme
+          Preguntas frecuentes
         </h2>
 
         <div className="space-y-4">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { BudgetModal } from '../components/BudgetModal';
@@ -14,6 +14,9 @@ export const MainLayout: React.FC = () => {
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>('Estación');
   const [params, setParams] = useSearchParams();
+  const location = useLocation();
+  const hideOrb =
+    location.pathname.startsWith('/precios') || modalOpen || scheduleOpen;
 
   const handleOpenQuoteModal = (planName?: string) => {
     setSelectedPlan(planName || 'Estación');
@@ -61,6 +64,7 @@ export const MainLayout: React.FC = () => {
       />
       <ScheduleModal isOpen={scheduleOpen} onClose={() => setScheduleOpen(false)} />
       <OrbAssistant
+        hidden={hideOrb}
         onOpenQuoteModal={handleOpenQuoteModal}
         onOpenSchedule={handleOpenSchedule}
       />

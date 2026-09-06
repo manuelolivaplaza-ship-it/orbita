@@ -5,11 +5,12 @@ import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
+import { BASE_PRICES, IVA_SHORT, PLAN_HINTS, formatCLP } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 /**
  * Página de sector de la galería: enlace pensado para enviar a un cliente de
- * ese rubro (p. ej. orbita.studio/galeria/arquitectura).
+ * ese rubro (p. ej. reclu.cl/galeria/arquitectura).
  */
 export default function GaleriaSectorPage() {
   const { sector: sectorSlug } = useParams<{ sector: string }>();
@@ -76,8 +77,8 @@ export default function GaleriaSectorPage() {
                 {entries.length > 0 && (
                   <>
                     Recorre las {entries.length}{' '}
-                    {entries.length === 1 ? 'propuesta' : 'propuestas'} en vivo y dinos cuál se
-                    parece a lo que buscas.
+                    {entries.length === 1 ? 'demo' : 'demos'} de este rubro — son propuestas de
+                    diseño, no sitios de clientes. Dinos cuál se parece a lo que buscas.
                   </>
                 )}
               </p>
@@ -92,15 +93,33 @@ export default function GaleriaSectorPage() {
                 {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-zinc-400" />}
                 {copied ? 'Enlace copiado' : 'Copiar enlace'}
               </button>
-              <button
-                type="button"
-                onClick={() => onOpenQuoteModal()}
-                className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-zinc-800 transition-colors"
-              >
-                Quiero una así
-                <ArrowRight className="w-4 h-4 text-zinc-300" />
-              </button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 px-6 pb-4">
+        <div className="max-w-[88rem] mx-auto">
+          <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200/90 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-zinc-500">
+                Plan recomendado para este rubro
+              </p>
+              <p className="mt-1 text-base font-medium text-[#0B0B12]">
+                Estación · {PLAN_HINTS.Estación}
+              </p>
+              <p className="text-sm text-zinc-500">
+                {formatCLP(BASE_PRICES.Estación)} · {IVA_SHORT}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => onOpenQuoteModal('Estación')}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0B0B12] px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800"
+            >
+              Cotizar Estación
+              <ArrowRight className="h-4 w-4 text-zinc-400" />
+            </button>
           </div>
         </div>
       </section>
@@ -127,7 +146,7 @@ export default function GaleriaSectorPage() {
                 Podemos preparar una dirección de diseño a medida para tu rubro.
               </p>
               <button
-                onClick={() => onOpenQuoteModal()}
+                onClick={() => onOpenQuoteModal('Estación')}
                 className="inline-flex items-center gap-2 bg-[#0B0B12] text-white text-sm font-medium px-6 py-3 rounded-full hover:bg-zinc-800 transition-colors"
               >
                 Pedir propuesta

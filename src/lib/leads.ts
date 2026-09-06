@@ -55,16 +55,23 @@ export function leadSummary(data: LeadPayload): string {
 }
 
 function publicLeadError(message: string | undefined): Error {
+  const map: Record<string, string> = {
+    'El formulario está ocupado. Probá de nuevo en un momento':
+      'El formulario está ocupado. Prueba de nuevo en un momento',
+    'Demasiados envíos. Probá de nuevo en unos minutos':
+      'Demasiados envíos. Prueba de nuevo en unos minutos',
+  };
+  const mapped = message ? map[message] ?? message : undefined;
   const known = [
     'Origen inválido',
     'Email inválido',
     'Nombre inválido',
     'El mensaje es demasiado largo',
-    'El formulario está ocupado. Probá de nuevo en un momento',
-    'Demasiados envíos. Probá de nuevo en unos minutos',
+    'El formulario está ocupado. Prueba de nuevo en un momento',
+    'Demasiados envíos. Prueba de nuevo en unos minutos',
   ];
-  if (message && known.includes(message)) return new Error(message);
-  return new Error('No se pudo enviar. Probá de nuevo en un momento.');
+  if (mapped && known.includes(mapped)) return new Error(mapped);
+  return new Error('No se pudo enviar. Prueba de nuevo en un momento.');
 }
 
 function clipped(data: LeadPayload): LeadPayload {

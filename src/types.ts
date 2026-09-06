@@ -8,6 +8,8 @@ export interface PlanAiAssistant {
 export interface PlanItem {
   id: string;
   name: string;
+  /** Subtítulo humano: “Landing / campaña”, “Sitio comercial + CRM”, etc. */
+  subtitle?: string;
   price: string;
   priceRaw: number;
   priceUf?: string;

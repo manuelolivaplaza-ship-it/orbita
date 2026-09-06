@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, ArrowRight, Sparkles, Rocket, ChevronDown } from 'lucide-react';
-import { LiquidGlass } from './LiquidGlass';
 import { Orb } from './orb';
-import { plans, UF_APPROX_CLP } from '../data/pricing';
+import {
+  CARE_PLAN,
+  IVA_SHORT,
+  plans,
+  TURBO_PROMO_UNTIL_SHORT,
+} from '../data/pricing';
 
 interface PreciosProps {
   onOpenQuoteModal: (planName?: string) => void;
@@ -46,43 +50,30 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
             Inversión transparente
           </span>
           <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-[#0B0B12] mb-3">
-            Planes de inversión
+            Compra única, clara
           </h2>
-          <p className="text-zinc-600 text-base leading-relaxed mb-6">
-            Elige el modelo que mejor se adapte a tu negocio: comprar tu web por una única vez o suscribirte a un plan mensual todo incluido.
+          <p className="text-zinc-600 text-base leading-relaxed mb-4">
+            Pagas el sitio una vez (50% al partir, 50% al publicar). El código es tuyo.
+            Precios {IVA_SHORT}.
           </p>
 
-          {/* Liquid Glass Billing Mode Toggle Switch */}
-          <div className="inline-flex flex-col items-center mt-6 mb-2">
-            <LiquidGlass pill tone="light">
-              <div className="flex items-center gap-1.5 p-1.5">
-                <button
-                  type="button"
-                  onClick={() => setBillingMode('onetime')}
-                  className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs sm:text-sm font-semibold transition-all ${
-                    billingMode === 'onetime'
-                      ? 'bg-[#0B0B12] text-white shadow-2xs'
-                      : 'text-zinc-700 hover:text-zinc-950 hover:bg-white/40'
-                  }`}
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Compra única</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setBillingMode('monthly')}
-                  className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs sm:text-sm font-semibold transition-all ${
-                    billingMode === 'monthly'
-                      ? 'bg-[#0B0B12] text-white shadow-2xs'
-                      : 'text-zinc-700 hover:text-zinc-950 hover:bg-white/40'
-                  }`}
-                >
-                  <Rocket className="h-3.5 w-3.5" />
-                  <span>Planes mensuales</span>
-                </button>
-              </div>
-            </LiquidGlass>
-          </div>
+          {billingMode === 'monthly' ? (
+            <button
+              type="button"
+              onClick={() => setBillingMode('onetime')}
+              className="mt-2 text-sm font-medium text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-[#0B0B12]"
+            >
+              Volver a compra única
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setBillingMode('monthly')}
+              className="mt-2 text-sm font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-800"
+            >
+              ¿Prefieres pagar en cuotas?
+            </button>
+          )}
         </div>
 
         {/* Turbo + promo callout */}
@@ -94,7 +85,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
             <div className="flex flex-wrap items-center gap-2 mb-1">
               <h3 className="text-base font-medium text-[#0B0B12]">Modo Turbo</h3>
               <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded-full">
-                Gratis · tiempo limitado
+                Gratis hasta el {TURBO_PROMO_UNTIL_SHORT}
               </span>
               <span className="text-[11px] text-zinc-400 line-through">
                 $280.000 / 7 UF
@@ -104,8 +95,8 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
               </span>
             </div>
             <p className="text-sm text-zinc-600 leading-relaxed">
-              Por tiempo limitado: Turbo, copywriting, SEO técnico y WhatsApp van sin cargo extra.
-              ¿Fecha límite? Entregamos tu sitio listo para publicar en 7 días hábiles.
+              Hasta el {TURBO_PROMO_UNTIL_SHORT}: Turbo, copy, SEO técnico y WhatsApp van sin cargo extra.
+              Entregamos tu sitio listo para publicar en 7 días hábiles.
             </p>
           </div>
           <button
@@ -139,7 +130,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                 {plan.popular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#0B0B12] text-white text-xs font-semibold px-4 py-1 rounded-full shadow-sm flex items-center gap-1.5 whitespace-nowrap">
                     <Sparkles className="w-3 h-3 text-amber-400 fill-amber-400" />
-                    <span>{isMonthly ? 'Plan Más Popular' : 'Más elegida'}</span>
+                    <span>{isMonthly ? 'Más cómoda en cuotas' : 'Recomendado'}</span>
                   </div>
                 )}
 
@@ -147,7 +138,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                   <div className="mb-6 pb-6 border-b border-zinc-100">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-zinc-500">
-                        {plan.id === 'sonda' ? 'Inicio Rápido' : plan.id === 'estacion' ? 'Comercial Pro' : 'Corporativo'}
+                        {plan.subtitle ?? (plan.id === 'sonda' ? 'Landing / campaña' : plan.id === 'estacion' ? 'Sitio comercial + CRM' : 'Multi-sección / rediseño')}
                       </span>
                       <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
                         {isMonthly ? 'Mensual' : 'Pago único'}
@@ -169,12 +160,15 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                         </span>
                       )}
                     </div>
-                    <span className="text-[11px] font-mono text-zinc-400 block mb-3">
+                    <span className="text-[11px] font-mono text-zinc-400 block">
                       {subtext}
+                    </span>
+                    <span className="text-[11px] text-zinc-500 block mb-3 mt-0.5">
+                      {IVA_SHORT}
                     </span>
                     <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
                       {isMonthly
-                        ? 'Tu web siempre al día con hosting ultra-rápido, CRM y soporte continuo.'
+                        ? 'Cuotas mensuales: el mismo sitio, con hosting y Reclu Care incluidos mientras pagas.'
                         : plan.description}
                     </p>
                   </div>
@@ -256,6 +250,23 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-zinc-200/80 bg-white p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-zinc-500 mb-1">
+              {CARE_PLAN.tag}
+            </p>
+            <h3 className="text-base font-medium text-[#0B0B12]">{CARE_PLAN.name}</h3>
+            <p className="text-sm text-zinc-600 leading-relaxed mt-1">{CARE_PLAN.description}</p>
+          </div>
+          <div className="shrink-0 text-left sm:text-right">
+            <p className="font-mono text-lg font-semibold text-[#0B0B12]">
+              {CARE_PLAN.priceClp}
+              <span className="text-xs font-normal text-zinc-500">{CARE_PLAN.period}</span>
+            </p>
+            <p className="text-[11px] text-zinc-500">{CARE_PLAN.priceUf}/mes · {IVA_SHORT}</p>
+          </div>
         </div>
 
         {/* Link to dedicated Precios page */}

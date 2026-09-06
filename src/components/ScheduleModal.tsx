@@ -165,7 +165,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
     selectedYmd && selectedMin !== null ? formatAppointment(selectedYmd, selectedMin) : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="fixed inset-0 bg-[#0B0B12]/50 backdrop-blur-md" onClick={onClose} />
 
       <div

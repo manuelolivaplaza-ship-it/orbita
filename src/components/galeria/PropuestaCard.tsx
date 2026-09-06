@@ -20,6 +20,7 @@ export const PropuestaCard: React.FC<{
   variantProp?: 'default' | 'wide';
   size?: 'default' | 'featured';
   index?: number;
+  eager?: boolean;
 }> = ({
   slug,
   brand,
@@ -29,6 +30,7 @@ export const PropuestaCard: React.FC<{
   variantProp = 'default',
   size = 'default',
   index = 0,
+  eager = false,
 }) => {
   const sectorInfo = getSector(sector);
   const accent = sectorInfo?.accent ?? '#6B7280';
@@ -55,16 +57,27 @@ export const PropuestaCard: React.FC<{
             shotWidth={SHOT_W}
             shotHeight={SHOT_H}
             iframeSandbox="allow-scripts"
+            eager={eager || index < 2}
             fallbackNode={
               <div
-                className="absolute inset-0 animate-pulse"
+                className="absolute inset-0"
                 style={{
-                  background: `linear-gradient(135deg, ${accent}14 0%, #F4F5F8 42%, ${accent}0A 100%)`,
+                  background: `linear-gradient(180deg, ${accent}10 0%, #F4F5F8 55%)`,
                 }}
-              />
+              >
+                <div className="absolute inset-x-4 top-4 h-2 rounded-full bg-zinc-200/80" />
+                <div className="absolute inset-x-8 top-10 h-8 rounded-lg bg-white/70" />
+                <div className="absolute inset-x-8 top-24 grid grid-cols-2 gap-3">
+                  <div className="h-16 rounded-lg bg-white/50" />
+                  <div className="h-16 rounded-lg bg-white/50" />
+                </div>
+              </div>
             }
           />
         </div>
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 shadow-sm">
+          Demo
+        </span>
       </div>
 
       <div

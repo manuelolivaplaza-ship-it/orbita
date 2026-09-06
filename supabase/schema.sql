@@ -229,14 +229,14 @@ begin
   end if;
 
   if (select count(*) from public.leads where created_at > now() - interval '1 minute') >= 20 then
-    raise exception 'El formulario está ocupado. Probá de nuevo en un momento';
+    raise exception 'El formulario está ocupado. Prueba de nuevo en un momento';
   end if;
   if (
     select count(*) from public.leads
     where lower(email) = email_n
       and created_at > now() - interval '10 minutes'
   ) >= 3 then
-    raise exception 'Demasiados envíos. Probá de nuevo en unos minutos';
+    raise exception 'Demasiados envíos. Prueba de nuevo en unos minutos';
   end if;
 
   insert into public.leads (
@@ -312,7 +312,7 @@ begin
     raise exception 'No se puede reservar una fecha pasada';
   end if;
   if p_slot_date > v_today + 60 then
-    raise exception 'Elegí una fecha dentro de los próximos 60 días';
+    raise exception 'Elige una fecha dentro de los próximos 60 días';
   end if;
   if p_slot_minutes is null
     or p_slot_minutes < 8 * 60
@@ -333,7 +333,7 @@ begin
   end if;
 
   if (select count(*) from public.bookings where created_at > now() - interval '5 minutes') >= 15 then
-    raise exception 'La agenda está ocupada. Probá de nuevo en un momento';
+    raise exception 'La agenda está ocupada. Prueba de nuevo en un momento';
   end if;
   if exists (
     select 1 from public.bookings
@@ -341,7 +341,7 @@ begin
       and status = 'pending'
       and slot_date >= v_today
   ) then
-    raise exception 'Ya tenés una reunión pendiente con ese email';
+    raise exception 'Ya tienes una reunión pendiente con ese email';
   end if;
 
   insert into public.bookings (

@@ -111,6 +111,7 @@ export default function PropuestaPage() {
 
   const title = current?.brand || meta.title || meta.client || slug;
   const label = meta.client && meta.title && !current ? `${meta.client} · ${meta.title}` : title;
+  const sectorLabel = current ? getSector(current.sector)?.label : undefined;
 
   if (kind === 'missing') {
     return (
@@ -144,9 +145,11 @@ export default function PropuestaPage() {
   return (
     <div className="h-svh w-full bg-[#0B0B12] relative overflow-hidden">
       <PageMeta
-        title={`${label} | Propuesta Reclu`}
+        title={`${label}${sectorLabel ? ` · ${sectorLabel}` : ''} | Demo Reclu`}
         description={
-          current?.description ?? (meta.client ? `Propuesta para ${meta.client}.` : 'Propuesta Reclu.')
+          current?.description
+            ? `Demo de propuesta${sectorLabel ? ` para ${sectorLabel}` : ''}: ${current.description}`
+            : `Demo de propuesta Reclu${sectorLabel ? ` · ${sectorLabel}` : ''}: ${label}. No es un sitio de cliente.`
         }
       />
       {kind === 'loading' ? (

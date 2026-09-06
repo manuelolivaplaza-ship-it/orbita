@@ -51,20 +51,20 @@ export const GaleriaTeaser: React.FC = () => {
         <div className="mb-12 grid gap-8 lg:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
             <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
-              Galería de propuestas
+              Galería de demos
             </p>
             <h2
               className="text-4xl font-medium leading-[1.02] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
               style={{ letterSpacing: '-0.04em' }}
             >
-              Direcciones de diseño,
-              <br className="hidden sm:block" /> listas para tu rubro.
+              Propuestas de rubro,
+              <br className="hidden sm:block" /> no sitios de clientes.
             </h2>
           </div>
           <div className="max-w-md lg:col-span-5 lg:justify-self-end lg:pb-1">
             <p className="text-base leading-relaxed text-zinc-600">
-              Entra a la que te guste, recórrela como lo haría tu cliente y esa misma la
-              adaptamos a tu marca.
+              Cada pieza es una demo navegable. Recórrela y adaptamos esa dirección a tu marca.
+              Los casos reales están en Creaciones (ProgramBI y Maverlang).
             </p>
             <Link
               to="/galeria"

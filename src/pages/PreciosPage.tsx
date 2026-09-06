@@ -6,25 +6,27 @@ import {
   Sparkles,
   Rocket,
   ArrowRight,
-  ShieldCheck,
-  HelpCircle,
-  Clock,
   MessageCircle,
-  Layers,
-  Zap,
-  DollarSign,
-  Briefcase,
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
-import { LiquidGlass } from '../components/LiquidGlass';
 import { Orb } from '../components/orb';
 import {
   plans,
   EXTRAS_PRICING,
+  CARE_PLAN,
   COMPARISON_TABLE,
   PRICING_FAQS,
-  UF_APPROX_CLP,
+  BASE_PRICES,
+  BASE_PRICES_UF,
+  MONTHLY_PRICES,
+  MONTHLY_PRICES_UF,
+  formatCLP,
+  formatUF,
+  IVA_NOTE,
+  IVA_SHORT,
+  TURBO_PROMO_UNTIL,
+  TURBO_PROMO_UNTIL_SHORT,
 } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 import { whatsappUrl } from '../data/site';
@@ -84,8 +86,8 @@ export default function PreciosPage() {
   return (
     <>
       <PageMeta
-        title="Precios y Planes Web 2026 | Reclu"
-        description="Elige entre compra única con propiedad 100% o suscripción mensual todo incluido. Panel CRM integrado y WhatsApp."
+        title="Precios web | Reclu"
+        description={`Compra única: Sonda, Estación o Constelación. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}. CRM y WhatsApp incluidos.`}
       />
 
       <div className="relative isolate min-h-screen bg-[#F7F8FC] pb-24 sm:pb-32 overflow-hidden">
@@ -117,41 +119,30 @@ export default function PreciosPage() {
             style={{ letterSpacing: '-0.045em' }}
           >
             Inversión clara.<br />
-            Sin costos ocultos.
+            Compra única.
           </h1>
 
-          {/* LIQUID GLASS BILLING MODEL TOGGLE */}
-          <div className="inline-flex flex-col items-center">
-            <LiquidGlass pill tone="light">
-              <div className="flex items-center gap-1.5 p-1.5">
-                <button
-                  type="button"
-                  onClick={() => setBillingMode('onetime')}
-                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                    billingMode === 'onetime'
-                      ? 'bg-white text-zinc-950 shadow-sm'
-                      : 'text-zinc-700 hover:text-zinc-950 hover:bg-white/40'
-                  }`}
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Compra única</span>
-                </button>
+          <p className="text-white/85 text-sm sm:text-base drop-shadow-sm mb-8">
+            {IVA_NOTE.charAt(0).toUpperCase() + IVA_NOTE.slice(1)}. El código es tuyo.
+          </p>
 
-                <button
-                  type="button"
-                  onClick={() => setBillingMode('monthly')}
-                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                    billingMode === 'monthly'
-                      ? 'bg-white text-zinc-950 shadow-sm'
-                      : 'text-zinc-700 hover:text-zinc-950 hover:bg-white/40'
-                  }`}
-                >
-                  <Layers className="h-3.5 w-3.5" />
-                  <span>Planes mensuales</span>
-                </button>
-              </div>
-            </LiquidGlass>
-          </div>
+          {billingMode === 'monthly' ? (
+            <button
+              type="button"
+              onClick={() => setBillingMode('onetime')}
+              className="text-sm font-medium text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+            >
+              Volver a compra única
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setBillingMode('monthly')}
+              className="text-sm font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white"
+            >
+              ¿Prefieres pagar en cuotas?
+            </button>
+          )}
         </section>
 
         {/* 2. THE 3 CORE PLANS GRID */}
@@ -181,7 +172,7 @@ export default function PreciosPage() {
                   {plan.popular && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0B0B12] px-4 py-1 text-xs font-semibold tracking-wide text-white shadow-md flex items-center gap-1.5 whitespace-nowrap">
                       <Sparkles className="h-3 w-3 text-amber-400 fill-amber-400" />
-                      <span>{isMonthly ? 'Plan Más Popular' : 'Más Elegido · 68% de clientes'}</span>
+                      <span>{isMonthly ? 'Más cómoda en cuotas' : 'Recomendado'}</span>
                     </div>
                   )}
 
@@ -190,7 +181,12 @@ export default function PreciosPage() {
                     <div className="border-b border-zinc-100 pb-6 mb-6">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500">
-                          {plan.id === 'sonda' ? 'Inicio Rápido' : plan.id === 'estacion' ? 'Comercial Completo' : 'Corporativo'}
+                          {plan.subtitle ??
+                            (plan.id === 'sonda'
+                              ? 'Landing / campaña'
+                              : plan.id === 'estacion'
+                                ? 'Sitio comercial + CRM'
+                                : 'Multi-sección / rediseño')}
                         </span>
                         <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
                           {isMonthly ? 'Suscripción mensual' : 'Pago único'}
@@ -215,14 +211,15 @@ export default function PreciosPage() {
                             </span>
                           )}
                         </div>
-                        <span className="font-mono text-[11px] text-zinc-400">
+                        <span className="font-mono text-[11px] text-zinc-400 block">
                           {subtext}
                         </span>
+                        <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
                       </div>
 
                       <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mt-3">
                         {isMonthly
-                          ? `Tu web siempre activa, rápida y actualizada con soporte continuo y hosting incluido.`
+                          ? `Cuotas mensuales del mismo plan, con hosting y Reclu Care incluidos mientras pagas.`
                           : plan.description}
                       </p>
                     </div>
@@ -330,14 +327,14 @@ export default function PreciosPage() {
                     Modo Turbo: Tu sitio listo en 7 días hábiles
                   </h4>
                   <span className="rounded-full bg-emerald-600 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                    Bonificado $0
+                    Gratis hasta el {TURBO_PROMO_UNTIL_SHORT}
                   </span>
                   <span className="font-mono text-xs text-zinc-400 line-through">
                     $280.000 / 7 UF
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-2xl">
-                  Si tienes prisa o una fecha límite comercial, activamos el sprint prioritario de estudio. Diseñamos, redactamos y dejamos tu web lista para publicar en 7 días hábiles sin cargo adicional.
+                  Promo vigente hasta el {TURBO_PROMO_UNTIL}: sprint de 7 días hábiles a $0 en Sonda y Estación, si nos entregas contenidos y accesos a tiempo.
                 </p>
               </div>
             </div>
@@ -353,7 +350,31 @@ export default function PreciosPage() {
           </div>
         </section>
 
-        {/* 4. OPTIONAL EXTRAS & RETAINERS */}
+        {/* 3b. RECLU CARE — post-venta, no un plan gemelo */}
+        <section className="mt-16 px-4 sm:px-6 max-w-7xl mx-auto">
+          <div className="rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <p className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500 mb-2">
+                {CARE_PLAN.tag}
+              </p>
+              <h3 className="text-2xl font-medium tracking-tight text-[#0B0B12] mb-2">
+                {CARE_PLAN.name}
+              </h3>
+              <p className="text-sm text-zinc-600 leading-relaxed max-w-2xl">{CARE_PLAN.description}</p>
+            </div>
+            <div className="shrink-0">
+              <p className="font-mono text-2xl font-semibold text-[#0B0B12]">
+                {CARE_PLAN.priceClp}
+                <span className="text-sm font-normal text-zinc-500">{CARE_PLAN.period}</span>
+              </p>
+              <p className="text-xs text-zinc-500 mt-1">
+                {CARE_PLAN.priceUf}/mes · {IVA_SHORT}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. OPTIONAL EXTRAS */}
         <section className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="max-w-2xl mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
@@ -389,6 +410,7 @@ export default function PreciosPage() {
                     <span className="font-mono text-base font-bold text-zinc-950">
                       {displayExtraPrice}
                     </span>
+                    <span className="block text-[10px] text-zinc-400 mt-0.5">{IVA_SHORT}</span>
                   </div>
                 </div>
               );
@@ -424,19 +446,25 @@ export default function PreciosPage() {
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Sonda
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$89.000/mes (2,25 UF)' : '$490.000 (12,5 UF)'}
+                        {billingMode === 'monthly'
+                          ? `${formatCLP(MONTHLY_PRICES.Sonda)}/mes (${formatUF(MONTHLY_PRICES_UF.Sonda)})`
+                          : `${formatCLP(BASE_PRICES.Sonda)} (${formatUF(BASE_PRICES_UF.Sonda)})`}
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center bg-zinc-100/60 w-1/5">
                       Estación (Recomendado)
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$149.000/mes (3,75 UF)' : '$990.000 (25,0 UF)'}
+                        {billingMode === 'monthly'
+                          ? `${formatCLP(MONTHLY_PRICES.Estación)}/mes (${formatUF(MONTHLY_PRICES_UF.Estación)})`
+                          : `${formatCLP(BASE_PRICES.Estación)} (${formatUF(BASE_PRICES_UF.Estación)})`}
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Constelación
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly' ? '$298.000/mes (7,5 UF)' : '$1.690.000 (42,5 UF)'}
+                        {billingMode === 'monthly'
+                          ? `${formatCLP(MONTHLY_PRICES.Constelación)}/mes (${formatUF(MONTHLY_PRICES_UF.Constelación)})`
+                          : `${formatCLP(BASE_PRICES.Constelación)} (${formatUF(BASE_PRICES_UF.Constelación)})`}
                       </div>
                     </th>
                   </tr>
@@ -589,7 +617,7 @@ export default function PreciosPage() {
               Cuéntanos qué necesitas (multi-idioma, cotizador complejo, portal de clientes o catálogo) y te armamos una propuesta personalizada en menos de 24 horas.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-col items-center gap-3">
               <button
                 type="button"
                 onClick={handleWhatsAppConsult}
@@ -598,14 +626,12 @@ export default function PreciosPage() {
                 <MessageCircle className="h-4 w-4 text-emerald-600 fill-emerald-600" />
                 <span>Consultar por WhatsApp</span>
               </button>
-
               <button
                 type="button"
                 onClick={onOpenSchedule}
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800 transition-colors"
+                className="text-sm font-medium text-zinc-400 underline decoration-zinc-600 underline-offset-4 hover:text-white hover:decoration-white"
               >
-                <span>Agendar videollamada</span>
-                <ArrowRight className="h-4 w-4 text-zinc-400" />
+                O agendar una videollamada
               </button>
             </div>
           </div>

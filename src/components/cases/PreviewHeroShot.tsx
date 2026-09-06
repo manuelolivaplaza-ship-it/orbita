@@ -57,7 +57,7 @@ export function PreviewHeroShot({
       ([entry]) => {
         if (entry.isIntersecting) setActive(true);
       },
-      { rootMargin: '240px' },
+      { rootMargin: '720px 0px' },
     );
     io.observe(el);
 

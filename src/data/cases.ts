@@ -61,8 +61,7 @@ export const cases: CaseStudy[] = [
       'Vender formación en datos exige confianza de marca y un camino corto a la postulación. Había que ordenar la oferta (bootcamps, cursos cortos, empresas), mostrar resultados reales y que el visitante cotice sin fricción.',
     solution:
       'Arquitectura clara: hero de impacto, métricas sociales, logos de empresas, catálogo de programas, proyectos reales, equipo docente, testimonios, blog y CTA persistente a información / WhatsApp. Diseño premium orientado a conversión B2C y B2B.',
-    result:
-      'Un activo digital listo para ads y SEO: mensaje nítido (“aprende análisis de datos con expertos”), prueba social visible y un solo embudo hacia cotización y contacto.',
+    result: 'Web + CRM / leads a WhatsApp. Catálogo de programas y un solo embudo a cotización.',
     featured: true,
     kind: 'live',
   },
@@ -94,8 +93,7 @@ export const cases: CaseStudy[] = [
       'Un producto de IA necesita verse confiable y moderno en los primeros segundos. El sitio tenía que comunicar qué hace el copiloto, para quién es y por qué importa — sin ruido genérico de “otra startup de AI”.',
     solution:
       'Diseño alineado a producto tech, jerarquía tipográfica fuerte, propuesta de valor centrada en análisis y decisiones, y CTAs orientados a exploración del producto y conversión.',
-    result:
-      'Una vitrina digital coherente con un copiloto de IA: estética de producto serio, mensaje claro y base lista para escalar features y onboarding.',
+    result: 'Sitio de producto en producción, con propuesta de valor clara y camino a la acción.',
     featured: true,
     kind: 'live',
   },

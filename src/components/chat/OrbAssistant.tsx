@@ -16,12 +16,23 @@ import {
 import { Orb, type OrbState } from '../orb';
 import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES } from '../../data/sectores';
-import { plans, BASE_PRICES, BASE_PRICES_UF, UF_APPROX_CLP } from '../../data/pricing';
+import {
+  BASE_PRICES,
+  BASE_PRICES_UF,
+  UF_APPROX_CLP,
+  formatCLP,
+  formatUF,
+  IVA_SHORT,
+  PLAN_HINTS,
+  TURBO_PROMO_UNTIL_SHORT,
+} from '../../data/pricing';
 import { whatsappUrl } from '../../data/site';
 
 interface OrbAssistantProps {
   onOpenQuoteModal: (planName?: string) => void;
   onOpenSchedule: () => void;
+  /** Esconder en /precios y cuando hay un modal (no tapa CTAs ni Continuar). */
+  hidden?: boolean;
 }
 
 interface ChatMessage {
@@ -51,6 +62,7 @@ const SUGGESTED_PROMPTS = [
 export const OrbAssistant: React.FC<OrbAssistantProps> = ({
   onOpenQuoteModal,
   onOpenSchedule,
+  hidden = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [appearKey, setAppearKey] = useState(0);
@@ -123,11 +135,13 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
     setTimeout(() => setOrbState('idle'), 1500);
   };
 
+  if (hidden) return null;
+
   return (
     <>
       {/* 1. FLOATING ORB TRIGGER (Esquina inferior derecha, puro y sin círculo) */}
       {!isOpen && (
-        <div className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-50 flex items-center gap-3 select-none">
+        <div className="fixed bottom-5 right-5 z-40 flex items-center gap-3 select-none sm:bottom-7 sm:right-7 max-sm:scale-90 max-sm:origin-bottom-right">
           {/* Subtle Speech Bubble on Hover or First Load */}
           {bubbleVisible && (
             <div
@@ -409,26 +423,26 @@ function generateOrbResponse(query: string): {
   if (/precio|cuanto cuesta|valor|uf|clp|costo|cotiz/i.test(q)) {
     if (/uf/i.test(q)) {
       return {
-        text: `En **UF** tenemos tres niveles principales (referencia 1 UF ≈ $${UF_APPROX_CLP.toLocaleString('es-CL')} CLP + IVA):\n\n• **Plan Sonda**: 12,5 UF (Landing de alta conversión)\n• **Plan Estación**: 25,0 UF (Sitio comercial con CRM Pro y alertas WhatsApp) — *Más elegido*\n• **Plan Constelación**: 42,5 UF (Multi-sección / Rediseño corporativo)\n\n¿Quieres que te prepare una cotización formal?`,
+        text: `En **UF** (${IVA_SHORT}; 1 UF ≈ $${UF_APPROX_CLP.toLocaleString('es-CL')} CLP):\n\n• **Sonda**: ${formatUF(BASE_PRICES_UF.Sonda)} — ${PLAN_HINTS.Sonda}\n• **Estación** (recomendado): ${formatUF(BASE_PRICES_UF.Estación)} — ${PLAN_HINTS.Estación}\n• **Constelación**: ${formatUF(BASE_PRICES_UF.Constelación)} — ${PLAN_HINTS.Constelación}\n\n¿Te armo una cotización?`,
         state: 'happy',
         actionType: 'plan',
         actionPayload: {
           name: 'Plan Estación',
-          price: '$990.000 CLP',
-          priceUf: '25,0 UF',
-          hint: 'Web comercial + Panel CRM con Kanban y WhatsApp',
+          price: formatCLP(BASE_PRICES.Estación),
+          priceUf: formatUF(BASE_PRICES_UF.Estación),
+          hint: PLAN_HINTS.Estación,
         },
       };
     }
     return {
-      text: 'Nuestros planes principales son:\n\n• **Plan Sonda**: $490.000 CLP / 12,5 UF\n• **Plan Estación (Más elegido)**: $990.000 CLP / 25,0 UF (Incluye Panel CRM y WhatsApp)\n• **Plan Constelación**: $1.690.000 CLP / 42,5 UF\n\nTodos se pagan 50% al partir y 50% al publicar con tu aprobación. ¿Te interesa cotizar alguno?',
+      text: `Planes en compra única (${IVA_SHORT}):\n\n• **Sonda**: ${formatCLP(BASE_PRICES.Sonda)} / ${formatUF(BASE_PRICES_UF.Sonda)} — ${PLAN_HINTS.Sonda}\n• **Estación** (recomendado): ${formatCLP(BASE_PRICES.Estación)} / ${formatUF(BASE_PRICES_UF.Estación)} — ${PLAN_HINTS.Estación}\n• **Constelación**: ${formatCLP(BASE_PRICES.Constelación)} / ${formatUF(BASE_PRICES_UF.Constelación)} — ${PLAN_HINTS.Constelación}\n\n50% al partir y 50% al publicar. ¿Te armo una cotización?`,
       state: 'happy',
       actionType: 'plan',
       actionPayload: {
         name: 'Plan Estación',
-        price: '$990.000 CLP',
-        priceUf: '25,0 UF',
-        hint: 'El 68% de nuestros clientes eligen este plan',
+        price: formatCLP(BASE_PRICES.Estación),
+        priceUf: formatUF(BASE_PRICES_UF.Estación),
+        hint: PLAN_HINTS.Estación,
       },
     };
   }
@@ -444,7 +458,7 @@ function generateOrbResponse(query: string): {
   // 4. TIMELINES & TURBO MODE
   if (/tiempo|demora|plazo|entrega|cuanto tarda|turbo|dias/i.test(q)) {
     return {
-      text: 'El plazo estándar es de **10 a 14 días hábiles**, pero actualmente tenemos activa la promoción de **Modo Turbo gratis** ($0 extra):\n\n🚀 Si tienes prisa, entregamos tu sitio completamente terminado, redactado y listo para publicar en **7 días hábiles**.\n\n¿Tienes una fecha límite en mente?',
+      text: `El plazo estándar es de **10 a 14 días hábiles**. Hasta el **${TURBO_PROMO_UNTIL_SHORT}** el **Modo Turbo** (7 días hábiles) va a $0 en Sonda y Estación, si nos entregas contenidos a tiempo.\n\n¿Tienes una fecha límite?`,
       state: 'happy',
     };
   }
@@ -519,7 +533,7 @@ function generateOrbResponse(query: string): {
 
   // DEFAULT / FALLBACK RESPONSE
   return {
-    text: 'Entiendo perfectamente. En Reclu creamos sitios de alto impacto con **Panel CRM y WhatsApp integrados**, entregados en 7 días con Modo Turbo.\n\nPuedes ver nuestra **Galería de 25 propuestas**, consultar nuestros **Planes desde $490.000 / 12,5 UF**, o agendar una videollamada para orientarte mejor.',
+    text: `En Reclu hacemos sitios con **CRM y WhatsApp**, en 7–14 días. Hasta el ${TURBO_PROMO_UNTIL_SHORT} el Turbo de 7 días va gratis.\n\nPuedes ver las **demos de rubro** en la galería, cotizar **Estación** (${formatCLP(BASE_PRICES.Estación)} ${IVA_SHORT}) o agendar una llamada.`,
     state: 'idle',
   };
 }

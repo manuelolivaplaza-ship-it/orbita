@@ -3,7 +3,7 @@ import { Send, CheckCircle2, MessageCircle, Sparkles, CalendarDays, ArrowRight }
 import { ContactFormData } from '../types';
 import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
-import { whatsappUrl } from '../data/site';
+import { sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
 import { HoneypotField } from './HoneypotField';
 import { PlanSelect, normalizeContactPlan } from './PlanSelect';
 
@@ -83,8 +83,14 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               con Reclu.
             </h2>
 
-            <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-sm mb-7">
+            <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-sm mb-4">
               Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión — sin una propuesta de 40 páginas.
+            </p>
+            <p className="text-sm text-zinc-600 mb-7">
+              Teléfono / WhatsApp:{' '}
+              <a href={siteTelHref} className="font-medium text-[#0B0B12] hover:underline">
+                {sitePhoneDisplay}
+              </a>
             </p>
 
             {onOpenSchedule && (
