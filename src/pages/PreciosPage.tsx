@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useOutletContext, Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import {
   Check,
   X,
@@ -17,10 +17,9 @@ import {
   CARE_PLAN,
   COMPARISON_TABLE,
   PRICING_FAQS,
+  MONTHLY_PLANS,
   BASE_PRICES,
   BASE_PRICES_UF,
-  MONTHLY_PRICES,
-  MONTHLY_PRICES_UF,
   formatCLP,
   formatUF,
   IVA_NOTE,
@@ -31,13 +30,11 @@ import {
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 import { whatsappUrl } from '../data/site';
 
-type BillingMode = 'onetime' | 'monthly';
-
 export default function PreciosPage() {
   const { onOpenQuoteModal, onOpenSchedule } = useOutletContext<LayoutOutletContext>();
-  const [billingMode, setBillingMode] = useState<BillingMode>('onetime');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [showAllDetails, setShowAllDetails] = useState<boolean>(false);
+  const [showMonthlyDetails, setShowMonthlyDetails] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const renderFeatureBullet = (feat: string, isPopular: boolean) => {
@@ -87,7 +84,7 @@ export default function PreciosPage() {
     <>
       <PageMeta
         title="Precios web | Reclu"
-        description={`Compra única: Sonda, Estación o Constelación. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}. CRM y WhatsApp incluidos.`}
+        description={`Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
       />
 
       <div className="relative isolate min-h-screen bg-[#F7F8FC] pb-24 sm:pb-32 overflow-hidden">
@@ -126,40 +123,18 @@ export default function PreciosPage() {
             {IVA_NOTE.charAt(0).toUpperCase() + IVA_NOTE.slice(1)}. El código es tuyo.
           </p>
 
-          {billingMode === 'monthly' ? (
-            <button
-              type="button"
-              onClick={() => setBillingMode('onetime')}
-              className="text-sm font-medium text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
-            >
-              Volver a compra única
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setBillingMode('monthly')}
-              className="text-sm font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white"
-            >
-              ¿Prefieres pagar en cuotas?
-            </button>
-          )}
+          <a
+            href="#planes-mensuales"
+            className="text-sm font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white"
+          >
+            ¿Prefieres un plan mensual? Sitio web incluido
+          </a>
         </section>
 
         {/* 2. THE 3 CORE PLANS GRID */}
         <section className="px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
             {plans.map((plan) => {
-              const isMonthly = billingMode === 'monthly';
-              const displayPrice = isMonthly ? plan.monthlyPrice : plan.price;
-              const subtext = isMonthly
-                ? `o ${plan.monthlyPriceUf}/mes · Cancela cuando quieras`
-                : `o ${plan.priceUf} · 50% al partir / 50% al publicar`;
-              const currentFeatures = isMonthly && plan.monthlyFeatures ? plan.monthlyFeatures : plan.features;
-              const ctaText = isMonthly ? `Suscribirme a ${plan.name}` : `Cotizar ${plan.name}`;
-              const guaranteeNote = isMonthly
-                ? 'Garantía 99.9% uptime · Sin amarres de permanencia'
-                : 'Pago 50% al partir · 50% al publicar';
-
               return (
                 <div
                   key={plan.id}
@@ -172,12 +147,11 @@ export default function PreciosPage() {
                   {plan.popular && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0B0B12] px-4 py-1 text-xs font-semibold tracking-wide text-white shadow-md flex items-center gap-1.5 whitespace-nowrap">
                       <Sparkles className="h-3 w-3 text-amber-400 fill-amber-400" />
-                      <span>{isMonthly ? 'Más cómoda en cuotas' : 'Recomendado'}</span>
+                      <span>Recomendado</span>
                     </div>
                   )}
 
                   <div>
-                    {/* Header */}
                     <div className="border-b border-zinc-100 pb-6 mb-6">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500">
@@ -189,60 +163,47 @@ export default function PreciosPage() {
                                 : 'Multi-sección / rediseño')}
                         </span>
                         <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
-                          {isMonthly ? 'Suscripción mensual' : 'Pago único'}
+                          Pago único
                         </span>
                       </div>
                       <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
                         {plan.name}
                       </h3>
 
-                      {/* Dynamic Price Display */}
                       <div className="mt-4 mb-2">
                         <div className="flex items-baseline gap-1.5">
-                          <span className="text-xs font-medium text-zinc-500">
-                            {isMonthly ? 'cuota' : 'desde'}
-                          </span>
+                          <span className="text-xs font-medium text-zinc-500">desde</span>
                           <span className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
-                            {displayPrice}
+                            {plan.price}
                           </span>
-                          {isMonthly && (
-                            <span className="text-xs font-semibold text-zinc-500 font-mono">
-                              / mes
-                            </span>
-                          )}
                         </div>
                         <span className="font-mono text-[11px] text-zinc-400 block">
-                          {subtext}
+                          o {plan.priceUf} · 50% al partir / 50% al publicar
                         </span>
                         <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
                       </div>
 
                       <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mt-3">
-                        {isMonthly
-                          ? `Cuotas mensuales del mismo plan, con hosting y Reclu Care incluidos mientras pagas.`
-                          : plan.description}
+                        {plan.description}
                       </p>
                     </div>
 
-                    {/* Features List (Simplified with Global Synchronized Expansion) */}
                     <div className="mb-8">
                       <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">
-                        {isMonthly ? 'Qué incluye tu mensualidad:' : 'Qué incluye este plan:'}
+                        Qué incluye este plan:
                       </p>
 
-                      {/* Simplified primary features */}
                       <ul className="space-y-3">
-                        {currentFeatures.slice(0, 3).map((feat) =>
+                        {plan.features.slice(0, 3).map((feat) =>
                           renderFeatureBullet(feat, !!plan.popular)
                         )}
                       </ul>
 
-                      {/* Expandable details revealed synchronously across all cards */}
-                      {currentFeatures.length > 3 && (
+                      {plan.features.length > 3 && (
                         <div className="mt-4 pt-3 border-t border-zinc-100">
                           {showAllDetails && (
                             <ul className="mb-4 space-y-3 pt-1 border-b border-zinc-100 pb-4 animate-in fade-in slide-in-from-top-1 duration-200">
-                              {currentFeatures.slice(3).map((feat) =>
+                              {plan.features.slice(3).map((feat) =>
                                 renderFeatureBullet(feat, !!plan.popular)
                               )}
                             </ul>
@@ -263,51 +224,23 @@ export default function PreciosPage() {
                         </div>
                       )}
                     </div>
-
-                    {/* Módulo Opcional: Asistente con IA personalizado - Compacto y no seleccionable */}
-                    {isMonthly && plan.aiAssistant && (
-                      <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5 transition-colors">
-                        <div className="flex items-center justify-between gap-2 mb-1.5">
-                          <div className="flex items-center gap-2.5">
-                            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-2xs border border-zinc-200/60 overflow-hidden">
-                              <Orb size={22} state="idle" tone="ink" playful shadow={false} />
-                            </div>
-                            <span className="text-xs font-semibold text-zinc-900 tracking-tight">
-                              Asistente con IA personalizado
-                            </span>
-                          </div>
-                          <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
-                            {plan.aiAssistant.shortLabel}
-                          </span>
-                        </div>
-
-                        <p className="text-[11px] text-zinc-600 leading-relaxed pl-0 mt-2 sm:pl-8 sm:mt-0">
-                          {plan.aiAssistant.description}
-                        </p>
-                      </div>
-                    )}
                   </div>
 
-                  {/* CTA Button */}
                   <div>
                     <button
                       type="button"
-                      onClick={() =>
-                        onOpenQuoteModal(
-                          isMonthly ? `${plan.name} (Mensual)` : plan.name
-                        )
-                      }
+                      onClick={() => onOpenQuoteModal(plan.name)}
                       className={`group flex w-full items-center justify-center gap-2 rounded-full py-3.5 px-6 text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
                         plan.popular
                           ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md'
                           : 'border border-zinc-900 bg-white text-zinc-900 hover:bg-zinc-950 hover:text-white'
                       }`}
                     >
-                      <span>{ctaText}</span>
+                      <span>Cotizar {plan.name}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </button>
                     <p className="mt-2 text-center text-[10px] text-zinc-400 font-mono">
-                      {guaranteeNote}
+                      Pago 50% al partir · 50% al publicar
                     </p>
                   </div>
                 </div>
@@ -347,6 +280,177 @@ export default function PreciosPage() {
               <span>Pedir con Turbo Gratis</span>
               <ArrowRight className="h-4 w-4" />
             </button>
+          </div>
+        </section>
+
+        {/* PLANES MENSUALES — extra: sitio incluido + CRM + Orbit */}
+        <section id="planes-mensuales" className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-28">
+          <div className="max-w-2xl mb-10">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
+              Extra · Suscripción
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
+              Planes mensuales. Sitio web incluido.
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-600 leading-relaxed">
+              No son cuotas del desarrollo. Pagas UF al mes y viene el sitio, el CRM y{' '}
+              <strong className="font-semibold text-zinc-900">Orbit</strong>: el mismo chat con IA
+              de esta plataforma. Un chat = una conversación de un visitante con Orbit.
+            </p>
+          </div>
+
+          <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-6 rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-xs">
+            <div className="shrink-0 flex items-center justify-center sm:justify-start">
+              <Orb
+                size={68}
+                tone="ink"
+                state="idle"
+                playful
+                hop
+                shadow
+                trackPointer
+                appear
+                appearDuration={1600}
+              />
+            </div>
+            <div>
+              <p className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500 mb-2">
+                El chat con IA de Reclu
+              </p>
+              <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-[#0B0B12] mb-2">
+                Orbit en tu sitio es el mismo de esta página.
+              </h3>
+              <p className="text-sm text-zinc-600 leading-relaxed max-w-2xl">
+                El globo de la esquina inferior derecha es Orbit. En tu plan mensual ese mismo
+                asistente vive en tu web, responde 24/7 con tu oferta y deja el lead en el CRM o
+                te lo manda a WhatsApp. Un chat = una conversación completa de un visitante con Orbit.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            {MONTHLY_PLANS.map((plan) => (
+              <div
+                key={plan.id}
+                className={`relative flex flex-col justify-between rounded-3xl bg-white p-5 sm:p-7 md:p-9 transition-all duration-300 ${
+                  plan.popular
+                    ? 'border-2 border-zinc-950 shadow-xl lg:-translate-y-2'
+                    : 'border border-zinc-200/80 shadow-xs hover:border-zinc-300 hover:shadow-md'
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0B0B12] px-4 py-1 text-xs font-semibold tracking-wide text-white shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                    <Sparkles className="h-3 w-3 text-amber-400 fill-amber-400" />
+                    <span>Recomendado</span>
+                  </div>
+                )}
+
+                <div>
+                  <div className="border-b border-zinc-100 pb-6 mb-6">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                        {plan.subtitle}
+                      </span>
+                      <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
+                        Mensual
+                      </span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
+                      {plan.name}
+                    </h3>
+
+                    <div className="mt-4 mb-2">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
+                          {plan.priceUf}
+                        </span>
+                        <span className="text-xs font-semibold text-zinc-500 font-mono">/ mes</span>
+                      </div>
+                      <span className="font-mono text-[11px] text-zinc-400 block">
+                        {plan.priceClp} CLP · sitio web incluido
+                      </span>
+                      <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mt-3">
+                      {plan.description}
+                    </p>
+                  </div>
+
+                  <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden">
+                          <Orb size={22} state="idle" tone="ink" playful shadow={false} />
+                        </div>
+                        <span className="text-xs font-semibold text-zinc-900 tracking-tight">
+                          Orbit · chat con IA
+                        </span>
+                      </div>
+                      <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
+                        {plan.chatsLabel}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-zinc-600 leading-relaxed sm:pl-8">
+                      El mismo Orbit de esta página, en tu sitio. Un chat es una conversación
+                      completa con un visitante.
+                    </p>
+                  </div>
+
+                  <div className="mb-8">
+                    <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">
+                      Qué incluye:
+                    </p>
+                    <ul className="space-y-3">
+                      {plan.features.slice(0, 3).map((feat) =>
+                        renderFeatureBullet(feat, !!plan.popular)
+                      )}
+                    </ul>
+                    {plan.features.length > 3 && (
+                      <div className="mt-4 pt-3 border-t border-zinc-100">
+                        {showMonthlyDetails && (
+                          <ul className="mb-4 space-y-3 pt-1 border-b border-zinc-100 pb-4 animate-in fade-in slide-in-from-top-1 duration-200">
+                            {plan.features.slice(3).map((feat) =>
+                              renderFeatureBullet(feat, !!plan.popular)
+                            )}
+                          </ul>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => setShowMonthlyDetails((prev) => !prev)}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors group/btn py-1"
+                        >
+                          <span>{showMonthlyDetails ? 'Ver menos detalles' : 'Ver más detalles'}</span>
+                          <ChevronDown
+                            className={`h-4 w-4 text-zinc-400 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
+                              showMonthlyDetails ? 'rotate-180' : 'group-hover/btn:translate-y-0.5'
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => onOpenQuoteModal(`Mensual ${plan.name}`)}
+                    className={`group flex w-full items-center justify-center gap-2 rounded-full py-3.5 px-6 text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
+                      plan.popular
+                        ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md'
+                        : 'border border-zinc-900 bg-white text-zinc-900 hover:bg-zinc-950 hover:text-white'
+                    }`}
+                  >
+                    <span>{plan.ctaText}</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                  <p className="mt-2 text-center text-[10px] text-zinc-400 font-mono">
+                    Sitio incluido · Sin permanencia
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -446,25 +550,19 @@ export default function PreciosPage() {
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Sonda
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly'
-                          ? `${formatCLP(MONTHLY_PRICES.Sonda)}/mes (${formatUF(MONTHLY_PRICES_UF.Sonda)})`
-                          : `${formatCLP(BASE_PRICES.Sonda)} (${formatUF(BASE_PRICES_UF.Sonda)})`}
+                        {formatCLP(BASE_PRICES.Sonda)} ({formatUF(BASE_PRICES_UF.Sonda)})
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center bg-zinc-100/60 w-1/5">
                       Estación (Recomendado)
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly'
-                          ? `${formatCLP(MONTHLY_PRICES.Estación)}/mes (${formatUF(MONTHLY_PRICES_UF.Estación)})`
-                          : `${formatCLP(BASE_PRICES.Estación)} (${formatUF(BASE_PRICES_UF.Estación)})`}
+                        {formatCLP(BASE_PRICES.Estación)} ({formatUF(BASE_PRICES_UF.Estación)})
                       </div>
                     </th>
                     <th className="p-4 sm:p-5 font-semibold text-zinc-900 text-center w-1/5">
                       Constelación
                       <div className="font-mono text-[11px] font-normal text-zinc-500">
-                        {billingMode === 'monthly'
-                          ? `${formatCLP(MONTHLY_PRICES.Constelación)}/mes (${formatUF(MONTHLY_PRICES_UF.Constelación)})`
-                          : `${formatCLP(BASE_PRICES.Constelación)} (${formatUF(BASE_PRICES_UF.Constelación)})`}
+                        {formatCLP(BASE_PRICES.Constelación)} ({formatUF(BASE_PRICES_UF.Constelación)})
                       </div>
                     </th>
                   </tr>

@@ -2,14 +2,14 @@ import type { PlanItem } from '../types';
 
 export const BASE_PRICES = {
   Sonda: 420_000,
-  Estación: 990_000,
+  Estación: 890_000,
   Constelación: 1_490_000,
   Aplicación: 1_890_000,
 } as const;
 
 export const BASE_PRICES_UF = {
   Sonda: 10.5,
-  Estación: 25.0,
+  Estación: 22.5,
   Constelación: 37.5,
   Aplicación: 48.0,
 } as const;
@@ -101,9 +101,9 @@ export const plans: PlanItem[] = [
     id: 'estacion',
     name: 'Plan Estación',
     subtitle: PLAN_HINTS.Estación,
-    price: '$990.000 CLP',
+    price: '$890.000 CLP',
     priceRaw: BASE_PRICES.Estación,
-    priceUf: '25,0 UF',
+    priceUf: '22,5 UF',
     priceUfRaw: BASE_PRICES_UF.Estación,
     monthlyPrice: '$149.000 CLP',
     monthlyPriceRaw: MONTHLY_PRICES.Estación,
@@ -249,6 +249,102 @@ export const CARE_PLAN: ExtraItem = {
     'Después de publicar: hosting en CDN, SSL, backups, soporte por WhatsApp y el Panel CRM en la nube. Opcional; el código del sitio sigue siendo tuyo si no lo contratas.',
 };
 
+export interface MonthlyPlan {
+  id: string;
+  name: string;
+  subtitle: string;
+  priceClp: string;
+  priceClpRaw: number;
+  priceUf: string;
+  priceUfRaw: number;
+  chats: number;
+  chatsLabel: string;
+  popular?: boolean;
+  description: string;
+  features: string[];
+  ctaText: string;
+}
+
+/**
+ * Suscripción mensual (extra, no cuotas del desarrollo).
+ * Incluye el sitio web, CRM y Orbit — el mismo chat con IA de esta plataforma.
+ */
+export const MONTHLY_PLANS: MonthlyPlan[] = [
+  {
+    id: 'mensual-esencial',
+    name: 'Esencial',
+    subtitle: 'Sitio + CRM + Orbit',
+    priceClp: '$99.000',
+    priceClpRaw: 99_000,
+    priceUf: '2,5 UF',
+    priceUfRaw: 2.5,
+    chats: 2_000,
+    chatsLabel: '2.000 chats / mes',
+    description:
+      'El sitio web va incluido. Orbit — el mismo chat con IA de esta plataforma — atiende hasta 2.000 conversaciones al mes y deja cada consulta en tu CRM.',
+    features: [
+      'Sitio web incluido, sin cobro de desarrollo: landing profesional publicada y lista para captar clientes. No pagas Sonda ni Estación aparte.',
+      'Panel CRM Reclu: cada consulta queda con nombre, origen y WhatsApp. Sin HubSpot ni otra cuota.',
+      'Orbit, el chat con IA de Reclu: el mismo asistente que ves en la esquina de esta página, en tu sitio y entrenado con tu negocio.',
+      '2.000 chats con Orbit al mes: un chat es una conversación completa de un visitante con Orbit, no un mensaje suelto.',
+      'Hosting, SSL y respaldos: tu sitio queda online, rápido y con certificado de seguridad.',
+      'WhatsApp de respaldo: si Orbit no cierra la consulta, la deriva a tu celular.',
+      'Cambios de contenido cada mes: textos, fotos, precios u horarios sin ticket extra.',
+      'Sin permanencia: cancelas cuando quieras; soporte por WhatsApp.',
+    ],
+    ctaText: 'Quiero Esencial',
+  },
+  {
+    id: 'mensual-pro',
+    name: 'Pro',
+    subtitle: 'Sitio comercial + CRM Pro + Orbit',
+    priceClp: '$198.000',
+    priceClpRaw: 198_000,
+    priceUf: '5,0 UF',
+    priceUfRaw: 5,
+    chats: 5_000,
+    chatsLabel: '5.000 chats / mes',
+    popular: true,
+    description:
+      'Sitio comercial incluido. CRM con embudo y alertas a WhatsApp. Orbit — el mismo chat con IA de esta plataforma — con 5.000 conversaciones al mes.',
+    features: [
+      'Sitio comercial completo incluido: servicios, formularios y conversión, sin pago inicial de desarrollo.',
+      'CRM Reclu Pro: embudo Kanban (Nuevo → Cerrado) y alerta a WhatsApp cuando entra un lead.',
+      'Orbit en tu web — 5.000 chats/mes: el mismo chat con IA de esta plataforma; califica al visitante y deja el dato en el CRM.',
+      'Un chat = una conversación con Orbit: no es un bot genérico ni un mensaje suelto; es el asistente que ya ves en Reclu, 24/7 en tu sitio.',
+      'Dashboard de visitas y clics a WhatsApp: ves qué convierte, no solo el diseño.',
+      'Hasta 2 horas al mes de ajustes: secciones, casos o piezas comerciales.',
+      'Hosting CDN, SSL y monitoreo continuo.',
+      'Soporte prioritario por WhatsApp. Sin permanencia.',
+    ],
+    ctaText: 'Quiero Pro',
+  },
+  {
+    id: 'mensual-escala',
+    name: 'Escala',
+    subtitle: 'Sitio amplio + CRM equipo + Orbit',
+    priceClp: '$277.000',
+    priceClpRaw: 277_000,
+    priceUf: '7,0 UF',
+    priceUfRaw: 7,
+    chats: 10_000,
+    chatsLabel: '10.000 chats / mes',
+    description:
+      'Para más tráfico y un equipo comercial. Sitio multi-sección incluido, CRM con roles y Orbit con 10.000 chats al mes — el mismo asistente con IA de esta plataforma.',
+    features: [
+      'Sitio multi-sección o rediseño incluido: arquitectura más amplia sin cobro de desarrollo aparte.',
+      'CRM multi-usuario: roles para dueño y equipo, reportería exportable.',
+      'Orbit — 10.000 chats/mes: el mismo asistente con IA de esta plataforma, para más visitas y más consultas.',
+      'Orbit responde con tu oferta y deriva al CRM o WhatsApp: no es un widget de terceros; es el chat que ya conoces aquí.',
+      'Hasta 4 horas al mes de evolución: páginas nuevas, campañas o mejoras de UX.',
+      'SEO técnico mensual y respaldos diarios.',
+      'SLA de soporte prioritario.',
+      'Sin permanencia: si cancelas, el código del sitio sigue siendo tuyo; Orbit y el hosting se desactivan con el plan.',
+    ],
+    ctaText: 'Quiero Escala',
+  },
+];
+
 export interface ComparisonRow {
   category: string;
   feature: string;
@@ -295,7 +391,15 @@ export const PRICING_FAQS = [
   },
   {
     question: '¿Hay mensualidades o cobros ocultos obligatorios?',
-    answer: 'No. El sitio y el CRM se pagan una sola vez (50% al iniciar y 50% al publicar). El código y los accesos son tuyos. Si después quieres que nos encarguemos de hosting, backups y soporte, está Reclu Care ($60.000 / 1,5 UF al mes), opcional y post-venta. También puedes pagar el desarrollo en cuotas; no es un plan distinto.',
+    answer: 'No en la compra única. El sitio y el CRM se pagan una vez (50% al iniciar y 50% al publicar). El código es tuyo. Si después quieres hosting, backups y soporte, está Reclu Care ($60.000 / 1,5 UF al mes), opcional. Si prefieres no pagar el desarrollo de entrada, los planes mensuales incluyen el sitio, el CRM y Orbit.',
+  },
+  {
+    question: '¿Qué incluye un plan mensual?',
+    answer: 'El sitio web va incluido (no cobramos el desarrollo aparte). También el panel CRM y Orbit, el chat con IA de esta plataforma — el mismo que ves en la esquina. Esencial: 2,5 UF y 2.000 chats/mes. Pro: 5 UF y 5.000 chats. Escala: 7 UF y 10.000 chats. Sin permanencia.',
+  },
+  {
+    question: '¿Qué es un chat con Orbit?',
+    answer: 'Orbit es el asistente con IA de Reclu: el globo de la esquina de esta web. En tu sitio será el mismo chat, entrenado con tu negocio. Un chat es una conversación completa de un visitante con Orbit (preguntas, respuestas, derivación a WhatsApp o al CRM), no un mensaje suelto.',
   },
   {
     question: '¿Cómo funciona la forma de pago?',
@@ -349,7 +453,7 @@ export const APP_PLAN = {
 
 export const PLAN_SUMMARIES: { plan: PlanId; price: string; priceUf: string; for: string }[] = [
   { plan: 'Sonda', price: 'desde $420.000', priceUf: '10,5 UF', for: PLAN_HINTS.Sonda },
-  { plan: 'Estación', price: 'desde $990.000', priceUf: '25,0 UF', for: PLAN_HINTS.Estación },
+  { plan: 'Estación', price: 'desde $890.000', priceUf: '22,5 UF', for: PLAN_HINTS.Estación },
   { plan: 'Constelación', price: 'desde $1.490.000', priceUf: '37,5 UF', for: PLAN_HINTS.Constelación },
   { plan: 'Aplicación', price: 'desde $1.890.000', priceUf: '48,0 UF', for: PLAN_HINTS.Aplicación },
 ];

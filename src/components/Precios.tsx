@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, ArrowRight, Sparkles, Rocket, ChevronDown } from 'lucide-react';
-import { Orb } from './orb';
 import {
   CARE_PLAN,
   IVA_SHORT,
@@ -14,7 +13,6 @@ interface PreciosProps {
 }
 
 export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
-  const [billingMode, setBillingMode] = useState<'onetime' | 'monthly'>('onetime');
   const [showAllDetails, setShowAllDetails] = useState<boolean>(false);
 
   const renderFeatureBullet = (feat: string, isPopular: boolean) => {
@@ -57,23 +55,12 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
             Precios {IVA_SHORT}.
           </p>
 
-          {billingMode === 'monthly' ? (
-            <button
-              type="button"
-              onClick={() => setBillingMode('onetime')}
-              className="mt-2 text-sm font-medium text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-[#0B0B12]"
-            >
-              Volver a compra única
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setBillingMode('monthly')}
-              className="mt-2 text-sm font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-800"
-            >
-              ¿Prefieres pagar en cuotas?
-            </button>
-          )}
+          <Link
+            to="/precios#planes-mensuales"
+            className="mt-2 text-sm font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-800"
+          >
+            ¿Prefieres un plan mensual? Sitio web incluido + Orbit
+          </Link>
         </div>
 
         {/* Turbo + promo callout */}
@@ -111,13 +98,6 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch pt-2">
           {plans.map((plan) => {
-            const isMonthly = billingMode === 'monthly';
-            const displayPrice = isMonthly ? plan.monthlyPrice : plan.price;
-            const subtext = isMonthly
-              ? `o ${plan.monthlyPriceUf}/mes · Cancela cuando quieras`
-              : `o ${plan.priceUf} · 50% al partir / 50% al publicar`;
-            const currentFeatures = isMonthly && plan.monthlyFeatures ? plan.monthlyFeatures : plan.features;
-
             return (
               <div
                 key={plan.id}
@@ -130,7 +110,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                 {plan.popular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#0B0B12] text-white text-xs font-semibold px-4 py-1 rounded-full shadow-sm flex items-center gap-1.5 whitespace-nowrap">
                     <Sparkles className="w-3 h-3 text-amber-400 fill-amber-400" />
-                    <span>{isMonthly ? 'Más cómoda en cuotas' : 'Recomendado'}</span>
+                    <span>Recomendado</span>
                   </div>
                 )}
 
@@ -141,52 +121,41 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                         {plan.subtitle ?? (plan.id === 'sonda' ? 'Landing / campaña' : plan.id === 'estacion' ? 'Sitio comercial + CRM' : 'Multi-sección / rediseño')}
                       </span>
                       <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
-                        {isMonthly ? 'Mensual' : 'Pago único'}
+                        Pago único
                       </span>
                     </div>
                     <h3 className="text-2xl font-medium text-[#0B0B12] mb-2 tracking-tight">
                       {plan.name}
                     </h3>
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-xs text-zinc-500 font-medium">
-                        {isMonthly ? 'cuota' : 'desde'}
-                      </span>
+                      <span className="text-xs text-zinc-500 font-medium">desde</span>
                       <span className="text-3xl sm:text-4xl font-semibold text-[#0B0B12] tracking-tight font-mono">
-                        {displayPrice}
+                        {plan.price}
                       </span>
-                      {isMonthly && (
-                        <span className="text-xs font-semibold text-zinc-500 font-mono">
-                          / mes
-                        </span>
-                      )}
                     </div>
                     <span className="text-[11px] font-mono text-zinc-400 block">
-                      {subtext}
+                      o {plan.priceUf} · 50% al partir / 50% al publicar
                     </span>
                     <span className="text-[11px] text-zinc-500 block mb-3 mt-0.5">
                       {IVA_SHORT}
                     </span>
                     <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
-                      {isMonthly
-                        ? 'Cuotas mensuales: el mismo sitio, con hosting y Reclu Care incluidos mientras pagas.'
-                        : plan.description}
+                      {plan.description}
                     </p>
                   </div>
 
-                  {/* Features List (Simplified with Global Synchronized Expansion) */}
                   <div className="mb-8">
                     <ul className="space-y-3">
-                      {currentFeatures.slice(0, 3).map((feat) =>
+                      {plan.features.slice(0, 3).map((feat) =>
                         renderFeatureBullet(feat, !!plan.popular)
                       )}
                     </ul>
 
-                    {/* Expandable details revealed synchronously across all cards */}
-                    {currentFeatures.length > 3 && (
+                    {plan.features.length > 3 && (
                       <div className="mt-4 pt-3 border-t border-zinc-100">
                         {showAllDetails && (
                           <ul className="mb-4 space-y-3 pt-1 border-b border-zinc-100 pb-4 animate-in fade-in slide-in-from-top-1 duration-200">
-                            {currentFeatures.slice(3).map((feat) =>
+                            {plan.features.slice(3).map((feat) =>
                               renderFeatureBullet(feat, !!plan.popular)
                             )}
                           </ul>
@@ -207,37 +176,10 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                       </div>
                     )}
                   </div>
-
-                  {/* Módulo Opcional: Asistente con IA personalizado - Compacto y no seleccionable */}
-                  {isMonthly && plan.aiAssistant && (
-                    <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5 transition-colors">
-                      <div className="flex items-center justify-between gap-2 mb-1.5">
-                        <div className="flex items-center gap-2.5">
-                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-2xs border border-zinc-200/60 overflow-hidden">
-                            <Orb size={22} state="idle" tone="ink" playful shadow={false} />
-                          </div>
-                          <span className="text-xs font-semibold text-zinc-900 tracking-tight">
-                            Asistente con IA personalizado
-                          </span>
-                        </div>
-                        <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
-                          {plan.aiAssistant.shortLabel}
-                        </span>
-                      </div>
-
-                      <p className="text-[11px] text-zinc-600 leading-relaxed pl-0 mt-2 sm:pl-8 sm:mt-0">
-                        {plan.aiAssistant.description}
-                      </p>
-                    </div>
-                  )}
                 </div>
 
                 <button
-                  onClick={() =>
-                    onOpenQuoteModal(
-                      isMonthly ? `${plan.name} (Mensual)` : plan.name
-                    )
-                  }
+                  onClick={() => onOpenQuoteModal(plan.name)}
                   className={`w-full py-3.5 px-6 rounded-full font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
                     plan.popular
                       ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md active:scale-[0.98]'
