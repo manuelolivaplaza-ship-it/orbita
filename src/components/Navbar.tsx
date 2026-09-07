@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
           <Link
             to="/"
             aria-label="Reclu, ir al inicio"
-            className="flex items-center pl-2 pr-3.5 py-1.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280] rounded-full"
+            className="flex items-center px-4 py-1.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280] rounded-full"
           >
             <RecluLogo wordmarkClassName="text-[#0B0B12] group-hover:text-zinc-600 transition-colors" />
           </Link>
