@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fbarrios\u002F[slug]","\u002Fmesa\u002F[slug]","\u002Fsolares\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

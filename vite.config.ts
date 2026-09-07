@@ -91,6 +91,7 @@ const SECTOR_BY_FOLDER: Record<string, string> = {
   casonorte: 'dental',
   lumen: 'diseno',
   pausa: 'gastronomia',
+  olivo: 'inmobiliaria',
   'clinica-claro': 'dental',
   minimayorista: 'mayorista',
 };

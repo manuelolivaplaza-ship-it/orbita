@@ -80,7 +80,7 @@ export function useCrmStore(slug: string, brandName: string, sector: string) {
     return loadJson(`${PREFIX.orders}${slug}`, getInitialOrders(slug, items));
   });
   const [team, setTeam] = useState<TeamMember[]>(() => loadJson(`${PREFIX.team}${slug}`, getInitialTeam(slug, sector)));
-  const [site, setSite] = useState<SiteContent>(() => loadJson(`${PREFIX.site}${slug}`, getInitialSite(brandName, sector)));
+  const [site, setSite] = useState<SiteContent>(() => loadJson(`${PREFIX.site}${slug}`, getInitialSite(brandName, sector, slug)));
   const [metrics, setMetrics] = useState<CompanyMetrics>(() => getCompanyMetrics(slug, brandName, sector));
   const [settings, setSettings] = useState<NotificationSettings>(() => loadJson(STORAGE_SETTINGS_KEY, DEFAULT_SETTINGS));
   const [recentEvent, setRecentEvent] = useState<{ message: string; leadName: string } | null>(null);
@@ -102,7 +102,7 @@ export function useCrmStore(slug: string, brandName: string, sector: string) {
     setTeam(members);
     setAppointments(loadJson(`${PREFIX.appointments}${slug}`, getInitialAppointments(slug, sector, prods, members)));
     setOrders(loadJson(`${PREFIX.orders}${slug}`, getInitialOrders(slug, prods)));
-    setSite(loadJson(`${PREFIX.site}${slug}`, getInitialSite(brandName, sector)));
+    setSite(loadJson(`${PREFIX.site}${slug}`, getInitialSite(brandName, sector, slug)));
     setMetrics(getCompanyMetrics(slug, brandName, sector));
   }, [slug, brandName, sector]);
 

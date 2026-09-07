@@ -402,8 +402,20 @@ function toItem(slug: string, seed: SeedItem, idx: number): CatalogItem {
   };
 }
 
+const SEEDS_BY_SLUG: Record<string, SeedItem[]> = {
+  olivo: [
+    { name: 'Casa Santa María de Manquehue 4D 4B', sku: 'OLI-VIT', category: 'Exclusiva', description: 'Vitacura. 280 m² + jardín con olivos y piscina. UF 18.900.', priceClp: 748_440_000, stock: 1, unit: 'unidad', featured: true, published: true, status: 'publicado' },
+    { name: 'Penthouse El Golf 3D 3B', sku: 'OLI-GOLF', category: 'Venta', description: 'Las Condes. 165 m² + terraza 48 m². UF 14.200.', priceClp: 562_320_000, stock: 1, unit: 'unidad', featured: true, published: true, status: 'publicado' },
+    { name: 'Casa La Dehesa 5D 5B', sku: 'OLI-DEH', category: 'Venta', description: 'Lo Barnechea. 420 m² en 1.400 m² de terreno. UF 26.800.', priceClp: 1_061_280_000, stock: 1, unit: 'unidad', featured: true, published: true, status: 'publicado' },
+    { name: 'Departamento Los Leones 2D 2B', sku: 'OLI-LEO', category: 'Venta', description: 'Providencia. 98 m², Metro a 4 minutos. UF 6.200.', priceClp: 245_520_000, stock: 1, unit: 'unidad', featured: false, published: true, status: 'publicado' },
+    { name: 'Casa en arriendo, Vitacura', sku: 'OLI-ARR', category: 'Arriendo', description: '220 m², piscina y jardín. UF 78 / mes.', priceClp: 3_088_800, stock: 1, unit: 'unidad', featured: false, published: true, status: 'publicado' },
+    { name: 'Departamento Escuela Militar 2D (renta)', sku: 'OLI-ESC', category: 'Inversión', description: '72 m², edificio 2019. Publicar cuando cierre la captura.', priceClp: 192_060_000, stock: 1, unit: 'unidad', featured: false, published: false, status: 'borrador' },
+  ],
+};
+
 export function getInitialProducts(slug: string, sector: string): CatalogItem[] {
-  const seeds = SEEDS[sector] || (isProductSector(sector) ? GENERIC_PRODUCT : GENERIC_SERVICE);
+  const seeds =
+    SEEDS_BY_SLUG[slug] || SEEDS[sector] || (isProductSector(sector) ? GENERIC_PRODUCT : GENERIC_SERVICE);
   return seeds.map((s, i) => toItem(slug, s, i));
 }
 
@@ -431,12 +443,36 @@ const GENERIC_TEAM: Omit<TeamMember, 'id'>[] = [
   { name: 'Sofía Herrera', role: 'Atención', email: 'hola@negocio.cl', phone: '+56 9 7000 1100', specialty: 'Recepción', active: true },
 ];
 
+const TEAM_BY_SLUG: Record<string, Omit<TeamMember, 'id'>[]> = {
+  olivo: [
+    { name: 'Elena Vidal', role: 'Directora y corredora', email: 'elena@olivo.cl', phone: '+56 9 8765 4321', specialty: 'Captación oriente', active: true },
+    { name: 'Tomás Herrera', role: 'Ventas e inversión', email: 'tomas@olivo.cl', phone: '+56 9 8765 4322', specialty: 'Las Condes / Vitacura', active: true },
+    { name: 'Amanda Rojas', role: 'Arriendos', email: 'amanda@olivo.cl', phone: '+56 9 8765 4323', specialty: 'Ñuñoa–Providencia', active: true },
+  ],
+};
+
 export function getInitialTeam(slug: string, sector: string): TeamMember[] {
-  const rows = TEAM_BY_SECTOR[sector] || GENERIC_TEAM;
+  const rows = TEAM_BY_SLUG[slug] || TEAM_BY_SECTOR[sector] || GENERIC_TEAM;
   return rows.map((m, i) => ({ ...m, id: `tm-${slug}-${i + 1}` }));
 }
 
-export function getInitialSite(brand: string, sector: string): SiteContent {
+const SITE_BY_SLUG: Record<string, Omit<SiteContent, 'hours'>> = {
+  olivo: {
+    phone: '+56 9 8765 4321',
+    whatsapp: '+56 9 8765 4321',
+    email: 'hola@olivo.cl',
+    address: 'Av. Alonso de Córdova 3100, of. 501, Las Condes',
+    homepageHeadline: 'Olivo: encuentra tu próxima casa en el oriente de Santiago.',
+    showPrices: true,
+    showBooking: true,
+    showCatalog: true,
+  },
+};
+
+export function getInitialSite(brand: string, sector: string, slug?: string): SiteContent {
+  if (slug && SITE_BY_SLUG[slug]) {
+    return { ...SITE_BY_SLUG[slug], hours: DEFAULT_HOURS.map((h) => ({ ...h })) };
+  }
   const mail = brand.toLowerCase().replace(/[^a-z0-9]+/g, '') || 'contacto';
   return {
     phone: '+56 2 2333 4400',
