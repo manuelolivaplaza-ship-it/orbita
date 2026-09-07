@@ -29,11 +29,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             style={{ letterSpacing: '-0.045em' }}
           >
             <span className="block overflow-hidden py-0.5">
-              <span className="block animate-clip-reveal">Rediseño en</span>
+              <span className="block animate-clip-reveal">Creamos sitios</span>
             </span>
             <span className="block overflow-hidden py-0.5">
               <span className="block animate-clip-reveal" style={{ animationDelay: '0.12s' }}>
-                7–14 días.
+                que venden.
               </span>
             </span>
           </h1>
@@ -42,8 +42,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             className="mb-6 max-w-md animate-fade-in-up text-[15px] leading-[1.55] text-zinc-700/90 sm:mb-8 sm:text-base md:text-lg"
             style={{ animationDelay: '0.25s' }}
           >
-            Sitio claro, rápido y con WhatsApp para que te escriban. Recorre una demo de tu rubro
-            antes de partir.
+            Claros, rápidos y listos en 7–14 días, con WhatsApp para que te escriban. Recorre una
+            demo de tu rubro antes de partir.
           </p>
 
           <div

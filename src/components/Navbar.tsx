@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ArrowRight, CalendarDays } from 'lucide-react';
 import { LiquidGlass } from './LiquidGlass';
+import { RecluLogo } from './RecluLogo';
 
 interface NavbarProps {
   onOpenQuoteModal: (planName?: string) => void;
@@ -96,11 +97,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
         <LiquidGlass pill tone="light">
           <Link
             to="/"
-            className="flex items-center px-4 py-1.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280] rounded-full"
+            aria-label="Reclu, ir al inicio"
+            className="flex items-center pl-2 pr-3.5 py-1.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280] rounded-full"
           >
-            <span className="text-xl font-bold tracking-tight text-[#0B0B12] group-hover:text-zinc-600 transition-colors">
-              reclu
-            </span>
+            <RecluLogo wordmarkClassName="text-[#0B0B12] group-hover:text-zinc-600 transition-colors" />
           </Link>
         </LiquidGlass>
 
@@ -180,9 +180,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xl font-bold text-[#0B0B12] tracking-tight"
+                aria-label="Reclu, ir al inicio"
+                className="inline-flex"
               >
-                reclu
+                <RecluLogo />
               </Link>
               <button
                 type="button"

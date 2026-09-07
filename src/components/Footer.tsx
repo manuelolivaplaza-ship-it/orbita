@@ -5,6 +5,7 @@ import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
 import { HoneypotField } from './HoneypotField';
 import { site, sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
+import { RecluLogo } from './RecluLogo';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -137,10 +138,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-16">
           {/* Brand col */}
           <div className="col-span-2 md:col-span-2 space-y-4 pr-0 md:pr-6">
-            <Link to="/" className="inline-flex items-center group">
-              <span className="text-2xl font-bold tracking-tight text-[#0B0B12] group-hover:text-zinc-600 transition-colors">
-                reclu
-              </span>
+            <Link to="/" aria-label="Reclu, ir al inicio" className="inline-flex items-center group">
+              <RecluLogo wordmarkClassName="text-[#0B0B12] group-hover:text-zinc-600 transition-colors" />
             </Link>
             <p className="text-sm text-zinc-500 leading-relaxed max-w-sm">
               Reclu diseña y desarrolla sitios web de alto impacto orientados a resultados comerciales. Sitios claros, rápidos y optimizados para convertir.
