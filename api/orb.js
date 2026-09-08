@@ -1,5 +1,5 @@
 const BAI_URL = 'https://api.b.ai/v1/chat/completions';
-const DEFAULT_MODEL = 'glm-5.3-flash';
+const DEFAULT_MODEL = 'deepseek-v4-flash';
 const MAX_TURNS = 12;
 const MAX_CHARS = 1200;
 
@@ -202,6 +202,7 @@ async function completeOrbChat({ messages, apiKey, model }) {
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
     temperature: 0.5,
     max_tokens: 2048,
+    thinking: { type: 'disabled' },
   });
 
   let lastMessage = 'B.AI rechazó la solicitud';
@@ -209,7 +210,7 @@ async function completeOrbChat({ messages, apiKey, model }) {
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 25000);
+    const timer = setTimeout(() => controller.abort(), 55000);
     let res;
     try {
       res = await fetch(BAI_URL, {
