@@ -178,80 +178,108 @@ export async function completeOrbChat(input: {
     throw Object.assign(new Error('Falta un mensaje del visitante'), { status: 400 });
   }
 
-  const model = input.model || process.env.OPENCODE_MODEL || DEFAULT_MODEL;
-  const payload = JSON.stringify({
-    model,
-    messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
-    temperature: 0.5,
-    max_tokens: 2048,
-  });
+  const models = [
+    ...new Set(
+      [
+        input.model,
+        process.env.OPENCODE_MODEL,
+        DEFAULT_MODEL,
+        'deepseek-v4-flash',
+        'big-pickle',
+      ].filter(Boolean),
+    ),
+  ] as string[];
 
   let lastMessage = 'OpenCode Zen rechazó la solicitud';
   let lastStatus = 400;
 
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 55000);
-    let res: Response;
-    try {
-      res = await fetch(ZEN_URL, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${input.apiKey}`,
-          'Content-Type': 'application/json',
-          'x-opencode-session': 'reclu-orb',
-        },
-        body: payload,
-        signal: controller.signal,
-      });
-    } catch (err) {
-      if ((err as Error).name === 'AbortError') {
-        throw Object.assign(new Error('La IA tardó demasiado'), { status: 504 });
-      }
-      throw Object.assign(new Error('No pude contactar a OpenCode Zen'), { status: 502 });
-    } finally {
-      clearTimeout(timer);
-    }
+  for (const current of models) {
+    const payload = JSON.stringify({
+      model: current,
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
+      temperature: 0.5,
+      max_tokens: 2048,
+    });
 
-    const body = await res.text();
-    if (res.ok) {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 55000);
+      let res: Response;
       try {
-        const json = JSON.parse(body) as {
-          choices?: { message?: { content?: unknown } }[];
-        };
-        return parseReply(json.choices?.[0]?.message?.content ?? '');
-      } catch {
-        throw Object.assign(new Error('Respuesta inválida de OpenCode Zen'), { status: 502 });
+        res = await fetch(ZEN_URL, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${input.apiKey}`,
+            'Content-Type': 'application/json',
+            'x-opencode-session': 'reclu-orb',
+          },
+          body: payload,
+          signal: controller.signal,
+        });
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') {
+          throw Object.assign(new Error('La IA tardó demasiado'), { status: 504 });
+        }
+        throw Object.assign(new Error('No pude contactar a OpenCode Zen'), { status: 502 });
+      } finally {
+        clearTimeout(timer);
       }
-    }
 
-    lastMessage = 'OpenCode Zen rechazó la solicitud';
-    try {
-      const errJson = JSON.parse(body) as {
-        error?: string | { message?: string };
-        message?: string;
-      };
-      if (typeof errJson.error === 'string') lastMessage = errJson.error;
-      else if (errJson.error?.message) lastMessage = errJson.error.message;
-      else if (errJson.message) lastMessage = errJson.message;
-    } catch {
-      /* keep default */
+      const body = await res.text();
+      if (res.ok) {
+        try {
+          const json = JSON.parse(body) as {
+            choices?: { message?: { content?: unknown } }[];
+          };
+          return parseReply(json.choices?.[0]?.message?.content ?? '');
+        } catch {
+          throw Object.assign(new Error('Respuesta inválida de OpenCode Zen'), { status: 502 });
+        }
+      }
+
+      lastMessage = 'OpenCode Zen rechazó la solicitud';
+      try {
+        const errJson = JSON.parse(body) as {
+          error?: string | { message?: string };
+          message?: string;
+        };
+        if (typeof errJson.error === 'string') lastMessage = errJson.error;
+        else if (errJson.error?.message) lastMessage = errJson.error.message;
+        else if (errJson.message) lastMessage = errJson.message;
+      } catch {
+        /* keep default */
+      }
+      lastStatus = res.status;
+      const unavailable =
+        res.status === 404 ||
+        /unavailable|not found|not available|does not exist|unknown model|model_not_found/i.test(
+          lastMessage,
+        );
+      const rateLimited =
+        res.status === 429 || /rate limit|too many|quota|频率|速率|限流/i.test(lastMessage);
+      if (unavailable) break;
+      if (!rateLimited || attempt === 2) {
+        throw Object.assign(
+          new Error(
+            rateLimited
+              ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+              : lastMessage,
+          ),
+          {
+            status: rateLimited
+              ? 429
+              : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500
+                ? 502
+                : 400,
+          },
+        );
+      }
+      await new Promise((resolve) => setTimeout(resolve, 800 * (attempt + 1)));
     }
-    lastStatus = res.status;
-    const rateLimited =
-      res.status === 429 || /rate limit|too many|quota|频率|速率|限流/i.test(lastMessage);
-    if (!rateLimited || attempt === 2) break;
-    await new Promise((resolve) => setTimeout(resolve, 800 * (attempt + 1)));
   }
 
-  const rateLimited =
-    lastStatus === 429 || /rate limit|too many|quota|频率|速率|限流/i.test(lastMessage);
   throw Object.assign(
-    new Error(
-      rateLimited
-        ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
-        : lastMessage,
-    ),
-    { status: rateLimited ? 429 : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500 ? 502 : 400 },
+    new Error('Ese modelo no está disponible ahora en OpenCode Zen. Probá de nuevo en un rato.'),
+    { status: 502 },
   );
 }

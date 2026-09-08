@@ -180,6 +180,25 @@ function isRateLimit(status, message) {
   );
 }
 
+function isUnavailable(status, message) {
+  return (
+    status === 404 ||
+    /unavailable|not found|not available|does not exist|unknown model|model_not_found/i.test(
+      String(message || ''),
+    )
+  );
+}
+
+function modelCandidates(preferred) {
+  return [
+    ...new Set(
+      [preferred, process.env.OPENCODE_MODEL, DEFAULT_MODEL, 'deepseek-v4-flash', 'big-pickle'].filter(
+        Boolean,
+      ),
+    ),
+  ];
+}
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -197,72 +216,84 @@ async function completeOrbChat({ messages, apiKey, model }) {
     throw err;
   }
 
-  const payload = JSON.stringify({
-    model: model || process.env.OPENCODE_MODEL || DEFAULT_MODEL,
-    messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
-    temperature: 0.5,
-    max_tokens: 2048,
-  });
-
+  const models = modelCandidates(model);
   let lastMessage = 'OpenCode Zen rechazó la solicitud';
   let lastStatus = 400;
 
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 55000);
-    let res;
-    try {
-      res = await fetch(ZEN_URL, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'x-opencode-session': 'reclu-orb',
-        },
-        body: payload,
-        signal: controller.signal,
-      });
-    } catch (err) {
-      const timeout = err && err.name === 'AbortError';
-      const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a OpenCode Zen');
-      wrapped.status = timeout ? 504 : 502;
-      throw wrapped;
-    } finally {
-      clearTimeout(timer);
-    }
+  for (let m = 0; m < models.length; m += 1) {
+    const payload = JSON.stringify({
+      model: models[m],
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
+      temperature: 0.5,
+      max_tokens: 2048,
+    });
 
-    const body = await res.text();
-    if (res.ok) {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 55000);
+      let res;
       try {
-        const data = JSON.parse(body);
-        const content =
-          data.choices && data.choices[0] && data.choices[0].message
-            ? data.choices[0].message.content
-            : '';
-        return parseReply(content);
-      } catch {
-        const err = new Error('Respuesta inválida de OpenCode Zen');
-        err.status = 502;
+        res = await fetch(ZEN_URL, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            'x-opencode-session': 'reclu-orb',
+          },
+          body: payload,
+          signal: controller.signal,
+        });
+      } catch (err) {
+        const timeout = err && err.name === 'AbortError';
+        const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a OpenCode Zen');
+        wrapped.status = timeout ? 504 : 502;
+        throw wrapped;
+      } finally {
+        clearTimeout(timer);
+      }
+
+      const body = await res.text();
+      if (res.ok) {
+        try {
+          const data = JSON.parse(body);
+          const content =
+            data.choices && data.choices[0] && data.choices[0].message
+              ? data.choices[0].message.content
+              : '';
+          return parseReply(content);
+        } catch {
+          const err = new Error('Respuesta inválida de OpenCode Zen');
+          err.status = 502;
+          throw err;
+        }
+      }
+
+      lastMessage = baiErrorMessage(body);
+      lastStatus = res.status;
+      if (isUnavailable(res.status, lastMessage)) break;
+      if (!isRateLimit(res.status, lastMessage) || attempt === 2) {
+        const err = new Error(
+          isRateLimit(lastStatus, lastMessage)
+            ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+            : lastMessage,
+        );
+        err.status = isRateLimit(lastStatus, lastMessage)
+          ? 429
+          : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500
+            ? 502
+            : 400;
         throw err;
       }
+      await sleep(800 * (attempt + 1));
     }
-
-    lastMessage = baiErrorMessage(body);
-    lastStatus = res.status;
-    if (!isRateLimit(res.status, lastMessage) || attempt === 2) break;
-    await sleep(800 * (attempt + 1));
   }
 
   const err = new Error(
-    isRateLimit(lastStatus, lastMessage)
-      ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+    isUnavailable(lastStatus, lastMessage)
+      ? 'Ese modelo no está disponible ahora en OpenCode Zen. Probá de nuevo en un rato.'
       : lastMessage,
   );
-  err.status = isRateLimit(lastStatus, lastMessage)
-    ? 429
-    : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500
-      ? 502
-      : 400;
+  err.status = 502;
   throw err;
 }
 
