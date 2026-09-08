@@ -98,6 +98,16 @@ export default function VenderPage() {
                 </li>
               ))}
             </ol>
+            <div className="mt-12 grid grid-cols-2 gap-4">
+              <div className="rounded-2xl bg-card p-5 ring-1 ring-border">
+                <p className="font-heading text-3xl text-primary">19 días</p>
+                <p className="mt-1 text-sm text-muted-foreground">promedio en vender una exclusiva bien tasada, 2025</p>
+              </div>
+              <div className="rounded-2xl bg-card p-5 ring-1 ring-border">
+                <p className="font-heading text-3xl text-primary">2% + IVA</p>
+                <p className="mt-1 text-sm text-muted-foreground">honorarios, por escrito, el día uno. Sin “pack marketing”.</p>
+              </div>
+            </div>
           </div>
           <div className="rounded-3xl bg-card p-6 ring-1 ring-border md:p-8">
             <LeadForm intent="tasacion" />

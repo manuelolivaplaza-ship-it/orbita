@@ -52,6 +52,16 @@ export function SiteFooter() {
               </a>
             </li>
             <li>{site.hours}</li>
+            <li>
+              <a
+                href={site.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+              >
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
       </Container>

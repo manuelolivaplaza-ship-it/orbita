@@ -32,7 +32,12 @@ export function PropertySearch({ className }: { className?: string }) {
     if (tipo && tipo !== "todos") params.set("tipo", tipo);
     if (comuna && comuna !== "todas") params.set("comuna", comuna);
     if (dorms && dorms !== "todos") params.set("dorms", dorms);
-    router.push(`/propiedades?${params.toString()}`);
+    const qs = params.toString();
+    try {
+      router.push(`/propiedades?${qs}`);
+    } catch {
+      window.location.assign(`propiedades/?${qs}`);
+    }
   }
 
   return (

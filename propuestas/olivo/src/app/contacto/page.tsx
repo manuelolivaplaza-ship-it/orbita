@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 import { Container } from "@/components/container";
@@ -64,10 +65,28 @@ export default function ContactoPage() {
               Escribir por WhatsApp
             </a>
           </Button>
+
+          <div className="relative mt-10 min-h-[220px] overflow-hidden rounded-2xl">
+            <Image
+              src="/images/office.jpg"
+              alt="Oficina Olivo en Alonso de Córdova"
+              fill
+              className="object-cover"
+              sizes="40vw"
+            />
+          </div>
         </div>
 
-        <div className="rounded-3xl bg-card p-6 ring-1 ring-border md:p-8">
-          <LeadForm intent="contacto" />
+        <div className="grid gap-6">
+          <div className="rounded-3xl bg-card p-6 ring-1 ring-border md:p-8">
+            <LeadForm intent="contacto" />
+          </div>
+          <iframe
+            title="Oficina Olivo en Las Condes"
+            src="https://maps.google.com/maps?q=Alonso+de+Cordova+3100+Las+Condes&z=15&output=embed"
+            className="h-64 w-full rounded-2xl border-0 ring-1 ring-border"
+            loading="lazy"
+          />
         </div>
       </Container>
     </section>

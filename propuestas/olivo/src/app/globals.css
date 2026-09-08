@@ -120,6 +120,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(rgba(23, 28, 25, 0.035) 0.7px, transparent 0.7px);
+    background-size: 3px 3px;
   }
 
   h1,

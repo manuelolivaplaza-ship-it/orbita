@@ -43,8 +43,10 @@ export const MobileHeroCarousel: React.FC = () => {
       </div>
 
       <div
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain px-5 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain scroll-pl-8 scroll-pr-8 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
       >
+        {/* snap-start ignores padding-left; spacer + scroll-padding keep the first card inset. */}
+        <div className="w-8 shrink-0" aria-hidden />
         {items.map((item) => {
           const sectorInfo = getSector(item.sector);
           return (
@@ -80,6 +82,7 @@ export const MobileHeroCarousel: React.FC = () => {
             </Link>
           );
         })}
+        <div className="w-8 shrink-0" aria-hidden />
       </div>
     </div>
   );

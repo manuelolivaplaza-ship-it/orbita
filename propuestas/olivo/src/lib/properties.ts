@@ -25,6 +25,11 @@ export type Property = {
   amenities: string[];
   images: string[];
   agent: "elena" | "tomas" | "amanda";
+  orientation?: string;
+  floor?: string;
+  commonExpenses?: string;
+  near?: string;
+  available?: string;
 };
 
 export const properties: Property[] = [
@@ -54,6 +59,9 @@ export const properties: Property[] = [
       "Pieza de servicio con baño",
     ],
     amenities: ["Piscina", "Quincho", "Jardín", "Bodega", "Calefacción", "Logia"],
+    orientation: "Norte",
+    commonExpenses: "Contribuciones ~UF 18/año",
+    near: "Colegio Tabancura, Parque Bicentenario",
     images: [
       "/images/casa-vitacura.jpg",
       "/images/kitchen.jpg",
@@ -94,6 +102,10 @@ export const properties: Property[] = [
       "Bodega",
       "Aire acondicionado",
     ],
+    orientation: "Oriente–poniente",
+    floor: "Último piso",
+    commonExpenses: "UF 12 / mes",
+    near: "Isidora Goyenechea, Metro El Golf",
     images: [
       "/images/penthouse-terrace.jpg",
       "/images/penthouse-living.jpg",
@@ -127,6 +139,9 @@ export const properties: Property[] = [
       "Portón eléctrico y alarma",
     ],
     amenities: ["Piscina", "Quincho", "Jardín", "Bodega", "Alarma", "Calefacción"],
+    orientation: "Norte",
+    commonExpenses: "Contribuciones ~UF 24/año",
+    near: "Colegio Apumanque, Club de Golf",
     images: [
       "/images/casa-dehesa.jpg",
       "/images/kitchen.jpg",
@@ -159,6 +174,10 @@ export const properties: Property[] = [
       "Edificio sin comercio en el primer piso",
     ],
     amenities: ["Balcón", "Bodega", "Conserjería", "Estacionamiento"],
+    orientation: "Poniente",
+    floor: "Piso 7",
+    commonExpenses: "UF 5,8 / mes",
+    near: "Metro Los Leones, cafés de Providencia",
     images: [
       "/images/providencia.jpg",
       "/images/depto-interior.jpg",
@@ -192,6 +211,9 @@ export const properties: Property[] = [
       "Caminable a Plaza Ñuñoa",
     ],
     amenities: ["Jardín", "Quincho", "Bodega", "Calefacción"],
+    orientation: "Nororiente",
+    commonExpenses: "Contribuciones ~UF 9/año",
+    near: "Plaza Ñuñoa, feria de Irarrázaval",
     images: [
       "/images/casa-nunoa.jpg",
       "/images/kitchen.jpg",
@@ -223,6 +245,10 @@ export const properties: Property[] = [
       "Gimnasio y quincho en el edificio",
     ],
     amenities: ["Gimnasio", "Quincho", "Conserjería 24h", "Bodega"],
+    orientation: "Oriente",
+    floor: "Piso 9",
+    commonExpenses: "UF 6,4 / mes",
+    near: "Metro Escuela Militar, Costanera Center",
     images: [
       "/images/depto-escuela-militar.jpg",
       "/images/depto-interior.jpg",
@@ -255,6 +281,9 @@ export const properties: Property[] = [
       "Colegios a menos de 10 minutos",
     ],
     amenities: ["Jardín", "Bodega", "Logia", "Calefacción"],
+    orientation: "Norte",
+    commonExpenses: "Contribuciones ~UF 11/año",
+    near: "Colegios del sector, acceso al cerro",
     images: [
       "/images/casa-la-reina.jpg",
       "/images/kitchen.jpg",
@@ -286,6 +315,10 @@ export const properties: Property[] = [
       "Edificio de baja densidad",
     ],
     amenities: ["Conserjería 24h", "Gimnasio", "Bodega", "Terraza interior"],
+    orientation: "Norte",
+    floor: "Piso 5",
+    commonExpenses: "UF 9,1 / mes",
+    near: "Parque Bicentenario, Nueva Costanera",
     images: [
       "/images/depto-costanera.jpg",
       "/images/penthouse-living.jpg",
@@ -319,6 +352,9 @@ export const properties: Property[] = [
       "A pasos del Parque Metropolitano",
     ],
     amenities: ["Jardín", "Quincho", "Bodega", "Alarma", "Calefacción"],
+    orientation: "Poniente",
+    commonExpenses: "Contribuciones ~UF 22/año",
+    near: "Parque Metropolitano, Pedro de Valdivia Norte",
     images: [
       "/images/pedro-valdivia.jpg",
       "/images/kitchen.jpg",
@@ -350,6 +386,11 @@ export const properties: Property[] = [
       "Gastos comunes incluidos en la visita",
     ],
     amenities: ["Balcón", "Conserjería", "Bicicletero", "Lavandería"],
+    orientation: "Oriente",
+    floor: "Piso 4",
+    commonExpenses: "UF 3,9 / mes",
+    near: "Metro Irarrázaval, Plaza Ñuñoa",
+    available: "Inmediata",
     images: [
       "/images/depto-interior.jpg",
       "/images/barrio-nunoa.jpg",
@@ -380,6 +421,11 @@ export const properties: Property[] = [
       "Conserjería 24 horas",
     ],
     amenities: ["Conserjería 24h", "Gimnasio", "Bodega", "Piscina edificio"],
+    orientation: "Norponiente",
+    floor: "Piso 8",
+    commonExpenses: "UF 7,2 / mes",
+    near: "Manquehue, colegios de Las Condes",
+    available: "15 de octubre",
     images: [
       "/images/depto-escuela-militar.jpg",
       "/images/penthouse-living.jpg",
@@ -412,6 +458,10 @@ export const properties: Property[] = [
       "Colegios del sector a minutos",
     ],
     amenities: ["Piscina", "Quincho", "Jardín", "Calefacción", "Alarma"],
+    orientation: "Norte",
+    commonExpenses: "Jardín y piscina incluidos en el arriendo",
+    near: "Colegios de Vitacura, Parque Bicentenario",
+    available: "1 de noviembre",
     images: [
       "/images/casa-vitacura.jpg",
       "/images/kitchen.jpg",
@@ -452,6 +502,10 @@ export function getProperty(slug: string) {
 
 export function featuredProperties() {
   return properties.filter((p) => p.featured);
+}
+
+export function propertiesInComuna(name: string) {
+  return properties.filter((p) => p.comuna === name);
 }
 
 export function similarProperties(property: Property, limit = 3) {

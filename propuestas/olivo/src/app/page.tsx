@@ -107,6 +107,9 @@ export default function HomePage() {
             Las Condes, Vitacura, Providencia y Ñuñoa. Visitas filtradas,
             precios en UF y respuesta el mismo día.
           </p>
+          <p className="fade-up fade-up-delay-2 mt-3 text-sm text-white/70">
+            {featured.length} destacadas esta semana · cartera curada, no un portal.
+          </p>
           <div className="fade-up fade-up-delay-3 mt-8 max-w-4xl">
             <PropertySearch />
           </div>
@@ -141,8 +144,13 @@ export default function HomePage() {
               </Link>
             </Button>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((p) => (
+          {featured[0] ? (
+            <div className="mt-12">
+              <PropertyCard property={featured[0]} layout="editorial" />
+            </div>
+          ) : null}
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.slice(1).map((p) => (
               <PropertyCard key={p.slug} property={p} />
             ))}
           </div>
@@ -211,6 +219,10 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <p className="mt-12 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Honorarios de venta: 2% + IVA, a cargo del vendedor. Tasación comercial
+            sin costo. No cobramos por “publicar en portal”.
+          </p>
         </Container>
       </section>
 

@@ -17,3 +17,8 @@ export function ufToClp(uf: number, valorUf = 39_250) {
 export function plural(n: number, one: string, many: string) {
   return `${n} ${n === 1 ? one : many}`;
 }
+
+export function ufPerM2(priceUF: number, area: number) {
+  if (!area) return null;
+  return Math.round(priceUF / area);
+}

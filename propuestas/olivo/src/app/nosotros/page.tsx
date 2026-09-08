@@ -69,6 +69,9 @@ export default function NosotrosPage() {
                 en WhatsApp. {site.hours}.
               </p>
             </div>
+            <blockquote className="mt-8 border-l-2 border-primary pl-4 font-heading text-2xl text-foreground">
+              “Si una casa no se la recomendaríamos a un amigo, no está en la web.”
+            </blockquote>
           </div>
           <div className="grid gap-6">
             {values.map((v) => (
@@ -99,6 +102,12 @@ export default function NosotrosPage() {
                 <h3 className="mt-5 font-heading text-2xl">{person.name}</h3>
                 <p className="text-sm text-primary">{person.role}</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{person.bio}</p>
+                <a
+                  href={`tel:${person.phone.replace(/\s/g, "")}`}
+                  className="mt-3 inline-block text-sm text-foreground hover:text-primary"
+                >
+                  {person.phone}
+                </a>
               </article>
             ))}
           </div>
