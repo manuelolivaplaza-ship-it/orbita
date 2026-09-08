@@ -141,7 +141,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
     <>
       {/* 1. FLOATING ORB TRIGGER (Esquina inferior derecha, puro y sin círculo) */}
       {!isOpen && (
-        <div className="fixed bottom-5 right-5 z-40 flex items-center gap-3 select-none sm:bottom-7 sm:right-7 max-sm:scale-90 max-sm:origin-bottom-right">
+        <div className="fixed right-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-40 flex origin-bottom-right scale-90 items-center gap-3 select-none sm:right-7 sm:bottom-7 sm:scale-100">
           {/* Subtle Speech Bubble on Hover or First Load */}
           {bubbleVisible && (
             <div
@@ -193,7 +193,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
 
       {/* 2. THE AI CHAT WINDOW */}
       {isOpen && (
-        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col w-[calc(100vw-2rem)] sm:w-[420px] max-w-[430px] h-[600px] sm:h-[630px] max-h-[88vh] rounded-3xl border border-zinc-200/90 bg-white shadow-[0_24px_80px_-16px_rgba(15,23,42,0.25)] overflow-hidden animate-fade-in-up">
+        <div className="fixed inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 flex max-h-none w-auto max-w-none flex-col overflow-hidden rounded-3xl border border-zinc-200/90 bg-white shadow-[0_24px_80px_-16px_rgba(15,23,42,0.25)] sm:inset-auto sm:right-6 sm:bottom-6 sm:h-[630px] sm:max-h-[88vh] sm:w-[420px] sm:max-w-[430px]">
           {/* CHAT HEADER: ORB SITS EXACTLY AT TOP-LEFT WITHOUT ARTIFICIAL CARDS */}
           <div className="flex items-center justify-between border-b border-zinc-100 bg-zinc-50/80 px-4 py-3 sm:px-5">
             {/* Top-Left: Orb with live status */}

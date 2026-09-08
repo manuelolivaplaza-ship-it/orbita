@@ -47,7 +47,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
           <span className="text-xs font-semibold uppercase tracking-widest text-[#6B7280] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-3 inline-block">
             Inversión transparente
           </span>
-          <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-[#0B0B12] mb-3">
+          <h2 className="mb-3 text-3xl font-medium tracking-tight text-[#0B0B12] sm:text-5xl">
             Compra única, clara
           </h2>
           <p className="text-zinc-600 text-base leading-relaxed mb-4">

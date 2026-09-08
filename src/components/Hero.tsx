@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
       <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[88rem] items-center px-5 sm:px-6 pt-2 sm:pt-4 lg:absolute lg:inset-0 lg:px-6 lg:pt-0">
         <div className="pointer-events-auto relative w-full max-w-xl lg:max-w-[30rem] xl:max-w-xl">
           <h1
-            className="mb-4 sm:mb-6 text-[2.35rem] font-medium leading-[0.98] tracking-tight text-[#0B0B12] sm:text-6xl lg:text-7xl"
+            className="mb-4 text-[2.15rem] font-medium leading-[1.02] tracking-tight text-[#0B0B12] sm:mb-6 sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
           >
             <span className="block overflow-hidden py-0.5">

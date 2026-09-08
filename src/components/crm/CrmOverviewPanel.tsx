@@ -178,10 +178,10 @@ function Mini({
     <button
       type="button"
       onClick={onClick}
-      className="rounded-2xl border border-zinc-200/80 bg-white p-4 text-left shadow-xs transition-colors hover:border-zinc-300"
+      className="rounded-2xl border border-zinc-200/80 bg-white p-3 text-left shadow-xs transition-colors hover:border-zinc-300 sm:p-4"
     >
-      <div className="text-[11px] font-medium text-zinc-500">{label}</div>
-      <div className="mt-1 font-mono text-2xl font-bold tabular-nums text-zinc-950">{value}</div>
+      <div className="text-[11px] font-medium leading-snug text-zinc-500">{label}</div>
+      <div className="mt-1 font-mono text-xl font-bold tabular-nums text-zinc-950 sm:text-2xl">{value}</div>
       <div className="mt-1 truncate text-[11px] text-zinc-400">{hint}</div>
     </button>
   );
@@ -203,12 +203,12 @@ function Card({
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs">
       <div className="mb-2 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-sm font-semibold text-zinc-950">
-          <Icon className="h-4 w-4 text-zinc-400" />
-          {title}
+        <div className="flex min-w-0 items-center gap-2 text-sm font-semibold text-zinc-950">
+          <Icon className="h-4 w-4 shrink-0 text-zinc-400" />
+          <span className="truncate">{title}</span>
         </div>
-        <button type="button" onClick={onAction} className="inline-flex items-center gap-0.5 text-[11px] font-medium text-zinc-500 hover:text-zinc-950">
-          {action}
+        <button type="button" onClick={onAction} className="inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium text-zinc-500 hover:text-zinc-950">
+          <span className="max-w-[7.5rem] truncate sm:max-w-none">{action}</span>
           <ArrowRight className="h-3 w-3" />
         </button>
       </div>

@@ -102,8 +102,8 @@ export function CrmSettingsPanel({
             <h3 className="mb-3 text-sm font-semibold text-zinc-950">Horario</h3>
             <div className="space-y-2">
               {form.hours.map((h, i) => (
-                <div key={h.day} className="grid grid-cols-[7rem_1fr_1fr_auto] items-center gap-2 text-xs">
-                  <span className="font-medium text-zinc-700">{h.day}</span>
+                <div key={h.day} className="grid grid-cols-2 items-center gap-2 text-xs sm:grid-cols-[6.5rem_1fr_1fr_auto]">
+                  <span className="col-span-2 font-medium text-zinc-700 sm:col-span-1">{h.day}</span>
                   <input
                     type="time"
                     disabled={h.closed}
@@ -124,7 +124,7 @@ export function CrmSettingsPanel({
                     }}
                     className={fieldClass}
                   />
-                  <label className="flex items-center gap-1 text-zinc-500">
+                  <label className="col-span-2 flex items-center gap-1.5 py-1 text-zinc-500 sm:col-span-1">
                     <input
                       type="checkbox"
                       checked={h.closed}
@@ -140,7 +140,7 @@ export function CrmSettingsPanel({
             </div>
           </div>
 
-          <button type="submit" className="rounded-xl bg-zinc-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800">
+          <button type="submit" className="w-full rounded-xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800 sm:w-auto sm:py-2.5">
             {saved ? 'Guardado' : 'Publicar cambios en el sitio'}
           </button>
         </form>

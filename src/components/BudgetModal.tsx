@@ -320,7 +320,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
         role="dialog"
         aria-modal="true"
         aria-labelledby="budget-modal-title"
-        className="relative w-full max-w-4xl max-h-[100dvh] sm:max-h-[92vh] bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-zinc-200/90 z-10 flex flex-col overflow-hidden animate-fade-in-up"
+        className="relative z-10 flex max-h-[100dvh] w-full max-w-4xl flex-col overflow-hidden rounded-t-3xl border border-zinc-200/90 bg-white shadow-2xl sm:max-h-[92vh] sm:rounded-3xl"
       >
         {/* Header sticky */}
         <div className="flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 border-b border-zinc-100 shrink-0 bg-white">
@@ -674,7 +674,7 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
             </div>
 
             {/* Sticky footer summary */}
-            <div className="shrink-0 border-t border-zinc-100 bg-white px-5 sm:px-8 py-4 sm:py-5">
+            <div className="shrink-0 border-t border-zinc-100 bg-white px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-8 sm:py-5">
               {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>

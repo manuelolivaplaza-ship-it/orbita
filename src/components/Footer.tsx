@@ -39,9 +39,9 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="relative z-10 bg-white text-[#0B0B12] border-t border-zinc-200/80 selection:bg-zinc-200 selection:text-zinc-900">
-      <div className="max-w-[88rem] mx-auto px-6 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-12 sm:pb-16">
+      <div className="mx-auto max-w-[88rem] px-4 pt-14 pb-[max(3rem,env(safe-area-inset-bottom))] sm:px-8 sm:pt-20 sm:pb-16 lg:px-12">
         {/* 1. TOP CTA & NEWSLETTER BANNER (Light Theme Card) */}
-        <div className="bg-[#F7F8FC] border border-zinc-200/80 rounded-3xl p-8 sm:p-12 mb-16 shadow-xs">
+        <div className="mb-12 rounded-3xl border border-zinc-200/80 bg-[#F7F8FC] p-5 shadow-xs sm:mb-16 sm:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             {/* Headline & Value Proposition */}
             <div className="lg:col-span-7 space-y-4">
@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Estudio Digital · Santiago, Chile</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#0B0B12] leading-tight">
+              <h2 className="text-2xl font-medium leading-tight tracking-tight text-[#0B0B12] sm:text-4xl lg:text-5xl">
                 Construyamos una web que convierta visitas en clientes.
               </h2>
               <p className="text-zinc-600 text-base sm:text-lg max-w-2xl leading-relaxed">
@@ -135,7 +135,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* 2. NAVIGATION COLUMNS */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-16">
+        <div className="grid grid-cols-2 gap-8 pb-12 md:grid-cols-5 lg:gap-12 sm:pb-16">
           {/* Brand col */}
           <div className="col-span-2 md:col-span-2 space-y-4 pr-0 md:pr-6">
             <Link to="/" aria-label="Reclu, ir al inicio" className="inline-flex items-center group">

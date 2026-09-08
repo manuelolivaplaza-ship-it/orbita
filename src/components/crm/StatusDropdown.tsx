@@ -100,7 +100,7 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({ status, onChange
         className={`group inline-flex items-center gap-1.5 rounded-full border font-semibold transition-all cursor-pointer shadow-2xs hover:shadow-xs ${
           current.pillBg
         } ${current.pillText} ${current.pillBorder} ${
-          size === 'sm' ? 'px-2.5 py-0.5 text-[11px]' : 'px-3.5 py-1.5 text-xs'
+          size === 'sm' ? 'min-h-8 px-2.5 py-1 text-[11px] sm:py-0.5' : 'min-h-9 px-3.5 py-1.5 text-xs'
         }`}
       >
         <span
@@ -118,7 +118,7 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({ status, onChange
 
       {/* Floating Micro-menu */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1.5 z-40 w-44 rounded-xl border border-zinc-200/90 bg-white/95 backdrop-blur-md p-1.5 shadow-xl shadow-zinc-950/10 animate-in fade-in zoom-in-95 duration-100">
+        <div className="absolute left-0 top-full z-40 mt-1.5 w-44 rounded-xl border border-zinc-200/90 bg-white/95 p-1.5 shadow-xl shadow-zinc-950/10 backdrop-blur-md">
           <div className="px-2 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Cambiar fase
           </div>

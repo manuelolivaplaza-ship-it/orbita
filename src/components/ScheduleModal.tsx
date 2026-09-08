@@ -173,7 +173,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
         role="dialog"
         aria-modal="true"
         aria-labelledby="schedule-title"
-        className="relative w-full max-w-5xl max-h-[100dvh] sm:max-h-[92vh] bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl border border-zinc-200/90 z-10 flex flex-col overflow-hidden animate-fade-in-up"
+        className="relative z-10 flex max-h-[100dvh] w-full max-w-5xl flex-col overflow-hidden rounded-t-3xl border border-zinc-200/90 bg-white shadow-2xl sm:max-h-[92vh] sm:rounded-3xl"
       >
         <div className="flex flex-col lg:flex-row min-h-0 flex-1">
           {/* Left rail */}
@@ -460,7 +460,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose })
             </div>
 
             {step === 'pick' && (
-              <div className="shrink-0 border-t border-zinc-200/80 bg-white px-5 sm:px-7 py-4 flex items-center justify-between gap-3">
+              <div className="flex shrink-0 items-center justify-between gap-3 border-t border-zinc-200/80 bg-white px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-7 sm:py-4">
                 <p className="text-xs text-zinc-500 hidden sm:block">
                   {selectedMin !== null && selectedYmd
                     ? `${formatMinutes(selectedMin)} · 30 min`

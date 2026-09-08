@@ -47,12 +47,12 @@ export function CrmAgendaPanel({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-zinc-500">Horas que entran desde la web, WhatsApp o se cargan a mano.</p>
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-1.5 text-xs font-medium text-white"
+          className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-medium text-white sm:min-h-0 sm:py-1.5"
         >
           <Plus className="h-3.5 w-3.5" />
           Nueva cita
@@ -65,7 +65,7 @@ export function CrmAgendaPanel({
           </header>
           <ul className="divide-y divide-zinc-100">
             {rows.map((a) => (
-              <li key={a.id} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <li key={a.id} className="flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-xs font-semibold text-zinc-950">
@@ -81,7 +81,7 @@ export function CrmAgendaPanel({
                     {a.valueClp ? ` · ${formatClp(a.valueClp)}` : ''}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   {a.clientPhone && (
                     <a
                       href={`https://wa.me/${a.clientPhone.replace(/[^0-9]/g, '')}`}
@@ -221,6 +221,37 @@ export function CrmOrdersPanel({
         </div>
       </div>
       <div className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-xs">
+        <div className="divide-y divide-zinc-100 md:hidden">
+          {orders.map((o) => (
+            <article key={o.id} className="space-y-2 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-mono text-xs font-semibold text-zinc-950">{o.number}</div>
+                  <div className="mt-0.5 text-sm font-medium text-zinc-900">{o.customerName}</div>
+                  <p className="mt-0.5 text-[11px] text-zinc-400">
+                    {o.city} · {formatWhen(o.createdAt)}
+                  </p>
+                </div>
+                <div className="shrink-0 text-right font-mono text-sm font-semibold">{formatClp(o.totalClp)}</div>
+              </div>
+              <p className="text-[12px] leading-snug text-zinc-600">
+                {o.items.map((i) => `${i.qty}× ${i.name}`).join(' · ')}
+              </p>
+              <select
+                value={o.status}
+                onChange={(e) => onStatus(o.id, e.target.value as OrderStatus)}
+                className={`min-h-9 w-full rounded-lg border px-2 py-1.5 text-[11px] font-semibold capitalize ${ORDER[o.status]}`}
+              >
+                {Object.keys(ORDER).map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </article>
+          ))}
+        </div>
+        <div className="hidden overflow-x-auto md:block">
         <table className="w-full text-left text-xs">
           <thead className="border-b border-zinc-100 bg-zinc-50/70 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
             <tr>
@@ -263,6 +294,7 @@ export function CrmOrdersPanel({
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
@@ -280,7 +312,7 @@ export function CrmTeamPanel({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-zinc-500">Quién atiende, agenda y aparece como profesional en las citas.</p>
         <button
           type="button"
@@ -288,7 +320,7 @@ export function CrmTeamPanel({
             setEditing(null);
             setOpen(true);
           }}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-1.5 text-xs font-medium text-white"
+          className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-medium text-white sm:min-h-0 sm:py-1.5"
         >
           <Plus className="h-3.5 w-3.5" />
           Agregar

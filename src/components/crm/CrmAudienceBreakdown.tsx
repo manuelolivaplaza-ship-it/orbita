@@ -73,7 +73,7 @@ export const CrmAudienceBreakdown: React.FC<CrmAudienceBreakdownProps> = ({
             </span>
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-4">
+          <div className="mt-4 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
             {/* SVG Donut Chart */}
             <div className="relative flex h-28 w-28 shrink-0 items-center justify-center">
               <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">

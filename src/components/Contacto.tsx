@@ -61,7 +61,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
   };
 
   return (
-    <section id="contacto" className="bg-[#F7F8FC] px-4 sm:px-6 py-20 sm:py-28 pb-28 sm:pb-36 relative z-10 overflow-hidden">
+    <section id="contacto" className="relative z-10 overflow-hidden bg-[#F7F8FC] px-4 py-16 pb-28 sm:px-6 sm:py-28 sm:pb-36">
       <div className="max-w-[88rem] mx-auto grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
         
         {/* LEFT COLUMN */}
@@ -76,7 +76,7 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
             </span>
 
             <h2 
-              className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#0B0B12] leading-[1.02] mb-6"
+              className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
               style={{ letterSpacing: '-0.04em' }}
             >
               Impulsa tu marca<br />

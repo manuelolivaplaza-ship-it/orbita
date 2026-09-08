@@ -17,14 +17,14 @@ export default function CreacionesPage() {
         description="Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería."
       />
 
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
+      <section className="relative z-10 px-4 pt-28 pb-12 sm:px-6 sm:pt-32 sm:pb-20">
         <div className="max-w-[88rem] mx-auto">
           <div className="max-w-3xl">
             <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
               Casos reales
             </p>
             <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-[#0B0B12] leading-[0.95] mb-6"
+              className="mb-6 text-4xl font-medium leading-[0.95] tracking-tight text-[#0B0B12] sm:text-6xl lg:text-7xl"
               style={{ letterSpacing: '-0.045em' }}
             >
               Creaciones.
@@ -37,7 +37,7 @@ export default function CreacionesPage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 pb-24 sm:pb-28">
+      <section className="relative z-10 px-4 pb-20 sm:px-6 sm:pb-28">
         <div className="max-w-[88rem] mx-auto">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
             {featured.map((c) => (
@@ -47,9 +47,9 @@ export default function CreacionesPage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 pb-28">
+      <section className="relative z-10 px-4 pb-28 sm:px-6">
         <div className="max-w-[88rem] mx-auto">
-          <div className="rounded-3xl bg-[#0B0B12] text-white px-8 sm:px-12 py-14 sm:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8 overflow-hidden relative">
+          <div className="relative flex flex-col gap-8 overflow-hidden rounded-3xl bg-[#0B0B12] px-5 py-10 text-white sm:px-12 sm:py-16 md:flex-row md:items-center md:justify-between">
             <div className="absolute top-0 right-0 w-72 h-72 bg-[#6B7280]/30 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-1/3 w-56 h-56 bg-[#A1A1AA]/15 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10 max-w-xl">

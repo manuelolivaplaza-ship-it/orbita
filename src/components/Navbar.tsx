@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
   return (
     <>
     <header
-      className={`fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 py-4 pointer-events-none transition-transform duration-300 ease-out motion-reduce:transition-none ${
+      className={`pointer-events-none fixed top-0 right-0 left-0 z-40 px-4 py-[max(0.75rem,env(safe-area-inset-top))] transition-transform duration-300 ease-out sm:px-6 sm:py-4 motion-reduce:transition-none ${
         hidden && !mobileMenuOpen ? '-translate-y-[120%]' : 'translate-y-0'
       }`}
     >
@@ -175,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
             aria-label="Cerrar menú"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="absolute inset-x-3 top-3 bottom-3 sm:left-auto sm:w-[22rem] flex flex-col rounded-[1.75rem] bg-white border border-zinc-200/80 shadow-[0_24px_60px_-20px_rgba(15,15,40,0.35)] overflow-hidden">
+          <div className="absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] bottom-[max(0.75rem,env(safe-area-inset-bottom))] flex flex-col overflow-hidden rounded-[1.75rem] border border-zinc-200/80 bg-white shadow-[0_24px_60px_-20px_rgba(15,15,40,0.35)] sm:top-3 sm:right-3 sm:bottom-3 sm:left-auto sm:w-[22rem]">
             <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-zinc-100">
               <Link
                 to="/"
@@ -202,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
                   type="button"
                   onClick={() => goTo(link)}
                   aria-current={isNavItemActive(link) ? 'page' : undefined}
-                  className={`w-full text-left text-base font-medium text-[#0B0B12] px-4 py-3.5 rounded-2xl hover:bg-zinc-50 active:bg-zinc-100 ${
+                  className={`w-full rounded-2xl px-4 py-3.5 text-left text-base font-medium text-[#0B0B12] hover:bg-zinc-50 active:bg-zinc-100 ${
                     isNavItemActive(link) ? 'bg-zinc-100' : ''
                   }`}
                 >

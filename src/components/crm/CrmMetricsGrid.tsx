@@ -60,15 +60,15 @@ export const CrmMetricsGrid: React.FC<CrmMetricsGridProps> = ({ metrics }) => {
   const clicksData = metrics.chartData7d.map((p) => p.whatsappClicks);
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
       {/* 1. Visitas Totales */}
-      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm sm:p-5">
         <div className="flex items-center justify-between text-xs text-zinc-500 font-medium">
           <span className="group-hover:text-zinc-900 transition-colors">Visitas Totales (30d)</span>
           <Users className="h-4 w-4 text-zinc-400 group-hover:text-zinc-900 transition-colors" />
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="font-mono text-2xl font-bold tracking-tight text-zinc-950 tabular-nums">
+          <span className="font-mono text-xl font-bold tracking-tight text-zinc-950 tabular-nums sm:text-2xl">
             {metrics.totalVisits30d.toLocaleString('es-CL')}
           </span>
           <span className="inline-flex items-center text-xs font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">
@@ -83,13 +83,13 @@ export const CrmMetricsGrid: React.FC<CrmMetricsGridProps> = ({ metrics }) => {
       </div>
 
       {/* 2. Prospectos / Leads */}
-      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm sm:p-5">
         <div className="flex items-center justify-between text-xs text-zinc-500 font-medium">
           <span className="group-hover:text-zinc-900 transition-colors">Prospectos Capturados</span>
           <TrendingUp className="h-4 w-4 text-zinc-400 group-hover:text-zinc-900 transition-colors" />
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="font-mono text-2xl font-bold tracking-tight text-zinc-950 tabular-nums">
+          <span className="font-mono text-xl font-bold tracking-tight text-zinc-950 tabular-nums sm:text-2xl">
             {metrics.leadsCount}
           </span>
           <span className="inline-flex items-center text-xs font-semibold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded-md">
@@ -107,13 +107,13 @@ export const CrmMetricsGrid: React.FC<CrmMetricsGridProps> = ({ metrics }) => {
       </div>
 
       {/* 3. Valor del Pipeline */}
-      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm sm:p-5">
         <div className="flex items-center justify-between text-xs text-zinc-500 font-medium">
           <span className="group-hover:text-zinc-900 transition-colors">Valor en Oportunidades</span>
           <DollarSign className="h-4 w-4 text-zinc-400 group-hover:text-zinc-900 transition-colors" />
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="font-mono text-2xl font-bold tracking-tight text-zinc-950 tabular-nums">
+          <span className="font-mono text-xl font-bold tracking-tight text-zinc-950 tabular-nums sm:text-2xl">
             {formatClp(metrics.pipelineValueClp)}
           </span>
         </div>
@@ -124,13 +124,13 @@ export const CrmMetricsGrid: React.FC<CrmMetricsGridProps> = ({ metrics }) => {
       </div>
 
       {/* 4. Rendimiento & Velocidad Web */}
-      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm">
+      <div className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm sm:p-5">
         <div className="flex items-center justify-between text-xs text-zinc-500 font-medium">
           <span className="group-hover:text-zinc-900 transition-colors">Velocidad de Carga (LCP)</span>
           <Gauge className="h-4 w-4 text-emerald-500" />
         </div>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="font-mono text-2xl font-bold tracking-tight text-emerald-600 tabular-nums">
+          <span className="font-mono text-xl font-bold tracking-tight text-emerald-600 tabular-nums sm:text-2xl">
             {metrics.loadSpeedSeconds}s
           </span>
           <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">

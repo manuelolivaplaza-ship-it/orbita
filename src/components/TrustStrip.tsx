@@ -15,7 +15,7 @@ export const TrustStrip: React.FC = () => {
   ];
 
   return (
-    <section className="bg-[#F7F8FC] border-y border-zinc-200/60 px-6 py-12 relative overflow-hidden z-10">
+    <section className="relative z-10 overflow-hidden border-y border-zinc-200/60 bg-[#F7F8FC] px-4 py-10 sm:px-6 sm:py-12">
       <div className="max-w-[88rem] mx-auto grid md:grid-cols-4 gap-6 md:gap-8 items-center">
         {/* Left Column */}
         <div className="md:col-span-1 flex items-start gap-3">

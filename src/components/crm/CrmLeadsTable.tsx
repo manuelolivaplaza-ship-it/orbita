@@ -7,7 +7,6 @@ import {
   AlertCircle,
   XCircle,
   ChevronRight,
-  Filter,
 } from 'lucide-react';
 import { Lead, LeadStatus } from '../../data/crmMockData';
 import { formatClp } from '../../lib/crmStore';
@@ -94,26 +93,24 @@ export const CrmLeadsTable: React.FC<CrmLeadsTableProps> = ({
   };
 
   return (
-    <div className="rounded-xl border border-zinc-200/80 bg-white shadow-xs overflow-hidden">
-      {/* Top Filter and Search Bar */}
-      <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between border-b border-zinc-100 bg-zinc-50/50">
-        <div className="relative flex-1 max-w-sm">
+    <div className="overflow-hidden rounded-xl border border-zinc-200/80 bg-white shadow-xs">
+      <div className="flex flex-col gap-3 border-b border-zinc-100 bg-zinc-50/50 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
+        <div className="relative max-w-sm flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-400" />
           <input
-            type="text"
-            placeholder="Buscar por nombre, correo, teléfono..."
+            type="search"
+            placeholder="Buscar nombre, correo, teléfono..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-zinc-200 bg-white py-1.5 pl-9 pr-3 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none"
+            className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-9 pr-3 text-xs text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none sm:py-1.5"
           />
         </div>
 
-        {/* Status filter tabs */}
-        <div className="flex flex-wrap items-center gap-1 text-xs">
+        <div className="-mx-3 flex gap-1 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 text-xs">
           <button
             type="button"
             onClick={() => setFilterStatus('todos')}
-            className={`rounded-md px-2.5 py-1 font-medium transition-colors ${
+            className={`shrink-0 rounded-md px-2.5 py-1.5 font-medium transition-colors ${
               filterStatus === 'todos' ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-100'
             }`}
           >
@@ -126,7 +123,7 @@ export const CrmLeadsTable: React.FC<CrmLeadsTableProps> = ({
                 key={st}
                 type="button"
                 onClick={() => setFilterStatus(st)}
-                className={`rounded-md px-2.5 py-1 font-medium transition-colors ${
+                className={`shrink-0 rounded-md px-2.5 py-1.5 font-medium transition-colors ${
                   filterStatus === st ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-100'
                 }`}
               >
@@ -137,8 +134,61 @@ export const CrmLeadsTable: React.FC<CrmLeadsTableProps> = ({
         </div>
       </div>
 
-      {/* Leads Table */}
-      <div className="overflow-x-auto">
+      <div className="divide-y divide-zinc-100 md:hidden">
+        {filteredLeads.length === 0 ? (
+          <p className="px-4 py-12 text-center text-xs text-zinc-400">
+            No se encontraron prospectos con los filtros actuales.
+          </p>
+        ) : (
+          filteredLeads.map((lead) => {
+            const initials = lead.name
+              .split(' ')
+              .slice(0, 2)
+              .map((n) => n[0])
+              .join('');
+            return (
+              <article key={lead.id} className="p-4">
+                <button type="button" onClick={() => onSelectLead(lead)} className="flex w-full items-start gap-3 text-left">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 font-mono text-xs font-semibold text-zinc-700">
+                    {initials}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="truncate text-sm font-semibold text-zinc-900">{lead.name}</span>
+                      {lead.status === 'nuevo' && (
+                        <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-blue-500" />
+                      )}
+                    </div>
+                    <p className="mt-0.5 truncate text-[12px] text-zinc-500">{lead.service}</p>
+                    <p className="mt-0.5 text-[11px] text-zinc-400">
+                      {lead.city} · {lead.channel}
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="font-mono text-xs font-semibold text-zinc-900">{formatClp(lead.valueClp)}</div>
+                    <ChevronRight className="ml-auto mt-1 h-4 w-4 text-zinc-300" />
+                  </div>
+                </button>
+                <div className="mt-3 flex items-center justify-between gap-2 pl-[3.25rem]">
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <StatusDropdown status={lead.status} onChange={(newStatus) => onUpdateStatus(lead.id, newStatus)} />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => openWhatsApp(e, lead)}
+                    className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700"
+                  >
+                    <MessageCircle className="h-3.5 w-3.5" />
+                    WhatsApp
+                  </button>
+                </div>
+              </article>
+            );
+          })
+        )}
+      </div>
+
+      <div className="hidden overflow-x-auto md:block">
         <table className="w-full text-left text-xs">
           <thead className="border-b border-zinc-100 bg-zinc-50/70 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
             <tr>

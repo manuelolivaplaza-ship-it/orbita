@@ -85,14 +85,14 @@ export const CompanySelectorDropdown: React.FC<CompanySelectorDropdownProps> = (
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`group flex items-center gap-2 rounded-lg border py-1.5 pr-2.5 pl-3 text-xs font-medium transition-all shadow-xs ${
+        className={`group flex w-full min-w-0 items-center gap-2 rounded-lg border py-2 pr-2.5 pl-3 text-xs font-medium shadow-xs transition-all sm:py-1.5 ${
           isOpen
             ? 'border-zinc-950 bg-white ring-2 ring-zinc-950/10'
             : 'border-zinc-200 bg-zinc-50/80 hover:bg-zinc-100/80 hover:border-zinc-300 text-zinc-900'
         }`}
       >
         <Building2 className="h-3.5 w-3.5 text-zinc-500 group-hover:text-zinc-900 transition-colors" />
-        <span className="font-semibold text-zinc-950 tracking-tight">{currentProposal.brand}</span>
+        <span className="min-w-0 flex-1 truncate text-left font-semibold tracking-tight text-zinc-950">{currentProposal.brand}</span>
         <span className="hidden sm:inline-block rounded bg-zinc-200/70 px-1.5 py-0.2 font-mono text-[10px] text-zinc-600 uppercase">
           {currentProposal.sector}
         </span>
@@ -105,7 +105,7 @@ export const CompanySelectorDropdown: React.FC<CompanySelectorDropdownProps> = (
 
       {/* Floating Popover Menu */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-2 z-50 w-80 sm:w-96 rounded-2xl border border-zinc-200/90 bg-white/95 backdrop-blur-xl p-2 shadow-2xl shadow-zinc-950/15 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute left-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1.5rem))] rounded-2xl border border-zinc-200/90 bg-white/95 p-2 shadow-2xl shadow-zinc-950/15 backdrop-blur-xl sm:w-96">
           {/* Search Input */}
           <div className="relative mb-2">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-400" />

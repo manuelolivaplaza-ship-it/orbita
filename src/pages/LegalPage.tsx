@@ -11,7 +11,7 @@ export default function LegalPage({ kind }: { kind: 'privacidad' | 'terminos' })
         title={`${privacy ? 'Privacidad' : 'Términos'} | Reclu`}
         description={privacy ? 'Política de privacidad de Reclu.' : 'Términos de uso de Reclu.'}
       />
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-24">
+      <section className="relative z-10 px-4 pt-28 pb-24 sm:px-6 sm:pt-32">
         <div className="max-w-2xl mx-auto">
           <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">Legal</p>
           <h1

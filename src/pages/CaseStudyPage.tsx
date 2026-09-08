@@ -25,7 +25,7 @@ export default function CaseStudyPage() {
       />
 
       {/* Hero: captura nítida en marco, sin tinte de color */}
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-10 bg-[#F7F8FC]">
+      <section className="relative z-10 px-4 sm:px-6 pt-28 sm:pt-32 pb-10 bg-[#F7F8FC]">
         <div className="max-w-[88rem] mx-auto">
           <Link
             to="/creaciones"
@@ -91,7 +91,7 @@ export default function CaseStudyPage() {
       {caseStudy.kind === 'preview' && <LivePreview caseStudy={caseStudy} />}
 
       {/* Meta + summary */}
-      <section className="relative z-10 bg-white px-6 py-16 sm:py-20 border-b border-zinc-200/80">
+      <section className="relative z-10 bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-zinc-200/80">
         <div className="max-w-[88rem] mx-auto grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-7">
             <p className="text-zinc-700 text-lg leading-relaxed">{caseStudy.summary}</p>
@@ -141,7 +141,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Challenge / Solution / Result */}
-      <section className="relative z-10 bg-[#F7F8FC] px-6 py-20 sm:py-24">
+      <section className="relative z-10 bg-[#F7F8FC] px-4 sm:px-6 py-20 sm:py-24">
         <div className="max-w-[88rem] mx-auto grid md:grid-cols-3 gap-6">
           {[
             { label: 'Desafío', body: caseStudy.challenge },
@@ -162,7 +162,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Metrics */}
-      <section className="relative z-10 bg-white px-6 py-16 border-y border-zinc-200/80">
+      <section className="relative z-10 bg-white px-4 sm:px-6 py-16 border-y border-zinc-200/80">
         <div className="max-w-[88rem] mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
           {caseStudy.metrics.map((m) => (
             <div key={m.label} className="text-center sm:text-left">
@@ -179,7 +179,7 @@ export default function CaseStudyPage() {
 
       {/* Gallery */}
       {caseStudy.gallery.length > 0 && (
-        <section className="relative z-10 bg-[#F7F8FC] px-6 py-20 sm:py-24">
+        <section className="relative z-10 bg-[#F7F8FC] px-4 sm:px-6 py-20 sm:py-24">
           <div className="max-w-[88rem] mx-auto">
             <h2
               className="text-3xl sm:text-4xl font-medium tracking-tight text-[#0B0B12] mb-10"
@@ -207,7 +207,7 @@ export default function CaseStudyPage() {
       )}
 
       {/* Next case + CTA */}
-      <section className="relative z-10 bg-white px-6 py-20 sm:py-24">
+      <section className="relative z-10 bg-white px-4 sm:px-6 py-20 sm:py-24">
         <div className="max-w-[88rem] mx-auto flex flex-col md:flex-row gap-8 md:items-center md:justify-between">
           {next && next.slug !== caseStudy.slug && (
             <Link

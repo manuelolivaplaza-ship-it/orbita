@@ -143,7 +143,7 @@ export default function GaleriaPage() {
         description="Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones."
       />
 
-      <div className="relative z-30 px-4 sm:px-6 pt-24 sm:pt-28">
+      <div className="relative z-30 px-4 pt-24 sm:px-6 sm:pt-28">
         <h1 className="sr-only">Galería de propuestas</h1>
         <div className="max-w-[88rem] mx-auto">
           <div className="relative z-40 overflow-visible bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-2xl sm:rounded-full p-2 sm:p-2.5 shadow-[0_12px_40px_-15px_rgba(15,15,40,0.12)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5">
@@ -313,7 +313,7 @@ export default function GaleriaPage() {
             </div>
 
             {/* LADO DERECHO: SELECTOR DE ESTILO & BUSCADOR */}
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex w-full min-w-0 items-center gap-2 md:w-auto md:shrink-0">
               
               {/* Selector de estilo segmentado */}
               <div className="inline-flex items-center p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-xs font-medium shrink-0">
@@ -355,14 +355,14 @@ export default function GaleriaPage() {
               </div>
 
               {/* Buscador reactivo */}
-              <div className="relative flex-1 sm:w-56">
+              <div className="relative min-w-0 flex-1 sm:w-56 sm:flex-none">
                 <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   value={query}
                   onChange={(e) => handleQueryChange(e.target.value)}
                   placeholder="Buscar..."
-                  className="w-full bg-zinc-100/90 hover:bg-zinc-100 focus:bg-white border border-transparent focus:border-zinc-300 rounded-full pl-8 pr-7 py-1 text-xs sm:text-sm text-[#0B0B12] placeholder-zinc-400 focus:outline-none shadow-2xs transition-all"
+                  className="w-full rounded-full border border-transparent bg-zinc-100/90 py-2 pl-8 pr-7 text-sm text-[#0B0B12] placeholder-zinc-400 shadow-2xs transition-all hover:bg-zinc-100 focus:border-zinc-300 focus:bg-white focus:outline-none sm:py-1 sm:text-sm"
                 />
                 {query && (
                   <button

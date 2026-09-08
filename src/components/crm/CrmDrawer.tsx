@@ -19,10 +19,14 @@ export function CrmDrawer({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-[60] overflow-hidden">
-      <div className="absolute inset-0 bg-zinc-950/30 backdrop-blur-[2px]" onClick={onClose} />
-      <div className={`absolute inset-y-0 right-0 flex w-full ${wide ? 'max-w-lg' : 'max-w-md'} pl-8`}>
-        <aside className="flex h-full w-full flex-col bg-white shadow-2xl">
-          <header className="flex items-start justify-between gap-4 border-b border-zinc-100 px-5 py-4">
+      <div className="absolute inset-0 bg-zinc-950/40 backdrop-blur-[2px]" onClick={onClose} />
+      <div
+        className={`absolute inset-x-0 bottom-0 top-10 flex w-full sm:inset-y-0 sm:left-auto sm:right-0 sm:top-0 ${
+          wide ? 'sm:max-w-lg' : 'sm:max-w-md'
+        }`}
+      >
+        <aside className="flex h-full w-full flex-col rounded-t-2xl bg-white shadow-2xl sm:rounded-none">
+          <header className="flex items-start justify-between gap-4 border-b border-zinc-100 px-4 py-4 sm:px-5">
             <div className="min-w-0">
               <h2 className="text-base font-semibold tracking-tight text-zinc-950">{title}</h2>
               {subtitle && <p className="mt-0.5 text-xs text-zinc-500">{subtitle}</p>}
@@ -30,13 +34,15 @@ export function CrmDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900"
+              className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900"
               aria-label="Cerrar"
             >
               <X className="h-4 w-4" />
             </button>
           </header>
-          <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
+          <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-5">
+            {children}
+          </div>
         </aside>
       </div>
     </div>
@@ -59,4 +65,4 @@ export function Field({
 }
 
 export const fieldClass =
-  'w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-400';
+  'w-full rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none focus:border-zinc-400';

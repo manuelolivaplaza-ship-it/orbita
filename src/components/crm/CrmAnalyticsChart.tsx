@@ -162,7 +162,7 @@ export const CrmAnalyticsChart: React.FC<CrmAnalyticsChartProps> = ({ data7d, da
   const barWidth = period === '7d' ? 38 : 14;
 
   return (
-    <div className="rounded-2xl border border-zinc-200/90 bg-white p-5 sm:p-7 shadow-xs">
+    <div className="rounded-2xl border border-zinc-200/90 bg-white p-3 sm:p-7 shadow-xs">
       {/* 1. Header: Metric Selector Tabs with Real-time Numbers */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-6 border-b border-zinc-100">
         {(['visits', 'whatsappClicks', 'conversions'] as MetricType[]).map((m) => {

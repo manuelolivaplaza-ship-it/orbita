@@ -81,7 +81,7 @@ export function CrmWorkspace({
       onSimulateLead={store.simulateNewLead}
       onExportCsv={section === 'catalog' ? store.exportCatalogCsv : store.exportToCsv}
     >
-      <div className="mx-auto max-w-7xl space-y-5 px-4 py-5 sm:px-6">
+      <div className="mx-auto max-w-7xl space-y-4 px-3 py-4 sm:space-y-5 sm:px-6 sm:py-5">
         {description && section === 'overview' && (
           <p className="text-xs text-zinc-500">{description}</p>
         )}
@@ -112,7 +112,7 @@ export function CrmWorkspace({
               <button
                 type="button"
                 onClick={() => setNewLeadOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-1.5 text-xs font-medium text-white"
+                className="inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-zinc-950 px-3 py-2 text-xs font-medium text-white sm:py-1.5"
               >
                 <Plus className="h-3.5 w-3.5" />
                 Nuevo prospecto
@@ -177,7 +177,7 @@ export function CrmWorkspace({
       </div>
 
       {store.recentEvent && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-xl border border-zinc-900 bg-zinc-900 px-4 py-3 text-white shadow-2xl">
+        <div className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-3 right-3 z-50 flex items-center gap-3 rounded-xl border border-zinc-900 bg-zinc-900 px-4 py-3 text-white shadow-2xl sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm lg:bottom-6">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-400 text-zinc-950">
             <Zap className="h-4 w-4" />
           </div>
@@ -191,7 +191,7 @@ export function CrmWorkspace({
       )}
 
       {store.toast && (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white shadow-xl">
+        <div className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-1/2 z-50 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white shadow-xl lg:bottom-6">
           {store.toast}
         </div>
       )}

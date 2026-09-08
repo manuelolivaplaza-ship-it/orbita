@@ -19,7 +19,7 @@ export const CrmShowcase: React.FC = () => {
   }, [currentSlug]);
 
   return (
-    <section id="crm-showcase" className="relative z-10 bg-[#F7F8FC] px-4 py-20 sm:px-6 sm:py-28 overflow-hidden">
+    <section id="crm-showcase" className="relative z-10 overflow-hidden bg-[#F7F8FC] px-4 py-16 sm:px-6 sm:py-28">
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 h-[46rem] w-[64rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-35 blur-3xl"
         style={{
@@ -36,7 +36,7 @@ export const CrmShowcase: React.FC = () => {
               <span>Panel de administración · Incluido</span>
             </div>
             <h2
-              className="text-3xl font-medium leading-[1.04] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
+              className="text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
               style={{ letterSpacing: '-0.04em' }}
             >
               Tu web no es un folleto.
@@ -49,11 +49,11 @@ export const CrmShowcase: React.FC = () => {
             <p className="mb-5 max-w-md text-base font-normal leading-snug text-zinc-600 sm:text-xl">
               Cada propuesta incluye su propio admin: catálogo (precios, stock, qué se ve en la web), prospectos, agenda, pedidos y WhatsApp. Sin HubSpot ni cuota extra.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col items-stretch gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
               <Link
                 to={`/crm/${currentProposal.slug}`}
                 target="_blank"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0B0B12] px-5 py-2.5 text-sm font-medium text-white shadow-xs transition-colors hover:bg-zinc-800"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#0B0B12] px-5 py-2.5 text-sm font-medium text-white shadow-xs transition-colors hover:bg-zinc-800"
               >
                 <span>Abrir panel a pantalla completa</span>
                 <Maximize2 className="h-4 w-4 text-zinc-300" />
@@ -61,7 +61,7 @@ export const CrmShowcase: React.FC = () => {
               <Link
                 to={`/propuesta/${currentProposal.slug}`}
                 target="_blank"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 shadow-2xs hover:bg-zinc-50"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 shadow-2xs hover:bg-zinc-50"
               >
                 <ExternalLink className="h-4 w-4" />
                 <span>Ver el sitio público</span>
@@ -70,8 +70,11 @@ export const CrmShowcase: React.FC = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-zinc-200/90 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.12)] sm:rounded-3xl">
-          <div className="h-[720px] sm:h-[820px]">
+        <div className="-mx-4 overflow-hidden rounded-none border-y border-zinc-200/90 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.12)] sm:mx-0 sm:rounded-3xl sm:border">
+          <p className="border-b border-zinc-100 bg-zinc-50 px-4 py-2 text-center text-[11px] text-zinc-500 sm:hidden">
+            Panel real · desliza y usa las pestañas de abajo
+          </p>
+          <div className="h-[min(78dvh,640px)] sm:h-[820px]">
             <CrmWorkspace
               key={currentProposal.slug}
               slug={currentProposal.slug}

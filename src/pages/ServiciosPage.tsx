@@ -20,13 +20,13 @@ export default function ServiciosPage() {
       />
 
       {/* Hero */}
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-16 sm:pb-20">
+      <section className="relative z-10 px-4 pt-28 pb-12 sm:px-6 sm:pt-32 sm:pb-20">
         <div className="max-w-[88rem] mx-auto max-w-3xl">
           <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
             Servicios
           </p>
           <h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-[#0B0B12] leading-[0.95] mb-6"
+            className="mb-6 text-4xl font-medium leading-[0.95] tracking-tight text-[#0B0B12] sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
           >
             No plantillas.<br />
@@ -39,12 +39,12 @@ export default function ServiciosPage() {
       </section>
 
       {/* Service list */}
-      <section className="relative z-10 px-6 pb-20">
+      <section className="relative z-10 px-4 pb-20 sm:px-6">
         <div className="max-w-[88rem] mx-auto space-y-5">
           {services.map((service, idx) => (
             <article
               key={service.id}
-              className="grid lg:grid-cols-12 gap-8 rounded-3xl border border-zinc-200/80 bg-white p-7 sm:p-10 shadow-xs hover:border-[#6B7280]/25 transition-colors"
+              className="grid gap-6 rounded-3xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-colors hover:border-[#6B7280]/25 sm:p-10 lg:grid-cols-12 lg:gap-8"
             >
               <div className="lg:col-span-5">
                 <div className="flex items-center gap-3 mb-4">
@@ -96,7 +96,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Plan mapping */}
-      <section className="relative z-10 px-6 pb-20">
+      <section className="relative z-10 px-4 pb-20 sm:px-6">
         <div className="max-w-[88rem] mx-auto rounded-3xl border border-zinc-200/80 bg-[#F7F8FC] p-8 sm:p-12">
           <h2
             className="text-3xl font-medium tracking-tight text-[#0B0B12] mb-8"
@@ -129,7 +129,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* How it looks in practice */}
-      <section className="relative z-10 px-6 pb-28">
+      <section className="relative z-10 px-4 pb-28 sm:px-6">
         <div className="max-w-[88rem] mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
             <h2

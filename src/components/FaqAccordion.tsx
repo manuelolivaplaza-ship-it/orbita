@@ -41,7 +41,7 @@ export const FaqAccordion: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="bg-white px-6 py-24 relative z-10 border-t border-zinc-100">
+    <section id="faq" className="relative z-10 border-t border-zinc-100 bg-white px-4 py-16 sm:px-6 sm:py-24">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-medium mb-10 text-center text-[#0B0B12] tracking-tight">
           Preguntas frecuentes
@@ -58,7 +58,7 @@ export const FaqAccordion: React.FC = () => {
                 <button
                   onClick={() => toggleAccordion(index)}
                   aria-expanded={isOpen}
-                  className="w-full py-5 px-6 flex items-center justify-between text-left focus:outline-none group"
+                  className="group flex w-full items-center justify-between px-4 py-4 text-left focus:outline-none sm:px-6 sm:py-5"
                 >
                   <span className="text-base sm:text-lg font-medium text-[#0B0B12] group-hover:text-[#6B7280] transition-colors pr-4">
                     {faq.question}
@@ -69,7 +69,7 @@ export const FaqAccordion: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 text-zinc-600 text-sm sm:text-base leading-relaxed border-t border-zinc-100/80 pt-4 animate-fade-in-up">
+                  <div className="animate-fade-in-up border-t border-zinc-100/80 px-4 pt-4 pb-5 text-sm leading-relaxed text-zinc-600 sm:px-6 sm:pb-6 sm:text-base">
                     {faq.answer}
                   </div>
                 )}

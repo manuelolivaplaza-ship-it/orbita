@@ -44,7 +44,7 @@ export default function GaleriaSectorPage() {
         description={`${sector.heroTitle}. ${sector.description}`}
       />
 
-      <section className="relative z-10 px-6 pt-28 sm:pt-32 pb-12">
+      <section className="relative z-10 px-4 pt-28 pb-10 sm:px-6 sm:pt-32 sm:pb-12">
         <div className="max-w-[88rem] mx-auto">
           <Link
             to="/galeria"
@@ -98,7 +98,7 @@ export default function GaleriaSectorPage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 pb-4">
+      <section className="relative z-10 px-4 pb-4 sm:px-6">
         <div className="max-w-[88rem] mx-auto">
           <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200/90 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -124,7 +124,7 @@ export default function GaleriaSectorPage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 pb-20 sm:pb-24">
+      <section className="relative z-10 px-4 pb-20 sm:px-6 sm:pb-24">
         <div className="max-w-[88rem] mx-auto">
           {entries.length > 0 ? (
             <div key={sector.slug} className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
@@ -157,7 +157,7 @@ export default function GaleriaSectorPage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-6 pb-28">
+      <section className="relative z-10 px-4 pb-28 sm:px-6">
         <div className="max-w-[88rem] mx-auto">
           <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-5">
             Explora otros sectores

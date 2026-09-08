@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   return (
     <>
       <PageMeta title="404 | Reclu" description="Página no encontrada." />
-      <section className="relative z-10 min-h-[70vh] flex items-center px-6 py-24">
+      <section className="relative z-10 flex min-h-[70vh] items-center px-4 py-24 sm:px-6">
         <div className="max-w-xl mx-auto text-center">
           <p className="text-[#6B7280] font-semibold text-xs uppercase tracking-widest mb-4">
             404

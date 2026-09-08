@@ -34,13 +34,16 @@ export const CrmKanbanBoard: React.FC<CrmKanbanBoardProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
       {COLUMNS.map((col) => {
         const colLeads = leads.filter((l) => l.status === col.id);
         const colTotalClp = colLeads.reduce((acc, curr) => acc + curr.valueClp, 0);
 
         return (
-          <div key={col.id} className="flex flex-col rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-3.5">
+          <div
+            key={col.id}
+            className="flex w-[min(82vw,20rem)] shrink-0 snap-start flex-col rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-3.5 sm:w-auto sm:min-w-0"
+          >
             {/* Column Header */}
             <div className="flex items-center justify-between border-b border-zinc-200/60 pb-3">
               <div className="flex items-center gap-2">
@@ -54,7 +57,7 @@ export const CrmKanbanBoard: React.FC<CrmKanbanBoardProps> = ({
             </div>
 
             {/* Cards List */}
-            <div className="mt-3 space-y-2.5 flex-1 overflow-y-auto max-h-[calc(100vh-320px)] pr-0.5">
+            <div className="mt-3 max-h-[min(28rem,calc(100svh-280px))] flex-1 space-y-2.5 overflow-y-auto overscroll-contain pr-0.5 sm:max-h-[calc(100vh-320px)]">
               {colLeads.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-zinc-200 p-6 text-center text-xs text-zinc-400">
                   Sin prospectos en esta etapa
