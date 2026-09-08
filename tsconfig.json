@@ -27,5 +27,5 @@
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "api", "vite.config.ts"]
+  "include": ["src", "api", "lib", "vite.config.ts"]
 }

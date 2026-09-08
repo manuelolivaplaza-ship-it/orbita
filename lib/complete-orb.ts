@@ -113,17 +113,36 @@ function normalizePlan(value: unknown): string | null {
   return PLAN_IDS.has(clean) ? clean : null;
 }
 
-function parseReply(raw: string): OrbReply {
-  const parsed = extractJsonObject(raw);
+function asText(value: unknown): string {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) {
+    return value
+      .map((part) => {
+        if (typeof part === 'string') return part;
+        if (part && typeof part === 'object') {
+          const row = part as { text?: unknown; content?: unknown };
+          if (typeof row.text === 'string') return row.text;
+          if (typeof row.content === 'string') return row.content;
+        }
+        return '';
+      })
+      .join('');
+  }
+  return '';
+}
+
+function parseReply(raw: unknown): OrbReply {
+  const source = asText(raw).trim();
+  const parsed = extractJsonObject(source);
   if (!parsed || typeof parsed !== 'object') {
-    return { text: raw.trim() || '¿Me cuentas un poco más de tu negocio?', action: null };
+    return { text: source || '¿Me cuentas un poco más de tu negocio?', action: null };
   }
   const obj = parsed as Record<string, unknown>;
   const textCandidate =
     (typeof obj.text === 'string' && obj.text.trim()) ||
     (typeof obj.answer === 'string' && obj.answer.trim()) ||
     '';
-  const text = textCandidate || raw.trim();
+  const text = textCandidate || source;
   const actionRaw = obj.action;
   if (!actionRaw || typeof actionRaw !== 'object') {
     return { text, action: null };
@@ -165,7 +184,6 @@ export async function completeOrbChat(input: {
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
     temperature: 0.5,
     max_tokens: 2048,
-    response_format: { type: 'json_object' },
   };
 
   const controller = new AbortController();
@@ -203,10 +221,10 @@ export async function completeOrbChat(input: {
     throw Object.assign(new Error(message), { status });
   }
 
-  let content = '';
+  let content: unknown = '';
   try {
     const json = JSON.parse(body) as {
-      choices?: { message?: { content?: string } }[];
+      choices?: { message?: { content?: unknown } }[];
     };
     content = json.choices?.[0]?.message?.content ?? '';
   } catch {

@@ -1,8 +1,13 @@
-import { completeOrbChat, type ChatTurn } from './complete-orb';
+import { completeOrbChat, type ChatTurn } from '../lib/complete-orb';
+
+export const config = {
+  runtime: 'nodejs',
+  maxDuration: 30,
+};
 
 type NodeReq = {
   method?: string;
-  headers: Record<string, string | string[] | undefined>;
+  headers?: Record<string, string | string[] | undefined>;
   body?: unknown;
   on?: (event: string, cb: (chunk?: Buffer) => void) => void;
 };
@@ -13,24 +18,23 @@ type NodeRes = {
   end: (body?: string) => void;
 };
 
-function json(res: NodeRes, status: number, payload: unknown) {
-  res.statusCode = status;
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  res.end(JSON.stringify(payload));
+function jsonResponse(status: number, payload: unknown) {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+    },
+  });
 }
 
-function readStream(req: NodeReq): Promise<string> {
-  const on = req.on;
-  if (!on) return Promise.resolve('');
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    on('data', (chunk) => {
-      if (chunk) chunks.push(chunk);
-    });
-    on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-    on('error', reject);
-  });
+function isNodeRes(res: unknown): res is NodeRes {
+  return Boolean(
+    res &&
+      typeof res === 'object' &&
+      typeof (res as NodeRes).end === 'function' &&
+      typeof (res as NodeRes).setHeader === 'function',
+  );
 }
 
 function asTurns(value: unknown): ChatTurn[] {
@@ -46,41 +50,65 @@ function asTurns(value: unknown): ChatTurn[] {
     .filter((row): row is ChatTurn => Boolean(row));
 }
 
-export default async function handler(req: NodeReq, res: NodeRes) {
-  if (req.method === 'OPTIONS') {
-    res.statusCode = 204;
-    res.end();
-    return;
+function readStream(req: NodeReq): Promise<string> {
+  const on = req.on;
+  if (!on) return Promise.resolve('');
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    on('data', (chunk) => {
+      if (chunk) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+    });
+    on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    on('error', reject);
+  });
+}
+
+async function readBody(req: Request | NodeReq): Promise<unknown> {
+  if (typeof (req as Request).text === 'function' && typeof (req as Request).headers?.get === 'function') {
+    const text = await (req as Request).text();
+    return JSON.parse(text || '{}');
   }
-  if (req.method !== 'POST') {
-    json(res, 405, { error: 'Método no permitido' });
-    return;
-  }
+  const node = req as NodeReq;
+  if (typeof node.body === 'string') return JSON.parse(node.body || '{}');
+  if (node.body && typeof node.body === 'object') return node.body;
+  return JSON.parse((await readStream(node)) || '{}');
+}
+
+async function run(method: string, load: () => Promise<unknown>): Promise<Response> {
+  if (method === 'OPTIONS') return new Response(null, { status: 204 });
+  if (method !== 'POST') return jsonResponse(405, { error: 'Método no permitido' });
 
   const apiKey = process.env.BAI_API_KEY;
   if (!apiKey) {
-    json(res, 503, { error: 'Falta BAI_API_KEY en el servidor' });
-    return;
+    return jsonResponse(503, { error: 'Falta BAI_API_KEY en el servidor' });
   }
 
+  const payload = (await load()) as { messages?: unknown };
+  const reply = await completeOrbChat({
+    messages: asTurns(payload.messages),
+    apiKey,
+    model: process.env.BAI_MODEL,
+  });
+  return jsonResponse(200, reply);
+}
+
+export default async function handler(req: Request | NodeReq, res?: NodeRes) {
   try {
-    let payload: { messages?: unknown } = {};
-    if (typeof req.body === 'string') {
-      payload = JSON.parse(req.body || '{}') as { messages?: unknown };
-    } else if (req.body && typeof req.body === 'object') {
-      payload = req.body as { messages?: unknown };
-    } else {
-      payload = JSON.parse((await readStream(req)) || '{}') as { messages?: unknown };
-    }
-    const reply = await completeOrbChat({
-      messages: asTurns(payload.messages),
-      apiKey,
-      model: process.env.BAI_MODEL,
-    });
-    json(res, 200, reply);
+    const method = (req as { method?: string }).method || 'GET';
+    const response = await run(method, () => readBody(req));
+    if (!isNodeRes(res)) return response;
+    const body = await response.text();
+    res.statusCode = response.status;
+    response.headers.forEach((value, key) => res.setHeader(key, value));
+    res.end(body);
   } catch (err) {
     const status = Number((err as { status?: number }).status) || 500;
     const message = err instanceof Error ? err.message : 'Error de Orb';
-    json(res, status, { error: message });
+    const response = jsonResponse(status, { error: message });
+    if (!isNodeRes(res)) return response;
+    res.statusCode = status;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.end(JSON.stringify({ error: message }));
   }
 }

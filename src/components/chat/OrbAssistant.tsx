@@ -154,13 +154,17 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
       };
 
       if (!res.ok) {
-        pushOrbMessage(
-          res.status === 503
-            ? 'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.'
-            : data.error
-              ? `No pude responder ahora (${data.error}). ¿Lo intentamos de nuevo?`
-              : 'Se me cruzó un cable. ¿Me lo preguntas otra vez?',
-        );
+        if (res.status === 503) {
+          pushOrbMessage(
+            'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.',
+          );
+          return;
+        }
+        const fallback = generateOrbResponse(query);
+        pushOrbMessage(fallback.text, {
+          actionType: fallback.actionType,
+          actionPayload: fallback.actionPayload,
+        });
         return;
       }
 

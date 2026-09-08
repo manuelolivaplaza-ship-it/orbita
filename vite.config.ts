@@ -3,7 +3,7 @@ import path from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
-import { completeOrbChat, type ChatTurn } from './api/complete-orb';
+import { completeOrbChat, type ChatTurn } from './lib/complete-orb';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
