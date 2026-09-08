@@ -67,18 +67,7 @@ const SECTORS = new Set([
   'distribuidora',
 ]);
 
-function isNodeRes(res) {
-  return Boolean(res && typeof res.end === 'function' && typeof res.setHeader === 'function');
-}
-
-function json(res, status, payload) {
-  if (isNodeRes(res)) {
-    res.statusCode = status;
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store');
-    res.end(JSON.stringify(payload));
-    return;
-  }
+function json(status, payload) {
   return new Response(JSON.stringify(payload), {
     status,
     headers: {
@@ -165,7 +154,9 @@ function parseReply(raw) {
   }
   if (action.type === 'proposal') {
     const sector = typeof action.sector === 'string' ? action.sector.trim().toLowerCase() : '';
-    return sector && SECTORS.has(sector) ? { text, action: { type: 'proposal', sector } } : { text, action: null };
+    return sector && SECTORS.has(sector)
+      ? { text, action: { type: 'proposal', sector } }
+      : { text, action: null };
   }
   return { text, action: null };
 }
@@ -183,19 +174,32 @@ async function completeOrbChat({ messages, apiKey, model }) {
     throw err;
   }
 
-  const res = await fetch(BAI_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
-      temperature: 0.5,
-      max_tokens: 2048,
-    }),
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 25000);
+  let res;
+  try {
+    res = await fetch(BAI_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
+        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
+        temperature: 0.5,
+        max_tokens: 2048,
+      }),
+      signal: controller.signal,
+    });
+  } catch (err) {
+    const timeout = err && err.name === 'AbortError';
+    const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a B.AI');
+    wrapped.status = timeout ? 504 : 502;
+    throw wrapped;
+  } finally {
+    clearTimeout(timer);
+  }
 
   const body = await res.text();
   if (!res.ok) {
@@ -226,64 +230,30 @@ async function completeOrbChat({ messages, apiKey, model }) {
   return parseReply(content);
 }
 
-function readStream(req) {
-  return new Promise((resolve, reject) => {
-    if (typeof req.on !== 'function') {
-      resolve('');
-      return;
-    }
-    const chunks = [];
-    req.on('data', (chunk) => {
-      if (chunk) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
-    });
-    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-    req.on('error', reject);
-  });
+export function GET() {
+  return json(405, { error: 'Método no permitido' });
 }
 
-async function readBody(req) {
-  if (req && typeof req.text === 'function' && req.headers && typeof req.headers.get === 'function') {
-    const text = await req.text();
-    return JSON.parse(text || '{}');
-  }
-  if (typeof req.body === 'string') return JSON.parse(req.body || '{}');
-  if (req.body && typeof req.body === 'object') return req.body;
-  return JSON.parse((await readStream(req)) || '{}');
+export function OPTIONS() {
+  return new Response(null, { status: 204 });
 }
 
-async function handler(req, res) {
+export async function POST(request) {
   try {
-    const method = req.method || 'GET';
-    if (method === 'OPTIONS') {
-      if (isNodeRes(res)) {
-        res.statusCode = 204;
-        res.end();
-        return;
-      }
-      return new Response(null, { status: 204 });
-    }
-    if (method !== 'POST') {
-      return json(res, 405, { error: 'Método no permitido' });
-    }
-
     const apiKey = process.env.BAI_API_KEY;
     if (!apiKey) {
-      return json(res, 503, { error: 'Falta BAI_API_KEY en el servidor' });
+      return json(503, { error: 'Falta BAI_API_KEY en el servidor' });
     }
-
-    const payload = await readBody(req);
+    const payload = await request.json().catch(() => ({}));
     const reply = await completeOrbChat({
       messages: payload.messages,
       apiKey,
       model: process.env.BAI_MODEL,
     });
-    return json(res, 200, reply);
+    return json(200, reply);
   } catch (err) {
     const status = Number(err && err.status) || 500;
     const message = err && err.message ? err.message : 'Error de Orb';
-    return json(res, status, { error: message });
+    return json(status, { error: message });
   }
 }
-
-module.exports = handler;
-module.exports.default = handler;
