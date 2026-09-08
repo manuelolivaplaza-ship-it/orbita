@@ -492,10 +492,10 @@ function orbApiPlugin(): Plugin {
 
         const env = loadEnv(server.config.mode, process.cwd(), '');
         const apiKey =
-          env.OPENCODE_API_KEY ||
           env.OPENCODE_ZEN_API_KEY ||
-          process.env.OPENCODE_API_KEY ||
-          process.env.OPENCODE_ZEN_API_KEY;
+          env.OPENCODE_API_KEY ||
+          process.env.OPENCODE_ZEN_API_KEY ||
+          process.env.OPENCODE_API_KEY;
         if (!apiKey) {
           res.statusCode = 503;
           res.setHeader('Content-Type', 'application/json; charset=utf-8');

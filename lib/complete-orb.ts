@@ -8,8 +8,10 @@ export type OrbAction =
 
 export type OrbReply = { text: string; action: OrbAction | null };
 
-const ZEN_URL = 'https://opencode.ai/zen/v1/chat/completions';
+const ZEN_BASE = 'https://opencode.ai/zen/v1';
+const ZEN_URL = `${ZEN_BASE}/chat/completions`;
 const DEFAULT_MODEL = 'deepseek-v4-flash-free';
+const ZEN_FALLBACKS = ['deepseek-v4-flash-free', 'big-pickle', 'mimo-v2.5-free'];
 const MAX_TURNS = 12;
 const MAX_CHARS = 1200;
 
@@ -179,15 +181,7 @@ export async function completeOrbChat(input: {
   }
 
   const models = [
-    ...new Set(
-      [
-        input.model,
-        process.env.OPENCODE_MODEL,
-        DEFAULT_MODEL,
-        'deepseek-v4-flash',
-        'big-pickle',
-      ].filter(Boolean),
-    ),
+    ...new Set([input.model, process.env.OPENCODE_MODEL, ...ZEN_FALLBACKS].filter(Boolean)),
   ] as string[];
 
   let lastMessage = 'OpenCode Zen rechazó la solicitud';
@@ -212,6 +206,7 @@ export async function completeOrbChat(input: {
             Authorization: `Bearer ${input.apiKey}`,
             'Content-Type': 'application/json',
             'x-opencode-session': 'reclu-orb',
+            'User-Agent': 'reclu-orb/zen',
           },
           body: payload,
           signal: controller.signal,

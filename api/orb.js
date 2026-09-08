@@ -1,5 +1,7 @@
-const ZEN_URL = 'https://opencode.ai/zen/v1/chat/completions';
+const ZEN_BASE = 'https://opencode.ai/zen/v1';
+const ZEN_URL = `${ZEN_BASE}/chat/completions`;
 const DEFAULT_MODEL = 'deepseek-v4-flash-free';
+const ZEN_FALLBACKS = ['deepseek-v4-flash-free', 'big-pickle', 'mimo-v2.5-free'];
 const MAX_TURNS = 12;
 const MAX_CHARS = 1200;
 
@@ -190,13 +192,7 @@ function isUnavailable(status, message) {
 }
 
 function modelCandidates(preferred) {
-  return [
-    ...new Set(
-      [preferred, process.env.OPENCODE_MODEL, DEFAULT_MODEL, 'deepseek-v4-flash', 'big-pickle'].filter(
-        Boolean,
-      ),
-    ),
-  ];
+  return [...new Set([preferred, process.env.OPENCODE_MODEL, ...ZEN_FALLBACKS].filter(Boolean))];
 }
 
 function sleep(ms) {
@@ -239,6 +235,7 @@ async function completeOrbChat({ messages, apiKey, model }) {
             Authorization: `Bearer ${apiKey}`,
             'Content-Type': 'application/json',
             'x-opencode-session': 'reclu-orb',
+            'User-Agent': 'reclu-orb/zen',
           },
           body: payload,
           signal: controller.signal,
@@ -307,7 +304,7 @@ export function OPTIONS() {
 
 export async function POST(request) {
   try {
-    const apiKey = process.env.OPENCODE_API_KEY || process.env.OPENCODE_ZEN_API_KEY;
+    const apiKey = process.env.OPENCODE_ZEN_API_KEY || process.env.OPENCODE_API_KEY;
     if (!apiKey) {
       return json(503, { error: 'Falta OPENCODE_API_KEY en el servidor' });
     }
