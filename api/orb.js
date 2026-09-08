@@ -161,6 +161,29 @@ function parseReply(raw) {
   return { text, action: null };
 }
 
+function baiErrorMessage(body) {
+  try {
+    const errJson = JSON.parse(body);
+    if (typeof errJson.error === 'string') return errJson.error;
+    if (errJson.error && typeof errJson.error.message === 'string') return errJson.error.message;
+    if (typeof errJson.message === 'string') return errJson.message;
+  } catch {
+    /* keep default */
+  }
+  return 'B.AI rechazó la solicitud';
+}
+
+function isRateLimit(status, message) {
+  return (
+    status === 429 ||
+    /rate limit|too many|quota|频率|速率|限流/i.test(String(message || ''))
+  );
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function completeOrbChat({ messages, apiKey, model }) {
   const turns = clipTurns(messages);
   if (turns.length === 0) {
@@ -174,60 +197,72 @@ async function completeOrbChat({ messages, apiKey, model }) {
     throw err;
   }
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25000);
-  let res;
-  try {
-    res = await fetch(BAI_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
-        temperature: 0.5,
-        max_tokens: 2048,
-      }),
-      signal: controller.signal,
-    });
-  } catch (err) {
-    const timeout = err && err.name === 'AbortError';
-    const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a B.AI');
-    wrapped.status = timeout ? 504 : 502;
-    throw wrapped;
-  } finally {
-    clearTimeout(timer);
-  }
+  const payload = JSON.stringify({
+    model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
+    messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
+    temperature: 0.5,
+    max_tokens: 2048,
+  });
 
-  const body = await res.text();
-  if (!res.ok) {
-    let message = 'B.AI rechazó la solicitud';
+  let lastMessage = 'B.AI rechazó la solicitud';
+  let lastStatus = 400;
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 25000);
+    let res;
     try {
-      const errJson = JSON.parse(body);
-      if (errJson.error && errJson.error.message) message = errJson.error.message;
-    } catch {
-      /* keep default */
+      res = await fetch(BAI_URL, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: payload,
+        signal: controller.signal,
+      });
+    } catch (err) {
+      const timeout = err && err.name === 'AbortError';
+      const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a B.AI');
+      wrapped.status = timeout ? 504 : 502;
+      throw wrapped;
+    } finally {
+      clearTimeout(timer);
     }
-    const err = new Error(message);
-    err.status = res.status === 401 || res.status === 403 || res.status >= 500 ? 502 : 400;
-    throw err;
+
+    const body = await res.text();
+    if (res.ok) {
+      try {
+        const data = JSON.parse(body);
+        const content =
+          data.choices && data.choices[0] && data.choices[0].message
+            ? data.choices[0].message.content
+            : '';
+        return parseReply(content);
+      } catch {
+        const err = new Error('Respuesta inválida de B.AI');
+        err.status = 502;
+        throw err;
+      }
+    }
+
+    lastMessage = baiErrorMessage(body);
+    lastStatus = res.status;
+    if (!isRateLimit(res.status, lastMessage) || attempt === 2) break;
+    await sleep(800 * (attempt + 1));
   }
 
-  let content = '';
-  try {
-    const data = JSON.parse(body);
-    content = data.choices && data.choices[0] && data.choices[0].message
-      ? data.choices[0].message.content
-      : '';
-  } catch {
-    const err = new Error('Respuesta inválida de B.AI');
-    err.status = 502;
-    throw err;
-  }
-
-  return parseReply(content);
+  const err = new Error(
+    isRateLimit(lastStatus, lastMessage)
+      ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+      : lastMessage,
+  );
+  err.status = isRateLimit(lastStatus, lastMessage)
+    ? 429
+    : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500
+      ? 502
+      : 400;
+  throw err;
 }
 
 export function GET() {

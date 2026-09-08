@@ -179,57 +179,78 @@ export async function completeOrbChat(input: {
   }
 
   const model = input.model || process.env.BAI_MODEL || DEFAULT_MODEL;
-  const payload = {
+  const payload = JSON.stringify({
     model,
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
     temperature: 0.5,
     max_tokens: 2048,
-  };
+  });
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25000);
-  let res: Response;
-  try {
-    res = await fetch(BAI_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${input.apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-  } catch (err) {
-    if ((err as Error).name === 'AbortError') {
-      throw Object.assign(new Error('La IA tardó demasiado'), { status: 504 });
-    }
-    throw Object.assign(new Error('No pude contactar a B.AI'), { status: 502 });
-  } finally {
-    clearTimeout(timer);
-  }
+  let lastMessage = 'B.AI rechazó la solicitud';
+  let lastStatus = 400;
 
-  const body = await res.text();
-  if (!res.ok) {
-    let message = 'B.AI rechazó la solicitud';
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 25000);
+    let res: Response;
     try {
-      const errJson = JSON.parse(body) as { error?: { message?: string } };
-      if (errJson.error?.message) message = errJson.error.message;
+      res = await fetch(BAI_URL, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${input.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: payload,
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') {
+        throw Object.assign(new Error('La IA tardó demasiado'), { status: 504 });
+      }
+      throw Object.assign(new Error('No pude contactar a B.AI'), { status: 502 });
+    } finally {
+      clearTimeout(timer);
+    }
+
+    const body = await res.text();
+    if (res.ok) {
+      try {
+        const json = JSON.parse(body) as {
+          choices?: { message?: { content?: unknown } }[];
+        };
+        return parseReply(json.choices?.[0]?.message?.content ?? '');
+      } catch {
+        throw Object.assign(new Error('Respuesta inválida de B.AI'), { status: 502 });
+      }
+    }
+
+    lastMessage = 'B.AI rechazó la solicitud';
+    try {
+      const errJson = JSON.parse(body) as {
+        error?: string | { message?: string };
+        message?: string;
+      };
+      if (typeof errJson.error === 'string') lastMessage = errJson.error;
+      else if (errJson.error?.message) lastMessage = errJson.error.message;
+      else if (errJson.message) lastMessage = errJson.message;
     } catch {
       /* keep default */
     }
-    const status = res.status === 401 || res.status === 403 ? 502 : res.status >= 500 ? 502 : 400;
-    throw Object.assign(new Error(message), { status });
+    lastStatus = res.status;
+    const rateLimited =
+      res.status === 429 || /rate limit|too many|quota|频率|速率|限流/i.test(lastMessage);
+    if (!rateLimited || attempt === 2) break;
+    await new Promise((resolve) => setTimeout(resolve, 800 * (attempt + 1)));
   }
 
-  let content: unknown = '';
-  try {
-    const json = JSON.parse(body) as {
-      choices?: { message?: { content?: unknown } }[];
-    };
-    content = json.choices?.[0]?.message?.content ?? '';
-  } catch {
-    throw Object.assign(new Error('Respuesta inválida de B.AI'), { status: 502 });
-  }
-
-  return parseReply(content);
+  const rateLimited =
+    lastStatus === 429 || /rate limit|too many|quota|频率|速率|限流/i.test(lastMessage);
+  throw Object.assign(
+    new Error(
+      rateLimited
+        ? 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+        : lastMessage,
+    ),
+    { status: rateLimited ? 429 : lastStatus === 401 || lastStatus === 403 || lastStatus >= 500 ? 502 : 400 },
+  );
 }

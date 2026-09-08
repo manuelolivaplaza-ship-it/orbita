@@ -154,17 +154,16 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
       };
 
       if (!res.ok) {
-        if (res.status === 503) {
-          pushOrbMessage(
-            'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.',
-          );
-          return;
-        }
-        const fallback = generateOrbResponse(query);
-        pushOrbMessage(fallback.text, {
-          actionType: fallback.actionType,
-          actionPayload: fallback.actionPayload,
-        });
+        pushOrbMessage(
+          res.status === 503
+            ? 'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.'
+            : res.status === 429
+              ? data.error ||
+                'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'
+              : data.error
+                ? `No pude responder ahora. ${data.error}`
+                : 'Se me cruzó un cable. ¿Me lo preguntas otra vez?',
+        );
         return;
       }
 
@@ -172,11 +171,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
       pushOrbMessage(data.text?.trim() || '¿Me cuentas un poco más de tu negocio?', hydrated);
     } catch (err) {
       if ((err as Error).name === 'AbortError') return;
-      const fallback = generateOrbResponse(query);
-      pushOrbMessage(fallback.text, {
-        actionType: fallback.actionType,
-        actionPayload: fallback.actionPayload,
-      });
+      pushOrbMessage('No pude conectar con la IA. ¿Lo intentamos de nuevo?');
     } finally {
       setIsTyping(false);
     }
