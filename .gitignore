@@ -25,6 +25,9 @@ propuestas/minimayorista/
 propuestas/pausa/
 propuestas/eter-claro/
 propuestas/noctua-oscuro/
+propuestas/diseno-claro/
+propuestas/marketing-claro/
+propuestas/marketing-oscuro-premium/
 propuestas/**/.env*
 propuestas/PROMPT-SITIO-*.md
 propuestas/veterinaria-b-claro/src/main.tsx

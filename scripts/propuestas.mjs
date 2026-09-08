@@ -14,7 +14,19 @@ const viteBin = path.join(
   process.platform === 'win32' ? 'vite.cmd' : 'vite',
 );
 
-const OFFLINE_SLUGS = new Set(['alba', 'bruma', 'casonorte', 'lumen', 'minimayorista', 'pausa', 'eter-claro', 'noctua-oscuro']);
+const OFFLINE_SLUGS = new Set([
+  'alba',
+  'bruma',
+  'casonorte',
+  'lumen',
+  'minimayorista',
+  'pausa',
+  'eter-claro',
+  'noctua-oscuro',
+  'diseno-claro',
+  'marketing-claro',
+  'marketing-oscuro-premium',
+]);
 
 function slugs() {
   if (!fs.existsSync(root)) return [];

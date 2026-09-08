@@ -33,6 +33,29 @@ function isAppFolder(dir: string) {
   return fs.existsSync(path.join(dir, 'package.json'));
 }
 
+/** OneDrive deja placeholders: existsSync es true pero leer el archivo falla. */
+function isReadableFile(file: string): boolean {
+  try {
+    const st = fs.statSync(file);
+    if (!st.isFile() || st.size === 0) return false;
+    const fd = fs.openSync(file, 'r');
+    try {
+      const buf = Buffer.alloc(1);
+      return fs.readSync(fd, buf, 0, 1, 0) > 0;
+    } finally {
+      fs.closeSync(fd);
+    }
+  } catch {
+    return false;
+  }
+}
+
+function hasPublishedArtifact(folder: string): boolean {
+  const names = ['index.html', 'index.pdf', 'propuesta.pdf'];
+  const bases = isAppFolder(folder) ? [path.join(folder, 'dist')] : [folder];
+  return bases.some((base) => names.some((name) => isReadableFile(path.join(base, name))));
+}
+
 function removePublicPropuestasIndex() {
   const published = path.resolve(__dirname, 'public', 'propuestas-index.json');
   if (fs.existsSync(published)) fs.unlinkSync(published);
@@ -99,8 +122,19 @@ const SECTOR_BY_FOLDER: Record<string, string> = {
 /** Demos del lenguaje visual, no propuestas de cliente. */
 const HIDDEN_SLUGS = new Set(['eter-claro', 'noctua-oscuro']);
 
-/** Carpetas inactivas o placeholders de OneDrive que se excluyen del build. */
-const OFFLINE_SLUGS = new Set(['alba', 'bruma', 'casonorte', 'lumen', 'minimayorista', 'pausa']);
+/** Carpetas inactivas, borradas del repo o placeholders de OneDrive. */
+const OFFLINE_SLUGS = new Set([
+  'alba',
+  'bruma',
+  'casonorte',
+  'lumen',
+  'minimayorista',
+  'pausa',
+  // Reemplazadas por las variantes *-digital-* / v5; quedan stubs locales sin dist.
+  'diseno-claro',
+  'marketing-claro',
+  'marketing-oscuro-premium',
+]);
 
 function inferVariant(slug: string): string {
   if (slug.endsWith('-oscuro-premium') || slug.endsWith('-oscuro')) return 'oscuro';
@@ -177,6 +211,7 @@ function readCatalogo(root: string): CatalogEntry[] {
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
     if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.') || OFFLINE_SLUGS.has(entry.name)) continue;
     const slug = entry.name;
+    if (!hasPublishedArtifact(path.join(root, slug))) continue;
     let meta: Record<string, unknown> = {};
     const metaFile = path.join(root, slug, 'meta.json');
     if (fs.existsSync(metaFile)) {
@@ -396,6 +431,7 @@ function propuestasPlugin(): Plugin {
         )
           continue;
         const folder = path.join(root, entry.name);
+        if (!hasPublishedArtifact(folder)) continue;
         const dest = path.join(destRoot, entry.name);
         try {
           if (isAppFolder(folder)) {
