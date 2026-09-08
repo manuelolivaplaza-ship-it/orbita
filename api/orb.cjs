@@ -1,0 +1,289 @@
+const BAI_URL = 'https://api.b.ai/v1/chat/completions';
+const DEFAULT_MODEL = 'glm-5.3-flash';
+const MAX_TURNS = 12;
+const MAX_CHARS = 1200;
+
+const SYSTEM_PROMPT = `Eres Orb, el copiloto con IA de Reclu (reclu.cl), un estudio en Santiago de Chile que crea sitios web que venden.
+
+Tono: cercano, claro, en español de Chile (tuteo: "te", "tu"). Sin jerga vacía. Respuestas cortas (máx. 90 palabras). Puedes usar **negritas**.
+
+Qué hace Reclu:
+- Sitios claros y rápidos en 7–14 días hábiles, con WhatsApp para que te escriban.
+- Cada sitio incluye panel CRM (catálogo, prospectos, agenda, pedidos, alerta a WhatsApp). Sin HubSpot.
+- Galería de demos de rubro navegables (no son sitios de clientes). Casos reales: ProgramBI y Maverlang.
+- Contacto: hola@reclu.cl · WhatsApp +56 9 3540 9699.
+
+Planes de desarrollo (compra única, neto + 19% IVA; 50% al partir y 50% al publicar):
+- Sonda: $420.000 / 10,5 UF — landing / campaña.
+- Estación (recomendado): $890.000 / 22,5 UF — sitio comercial + CRM.
+- Constelación: $1.490.000 / 37,5 UF — multi-sección / rediseño.
+- Aplicación: $1.890.000 / 48,0 UF — web app / PWA / portales.
+1 UF ≈ $39.600 CLP.
+
+Hasta el 31/10 el Modo Turbo (7 días hábiles) va a $0 en Sonda y Estación si entregan contenidos a tiempo. Plazo estándar: 10–14 días hábiles.
+
+Suscripción mensual (sitio + CRM + Orbit, el mismo chat con IA):
+- Esencial: $99.000 / 2,5 UF — 2.000 chats/mes.
+- Pro: $198.000 / 5 UF — 5.000 chats/mes.
+- Escala: $277.000 / 7 UF — 10.000 chats/mes.
+Un chat = una conversación completa, no un mensaje suelto. Sin permanencia.
+
+Rubros con demo: legal, dental, inmobiliaria, veterinaria, marketing, software, diseno, ecommerce, arquitectura, bienestar, contabilidad, centro-medico, concesionaria, estetica, gastronomia, neumaticos, repuestos, ferreteria, distribuidora.
+
+Responde SIEMPRE en JSON válido, sin markdown alrededor:
+{
+  "text": "respuesta al visitante",
+  "action": null
+}
+
+"action" puede ser:
+- {"type":"plan","plan":"Sonda"|"Estación"|"Constelación"|"Aplicación"} cuando hables de un plan de desarrollo.
+- {"type":"proposal","sector":"<slug>"} cuando el visitante nombre un rubro y quieras mostrar una demo.
+- {"type":"schedule"} si pide reunión, llamada o agendar.
+- {"type":"quote","plan":"Estación"} si pide cotización.
+- null si solo conversas.
+
+No inventes precios ni plazos distintos a los de arriba. Si no sabes algo, dilo y ofrece cotizar o agendar. No hables de otros proveedores de IA.`;
+
+const SECTORS = new Set([
+  'legal',
+  'dental',
+  'inmobiliaria',
+  'veterinaria',
+  'marketing',
+  'software',
+  'diseno',
+  'ecommerce',
+  'arquitectura',
+  'bienestar',
+  'contabilidad',
+  'centro-medico',
+  'concesionaria',
+  'estetica',
+  'gastronomia',
+  'neumaticos',
+  'repuestos',
+  'ferreteria',
+  'distribuidora',
+]);
+
+function isNodeRes(res) {
+  return Boolean(res && typeof res.end === 'function' && typeof res.setHeader === 'function');
+}
+
+function json(res, status, payload) {
+  if (isNodeRes(res)) {
+    res.statusCode = status;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.end(JSON.stringify(payload));
+    return;
+  }
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+    },
+  });
+}
+
+function clipTurns(messages) {
+  const clean = [];
+  if (!Array.isArray(messages)) return clean;
+  for (const msg of messages) {
+    if (!msg || (msg.role !== 'user' && msg.role !== 'assistant')) continue;
+    if (typeof msg.content !== 'string') continue;
+    const content = msg.content.trim().slice(0, MAX_CHARS);
+    if (!content) continue;
+    clean.push({ role: msg.role, content });
+  }
+  return clean.slice(-MAX_TURNS);
+}
+
+function asText(value) {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) {
+    return value
+      .map((part) => {
+        if (typeof part === 'string') return part;
+        if (part && typeof part === 'object') {
+          if (typeof part.text === 'string') return part.text;
+          if (typeof part.content === 'string') return part.content;
+        }
+        return '';
+      })
+      .join('');
+  }
+  return '';
+}
+
+function extractJsonObject(raw) {
+  const trimmed = String(raw || '').trim();
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const candidate = fenced ? fenced[1].trim() : trimmed;
+  const start = candidate.indexOf('{');
+  const end = candidate.lastIndexOf('}');
+  if (start === -1 || end <= start) return null;
+  try {
+    return JSON.parse(candidate.slice(start, end + 1));
+  } catch {
+    return null;
+  }
+}
+
+function normalizePlan(value) {
+  if (typeof value !== 'string') return null;
+  const clean = value.replace(/^Plan\s+/i, '').trim();
+  if (/sonda/i.test(clean)) return 'Sonda';
+  if (/estaci/i.test(clean)) return 'Estación';
+  if (/constel/i.test(clean)) return 'Constelación';
+  if (/aplicaci|pwa|app/i.test(clean)) return 'Aplicación';
+  return null;
+}
+
+function parseReply(raw) {
+  const source = asText(raw).trim();
+  const parsed = extractJsonObject(source);
+  if (!parsed || typeof parsed !== 'object') {
+    return { text: source || '¿Me cuentas un poco más de tu negocio?', action: null };
+  }
+  const text =
+    (typeof parsed.text === 'string' && parsed.text.trim()) ||
+    (typeof parsed.answer === 'string' && parsed.answer.trim()) ||
+    source;
+  const action = parsed.action;
+  if (!action || typeof action !== 'object') return { text, action: null };
+  if (action.type === 'schedule') return { text, action: { type: 'schedule' } };
+  if (action.type === 'plan') {
+    const plan = normalizePlan(action.plan || action.name);
+    return plan ? { text, action: { type: 'plan', plan } } : { text, action: null };
+  }
+  if (action.type === 'quote') {
+    const plan = normalizePlan(action.plan || action.name) || undefined;
+    return { text, action: { type: 'quote', plan } };
+  }
+  if (action.type === 'proposal') {
+    const sector = typeof action.sector === 'string' ? action.sector.trim().toLowerCase() : '';
+    return sector && SECTORS.has(sector) ? { text, action: { type: 'proposal', sector } } : { text, action: null };
+  }
+  return { text, action: null };
+}
+
+async function completeOrbChat({ messages, apiKey, model }) {
+  const turns = clipTurns(messages);
+  if (turns.length === 0) {
+    const err = new Error('Mensaje vacío');
+    err.status = 400;
+    throw err;
+  }
+  if (!turns.some((t) => t.role === 'user')) {
+    const err = new Error('Falta un mensaje del visitante');
+    err.status = 400;
+    throw err;
+  }
+
+  const res = await fetch(BAI_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
+      temperature: 0.5,
+      max_tokens: 2048,
+    }),
+  });
+
+  const body = await res.text();
+  if (!res.ok) {
+    let message = 'B.AI rechazó la solicitud';
+    try {
+      const errJson = JSON.parse(body);
+      if (errJson.error && errJson.error.message) message = errJson.error.message;
+    } catch {
+      /* keep default */
+    }
+    const err = new Error(message);
+    err.status = res.status === 401 || res.status === 403 || res.status >= 500 ? 502 : 400;
+    throw err;
+  }
+
+  let content = '';
+  try {
+    const data = JSON.parse(body);
+    content = data.choices && data.choices[0] && data.choices[0].message
+      ? data.choices[0].message.content
+      : '';
+  } catch {
+    const err = new Error('Respuesta inválida de B.AI');
+    err.status = 502;
+    throw err;
+  }
+
+  return parseReply(content);
+}
+
+function readStream(req) {
+  return new Promise((resolve, reject) => {
+    if (typeof req.on !== 'function') {
+      resolve('');
+      return;
+    }
+    const chunks = [];
+    req.on('data', (chunk) => {
+      if (chunk) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
+    });
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
+async function readBody(req) {
+  if (req && typeof req.text === 'function' && req.headers && typeof req.headers.get === 'function') {
+    const text = await req.text();
+    return JSON.parse(text || '{}');
+  }
+  if (typeof req.body === 'string') return JSON.parse(req.body || '{}');
+  if (req.body && typeof req.body === 'object') return req.body;
+  return JSON.parse((await readStream(req)) || '{}');
+}
+
+async function handler(req, res) {
+  try {
+    const method = req.method || 'GET';
+    if (method === 'OPTIONS') {
+      if (isNodeRes(res)) {
+        res.statusCode = 204;
+        res.end();
+        return;
+      }
+      return new Response(null, { status: 204 });
+    }
+    if (method !== 'POST') {
+      return json(res, 405, { error: 'Método no permitido' });
+    }
+
+    const apiKey = process.env.BAI_API_KEY;
+    if (!apiKey) {
+      return json(res, 503, { error: 'Falta BAI_API_KEY en el servidor' });
+    }
+
+    const payload = await readBody(req);
+    const reply = await completeOrbChat({
+      messages: payload.messages,
+      apiKey,
+      model: process.env.BAI_MODEL,
+    });
+    return json(res, 200, reply);
+  } catch (err) {
+    const status = Number(err && err.status) || 500;
+    const message = err && err.message ? err.message : 'Error de Orb';
+    return json(res, status, { error: message });
+  }
+}
+
+module.exports = handler;
+module.exports.default = handler;

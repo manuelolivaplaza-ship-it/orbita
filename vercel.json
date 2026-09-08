@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/orb.ts": {
+    "api/orb.cjs": {
       "maxDuration": 30
     }
   },
