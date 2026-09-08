@@ -491,11 +491,15 @@ function orbApiPlugin(): Plugin {
         }
 
         const env = loadEnv(server.config.mode, process.cwd(), '');
-        const apiKey = env.BAI_API_KEY || process.env.BAI_API_KEY;
+        const apiKey =
+          env.OPENCODE_API_KEY ||
+          env.OPENCODE_ZEN_API_KEY ||
+          process.env.OPENCODE_API_KEY ||
+          process.env.OPENCODE_ZEN_API_KEY;
         if (!apiKey) {
           res.statusCode = 503;
           res.setHeader('Content-Type', 'application/json; charset=utf-8');
-          res.end(JSON.stringify({ error: 'Falta BAI_API_KEY en el servidor' }));
+          res.end(JSON.stringify({ error: 'Falta OPENCODE_API_KEY en el servidor' }));
           return;
         }
 
@@ -505,7 +509,7 @@ function orbApiPlugin(): Plugin {
           const reply = await completeOrbChat({
             messages: Array.isArray(payload.messages) ? payload.messages : [],
             apiKey,
-            model: env.BAI_MODEL || process.env.BAI_MODEL,
+            model: env.OPENCODE_MODEL || process.env.OPENCODE_MODEL,
           });
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json; charset=utf-8');

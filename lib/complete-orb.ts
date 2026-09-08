@@ -8,8 +8,8 @@ export type OrbAction =
 
 export type OrbReply = { text: string; action: OrbAction | null };
 
-const BAI_URL = 'https://api.b.ai/v1/chat/completions';
-const DEFAULT_MODEL = 'deepseek-v4-flash';
+const ZEN_URL = 'https://opencode.ai/zen/v1/chat/completions';
+const DEFAULT_MODEL = 'deepseek-v4-flash-free';
 const MAX_TURNS = 12;
 const MAX_CHARS = 1200;
 
@@ -178,16 +178,15 @@ export async function completeOrbChat(input: {
     throw Object.assign(new Error('Falta un mensaje del visitante'), { status: 400 });
   }
 
-  const model = input.model || process.env.BAI_MODEL || DEFAULT_MODEL;
+  const model = input.model || process.env.OPENCODE_MODEL || DEFAULT_MODEL;
   const payload = JSON.stringify({
     model,
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
     temperature: 0.5,
     max_tokens: 2048,
-    thinking: { type: 'disabled' },
   });
 
-  let lastMessage = 'B.AI rechazó la solicitud';
+  let lastMessage = 'OpenCode Zen rechazó la solicitud';
   let lastStatus = 400;
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -195,11 +194,12 @@ export async function completeOrbChat(input: {
     const timer = setTimeout(() => controller.abort(), 55000);
     let res: Response;
     try {
-      res = await fetch(BAI_URL, {
+      res = await fetch(ZEN_URL, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${input.apiKey}`,
           'Content-Type': 'application/json',
+          'x-opencode-session': 'reclu-orb',
         },
         body: payload,
         signal: controller.signal,
@@ -208,7 +208,7 @@ export async function completeOrbChat(input: {
       if ((err as Error).name === 'AbortError') {
         throw Object.assign(new Error('La IA tardó demasiado'), { status: 504 });
       }
-      throw Object.assign(new Error('No pude contactar a B.AI'), { status: 502 });
+      throw Object.assign(new Error('No pude contactar a OpenCode Zen'), { status: 502 });
     } finally {
       clearTimeout(timer);
     }
@@ -221,11 +221,11 @@ export async function completeOrbChat(input: {
         };
         return parseReply(json.choices?.[0]?.message?.content ?? '');
       } catch {
-        throw Object.assign(new Error('Respuesta inválida de B.AI'), { status: 502 });
+        throw Object.assign(new Error('Respuesta inválida de OpenCode Zen'), { status: 502 });
       }
     }
 
-    lastMessage = 'B.AI rechazó la solicitud';
+    lastMessage = 'OpenCode Zen rechazó la solicitud';
     try {
       const errJson = JSON.parse(body) as {
         error?: string | { message?: string };

@@ -156,7 +156,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
       if (!res.ok) {
         pushOrbMessage(
           res.status === 503
-            ? 'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.'
+            ? 'Estoy aquí, pero el servidor todavía no tiene la clave de OpenCode Zen. Agrégala como **OPENCODE_API_KEY** y recarga.'
             : res.status === 429
               ? data.error ||
                 'Hay mucha demanda en la IA ahora. Esperá unos segundos y preguntame de nuevo.'

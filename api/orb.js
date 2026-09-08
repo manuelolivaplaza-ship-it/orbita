@@ -1,5 +1,5 @@
-const BAI_URL = 'https://api.b.ai/v1/chat/completions';
-const DEFAULT_MODEL = 'deepseek-v4-flash';
+const ZEN_URL = 'https://opencode.ai/zen/v1/chat/completions';
+const DEFAULT_MODEL = 'deepseek-v4-flash-free';
 const MAX_TURNS = 12;
 const MAX_CHARS = 1200;
 
@@ -170,7 +170,7 @@ function baiErrorMessage(body) {
   } catch {
     /* keep default */
   }
-  return 'B.AI rechazó la solicitud';
+  return 'OpenCode Zen rechazó la solicitud';
 }
 
 function isRateLimit(status, message) {
@@ -198,14 +198,13 @@ async function completeOrbChat({ messages, apiKey, model }) {
   }
 
   const payload = JSON.stringify({
-    model: model || process.env.BAI_MODEL || DEFAULT_MODEL,
+    model: model || process.env.OPENCODE_MODEL || DEFAULT_MODEL,
     messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...turns],
     temperature: 0.5,
     max_tokens: 2048,
-    thinking: { type: 'disabled' },
   });
 
-  let lastMessage = 'B.AI rechazó la solicitud';
+  let lastMessage = 'OpenCode Zen rechazó la solicitud';
   let lastStatus = 400;
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -213,18 +212,19 @@ async function completeOrbChat({ messages, apiKey, model }) {
     const timer = setTimeout(() => controller.abort(), 55000);
     let res;
     try {
-      res = await fetch(BAI_URL, {
+      res = await fetch(ZEN_URL, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
+          'x-opencode-session': 'reclu-orb',
         },
         body: payload,
         signal: controller.signal,
       });
     } catch (err) {
       const timeout = err && err.name === 'AbortError';
-      const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a B.AI');
+      const wrapped = new Error(timeout ? 'La IA tardó demasiado' : 'No pude contactar a OpenCode Zen');
       wrapped.status = timeout ? 504 : 502;
       throw wrapped;
     } finally {
@@ -241,7 +241,7 @@ async function completeOrbChat({ messages, apiKey, model }) {
             : '';
         return parseReply(content);
       } catch {
-        const err = new Error('Respuesta inválida de B.AI');
+        const err = new Error('Respuesta inválida de OpenCode Zen');
         err.status = 502;
         throw err;
       }
@@ -276,15 +276,15 @@ export function OPTIONS() {
 
 export async function POST(request) {
   try {
-    const apiKey = process.env.BAI_API_KEY;
+    const apiKey = process.env.OPENCODE_API_KEY || process.env.OPENCODE_ZEN_API_KEY;
     if (!apiKey) {
-      return json(503, { error: 'Falta BAI_API_KEY en el servidor' });
+      return json(503, { error: 'Falta OPENCODE_API_KEY en el servidor' });
     }
     const payload = await request.json().catch(() => ({}));
     const reply = await completeOrbChat({
       messages: payload.messages,
       apiKey,
-      model: process.env.BAI_MODEL,
+      model: process.env.OPENCODE_MODEL,
     });
     return json(200, reply);
   } catch (err) {
