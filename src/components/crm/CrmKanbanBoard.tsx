@@ -34,7 +34,7 @@ export const CrmKanbanBoard: React.FC<CrmKanbanBoardProps> = ({
   };
 
   return (
-    <div className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">
       {COLUMNS.map((col) => {
         const colLeads = leads.filter((l) => l.status === col.id);
         const colTotalClp = colLeads.reduce((acc, curr) => acc + curr.valueClp, 0);
@@ -42,7 +42,7 @@ export const CrmKanbanBoard: React.FC<CrmKanbanBoardProps> = ({
         return (
           <div
             key={col.id}
-            className="flex w-[min(82vw,20rem)] shrink-0 snap-start flex-col rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-3.5 sm:w-auto sm:min-w-0"
+            className="flex w-[min(18rem,78%)] shrink-0 snap-start flex-col rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-3.5 sm:w-auto sm:min-w-0"
           >
             {/* Column Header */}
             <div className="flex items-center justify-between border-b border-zinc-200/60 pb-3">

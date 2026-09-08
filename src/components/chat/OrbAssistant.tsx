@@ -25,6 +25,7 @@ import {
   IVA_SHORT,
   PLAN_HINTS,
   TURBO_PROMO_UNTIL_SHORT,
+  planKeyFromName,
 } from '../../data/pricing';
 import { whatsappUrl } from '../../data/site';
 
@@ -74,6 +75,7 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   // Auto scroll to bottom
   useEffect(() => {
@@ -90,8 +92,26 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
     }
   }, [isOpen]);
 
-  // Handle user sending message
-  const handleSendMessage = (textToSend?: string) => {
+  const pushOrbMessage = (
+    text: string,
+    extra?: { actionType?: ChatMessage['actionType']; actionPayload?: ChatMessage['actionPayload'] },
+  ) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `orb-${Date.now()}`,
+        sender: 'orb',
+        text,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        actionType: extra?.actionType,
+        actionPayload: extra?.actionPayload,
+      },
+    ]);
+    setOrbState('happy');
+    window.setTimeout(() => setOrbState('idle'), 2500);
+  };
+
+  const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || inputValue).trim();
     if (!query || isTyping) return;
 
@@ -102,34 +122,65 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const history = [...messages, userMsg];
+    setMessages(history);
     setInputValue('');
     setIsTyping(true);
     setOrbState('thinking');
 
-    // Simulate AI response engine with intelligent contextual understanding
-    setTimeout(() => {
-      const response = generateOrbResponse(query);
-      setIsTyping(false);
-      setOrbState(response.state || 'happy');
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `orb-${Date.now()}`,
-          sender: 'orb',
-          text: response.text,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          actionType: response.actionType,
-          actionPayload: response.actionPayload,
-        },
-      ]);
+    abortRef.current?.abort();
+    const abort = new AbortController();
+    abortRef.current = abort;
 
-      // Reset to idle after 2.5s
-      setTimeout(() => setOrbState('idle'), 2500);
-    }, 850);
+    try {
+      const res = await fetch('/api/orb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: abort.signal,
+        body: JSON.stringify({
+          messages: history
+            .filter((msg) => msg.id !== 'init-1')
+            .map((msg) => ({
+              role: msg.sender === 'user' ? 'user' : 'assistant',
+              content: msg.text,
+            })),
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        text?: string;
+        action?: { type?: string; plan?: string; sector?: string };
+        error?: string;
+      };
+
+      if (!res.ok) {
+        pushOrbMessage(
+          res.status === 503
+            ? 'Estoy aquí, pero el servidor todavía no tiene la clave de B.AI. Agrégala como **BAI_API_KEY** y recarga.'
+            : data.error
+              ? `No pude responder ahora (${data.error}). ¿Lo intentamos de nuevo?`
+              : 'Se me cruzó un cable. ¿Me lo preguntas otra vez?',
+        );
+        return;
+      }
+
+      const hydrated = hydrateOrbAction(data.action);
+      pushOrbMessage(data.text?.trim() || '¿Me cuentas un poco más de tu negocio?', hydrated);
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') return;
+      const fallback = generateOrbResponse(query);
+      pushOrbMessage(fallback.text, {
+        actionType: fallback.actionType,
+        actionPayload: fallback.actionPayload,
+      });
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleResetChat = () => {
+    abortRef.current?.abort();
+    setIsTyping(false);
     setMessages([INITIAL_MESSAGE]);
     setOrbState('happy');
     setTimeout(() => setOrbState('idle'), 1500);
@@ -350,7 +401,8 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
                 key={prompt}
                 type="button"
                 onClick={() => handleSendMessage(prompt)}
-                className="shrink-0 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[11px] text-zinc-600 hover:border-zinc-400 hover:text-zinc-950 transition-colors"
+                disabled={isTyping}
+                className="shrink-0 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[11px] text-zinc-600 hover:border-zinc-400 hover:text-zinc-950 transition-colors disabled:opacity-40"
               >
                 {prompt}
               </button>
@@ -386,6 +438,47 @@ export const OrbAssistant: React.FC<OrbAssistantProps> = ({
     </>
   );
 };
+
+function hydrateOrbAction(action?: { type?: string; plan?: string; sector?: string }): {
+  actionType?: ChatMessage['actionType'];
+  actionPayload?: ChatMessage['actionPayload'];
+} {
+  if (!action?.type) return {};
+
+  if (action.type === 'schedule') {
+    return { actionType: 'schedule' };
+  }
+
+  if (action.type === 'plan' || action.type === 'quote') {
+    const key = planKeyFromName(action.plan);
+    return {
+      actionType: 'plan',
+      actionPayload: {
+        name: `Plan ${key}`,
+        price: formatCLP(BASE_PRICES[key]),
+        priceUf: formatUF(BASE_PRICES_UF[key]),
+        hint: PLAN_HINTS[key],
+      },
+    };
+  }
+
+  if (action.type === 'proposal' && action.sector) {
+    const proposal = catalogo.find((p) => p.sector === action.sector) || catalogo[0];
+    if (!proposal) return {};
+    const sectorObj = SECTORES.find((s) => s.slug === proposal.sector);
+    return {
+      actionType: 'proposal',
+      actionPayload: {
+        slug: proposal.slug,
+        brand: proposal.brand,
+        variant: proposal.variant,
+        sectorLabel: sectorObj?.label || proposal.sector,
+      },
+    };
+  }
+
+  return {};
+}
 
 // Helper: Formatter for bold text in chat bubbles
 function formatMessageText(text: string) {

@@ -41,11 +41,11 @@ export const MainLayout: React.FC = () => {
   }, [params, setParams]);
 
   return (
-    <div className="bg-[#F7F8FC] text-[#0B0B12] min-h-screen relative font-sans starfield-bg selection:bg-[#6B7280]/20 selection:text-[#6B7280]">
+    <div className="relative min-h-screen max-w-full overflow-x-clip bg-[#F7F8FC] font-sans text-[#0B0B12] starfield-bg selection:bg-[#6B7280]/20 selection:text-[#6B7280]">
       <ScrollToTop />
       <LiquidGlassFilter />
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} onOpenSchedule={handleOpenSchedule} />
-      <main className="relative z-10 bg-[#F7F8FC]">
+      <main className="relative z-10 max-w-full overflow-x-clip bg-[#F7F8FC]">
         <Outlet
           context={{
             onOpenQuoteModal: handleOpenQuoteModal,

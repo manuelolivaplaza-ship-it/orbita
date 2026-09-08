@@ -106,7 +106,7 @@ export const CrmLeadsTable: React.FC<CrmLeadsTableProps> = ({
           />
         </div>
 
-        <div className="-mx-3 flex gap-1 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 text-xs">
+        <div className="flex gap-1 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible text-xs">
           <button
             type="button"
             onClick={() => setFilterStatus('todos')}

@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
+import { completeOrbChat, type ChatTurn } from './api/complete-orb';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -456,9 +457,75 @@ function propuestasPlugin(): Plugin {
   };
 }
 
+function readNodeBody(req: { on: (ev: string, cb: (chunk?: Buffer) => void) => void }): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    req.on('data', (chunk) => {
+      if (chunk) chunks.push(chunk);
+    });
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
+function orbApiPlugin(): Plugin {
+  return {
+    name: 'orb-api',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url?.split('?')[0];
+        if (url !== '/api/orb') {
+          next();
+          return;
+        }
+        if (req.method === 'OPTIONS') {
+          res.statusCode = 204;
+          res.end();
+          return;
+        }
+        if (req.method !== 'POST') {
+          res.statusCode = 405;
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          res.end(JSON.stringify({ error: 'Método no permitido' }));
+          return;
+        }
+
+        const env = loadEnv(server.config.mode, process.cwd(), '');
+        const apiKey = env.BAI_API_KEY || process.env.BAI_API_KEY;
+        if (!apiKey) {
+          res.statusCode = 503;
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          res.end(JSON.stringify({ error: 'Falta BAI_API_KEY en el servidor' }));
+          return;
+        }
+
+        try {
+          const raw = await readNodeBody(req);
+          const payload = JSON.parse(raw || '{}') as { messages?: ChatTurn[] };
+          const reply = await completeOrbChat({
+            messages: Array.isArray(payload.messages) ? payload.messages : [],
+            apiKey,
+            model: env.BAI_MODEL || process.env.BAI_MODEL,
+          });
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          res.setHeader('Cache-Control', 'no-store');
+          res.end(JSON.stringify(reply));
+        } catch (err) {
+          const status = Number((err as { status?: number }).status) || 500;
+          const message = err instanceof Error ? err.message : 'Error de Orb';
+          res.statusCode = status;
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          res.end(JSON.stringify({ error: message }));
+        }
+      });
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), propuestasPlugin()],
+    plugins: [orbApiPlugin(), react(), tailwindcss(), propuestasPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

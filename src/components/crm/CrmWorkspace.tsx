@@ -81,7 +81,7 @@ export function CrmWorkspace({
       onSimulateLead={store.simulateNewLead}
       onExportCsv={section === 'catalog' ? store.exportCatalogCsv : store.exportToCsv}
     >
-      <div className="mx-auto max-w-7xl space-y-4 px-3 py-4 sm:space-y-5 sm:px-6 sm:py-5">
+      <div className="mx-auto w-full min-w-0 max-w-7xl space-y-4 px-3 py-4 sm:space-y-5 sm:px-6 sm:py-5">
         {description && section === 'overview' && (
           <p className="text-xs text-zinc-500">{description}</p>
         )}

@@ -19,7 +19,7 @@ export const CrmShowcase: React.FC = () => {
   }, [currentSlug]);
 
   return (
-    <section id="crm-showcase" className="relative z-10 overflow-hidden bg-[#F7F8FC] px-4 py-16 sm:px-6 sm:py-28">
+    <section id="crm-showcase" className="relative z-10 overflow-x-clip bg-[#F7F8FC] px-4 py-16 sm:px-6 sm:py-28">
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 h-[46rem] w-[64rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-35 blur-3xl"
         style={{
@@ -70,11 +70,11 @@ export const CrmShowcase: React.FC = () => {
           </div>
         </div>
 
-        <div className="-mx-4 overflow-hidden rounded-none border-y border-zinc-200/90 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.12)] sm:mx-0 sm:rounded-3xl sm:border">
+        <div className="isolate max-w-full overflow-hidden rounded-2xl border border-zinc-200/90 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.12)] sm:rounded-3xl">
           <p className="border-b border-zinc-100 bg-zinc-50 px-4 py-2 text-center text-[11px] text-zinc-500 sm:hidden">
-            Panel real · desliza y usa las pestañas de abajo
+            Panel real · usa las pestañas de abajo
           </p>
-          <div className="h-[min(78dvh,640px)] sm:h-[820px]">
+          <div className="relative h-[min(70dvh,560px)] w-full min-w-0 max-w-full overflow-hidden overscroll-x-contain sm:h-[820px]">
             <CrmWorkspace
               key={currentProposal.slug}
               slug={currentProposal.slug}

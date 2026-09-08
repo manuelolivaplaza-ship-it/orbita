@@ -77,10 +77,10 @@ export const GaleriaTeaser: React.FC = () => {
         </div>
 
         {sectoresConContenido.length > 0 && (
-          <div className="-mx-6 mb-12 overflow-x-auto border-y border-zinc-200/80 [scrollbar-width:none] sm:mx-0 sm:mb-14 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+          <div className="-mx-4 mb-12 overflow-x-auto overscroll-x-contain border-y border-zinc-200/80 [scrollbar-width:none] sm:mx-0 sm:mb-14 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
             <nav
               aria-label="Sectores de la galería"
-              className="flex w-max items-baseline gap-x-0 px-6 py-4 sm:w-auto sm:flex-wrap sm:gap-y-2 sm:px-0 sm:py-5"
+              className="flex w-max items-baseline gap-x-0 px-4 py-4 sm:w-auto sm:flex-wrap sm:gap-y-2 sm:px-0 sm:py-5"
             >
               {sectoresConContenido.map((sector, i) => (
                 <span key={sector.slug} className="inline-flex items-baseline whitespace-nowrap">

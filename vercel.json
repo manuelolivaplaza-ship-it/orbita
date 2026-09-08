@@ -1,6 +1,11 @@
 {
+  "functions": {
+    "api/orb.ts": {
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
-    { "source": "/((?!propuestas/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|propuestas/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {

@@ -161,7 +161,7 @@ export function CrmProductsPanel({
                 className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-9 pr-3 text-xs outline-none focus:border-zinc-400 sm:py-1.5"
               />
             </div>
-            <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex min-w-0 gap-2 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <select
                 value={cat}
                 onChange={(e) => setCat(e.target.value)}
@@ -508,7 +508,7 @@ export function CrmProductsPanel({
 function Stat({ label, value, hint, warn }: { label: string; value: React.ReactNode; hint: string; warn?: boolean }) {
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs">
-      <div className="text-[11px] font-medium text-zinc-500">{label}</div>
+      <div className="truncate text-[11px] font-medium text-zinc-500">{label}</div>
       <div className={`mt-1 font-mono text-xl font-bold tabular-nums ${warn ? 'text-amber-700' : 'text-zinc-950'}`}>{value}</div>
       <div className="mt-1 text-[11px] text-zinc-400">{hint}</div>
     </div>

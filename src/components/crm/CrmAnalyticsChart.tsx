@@ -291,7 +291,7 @@ export const CrmAnalyticsChart: React.FC<CrmAnalyticsChartProps> = ({ data7d, da
       <div className="relative mt-6">
         <svg
           viewBox={`0 0 ${width} ${height}`}
-          className="w-full h-auto overflow-visible cursor-crosshair select-none"
+          className="h-auto w-full max-w-full cursor-crosshair select-none overflow-hidden"
           onMouseLeave={() => setHoverIndex(null)}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();

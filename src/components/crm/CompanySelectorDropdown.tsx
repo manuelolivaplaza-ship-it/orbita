@@ -105,7 +105,7 @@ export const CompanySelectorDropdown: React.FC<CompanySelectorDropdownProps> = (
 
       {/* Floating Popover Menu */}
       {isOpen && (
-        <div className="absolute left-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1.5rem))] rounded-2xl border border-zinc-200/90 bg-white/95 p-2 shadow-2xl shadow-zinc-950/15 backdrop-blur-xl sm:w-96">
+        <div className="absolute left-0 top-full z-50 mt-2 w-full min-w-[min(100%,18rem)] max-w-[22rem] rounded-2xl border border-zinc-200/90 bg-white/95 p-2 shadow-2xl shadow-zinc-950/15 backdrop-blur-xl">
           {/* Search Input */}
           <div className="relative mb-2">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-400" />

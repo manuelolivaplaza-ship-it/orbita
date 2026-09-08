@@ -115,7 +115,11 @@ export function CrmShell({
   );
 
   return (
-    <div className={`relative flex bg-[#F4F4F5] text-zinc-950 ${compact ? 'h-full' : 'h-svh'} overflow-hidden`}>
+    <div
+      className={`relative flex w-full min-w-0 max-w-full overflow-hidden bg-[#F4F4F5] text-zinc-950 ${
+        compact ? 'h-full' : 'h-svh'
+      }`}
+    >
       {sidebarOpen && (
         <button
           type="button"
@@ -126,7 +130,7 @@ export function CrmShell({
       )}
 
       <aside
-        className={`absolute inset-y-0 left-0 z-50 flex w-[min(18rem,88vw)] flex-col border-r border-zinc-200 bg-white transition-transform lg:static lg:w-[240px] lg:translate-x-0 ${
+        className={`absolute inset-y-0 left-0 z-50 flex w-[min(18rem,85%)] max-w-full flex-col border-r border-zinc-200 bg-white transition-transform lg:static lg:w-[240px] lg:translate-x-0 ${
           compact ? '' : 'pt-[env(safe-area-inset-top)] lg:pt-0'
         } ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
@@ -156,7 +160,7 @@ export function CrmShell({
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header
-          className={`flex shrink-0 items-center justify-between gap-2 border-b border-zinc-200/80 bg-white/90 px-3 backdrop-blur-md sm:px-5 ${
+          className={`flex min-w-0 shrink-0 items-center justify-between gap-2 overflow-hidden border-b border-zinc-200/80 bg-white/90 px-3 backdrop-blur-md sm:px-5 ${
             compact
               ? 'h-14'
               : 'min-h-14 pt-[env(safe-area-inset-top)] lg:h-14 lg:min-h-0 lg:pt-0'
@@ -178,7 +182,7 @@ export function CrmShell({
               <div className="hidden text-[11px] text-zinc-500 sm:block">Panel de {brand}</div>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 text-[11px] font-medium text-emerald-700">
               <Circle className="h-1.5 w-1.5 animate-pulse fill-emerald-500 text-emerald-500" />
               <span className="font-mono tabular-nums">{activeNow}</span>
@@ -211,7 +215,7 @@ export function CrmShell({
           </div>
         </header>
         <main
-          className={`min-h-0 flex-1 overflow-y-auto overscroll-contain lg:pb-0 ${
+          className={`min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain lg:pb-0 ${
             compact ? 'pb-16' : 'pb-[calc(4.5rem+env(safe-area-inset-bottom))]'
           }`}
         >
