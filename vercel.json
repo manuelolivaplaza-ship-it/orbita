@@ -10,8 +10,6 @@
     { "source": "/trabajo/:slug", "destination": "/creaciones/:slug", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/preview/:slug", "destination": "/index.html" },
-    { "source": "/preview/:slug/:path*", "destination": "/index.html" },
     { "source": "/propuesta/:slug", "destination": "/index.html" },
     { "source": "/propuesta/:slug/:path*", "destination": "/index.html" },
     { "source": "/crm/:slug", "destination": "/index.html" },

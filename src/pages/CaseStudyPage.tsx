@@ -3,7 +3,8 @@ import { Link, Navigate, useOutletContext, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { getAdjacentCases, getCaseBySlug } from '../data/cases';
 import { PageMeta } from '../components/PageMeta';
-import { LivePreview } from '../components/cases/LivePreview';
+import { siteUrl } from '../data/site';
+import { webPageJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function CaseStudyPage() {
@@ -22,6 +23,11 @@ export default function CaseStudyPage() {
       <PageMeta
         title={`${caseStudy.name} | Creaciones Reclu`}
         description={caseStudy.summary}
+        jsonLd={webPageJsonLd({
+          title: `${caseStudy.name} | Creaciones Reclu`,
+          description: caseStudy.summary,
+          url: siteUrl(`/creaciones/${caseStudy.slug}`),
+        })}
       />
 
       {/* Hero: captura nítida en marco, sin tinte de color */}
@@ -64,31 +70,27 @@ export default function CaseStudyPage() {
             {caseStudy.tagline}
           </p>
 
-          {caseStudy.kind === 'live' && (
-            <div className="rounded-2xl overflow-hidden border border-zinc-200/90 bg-white shadow-sm">
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-zinc-100 bg-zinc-50">
-                <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-                <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-                <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-                <div className="ml-2 flex-1 h-6 rounded-md bg-white border border-zinc-200/90 px-3 flex items-center max-w-md">
-                  <span className="text-[11px] text-zinc-500 truncate font-medium">
-                    {caseStudy.url?.replace(/^https?:\/\//, '') ?? caseStudy.name}
-                  </span>
-                </div>
-              </div>
-              <div className="relative aspect-[16/9] sm:aspect-[21/9] bg-zinc-100">
-                <img
-                  src={caseStudy.cover}
-                  alt={`Captura de ${caseStudy.name}`}
-                  className="absolute inset-0 w-full h-full object-cover object-top"
-                />
+          <div className="rounded-2xl overflow-hidden border border-zinc-200/90 bg-white shadow-sm">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-zinc-100 bg-zinc-50">
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+              <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
+              <div className="ml-2 flex-1 h-6 rounded-md bg-white border border-zinc-200/90 px-3 flex items-center max-w-md">
+                <span className="text-[11px] text-zinc-500 truncate font-medium">
+                  {caseStudy.url?.replace(/^https?:\/\//, '') ?? caseStudy.name}
+                </span>
               </div>
             </div>
-          )}
+            <div className="relative aspect-[16/9] sm:aspect-[21/9] bg-zinc-100">
+              <img
+                src={caseStudy.cover}
+                alt={`Captura de ${caseStudy.name}`}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </div>
+          </div>
         </div>
       </section>
-
-      {caseStudy.kind === 'preview' && <LivePreview caseStudy={caseStudy} />}
 
       {/* Meta + summary */}
       <section className="relative z-10 bg-white px-4 sm:px-6 py-16 sm:py-20 border-b border-zinc-200/80">
@@ -117,15 +119,6 @@ export default function CaseStudyPage() {
                 Visitar sitio en producción
                 <ExternalLink className="w-4 h-4" />
               </a>
-            )}
-            {caseStudy.previewSlug && (
-              <Link
-                to={`/preview/${caseStudy.previewSlug}`}
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#0B0B12] hover:text-[#6B7280] transition-colors"
-              >
-                Abrir sitio de ejemplo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
             )}
             <button
               onClick={() => onOpenQuoteModal('Estación')}
