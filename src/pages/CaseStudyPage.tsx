@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { getAdjacentCases, getCaseBySlug } from '../data/cases';
 import { PageMeta } from '../components/PageMeta';
 import { siteUrl } from '../data/site';
-import { webPageJsonLd } from '../seo/schema';
+import { breadcrumbJsonLd, webPageJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function CaseStudyPage() {
@@ -23,11 +23,18 @@ export default function CaseStudyPage() {
       <PageMeta
         title={`${caseStudy.name} | Creaciones Reclu`}
         description={caseStudy.summary}
-        jsonLd={webPageJsonLd({
-          title: `${caseStudy.name} | Creaciones Reclu`,
-          description: caseStudy.summary,
-          url: siteUrl(`/creaciones/${caseStudy.slug}`),
-        })}
+        jsonLd={[
+          webPageJsonLd({
+            title: `${caseStudy.name} | Creaciones Reclu`,
+            description: caseStudy.summary,
+            url: siteUrl(`/creaciones/${caseStudy.slug}`),
+          }),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Creaciones', path: '/creaciones' },
+            { name: caseStudy.name, path: `/creaciones/${caseStudy.slug}` },
+          ]),
+        ]}
       />
 
       {/* Hero: captura nítida en marco, sin tinte de color */}

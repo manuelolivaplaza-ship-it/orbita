@@ -10,7 +10,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
-import { faqPageJsonLd, offerCatalogJsonLd, webPageJsonLd } from '../seo/schema';
+import { breadcrumbJsonLd, faqPageJsonLd, offerCatalogJsonLd, webPageJsonLd } from '../seo/schema';
 import { siteUrl, whatsappUrl } from '../data/site';
 import { Orb } from '../components/orb';
 import {
@@ -100,6 +100,10 @@ export default function PreciosPage() {
             })),
           ),
           faqPageJsonLd(PRICING_FAQS),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Precios', path: '/precios' },
+          ]),
         ]}
       />
 

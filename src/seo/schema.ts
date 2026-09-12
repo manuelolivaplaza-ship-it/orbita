@@ -20,6 +20,31 @@ export function professionalServiceJsonLd() {
     email: site.email,
     telephone: '+56935409699',
     priceRange: '$420.000–$1.490.000 CLP',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+56935409699',
+      contactType: 'sales',
+      areaServed: 'CL',
+      availableLanguage: 'es-CL',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Planes web Reclu',
+      url: siteUrl('/precios'),
+    },
+  };
+}
+
+export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: siteUrl(item.path),
+    })),
   };
 }
 

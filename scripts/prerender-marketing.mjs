@@ -65,6 +65,43 @@ function professionalService() {
     email: 'hola@reclu.cl',
     telephone: '+56935409699',
     priceRange: '$420.000–$1.490.000 CLP',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+56935409699',
+      contactType: 'sales',
+      areaServed: 'CL',
+      availableLanguage: 'es-CL',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Planes web Reclu',
+      url: `${ORIGIN}/precios`,
+    },
+  };
+}
+
+function breadcrumb(route) {
+  const items = [{ name: 'Reclu', url: `${ORIGIN}/` }];
+  if (route.path.startsWith('/galeria/') && route.path !== '/galeria') {
+    items.push({ name: 'Galería', url: `${ORIGIN}/galeria` });
+  }
+  if (route.path.startsWith('/creaciones/') && route.path !== '/creaciones') {
+    items.push({ name: 'Creaciones', url: `${ORIGIN}/creaciones` });
+  }
+  if (route.path !== '/') {
+    items.push({
+      name: String(route.h1 || route.title).replace(/\.$/, ''),
+      url: absoluteUrl(route.path),
+    });
+  }
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }
 
@@ -183,8 +220,10 @@ function asGraph(items) {
 
 function jsonLdFor(route) {
   if (route.path === '/') return asGraph([professionalService(), faqPage(), webSite()]);
-  if (route.path === '/precios') return asGraph([webPage(route), offerCatalog(), faqPage(PRICING_FAQS)]);
-  return webPage(route);
+  if (route.path === '/precios') {
+    return asGraph([webPage(route), offerCatalog(), faqPage(PRICING_FAQS), breadcrumb(route)]);
+  }
+  return asGraph([webPage(route), breadcrumb(route)]);
 }
 
 function upsertMeta(html, attr, key, value) {
@@ -213,7 +252,7 @@ function injectFontPreloads(html) {
 
 function applyMeta(html, route, { noIndex = false } = {}) {
   const url = absoluteUrl(route.path);
-  const jsonLd = JSON.stringify(jsonLdFor(route), null, 2);
+  const jsonLd = JSON.stringify(jsonLdFor(route));
   const image = `${ORIGIN}/og-image.jpg`;
   let out = html;
   out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(route.title)}</title>`);

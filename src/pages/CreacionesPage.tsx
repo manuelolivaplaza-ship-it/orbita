@@ -5,7 +5,7 @@ import { getFeaturedCases } from '../data/cases';
 import { CaseCard } from '../components/cases/CaseCard';
 import { PageMeta } from '../components/PageMeta';
 import { siteUrl } from '../data/site';
-import { webPageJsonLd } from '../seo/schema';
+import { breadcrumbJsonLd, webPageJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function CreacionesPage() {
@@ -17,13 +17,19 @@ export default function CreacionesPage() {
       <PageMeta
         title="Creaciones | Reclu"
         description="Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería."
-        jsonLd={webPageJsonLd({
-          title: 'Creaciones | Reclu',
-          description:
-            'Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería.',
-          url: siteUrl('/creaciones'),
-          type: 'CollectionPage',
-        })}
+        jsonLd={[
+          webPageJsonLd({
+            title: 'Creaciones | Reclu',
+            description:
+              'Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería.',
+            url: siteUrl('/creaciones'),
+            type: 'CollectionPage',
+          }),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Creaciones', path: '/creaciones' },
+          ]),
+        ]}
       />
 
       <section className="relative z-10 px-4 pt-28 pb-12 sm:px-6 sm:pt-32 sm:pb-20">

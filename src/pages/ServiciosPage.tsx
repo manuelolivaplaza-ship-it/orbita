@@ -6,6 +6,8 @@ import { getFeaturedCases } from '../data/cases';
 import { PLAN_SUMMARIES } from '../data/pricing';
 import { CaseCard } from '../components/cases/CaseCard';
 import { PageMeta } from '../components/PageMeta';
+import { siteUrl } from '../data/site';
+import { breadcrumbJsonLd, webPageJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function ServiciosPage() {
@@ -17,6 +19,18 @@ export default function ServiciosPage() {
       <PageMeta
         title="Servicios | Reclu"
         description="Landings de conversión, sitios multi-sección, rediseños y campañas. Productos digitales que venden."
+        jsonLd={[
+          webPageJsonLd({
+            title: 'Servicios | Reclu',
+            description:
+              'Landings de conversión, sitios multi-sección, rediseños y campañas. Productos digitales que venden.',
+            url: siteUrl('/servicios'),
+          }),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Servicios', path: '/servicios' },
+          ]),
+        ]}
       />
 
       {/* Hero */}

@@ -16,7 +16,7 @@ import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
 import { siteUrl } from '../data/site';
-import { webPageJsonLd } from '../seo/schema';
+import { breadcrumbJsonLd, webPageJsonLd } from '../seo/schema';
 
 const POPULAR_SLUGS = [
   'legal',
@@ -143,13 +143,19 @@ export default function GaleriaPage() {
       <PageMeta
         title="Galería de demos | Reclu"
         description="Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones."
-        jsonLd={webPageJsonLd({
-          title: 'Galería de demos | Reclu',
-          description:
-            'Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones.',
-          url: siteUrl('/galeria'),
-          type: 'CollectionPage',
-        })}
+        jsonLd={[
+          webPageJsonLd({
+            title: 'Galería de demos | Reclu',
+            description:
+              'Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones.',
+            url: siteUrl('/galeria'),
+            type: 'CollectionPage',
+          }),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Galería', path: '/galeria' },
+          ]),
+        ]}
       />
 
       <div className="relative z-30 px-4 pt-24 sm:px-6 sm:pt-28">
