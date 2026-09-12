@@ -50,14 +50,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             className="mb-3.5 text-[2.05rem] font-medium leading-[1.04] tracking-tight text-[#0B0B12] sm:mb-6 sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
           >
-            <span className="block overflow-hidden py-0.5">
-              <span className="block animate-clip-reveal">Creamos sitios</span>
-            </span>
-            <span className="block overflow-hidden py-0.5">
-              <span className="block animate-clip-reveal" style={{ animationDelay: '0.12s' }}>
-                que venden.
-              </span>
-            </span>
+            Creamos sitios
+            <span className="block">que venden.</span>
           </h1>
 
           <p

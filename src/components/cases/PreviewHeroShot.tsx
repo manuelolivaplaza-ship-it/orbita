@@ -93,7 +93,7 @@ export function PreviewHeroShot({
           {fallbackNode}
         </div>
       )}
-      {active && (
+      {live && active && (
         <iframe
           src={src}
           title=""
