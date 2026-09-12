@@ -216,28 +216,29 @@ export const OrbitCarousel: React.FC = () => {
                 marginTop: -geo.cardH / 2,
               }}
             >
-              <Link
-                to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
-                aria-label={`${item.brand} · ${sectorInfo?.label ?? item.sector}`}
-                tabIndex={i === frontIdx ? 0 : -1}
-                className="group block h-full overflow-hidden rounded-[1.25rem] bg-zinc-100 shadow-[0_22px_50px_-18px_rgba(15,15,40,0.30)] ring-1 ring-black/[0.07] hover:shadow-[0_28px_60px_-16px_rgba(15,15,40,0.42)] hover:ring-black/15 transition-all duration-300"
-                onMouseEnter={() => {
-                  if (isCoarsePointer()) return;
-                  hoverRef.current = true;
-                }}
-                onMouseLeave={() => {
-                  if (isCoarsePointer()) return;
-                  hoverRef.current = false;
-                }}
-                onClick={(e) => {
-                  if (!isCoarsePointer()) return;
-                  if (pausedSlug === item.slug) return;
-                  e.preventDefault();
-                  hoverRef.current = true;
-                  setPausedSlug(item.slug);
-                }}
-              >
-                <div className="relative h-full w-full">
+              <div className="group relative h-full overflow-hidden rounded-[1.25rem] bg-zinc-100 shadow-[0_22px_50px_-18px_rgba(15,15,40,0.30)] ring-1 ring-black/[0.07] transition-all duration-300 hover:shadow-[0_28px_60px_-16px_rgba(15,15,40,0.42)] hover:ring-black/15">
+                <Link
+                  to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
+                  aria-label={`${item.brand} · ${sectorInfo?.label ?? item.sector}`}
+                  tabIndex={i === frontIdx ? 0 : -1}
+                  className="absolute inset-0 z-10 outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280]"
+                  onMouseEnter={() => {
+                    if (isCoarsePointer()) return;
+                    hoverRef.current = true;
+                  }}
+                  onMouseLeave={() => {
+                    if (isCoarsePointer()) return;
+                    hoverRef.current = false;
+                  }}
+                  onClick={(e) => {
+                    if (!isCoarsePointer()) return;
+                    if (pausedSlug === item.slug) return;
+                    e.preventDefault();
+                    hoverRef.current = true;
+                    setPausedSlug(item.slug);
+                  }}
+                />
+                <div className="pointer-events-none relative h-full w-full">
                   {live ? (
                     <PreviewHeroShot
                       src={`/propuestas/${item.slug}/index.html`}
@@ -264,7 +265,7 @@ export const OrbitCarousel: React.FC = () => {
                     />
                   )}
                   <div
-                    className={`pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/75 via-[#0B0B12]/30 to-transparent px-3.5 pb-3 pt-10 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 ${
+                    className={`absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/75 via-[#0B0B12]/30 to-transparent px-3.5 pb-3 pt-10 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 ${
                       held ? 'opacity-100' : 'opacity-85'
                     }`}
                   >
@@ -276,7 +277,7 @@ export const OrbitCarousel: React.FC = () => {
                     </span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </div>
           );
         })}

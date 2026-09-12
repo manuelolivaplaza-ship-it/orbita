@@ -49,38 +49,44 @@ export const MobileHeroCarousel: React.FC = () => {
         <div className="w-8 shrink-0" aria-hidden />
         {items.map((item) => {
           const sectorInfo = getSector(item.sector);
+          const accessibleName = `${item.brand} · ${sectorInfo?.label ?? item.sector}`;
           return (
-            <Link
+            <article
               key={item.slug}
-              to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
-              aria-label={`${item.brand} · ${sectorInfo?.label ?? item.sector}`}
               className="relative h-[13.75rem] w-[min(19.5rem,82%)] shrink-0 snap-start overflow-hidden rounded-2xl bg-zinc-100 shadow-[0_12px_28px_-8px_rgba(15,15,40,0.20)] ring-1 ring-black/[0.08] transition-transform duration-200 active:scale-[0.98]"
             >
-              <PreviewHeroShot
-                src={`/propuestas/${item.slug}/index.html`}
-                name={item.brand}
-                shotWidth={960}
-                shotHeight={620}
-                iframeSandbox="allow-scripts"
-                live={false}
-                fallbackNode={
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(145deg, ${item.accent}28 0%, #E4E4EA 42%, ${item.accent}14 100%)`,
-                    }}
-                  />
-                }
+              <Link
+                to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
+                aria-label={accessibleName}
+                className="absolute inset-0 z-10 outline-none focus-visible:ring-2 focus-visible:ring-[#6B7280]"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/80 via-[#0B0B12]/35 to-transparent px-3.5 pb-2.5 pt-10">
-                <span className="truncate text-xs font-semibold tracking-tight text-white drop-shadow-xs">
-                  {item.brand}
-                </span>
-                <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-white backdrop-blur-xs">
-                  {sectorInfo?.label ?? item.sector}
-                </span>
+              <div className="pointer-events-none absolute inset-0">
+                <PreviewHeroShot
+                  src={`/propuestas/${item.slug}/index.html`}
+                  name={item.brand}
+                  shotWidth={960}
+                  shotHeight={620}
+                  iframeSandbox="allow-scripts"
+                  live={false}
+                  fallbackNode={
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: `linear-gradient(145deg, ${item.accent}28 0%, #E4E4EA 42%, ${item.accent}14 100%)`,
+                      }}
+                    />
+                  }
+                />
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-[#0B0B12]/80 via-[#0B0B12]/35 to-transparent px-3.5 pb-2.5 pt-10">
+                  <span className="truncate text-xs font-semibold tracking-tight text-white drop-shadow-xs">
+                    {item.brand}
+                  </span>
+                  <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-white backdrop-blur-xs">
+                    {sectorInfo?.label ?? item.sector}
+                  </span>
+                </div>
               </div>
-            </Link>
+            </article>
           );
         })}
         <div className="w-8 shrink-0" aria-hidden />
