@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { BudgetModal } from '../components/BudgetModal';
-import { ScheduleModal } from '../components/ScheduleModal';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { LiquidGlassFilter } from '../components/LiquidGlass';
-import { OrbAssistant } from '../components/chat/OrbAssistant';
 import { planKeyFromName } from '../data/pricing';
+
+const BudgetModal = lazy(() =>
+  import('../components/BudgetModal').then((m) => ({ default: m.BudgetModal })),
+);
+const ScheduleModal = lazy(() =>
+  import('../components/ScheduleModal').then((m) => ({ default: m.ScheduleModal })),
+);
+const OrbAssistant = lazy(() =>
+  import('../components/chat/OrbAssistant').then((m) => ({ default: m.OrbAssistant })),
+);
 
 export const MainLayout: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -55,17 +62,23 @@ export const MainLayout: React.FC = () => {
         />
       </main>
       <Footer />
-      <BudgetModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        defaultPlan={selectedPlan}
-      />
-      <ScheduleModal isOpen={scheduleOpen} onClose={() => setScheduleOpen(false)} />
-      <OrbAssistant
-        hidden={hideOrb}
-        onOpenQuoteModal={handleOpenQuoteModal}
-        onOpenSchedule={handleOpenSchedule}
-      />
+      {modalOpen && (
+        <Suspense fallback={null}>
+          <BudgetModal isOpen={modalOpen} onClose={() => setModalOpen(false)} defaultPlan={selectedPlan} />
+        </Suspense>
+      )}
+      {scheduleOpen && (
+        <Suspense fallback={null}>
+          <ScheduleModal isOpen={scheduleOpen} onClose={() => setScheduleOpen(false)} />
+        </Suspense>
+      )}
+      <Suspense fallback={null}>
+        <OrbAssistant
+          hidden={hideOrb}
+          onOpenQuoteModal={handleOpenQuoteModal}
+          onOpenSchedule={handleOpenSchedule}
+        />
+      </Suspense>
     </div>
   );
 };

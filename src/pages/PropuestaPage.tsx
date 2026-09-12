@@ -116,7 +116,7 @@ export default function PropuestaPage() {
   if (kind === 'missing') {
     return (
       <div className="min-h-svh bg-[#F7F8FC] text-[#0B0B12] flex items-center justify-center px-6">
-        <PageMeta title="Propuesta no encontrada | Reclu" />
+        <PageMeta title="Propuesta no encontrada | Reclu" noIndex />
         <div className="max-w-md text-center">
           <p className="text-[11px] font-semibold uppercase tracking-widest text-[#6B7280] mb-3">
             Propuesta
@@ -151,6 +151,7 @@ export default function PropuestaPage() {
             ? `Demo de propuesta${sectorLabel ? ` para ${sectorLabel}` : ''}: ${current.description}`
             : `Demo de propuesta Reclu${sectorLabel ? ` · ${sectorLabel}` : ''}: ${label}. No es un sitio de cliente.`
         }
+        noIndex
       />
       {kind === 'loading' ? (
         <div className="h-full flex items-center justify-center text-sm text-zinc-500">

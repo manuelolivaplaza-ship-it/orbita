@@ -10,9 +10,14 @@ import { PlanSelect, normalizeContactPlan } from './PlanSelect';
 interface ContactoProps {
   preselectedPlan?: string;
   onOpenSchedule?: () => void;
+  headingAs?: 'h1' | 'h2';
 }
 
-export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSchedule }) => {
+export const Contacto: React.FC<ContactoProps> = ({
+  preselectedPlan,
+  onOpenSchedule,
+  headingAs = 'h2',
+}) => {
   const [formData, setFormData] = useState<ContactFormData>({
     nombre: '',
     email: '',
@@ -75,13 +80,23 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               Contacto Directo
             </span>
 
-            <h2 
-              className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
-              style={{ letterSpacing: '-0.04em' }}
-            >
-              Impulsa tu marca<br />
-              con Reclu.
-            </h2>
+            {headingAs === 'h1' ? (
+              <h1
+                className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
+                style={{ letterSpacing: '-0.04em' }}
+              >
+                Impulsa tu marca<br />
+                con Reclu.
+              </h1>
+            ) : (
+              <h2
+                className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
+                style={{ letterSpacing: '-0.04em' }}
+              >
+                Impulsa tu marca<br />
+                con Reclu.
+              </h2>
+            )}
 
             <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-sm mb-4">
               Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión — sin una propuesta de 40 páginas.
@@ -208,16 +223,22 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
+                  <label
+                    htmlFor="contacto-telefono"
+                    className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5"
+                  >
                     Teléfono (Opcional)
                   </label>
                   <input
+                    id="contacto-telefono"
                     type="tel"
+                    name="telefono"
+                    autoComplete="tel"
                     maxLength={FIELD_MAX.telefono}
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                     placeholder="+56 9 1234 5678"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] placeholder:text-zinc-500 focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
                   />
                 </div>
               </div>
@@ -237,17 +258,22 @@ export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSched
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
+                <label
+                  htmlFor="contacto-mensaje"
+                  className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5"
+                >
                   Cuéntanos sobre tu negocio y proyecto *
                 </label>
                 <textarea
+                  id="contacto-mensaje"
+                  name="mensaje"
                   required
                   rows={4}
                   maxLength={FIELD_MAX.mensaje}
                   value={formData.mensaje}
                   onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
                   placeholder="¿Qué vendes, cuál es tu objetivo y para cuándo quieres lanzar?"
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] placeholder:text-zinc-500 focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all resize-none"
                 />
               </div>
 

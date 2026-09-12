@@ -57,7 +57,7 @@ export const CasosReales: React.FC = () => {
               <div className="h-24 w-32 shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:h-28 sm:w-40">
                 <img
                   src={c.cover}
-                  alt=""
+                  alt={`Sitio de ${c.name}`}
                   className="h-full w-full object-cover object-top"
                   loading="lazy"
                 />

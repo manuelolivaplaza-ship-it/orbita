@@ -6,8 +6,7 @@ interface ShowcasePanelProps {
   onOpenQuoteModal: (planName?: string) => void;
 }
 
-const VIDEO_SHOWCASE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4';
+const VIDEO_SHOWCASE = '/video/showcase.mp4';
 
 const points = [
   {

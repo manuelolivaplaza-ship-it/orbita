@@ -51,7 +51,7 @@ export const CrmShowcase: React.FC = () => {
             </p>
             <div className="flex flex-col items-stretch gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
               <Link
-                to={`/crm/${currentProposal.slug}`}
+                to="/crm/demo"
                 target="_blank"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#0B0B12] px-5 py-2.5 text-sm font-medium text-white shadow-xs transition-colors hover:bg-zinc-800"
               >

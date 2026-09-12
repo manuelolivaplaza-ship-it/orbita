@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <Link
-                  to="/#contacto"
+                  to="/contacto"
                   className="inline-flex items-center gap-2.5 rounded-full bg-[#0B0B12] text-white hover:bg-zinc-800 px-6 py-2.5 text-sm font-medium transition-all shadow-sm active:scale-[0.99]"
                 >
                   <span>Cotizar proyecto</span>
@@ -166,7 +166,7 @@ export const Footer: React.FC = () => {
 
           {/* Soluciones */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Soluciones</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Soluciones</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
               <li><Link to="/servicios" className="hover:text-[#0B0B12] transition-colors">Sitios Web & Landings</Link></li>
               <li><Link to="/crm" className="hover:text-[#0B0B12] transition-colors">Panel CRM con WhatsApp</Link></li>
@@ -178,7 +178,7 @@ export const Footer: React.FC = () => {
 
           {/* Explorar */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Explorar</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Explorar</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
               <li><Link to="/creaciones" className="hover:text-[#0B0B12] transition-colors">Creaciones en vivo</Link></li>
               <li><Link to="/galeria" className="hover:text-[#0B0B12] transition-colors">Propuestas por rubro</Link></li>
@@ -190,9 +190,9 @@ export const Footer: React.FC = () => {
 
           {/* Contacto & Legal */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Contacto & Legal</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Contacto & Legal</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
-              <li><Link to="/#contacto" className="hover:text-[#0B0B12] transition-colors">Pedir cotización</Link></li>
+              <li><Link to="/contacto" className="hover:text-[#0B0B12] transition-colors">Pedir cotización</Link></li>
               <li><Link to="/?agendar=1" className="hover:text-[#0B0B12] transition-colors">Agendar reunión</Link></li>
               <li>
                 <a

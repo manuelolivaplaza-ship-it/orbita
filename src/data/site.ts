@@ -2,7 +2,8 @@ export const site = {
   name: 'Reclu',
   tagline: 'Sitios web que venden',
   city: 'Santiago, CL',
-  origin: 'https://reclu.cl',
+  /** Host canónico: apex redirige 308 → www. */
+  origin: 'https://www.reclu.cl',
   email: 'hola@reclu.cl',
   supportEmail: 'soporte@reclu.cl',
   /** Número internacional sin + ni espacios. Sobreescribible con VITE_WHATSAPP. */

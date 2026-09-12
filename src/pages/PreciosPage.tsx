@@ -10,6 +10,8 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
+import { faqPageJsonLd, offerCatalogJsonLd, professionalServiceJsonLd } from '../seo/schema';
+import { siteUrl, whatsappUrl } from '../data/site';
 import { Orb } from '../components/orb';
 import {
   plans,
@@ -28,7 +30,6 @@ import {
   TURBO_PROMO_UNTIL_SHORT,
 } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
-import { whatsappUrl } from '../data/site';
 
 export default function PreciosPage() {
   const { onOpenQuoteModal, onOpenSchedule } = useOutletContext<LayoutOutletContext>();
@@ -85,6 +86,17 @@ export default function PreciosPage() {
       <PageMeta
         title="Precios web | Reclu"
         description={`Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
+        jsonLd={[
+          professionalServiceJsonLd(siteUrl('/precios')),
+          offerCatalogJsonLd(
+            plans.map((p) => ({
+              name: p.name,
+              price: p.priceRaw,
+              description: p.description,
+            })),
+          ),
+          faqPageJsonLd(PRICING_FAQS),
+        ]}
       />
 
       <div className="relative isolate min-h-screen bg-[#F7F8FC] pb-24 sm:pb-32 overflow-hidden">
@@ -96,7 +108,7 @@ export default function PreciosPage() {
             autoPlay
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="w-full h-full object-cover opacity-90"
           />
           {/* Subtle bottom fade only at the lower edge so the video is crisp and visible */}

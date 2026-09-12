@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal, onOpenSchedule
     { label: 'Servicios', to: '/servicios' },
     { label: 'CRM', to: '/crm' },
     { label: 'Precios', to: '/precios' },
-    { label: 'Contacto', to: '/', hash: 'contacto' },
+    { label: 'Contacto', to: '/contacto' },
   ];
 
   const goTo = (item: NavItem) => {

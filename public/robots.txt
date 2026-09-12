@@ -3,3 +3,7 @@ Allow: /
 Disallow: /propuesta
 Disallow: /propuestas
 Disallow: /admin
+Disallow: /preview
+Disallow: /crm/
+
+Sitemap: https://www.reclu.cl/sitemap.xml

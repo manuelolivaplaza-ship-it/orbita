@@ -464,7 +464,7 @@ function Shell({
 }) {
   return (
     <div className="min-h-svh bg-[#F7F8FC] text-[#0B0B12]">
-      <PageMeta title={title} description="Panel interno de Reclu." />
+      <PageMeta title={title} description="Panel interno de Reclu." noIndex />
       <header className="border-b border-zinc-200/80 bg-white">
         <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-3">
           <Link to="/" className="text-sm font-medium tracking-tight">

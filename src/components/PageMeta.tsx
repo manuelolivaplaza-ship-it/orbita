@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { site, siteUrl } from '../data/site';
+import { professionalServiceJsonLd } from '../seo/schema';
 
 interface PageMetaProps {
   title: string;
   description?: string;
-  /** URL absoluta de la imagen para og:image / twitter:image */
   image?: string;
+  noIndex?: boolean;
+  jsonLd?: object | object[] | null;
 }
+
+const JSONLD_ID = 'jsonld-primary';
 
 function setMeta(selector: string, attr: string, value: string, create = true) {
   let el = document.querySelector(selector);
@@ -30,10 +34,51 @@ function setCanonical(href: string) {
   el.href = href;
 }
 
-export function PageMeta({ title, description, image }: PageMetaProps) {
+function setRobots(content: string | null) {
+  let el = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
+  if (!content) {
+    el?.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute('name', 'robots');
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+function setJsonLd(data: object | object[] | null) {
+  const existing = document.getElementById(JSONLD_ID);
+  if (!data) {
+    existing?.remove();
+    return;
+  }
+  const payload = Array.isArray(data)
+    ? {
+        '@context': 'https://schema.org',
+        '@graph': data.map((item) => {
+          const rest = { ...(item as Record<string, unknown>) };
+          delete rest['@context'];
+          return rest;
+        }),
+      }
+    : data;
+  let el = existing as HTMLScriptElement | null;
+  if (!el) {
+    el = document.createElement('script');
+    el.id = JSONLD_ID;
+    el.type = 'application/ld+json';
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(payload);
+}
+
+export function PageMeta({ title, description, image, noIndex, jsonLd }: PageMetaProps) {
   const { pathname } = useLocation();
   const url = siteUrl(pathname);
   const ogImage = image || `${site.origin}/og-image.jpg`;
+  const jsonLdKey = jsonLd === undefined ? '__default' : jsonLd === null ? '__none' : JSON.stringify(jsonLd);
 
   useEffect(() => {
     document.title = title;
@@ -55,7 +100,15 @@ export function PageMeta({ title, description, image }: PageMetaProps) {
     setMeta('meta[property="og:image:height"]', 'content', '630');
     setMeta('meta[name="twitter:card"]', 'content', 'summary_large_image');
     setMeta('meta[name="twitter:image"]', 'content', ogImage);
-  }, [title, description, ogImage, url]);
+    setRobots(noIndex ? 'noindex, nofollow' : null);
+    if (noIndex || jsonLdKey === '__none') {
+      setJsonLd(null);
+    } else if (jsonLdKey === '__default') {
+      setJsonLd(professionalServiceJsonLd(url));
+    } else {
+      setJsonLd(JSON.parse(jsonLdKey) as object | object[]);
+    }
+  }, [title, description, ogImage, url, noIndex, jsonLdKey]);
 
   return null;
 }

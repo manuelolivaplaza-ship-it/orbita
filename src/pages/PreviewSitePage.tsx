@@ -27,7 +27,7 @@ export default function PreviewSitePage() {
     const card = params.get('card') === '1';
     return (
       <div className={card ? 'preview-card-shot' : undefined}>
-        <PageMeta title={`${preview.name} · Preview Reclu`} description={`Web de ejemplo: ${preview.name}.`} />
+        <PageMeta title={`${preview.name} · Preview Reclu`} description={`Web de ejemplo: ${preview.name}.`} noIndex />
         <Component />
       </div>
     );
@@ -35,7 +35,7 @@ export default function PreviewSitePage() {
 
   return (
     <>
-      <PageMeta title={`${preview.name} · Preview Reclu`} description={`Recorre la web de ejemplo de ${preview.name}.`} />
+      <PageMeta title={`${preview.name} · Preview Reclu`} description={`Recorre la web de ejemplo de ${preview.name}.`} noIndex />
       <Component />
       <PreviewReturnPopup name={preview.name} caseSlug={preview.caseSlug} />
     </>

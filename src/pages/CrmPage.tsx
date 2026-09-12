@@ -20,6 +20,7 @@ export default function CrmPage() {
       <PageMeta
         title={`Panel · ${current.brand}`}
         description="Administra catálogo, prospectos, agenda y el sitio desde un solo panel."
+        noIndex
       />
       <CrmWorkspace
         key={current.slug}

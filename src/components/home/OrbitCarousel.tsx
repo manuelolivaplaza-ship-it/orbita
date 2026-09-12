@@ -246,7 +246,6 @@ export const OrbitCarousel: React.FC = () => {
                       shotHeight={SHOT_H}
                       scale={shotScale}
                       iframeSandbox="allow-scripts"
-                      eager
                       fallbackNode={
                         <div
                           className="absolute inset-0"
