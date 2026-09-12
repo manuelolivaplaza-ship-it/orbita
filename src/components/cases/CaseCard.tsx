@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import type { CaseStudy } from '../../data/cases';
-import { getPreviewPath } from '../../data/cases';
 import { CoverImage } from '../CoverImage';
-import { PreviewHeroShot } from './PreviewHeroShot';
 
 interface CaseCardProps {
   caseStudy: CaseStudy;
@@ -22,14 +20,15 @@ function displayHost(url?: string) {
  */
 export const CaseCard: React.FC<CaseCardProps> = ({ caseStudy, variant = 'default' }) => {
   const host = displayHost(caseStudy.url);
-  const previewSrc =
-    caseStudy.kind === 'preview' && caseStudy.previewSlug
-      ? `${getPreviewPath(caseStudy, true)}&card=1`
-      : null;
+  const kindLabel = caseStudy.kind === 'live' ? 'En producción' : 'Preview';
+  const accessibleName = [caseStudy.name, kindLabel, caseStudy.industry, caseStudy.tagline, host]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <Link
       to={`/creaciones/${caseStudy.slug}`}
+      aria-label={accessibleName}
       className={`galeria-card group flex flex-col outline-none ${
         variant === 'wide' ? 'md:col-span-2' : ''
       }`}
@@ -40,22 +39,14 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseStudy, variant = 'defaul
         }`}
       >
         <div className="absolute inset-0 origin-top-left transition-transform duration-700 ease-out group-hover:scale-[1.06]">
-          {previewSrc ? (
-            <PreviewHeroShot
-              src={previewSrc}
-              fallbackImage={caseStudy.cover}
-              name={caseStudy.name}
-            />
-          ) : (
-            <CoverImage
-              src={caseStudy.cover}
-              alt={`Captura de ${caseStudy.name}`}
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              width={1440}
-              height={900}
-              loading="lazy"
-            />
-          )}
+          <CoverImage
+            src={caseStudy.cover}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-top"
+            width={1440}
+            height={900}
+            loading="lazy"
+          />
         </div>
       </div>
 

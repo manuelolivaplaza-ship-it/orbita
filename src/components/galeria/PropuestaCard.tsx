@@ -41,10 +41,14 @@ export const PropuestaCard: React.FC<{
   const variantLabel = VARIANT_LABELS[variant];
   const featured = size === 'featured';
   const wide = variantProp === 'wide';
+  const accessibleName = [brand, sectorInfo?.label ?? sector, variantLabel, 'Demo', description]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <Link
       to={`/propuesta/${slug}?from=${encodeURIComponent(backTo)}`}
+      aria-label={accessibleName}
       className={`galeria-card group flex flex-col outline-none ${wide ? 'md:col-span-2' : ''}`}
       style={{ animationDelay: `${Math.min(index, 8) * 70}ms` }}
     >

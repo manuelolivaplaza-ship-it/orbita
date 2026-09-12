@@ -53,7 +53,7 @@ export const MobileHeroCarousel: React.FC = () => {
             <Link
               key={item.slug}
               to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
-              aria-label={`${item.brand} — ${sectorInfo?.label ?? item.sector}`}
+              aria-label={`${item.brand} · ${sectorInfo?.label ?? item.sector}`}
               className="relative h-[13.75rem] w-[min(19.5rem,82%)] shrink-0 snap-start overflow-hidden rounded-2xl bg-zinc-100 shadow-[0_12px_28px_-8px_rgba(15,15,40,0.20)] ring-1 ring-black/[0.08] transition-transform duration-200 active:scale-[0.98]"
             >
               <PreviewHeroShot

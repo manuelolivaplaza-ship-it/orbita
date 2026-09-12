@@ -96,7 +96,8 @@ export function PreviewHeroShot({
       {active && (
         <iframe
           src={src}
-          title={`Hero de ${name}`}
+          title=""
+          aria-hidden
           tabIndex={-1}
           loading={eager ? 'eager' : 'lazy'}
           onLoad={() => setReady(true)}
