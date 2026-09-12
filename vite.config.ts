@@ -64,6 +64,47 @@ function removePublicPropuestasIndex() {
   if (fs.existsSync(published)) fs.unlinkSync(published);
 }
 
+/** Next exporta url(/_next/static/media/*.woff2); bajo /propuestas/:slug hay que reescribir. */
+function rebaseNextUrls(content: string, slug: string): string {
+  const prefix = `/propuestas/${slug}`;
+  if (content.includes(`${prefix}/_next/`)) {
+    content = content.split(`${prefix}/_next/`).join('/_next/');
+  }
+  if (!content.includes('/_next/')) return content;
+  return content.split('/_next/').join(`${prefix}/_next/`);
+}
+
+function rewriteNextUrlsInTree(dir: string, slug: string) {
+  const exts = new Set(['.css', '.html', '.js', '.json', '.svg']);
+  const walk = (d: string) => {
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(d, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) {
+        if (e.name === 'node_modules') continue;
+        walk(p);
+        continue;
+      }
+      if (!exts.has(path.extname(e.name).toLowerCase())) continue;
+      let text: string;
+      try {
+        text = fs.readFileSync(p, 'utf8');
+      } catch {
+        continue;
+      }
+      if (!text.includes('/_next/')) continue;
+      const next = rebaseNextUrls(text, slug);
+      if (next !== text) fs.writeFileSync(p, next);
+    }
+  };
+  walk(dir);
+}
+
 /* ---------- Catálogo de propuestas (módulo virtual) ---------- */
 
 const VIRTUAL_CATALOGO = 'virtual:propuestas-catalogo';
@@ -375,7 +416,32 @@ function propuestasPlugin(): Plugin {
           }
         }
 
-        // 2. Interceptar rutas relativas a la raíz (/images/ o /media/) cuando el referer es un iframe de propuesta
+        // 2. Fuentes Next absolutas (/_next/static/media/*.woff2) pedidas desde el iframe de una demo
+        if (req.url && req.url.startsWith('/_next/') && req.headers.referer) {
+          const refMatch = String(req.headers.referer).match(/\/propuestas\/([a-zA-Z0-9_-]+)/);
+          if (refMatch) {
+            const slug = refMatch[1];
+            const folder = path.join(root, slug);
+            const cleanRel = req.url.replace(/^\//, '').split('?')[0];
+            const candidates = [
+              path.join(folder, 'dist', cleanRel),
+              path.join(folder, cleanRel),
+            ];
+            for (const cand of candidates) {
+              if (fs.existsSync(cand) && fs.statSync(cand).isFile()) {
+                const buf = fs.readFileSync(cand);
+                res.setHeader('Content-Type', MIME[path.extname(cand).toLowerCase()] || 'application/octet-stream');
+                res.setHeader('Content-Length', buf.length);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+                res.end(buf);
+                return;
+              }
+            }
+          }
+        }
+
+        // 3. Interceptar rutas relativas a la raíz (/images/ o /media/) cuando el referer es un iframe de propuesta
         if (req.url && (req.url.startsWith('/images/') || req.url.startsWith('/media/')) && req.headers.referer) {
           const refMatch = req.headers.referer.match(/\/propuestas\/([a-zA-Z0-9_-]+)/);
           if (refMatch) {
@@ -458,7 +524,9 @@ function propuestasPlugin(): Plugin {
           }
         } catch (err) {
           console.warn(`[closeBundle] Advertencia al copiar ${entry.name}:`, (err as Error).message);
+          continue;
         }
+        if (fs.existsSync(dest)) rewriteNextUrlsInTree(dest, entry.name);
       }
     },
   };
