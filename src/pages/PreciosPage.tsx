@@ -10,7 +10,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
-import { faqPageJsonLd, offerCatalogJsonLd, professionalServiceJsonLd } from '../seo/schema';
+import { faqPageJsonLd, offerCatalogJsonLd, webPageJsonLd } from '../seo/schema';
 import { siteUrl, whatsappUrl } from '../data/site';
 import { Orb } from '../components/orb';
 import {
@@ -87,7 +87,11 @@ export default function PreciosPage() {
         title="Precios web | Reclu"
         description={`Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
         jsonLd={[
-          professionalServiceJsonLd(siteUrl('/precios')),
+          webPageJsonLd({
+            title: 'Precios web | Reclu',
+            description: `Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`,
+            url: siteUrl('/precios'),
+          }),
           offerCatalogJsonLd(
             plans.map((p) => ({
               name: p.name,

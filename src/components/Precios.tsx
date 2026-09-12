@@ -44,7 +44,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
     <section id="precios" className="bg-[#F7F8FC] px-4 py-16 sm:px-6 sm:py-28 relative z-10">
       <div className="max-w-[88rem] mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#6B7280] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-3 inline-block">
+          <span className="text-xs font-semibold uppercase tracking-widest text-zinc-700 bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-3 inline-block">
             Inversión transparente
           </span>
           <h2 className="mb-3 text-3xl font-medium tracking-tight text-[#0B0B12] sm:text-5xl">
@@ -71,10 +71,10 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2 mb-1">
               <h3 className="text-base font-medium text-[#0B0B12]">Modo Turbo</h3>
-              <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-700 text-white px-2 py-0.5 rounded-full">
                 Gratis hasta el {TURBO_PROMO_UNTIL_SHORT}
               </span>
-              <span className="text-[11px] text-zinc-400 line-through">
+              <span className="text-[11px] text-zinc-500 line-through">
                 $280.000 / 7 UF
               </span>
               <span className="text-[10px] font-semibold text-zinc-600">
@@ -133,7 +133,7 @@ export const Precios: React.FC<PreciosProps> = ({ onOpenQuoteModal }) => {
                         {plan.price}
                       </span>
                     </div>
-                    <span className="text-[11px] font-mono text-zinc-400 block">
+                    <span className="text-[11px] font-mono text-zinc-600 block">
                       o {plan.priceUf} · 50% al partir / 50% al publicar
                     </span>
                     <span className="text-[11px] text-zinc-500 block mb-3 mt-0.5">

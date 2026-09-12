@@ -3,7 +3,7 @@ import { type ReactNode, useEffect, useRef, useState } from 'react';
 /** Monta children al acercarse al viewport. Evita JS/media pesado en el primer paint. */
 export function LazyOnView({
   children,
-  rootMargin = '480px',
+  rootMargin = '120px',
   minHeight,
 }: {
   children: ReactNode;
@@ -30,7 +30,7 @@ export function LazyOnView({
   }, [rootMargin]);
 
   return (
-    <div ref={ref} style={!show && minHeight != null ? { minHeight } : undefined}>
+    <div ref={ref} style={minHeight != null ? { minHeight } : undefined}>
       {show ? children : null}
     </div>
   );

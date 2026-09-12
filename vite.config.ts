@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { completeOrbChat, type ChatTurn } from './lib/complete-orb';
 
+const SKIP_PROPUESTAS = process.env.SKIP_PROPUESTAS === '1';
+
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -207,6 +209,7 @@ type CatalogEntry = {
 };
 
 function readCatalogo(root: string): CatalogEntry[] {
+  if (SKIP_PROPUESTAS) return [];
   if (!fs.existsSync(root)) return [];
   const entries: CatalogEntry[] = [];
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
@@ -419,6 +422,10 @@ function propuestasPlugin(): Plugin {
     },
     closeBundle() {
       removePublicPropuestasIndex();
+      if (SKIP_PROPUESTAS) {
+        console.log('[propuestas] SKIP_PROPUESTAS=1 — no se copian demos a dist');
+        return;
+      }
       if (!fs.existsSync(root)) return;
       const destRoot = path.resolve(__dirname, 'dist/propuestas');
       fs.mkdirSync(destRoot, { recursive: true });
@@ -539,9 +546,11 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: {
         ignored: [
-          '**/propuestas/**/dist/**',
-          '**/propuestas/**/.next/**',
-          '**/propuestas/**/node_modules/**',
+          '**/propuestas/**',
+          '**/crm/**',
+          '**/Mi apoyo/**',
+          '**/_archivo-v3/**',
+          '**/_archivo-v4-prompts/**',
         ],
       },
     },
@@ -551,7 +560,6 @@ export default defineConfig(() => {
           manualChunks: {
             vendor: ['react', 'react-dom', 'react-router-dom'],
             supabase: ['@supabase/supabase-js'],
-            icons: ['lucide-react'],
           },
         },
       },

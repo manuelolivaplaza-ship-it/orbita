@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle2, MessageCircle, Sparkles, CalendarDays, ArrowRight } from 'lucide-react';
 import { ContactFormData } from '../types';
-import { submitLead } from '../lib/leads';
+
 import { FIELD_MAX } from '../lib/formLimits';
 import { sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
 import { HoneypotField } from './HoneypotField';
@@ -43,6 +43,7 @@ export const Contacto: React.FC<ContactoProps> = ({
     setLoading(true);
     setError(null);
     try {
+      const { submitLead } = await import('../lib/leads');
       await submitLead({
         source: 'contacto',
         nombre: formData.nombre,
@@ -76,7 +77,7 @@ export const Contacto: React.FC<ContactoProps> = ({
           <div className="absolute top-48 left-36 w-60 h-60 bg-zinc-300/30 rounded-full blur-3xl pointer-events-none animate-float-y-delayed" />
 
           <div className="relative z-10">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#6B7280] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-4 inline-block">
+            <span className="text-xs font-semibold uppercase tracking-widest text-zinc-700 bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-4 inline-block">
               Contacto Directo
             </span>
 

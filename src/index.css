@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "./**/*.{tsx,ts,css}";
+@source "../index.html";
 @source not "../../propuestas";
 @source not "../../crm";
 @source not "../../dist";
@@ -7,7 +9,6 @@
 @import "@fontsource/inter/latin-600.css";
 @import "@fontsource/inter/latin-700.css";
 @import "@fontsource/outfit/latin-500.css";
-@import "@fontsource/outfit/latin-600.css";
 @import "./components/orb/orb.css";
 
 @layer base {
@@ -16,8 +17,16 @@
     overflow-x: clip;
     max-width: 100%;
   }
+  @font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial');
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 22%;
+    line-gap-override: 0%;
+  }
   body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Inter, 'Inter Fallback', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: clip;
     max-width: 100%;
   }

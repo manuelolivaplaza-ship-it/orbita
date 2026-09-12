@@ -94,7 +94,7 @@ export const GaleriaTeaser: React.FC = () => {
                     className="group/s inline-flex items-baseline gap-1.5 text-sm text-zinc-600 transition-colors hover:text-[#0B0B12]"
                   >
                     {sector.label}
-                    <span className="tabular-nums text-[11px] text-zinc-400 transition-colors group-hover/s:text-zinc-500">
+                    <span className="tabular-nums text-[11px] text-zinc-600 transition-colors group-hover/s:text-zinc-700">
                       {counts[sector.slug]}
                     </span>
                   </Link>
@@ -107,12 +107,12 @@ export const GaleriaTeaser: React.FC = () => {
         {featured && (
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0">
             <div className="lg:col-span-7 xl:col-span-8">
-              <PropuestaCard {...featured} index={0} size="featured" />
+              <PropuestaCard {...featured} index={0} size="featured" live={false} />
             </div>
             {rest.length > 0 && (
               <div className="flex flex-col gap-12 sm:grid sm:grid-cols-2 sm:gap-8 lg:col-span-5 lg:flex lg:flex-col lg:gap-10 xl:col-span-4">
                 {rest.map((entry, i) => (
-                  <PropuestaCard key={entry.slug} {...entry} index={i + 1} />
+                  <PropuestaCard key={entry.slug} {...entry} index={i + 1} live={false} />
                 ))}
               </div>
             )}

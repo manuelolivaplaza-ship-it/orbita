@@ -218,7 +218,7 @@ export const OrbitCarousel: React.FC = () => {
             >
               <Link
                 to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
-                aria-label={`Ver propuesta ${item.brand}`}
+                aria-label={`${item.brand} — ${sectorInfo?.label ?? item.sector}`}
                 tabIndex={i === frontIdx ? 0 : -1}
                 className="group block h-full overflow-hidden rounded-[1.25rem] bg-zinc-100 shadow-[0_22px_50px_-18px_rgba(15,15,40,0.30)] ring-1 ring-black/[0.07] hover:shadow-[0_28px_60px_-16px_rgba(15,15,40,0.42)] hover:ring-black/15 transition-all duration-300"
                 onMouseEnter={() => {

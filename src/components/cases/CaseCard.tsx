@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import type { CaseStudy } from '../../data/cases';
 import { getPreviewPath } from '../../data/cases';
+import { CoverImage } from '../CoverImage';
 import { PreviewHeroShot } from './PreviewHeroShot';
 
 interface CaseCardProps {
@@ -46,10 +47,12 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseStudy, variant = 'defaul
               name={caseStudy.name}
             />
           ) : (
-            <img
+            <CoverImage
               src={caseStudy.cover}
               alt={`Captura de ${caseStudy.name}`}
               className="absolute inset-0 h-full w-full object-cover object-top"
+              width={1440}
+              height={900}
               loading="lazy"
             />
           )}
@@ -75,7 +78,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseStudy, variant = 'defaul
             {caseStudy.tagline}
           </p>
           {host && (
-            <p className="mt-2 text-sm text-zinc-400">{host}</p>
+            <p className="mt-2 text-sm text-zinc-600">{host}</p>
           )}
         </div>
 

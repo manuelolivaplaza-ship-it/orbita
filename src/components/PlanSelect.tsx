@@ -170,7 +170,7 @@ export function PlanSelect({ id, value, onChange }: PlanSelectProps) {
               {selected.name}
             </span>
             {selected.popular && (
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280] bg-zinc-100 border border-zinc-200 rounded-full px-1.5 py-0.5 shrink-0">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-700 bg-zinc-100 border border-zinc-200 rounded-full px-1.5 py-0.5 shrink-0">
                 Popular
               </span>
             )}
@@ -229,7 +229,7 @@ export function PlanSelect({ id, value, onChange }: PlanSelectProps) {
                           className={`text-[10px] font-semibold uppercase tracking-wider rounded-full px-1.5 py-0.5 ${
                             isSelected
                               ? 'bg-white/12 text-white/80'
-                              : 'bg-zinc-100 text-[#6B7280] border border-zinc-200'
+                              : 'bg-zinc-100 text-zinc-700 border border-zinc-200'
                           }`}
                         >
                           Popular

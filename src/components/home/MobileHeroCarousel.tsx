@@ -36,10 +36,10 @@ export const MobileHeroCarousel: React.FC = () => {
   return (
     <div className="w-full max-w-full">
       <div className="mb-3 flex items-center justify-between px-5">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
           Propuestas en vivo
         </span>
-        <span className="text-[11px] text-zinc-400">Desliza →</span>
+        <span className="text-[11px] text-zinc-600">Desliza →</span>
       </div>
 
       <div
@@ -53,7 +53,7 @@ export const MobileHeroCarousel: React.FC = () => {
             <Link
               key={item.slug}
               to={`/propuesta/${item.slug}?from=${encodeURIComponent(`/galeria/${item.sector}`)}`}
-              aria-label={`Ver propuesta ${item.brand}`}
+              aria-label={`${item.brand} — ${sectorInfo?.label ?? item.sector}`}
               className="relative h-[13.75rem] w-[min(19.5rem,82%)] shrink-0 snap-start overflow-hidden rounded-2xl bg-zinc-100 shadow-[0_12px_28px_-8px_rgba(15,15,40,0.20)] ring-1 ring-black/[0.08] transition-transform duration-200 active:scale-[0.98]"
             >
               <PreviewHeroShot
@@ -62,6 +62,7 @@ export const MobileHeroCarousel: React.FC = () => {
                 shotWidth={960}
                 shotHeight={620}
                 iframeSandbox="allow-scripts"
+                live={false}
                 fallbackNode={
                   <div
                     className="absolute inset-0"

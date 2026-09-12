@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { lazy, Suspense, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -9,7 +9,10 @@ import {
   Maximize2,
 } from 'lucide-react';
 import catalogo from 'virtual:propuestas-catalogo';
-import { CrmWorkspace } from '../crm/CrmWorkspace';
+
+const CrmWorkspace = lazy(() =>
+  import('../crm/CrmWorkspace').then((m) => ({ default: m.CrmWorkspace })),
+);
 
 export const CrmShowcase: React.FC = () => {
   const [currentSlug, setCurrentSlug] = useState('dentista-b-oscuro-premium');
@@ -58,14 +61,16 @@ export const CrmShowcase: React.FC = () => {
                 <span>Abrir panel a pantalla completa</span>
                 <Maximize2 className="h-4 w-4 text-zinc-300" />
               </Link>
-              <Link
-                to={`/propuesta/${currentProposal.slug}`}
-                target="_blank"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 shadow-2xs hover:bg-zinc-50"
-              >
-                <ExternalLink className="h-4 w-4" />
-                <span>Ver el sitio público</span>
-              </Link>
+              {currentProposal && (
+                <Link
+                  to={`/propuesta/${currentProposal.slug}`}
+                  target="_blank"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 shadow-2xs hover:bg-zinc-50"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>Ver el sitio público</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -75,16 +80,26 @@ export const CrmShowcase: React.FC = () => {
             Panel real · usa las pestañas de abajo
           </p>
           <div className="relative h-[min(70dvh,560px)] w-full min-w-0 max-w-full overflow-hidden overscroll-x-contain sm:h-[820px]">
-            <CrmWorkspace
-              key={currentProposal.slug}
-              slug={currentProposal.slug}
-              brand={currentProposal.brand}
-              sector={currentProposal.sector}
-              description={currentProposal.description}
-              compact
-              onSelectCompany={setCurrentSlug}
-              initialSection="catalog"
-            />
+            {currentProposal ? (
+              <Suspense fallback={<div className="h-full w-full bg-zinc-50" aria-hidden />}>
+                <CrmWorkspace
+                  key={currentProposal.slug}
+                  slug={currentProposal.slug}
+                  brand={currentProposal.brand}
+                  sector={currentProposal.sector}
+                  description={currentProposal.description}
+                  compact
+                  onSelectCompany={setCurrentSlug}
+                  initialSection="catalog"
+                />
+              </Suspense>
+            ) : (
+              <div className="flex h-full items-center justify-center bg-zinc-50 px-6 text-center">
+                <Link to="/crm/demo" className="text-sm font-medium text-zinc-700 underline">
+                  Abrir demo del panel
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 

@@ -1,14 +1,15 @@
 import { lazy, Suspense } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Hero } from '../components/Hero';
-import { CasosReales } from '../components/home/CasosReales';
 import { LazyOnView } from '../components/LazyOnView';
 import { PageMeta } from '../components/PageMeta';
 import { HOME_FAQS } from '../data/faq';
-import { siteUrl } from '../data/site';
-import { faqPageJsonLd, professionalServiceJsonLd } from '../seo/schema';
+import { faqPageJsonLd, professionalServiceJsonLd, webSiteJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
+const CasosReales = lazy(() =>
+  import('../components/home/CasosReales').then((m) => ({ default: m.CasosReales })),
+);
 const GaleriaTeaser = lazy(() =>
   import('../components/home/GaleriaTeaser').then((m) => ({ default: m.GaleriaTeaser })),
 );
@@ -36,37 +37,44 @@ export default function HomePage() {
       <PageMeta
         title="Reclu | Sitios web en 7–14 días + WhatsApp"
         description="Rediseñamos tu web en 7–14 días: clara, rápida y con WhatsApp para que te escriban. Demos de rubro en vivo. Santiago, Chile."
-        image={siteUrl('/og-image.jpg')}
-        jsonLd={[professionalServiceJsonLd(siteUrl('/')), faqPageJsonLd(HOME_FAQS)]}
+        jsonLd={[professionalServiceJsonLd(), faqPageJsonLd(HOME_FAQS), webSiteJsonLd()]}
       />
       <Hero onOpenQuoteModal={onOpenQuoteModal} onOpenSchedule={onOpenSchedule} />
-      <LazyOnView minHeight={720}>
+      <LazyOnView minHeight={720} rootMargin="0px">
         <Suspense fallback={null}>
           <GaleriaTeaser />
         </Suspense>
       </LazyOnView>
-      <CasosReales />
-      <LazyOnView minHeight={900}>
+      <LazyOnView minHeight={420} rootMargin="0px">
+        <Suspense fallback={null}>
+          <CasosReales />
+        </Suspense>
+      </LazyOnView>
+      <LazyOnView minHeight={900} rootMargin="0px">
         <Suspense fallback={null}>
           <CrmShowcase />
         </Suspense>
       </LazyOnView>
-      <LazyOnView minHeight={640}>
+      <LazyOnView minHeight={640} rootMargin="0px">
         <Suspense fallback={null}>
           <ShowcasePanel onOpenQuoteModal={onOpenQuoteModal} />
         </Suspense>
       </LazyOnView>
-      <LazyOnView minHeight={720}>
+      <LazyOnView minHeight={720} rootMargin="0px">
         <Suspense fallback={null}>
           <Precios onOpenQuoteModal={onOpenQuoteModal} />
         </Suspense>
       </LazyOnView>
-      <Suspense fallback={null}>
-        <FaqAccordion />
-      </Suspense>
-      <Suspense fallback={null}>
-        <Contacto preselectedPlan={selectedPlan} onOpenSchedule={onOpenSchedule} />
-      </Suspense>
+      <LazyOnView minHeight={480} rootMargin="0px">
+        <Suspense fallback={null}>
+          <FaqAccordion />
+        </Suspense>
+      </LazyOnView>
+      <LazyOnView minHeight={640} rootMargin="0px">
+        <Suspense fallback={null}>
+          <Contacto preselectedPlan={selectedPlan} onOpenSchedule={onOpenSchedule} />
+        </Suspense>
+      </LazyOnView>
     </>
   );
 }

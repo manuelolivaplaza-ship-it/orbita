@@ -21,6 +21,8 @@ export const PropuestaCard: React.FC<{
   size?: 'default' | 'featured';
   index?: number;
   eager?: boolean;
+  /** false en el home: sin iframe Next (LCP). La galería sigue en vivo. */
+  live?: boolean;
 }> = ({
   slug,
   brand,
@@ -31,6 +33,7 @@ export const PropuestaCard: React.FC<{
   size = 'default',
   index = 0,
   eager = false,
+  live = true,
 }) => {
   const sectorInfo = getSector(sector);
   const accent = sectorInfo?.accent ?? '#6B7280';
@@ -57,7 +60,8 @@ export const PropuestaCard: React.FC<{
             shotWidth={SHOT_W}
             shotHeight={SHOT_H}
             iframeSandbox="allow-scripts"
-            eager={eager || index < 2}
+            eager={eager}
+            live={live}
             fallbackNode={
               <div
                 className="absolute inset-0"

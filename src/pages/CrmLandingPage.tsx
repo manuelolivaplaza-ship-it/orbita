@@ -2,7 +2,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { ArrowRight, MessageCircle, Package, ShieldCheck, Sparkles } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
 import { siteUrl, whatsappUrl } from '../data/site';
-import { professionalServiceJsonLd } from '../seo/schema';
+import { webPageJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 const WA_TEXT = 'Hola Reclu! Quisiera pedir un presupuesto para el panel CRM con WhatsApp.';
@@ -15,7 +15,12 @@ export default function CrmLandingPage() {
       <PageMeta
         title="CRM con WhatsApp | Reclu"
         description="Cada sitio Reclu incluye panel de administración: catálogo, prospectos, agenda, pedidos y WhatsApp. Sin HubSpot ni cuota extra."
-        jsonLd={professionalServiceJsonLd(siteUrl('/crm'))}
+        jsonLd={webPageJsonLd({
+          title: 'CRM con WhatsApp | Reclu',
+          description:
+            'Cada sitio Reclu incluye panel de administración: catálogo, prospectos, agenda, pedidos y WhatsApp. Sin HubSpot ni cuota extra.',
+          url: siteUrl('/crm'),
+        })}
       />
 
       <section className="relative z-10 px-4 pt-28 pb-12 sm:px-6 sm:pt-32 sm:pb-20">

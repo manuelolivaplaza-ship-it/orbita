@@ -14,6 +14,7 @@ export function PreviewHeroShot({
   shotHeight = 980,
   iframeSandbox,
   eager = false,
+  live = true,
   scale: scaleProp,
 }: {
   src: string;
@@ -25,6 +26,8 @@ export function PreviewHeroShot({
   iframeSandbox?: string;
   /** Carga el iframe de inmediato, sin esperar IntersectionObserver. */
   eager?: boolean;
+  /** Si es false, solo se muestra el poster/fallback (home móvil: sin iframes Next). */
+  live?: boolean;
   /** Si viene de afuera, no hace falta ResizeObserver. */
   scale?: number;
 }) {
@@ -48,6 +51,10 @@ export function PreviewHeroShot({
       ro.observe(el);
     }
 
+    if (!live) {
+      return () => ro?.disconnect();
+    }
+
     if (eager) {
       setActive(true);
       return () => ro?.disconnect();
@@ -57,7 +64,7 @@ export function PreviewHeroShot({
       ([entry]) => {
         if (entry.isIntersecting) setActive(true);
       },
-      { rootMargin: '720px 0px' },
+      { rootMargin: '80px 0px' },
     );
     io.observe(el);
 
@@ -65,7 +72,7 @@ export function PreviewHeroShot({
       ro?.disconnect();
       io.disconnect();
     };
-  }, [shotWidth, eager, scaleProp]);
+  }, [shotWidth, eager, scaleProp, live]);
 
   return (
     <div ref={hostRef} className="absolute inset-0 overflow-hidden bg-zinc-100">

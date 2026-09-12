@@ -1,11 +1,12 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { LiquidGlassFilter } from '../components/LiquidGlass';
+import { LazyOnView } from '../components/LazyOnView';
 import { planKeyFromName } from '../data/pricing';
 
+const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })));
 const BudgetModal = lazy(() =>
   import('../components/BudgetModal').then((m) => ({ default: m.BudgetModal })),
 );
@@ -20,8 +21,9 @@ export const MainLayout: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>('Estación');
+  const [showOrb, setShowOrb] = useState(false);
   const [params, setParams] = useSearchParams();
-  const hideOrb = modalOpen || scheduleOpen;
+  const hideOrb = modalOpen || scheduleOpen || !showOrb;
 
   const handleOpenQuoteModal = (planName?: string) => {
     setSelectedPlan(planName || 'Estación');
@@ -29,6 +31,11 @@ export const MainLayout: React.FC = () => {
   };
 
   const handleOpenSchedule = () => setScheduleOpen(true);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowOrb(true), 4000);
+    return () => window.clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     if (params.get('cotizar') === '1') {
@@ -61,7 +68,11 @@ export const MainLayout: React.FC = () => {
           }}
         />
       </main>
-      <Footer />
+      <LazyOnView minHeight={640} rootMargin="0px">
+        <Suspense fallback={<div className="h-[40rem] bg-white border-t border-zinc-200/80" aria-hidden />}>
+          <Footer />
+        </Suspense>
+      </LazyOnView>
       {modalOpen && (
         <Suspense fallback={null}>
           <BudgetModal isOpen={modalOpen} onClose={() => setModalOpen(false)} defaultPlan={selectedPlan} />
@@ -72,13 +83,15 @@ export const MainLayout: React.FC = () => {
           <ScheduleModal isOpen={scheduleOpen} onClose={() => setScheduleOpen(false)} />
         </Suspense>
       )}
-      <Suspense fallback={null}>
-        <OrbAssistant
-          hidden={hideOrb}
-          onOpenQuoteModal={handleOpenQuoteModal}
-          onOpenSchedule={handleOpenSchedule}
-        />
-      </Suspense>
+      {showOrb && (
+        <Suspense fallback={null}>
+          <OrbAssistant
+            hidden={hideOrb}
+            onOpenQuoteModal={handleOpenQuoteModal}
+            onOpenSchedule={handleOpenSchedule}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };

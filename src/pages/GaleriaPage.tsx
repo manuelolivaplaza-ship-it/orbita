@@ -15,6 +15,8 @@ import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
+import { siteUrl } from '../data/site';
+import { webPageJsonLd } from '../seo/schema';
 
 const POPULAR_SLUGS = [
   'legal',
@@ -141,6 +143,13 @@ export default function GaleriaPage() {
       <PageMeta
         title="Galería de demos | Reclu"
         description="Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones."
+        jsonLd={webPageJsonLd({
+          title: 'Galería de demos | Reclu',
+          description:
+            'Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones.',
+          url: siteUrl('/galeria'),
+          type: 'CollectionPage',
+        })}
       />
 
       <div className="relative z-30 px-4 pt-24 sm:px-6 sm:pt-28">
@@ -197,7 +206,7 @@ export default function GaleriaPage() {
                             value={sectorFilterQuery}
                             onChange={(e) => setSectorFilterQuery(e.target.value)}
                             placeholder="Buscar rubro..."
-                            className="w-full pl-8 pr-3 py-1.5 text-xs bg-zinc-50 border border-zinc-200/80 rounded-xl text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-400 transition-colors"
+                            className="w-full pl-8 pr-3 py-1.5 text-xs bg-zinc-50 border border-zinc-200/80 rounded-xl text-[#0B0B12] placeholder-zinc-500 focus:outline-none focus:bg-white focus:border-zinc-400 transition-colors"
                             autoFocus
                           />
                         </div>
@@ -356,13 +365,17 @@ export default function GaleriaPage() {
 
               {/* Buscador reactivo */}
               <div className="relative min-w-0 flex-1 sm:w-56 sm:flex-none">
-                <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <label htmlFor="galeria-buscar" className="sr-only">
+                  Buscar propuestas
+                </label>
+                <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="galeria-buscar"
                   type="text"
                   value={query}
                   onChange={(e) => handleQueryChange(e.target.value)}
                   placeholder="Buscar..."
-                  className="w-full rounded-full border border-transparent bg-zinc-100/90 py-2 pl-8 pr-7 text-sm text-[#0B0B12] placeholder-zinc-400 shadow-2xs transition-all hover:bg-zinc-100 focus:border-zinc-300 focus:bg-white focus:outline-none sm:py-1 sm:text-sm"
+                  className="w-full rounded-full border border-transparent bg-zinc-100/90 py-2 pl-8 pr-7 text-sm text-[#0B0B12] placeholder-zinc-500 shadow-2xs transition-all hover:bg-zinc-100 focus:border-zinc-300 focus:bg-white focus:outline-none sm:py-1 sm:text-sm"
                 />
                 {query && (
                   <button
@@ -410,13 +423,13 @@ export default function GaleriaPage() {
                   {...entry}
                   index={i}
                   variantProp="default"
-                  eager={i < 4}
+                  eager={i === 0}
                 />
               ))}
             </div>
           ) : (
             <div className="rounded-3xl border border-zinc-200/80 bg-white px-8 py-16 text-center max-w-md mx-auto my-12 shadow-xs">
-              <div className="w-12 h-12 rounded-2xl bg-zinc-100 text-zinc-400 flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-zinc-100 text-zinc-500 flex items-center justify-center mx-auto mb-4">
                 <Search className="w-5 h-5" />
               </div>
               <p className="text-base font-semibold text-[#0B0B12] mb-1">

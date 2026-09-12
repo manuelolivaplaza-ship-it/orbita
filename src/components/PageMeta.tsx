@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { site, siteUrl } from '../data/site';
-import { professionalServiceJsonLd } from '../seo/schema';
+import { webPageJsonLd } from '../seo/schema';
 
 interface PageMetaProps {
   title: string;
@@ -104,7 +104,7 @@ export function PageMeta({ title, description, image, noIndex, jsonLd }: PageMet
     if (noIndex || jsonLdKey === '__none') {
       setJsonLd(null);
     } else if (jsonLdKey === '__default') {
-      setJsonLd(professionalServiceJsonLd(url));
+      setJsonLd(webPageJsonLd({ title, description, url }));
     } else {
       setJsonLd(JSON.parse(jsonLdKey) as object | object[]);
     }
