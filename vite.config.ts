@@ -67,11 +67,20 @@ function removePublicPropuestasIndex() {
 /** Next exporta url(/_next/static/media/*.woff2); bajo /propuestas/:slug hay que reescribir. */
 function rebaseNextUrls(content: string, slug: string): string {
   const prefix = `/propuestas/${slug}`;
-  if (content.includes(`${prefix}/_next/`)) {
-    content = content.split(`${prefix}/_next/`).join('/_next/');
+  // Escapado JSON (\/_next\/) primero: el raw /_next/ es subcadena de eso.
+  if (content.includes('\\/_next\\/')) {
+    content = content.replace(
+      /(?:\\\/propuestas\\\/[A-Za-z0-9_-]+)?\\\/_next\\\//g,
+      `\\/propuestas\\/${slug}\\/_next\\/`,
+    );
   }
-  if (!content.includes('/_next/')) return content;
-  return content.split('/_next/').join(`${prefix}/_next/`);
+  if (content.includes('/_next/')) {
+    content = content.replace(
+      /(?:\/propuestas\/[A-Za-z0-9_-]+)?\/_next\//g,
+      `${prefix}/_next/`,
+    );
+  }
+  return content;
 }
 
 function rewriteNextUrlsInTree(dir: string, slug: string) {
