@@ -5,6 +5,8 @@ import catalogo from 'virtual:propuestas-catalogo';
 import { SECTORES, getSector } from '../data/sectores';
 import { PropuestaCard } from '../components/galeria/PropuestaCard';
 import { PageMeta } from '../components/PageMeta';
+import { siteUrl } from '../data/site';
+import { webPageJsonLd } from '../seo/schema';
 import { BASE_PRICES, IVA_SHORT, PLAN_HINTS, formatCLP } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
@@ -42,6 +44,12 @@ export default function GaleriaSectorPage() {
       <PageMeta
         title={`${sector.label} | Galería de propuestas Reclu`}
         description={`${sector.heroTitle}. ${sector.description}`}
+        jsonLd={webPageJsonLd({
+          title: `${sector.label} | Galería de propuestas Reclu`,
+          description: `${sector.heroTitle}. ${sector.description}`,
+          url: siteUrl(`/galeria/${sector.slug}`),
+          type: 'CollectionPage',
+        })}
       />
 
       <section className="relative z-10 px-4 pt-28 pb-10 sm:px-6 sm:pt-32 sm:pb-12">

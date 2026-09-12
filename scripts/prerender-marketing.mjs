@@ -91,17 +91,60 @@ function webPage(route) {
   };
 }
 
-function faqPage() {
+function faqPage(faqs = HOME_FAQS) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: HOME_FAQS.map((faq) => ({
+    mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
       acceptedAnswer: { '@type': 'Answer', text: faq.answer },
     })),
   };
 }
+
+const PRICING_FAQS = [
+  {
+    question: '¿Por qué ofrecen precios en UF y en CLP?',
+    answer:
+      'En Chile, la Unidad de Fomento (UF) es el estándar preferido por empresas, clínicas y servicios profesionales para contratos comerciales y facturación B2B, mientras que el peso chileno (CLP) facilita el pago inmediato a personas y pequeños emprendimientos. Puedes cotizar en cualquiera de las dos monedas con total transparencia.',
+  },
+  {
+    question: '¿Los precios incluyen IVA?',
+    answer:
+      'No. Todos los valores publicados son netos; se suma el 19% de IVA al facturar (boleta o factura electrónica). En las tarjetas y el cotizador verás “valores netos + 19% IVA” junto al precio.',
+  },
+  {
+    question: '¿Hay mensualidades o cobros ocultos obligatorios?',
+    answer:
+      'No en la compra única. El sitio y el CRM se pagan una vez (50% al iniciar y 50% al publicar). El código es tuyo. Si después quieres hosting, backups y soporte, está Reclu Care ($60.000 / 1,5 UF al mes), opcional. Si prefieres no pagar el desarrollo de entrada, los planes mensuales incluyen el sitio, el CRM y Orbit.',
+  },
+  {
+    question: '¿Qué incluye un plan mensual?',
+    answer:
+      'El sitio web va incluido (no cobramos el desarrollo aparte). También el panel CRM y Orbit, el chat con IA de esta plataforma — el mismo que ves en la esquina. Esencial: 2,5 UF y 2.000 chats/mes. Pro: 5 UF y 5.000 chats. Escala: 7 UF y 10.000 chats. Sin permanencia.',
+  },
+  {
+    question: '¿Qué es un chat con Orbit?',
+    answer:
+      'Orbit es el asistente con IA de Reclu: el globo de la esquina de esta web. En tu sitio será el mismo chat, entrenado con tu negocio. Un chat es una conversación completa de un visitante con Orbit (preguntas, respuestas, derivación a WhatsApp o al CRM), no un mensaje suelto.',
+  },
+  {
+    question: '¿Cómo funciona la forma de pago?',
+    answer:
+      'Trabajamos con el esquema estándar de la industria: 50% de anticipo para reservar el espacio en calendario y comenzar la producción, y el 50% restante únicamente cuando el sitio esté completamente terminado, probado y aprobado por ti antes de conectarlo a tu dominio definitivo.',
+  },
+  {
+    question: '¿Realmente el Modo Turbo es gratis?',
+    answer:
+      'Sí, hasta el 31/10/2026. El Modo Turbo (entrega en 7 días hábiles) está a $0 para Sonda y Estación, sujeto a que nos entregues contenidos y accesos a tiempo. Después de esa fecha vuelve a su valor normal ($280.000 / 7 UF).',
+  },
+  {
+    question: '¿Qué pasa si necesito agregar funciones más adelante?',
+    answer:
+      'Tu sitio se construye sobre código moderno, modular y escalable (React / Tailwind / Vite). Puedes empezar hoy con el Plan Sonda o Estación y más adelante agregar nuevas páginas, catálogo interactivo o sistemas de reserva sin tener que rehacer la web desde cero.',
+  },
+];
 
 function offerCatalog() {
   const offers = [
@@ -140,7 +183,7 @@ function asGraph(items) {
 
 function jsonLdFor(route) {
   if (route.path === '/') return asGraph([professionalService(), faqPage(), webSite()]);
-  if (route.path === '/precios') return asGraph([webPage(route), offerCatalog()]);
+  if (route.path === '/precios') return asGraph([webPage(route), offerCatalog(), faqPage(PRICING_FAQS)]);
   return webPage(route);
 }
 
