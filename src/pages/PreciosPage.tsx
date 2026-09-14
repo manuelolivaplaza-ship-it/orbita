@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
   Check,
@@ -35,7 +35,6 @@ export default function PreciosPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [showAllDetails, setShowAllDetails] = useState<boolean>(false);
   const [showMonthlyDetails, setShowMonthlyDetails] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const renderFeatureBullet = (feat: string, isPopular: boolean) => {
     const parts = feat.split(': ');
@@ -61,16 +60,6 @@ export default function PreciosPage() {
       </li>
     );
   };
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const handleEnded = () => {
-      v.pause();
-    };
-    v.addEventListener('ended', handleEnded);
-    return () => v.removeEventListener('ended', handleEnded);
-  }, []);
 
   // Group comparison table by category
   const categories = Array.from(new Set(COMPARISON_TABLE.map((row) => row.category)));
@@ -102,18 +91,16 @@ export default function PreciosPage() {
       />
 
       <div className="relative isolate min-h-screen bg-[#F7F8FC] pb-24 sm:pb-32 overflow-hidden">
-        {/* Background Hero Video: plays once, stays on the last frame, with subtle bottom fade */}
+        {/* Background Hero: mountain landscape with subtle bottom fade */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[620px] sm:h-[720px] overflow-hidden -z-10 select-none">
-          <video
-            ref={videoRef}
-            src="/video/precios-hero.mp4"
-            autoPlay
-            muted
-            playsInline
-            preload="metadata"
+          <img
+            src="/media/mountain-landscape.jpg"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-90"
           />
-          {/* Subtle bottom fade only at the lower edge so the video is crisp and visible */}
+          {/* Subtle bottom fade only at the lower edge so the image is crisp and visible */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
