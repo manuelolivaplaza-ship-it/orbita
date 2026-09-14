@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** En Vercel no hay dist commiteado. Armamos las demos Vite con el Vite de la raíz (sin npm install por carpeta). */
+/** En Vercel no hay dist commiteado. Cada demo se construye en su carpeta, con su vite.config. */
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.join(repo, 'propuestas');
 const viteBin = path.join(repo, 'node_modules', 'vite', 'bin', 'vite.js');
@@ -48,6 +48,12 @@ function hasDist(dir) {
   return fs.existsSync(path.join(dir, 'dist', 'index.html'));
 }
 
+function configFile(dir) {
+  return ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].find((name) =>
+    fs.existsSync(path.join(dir, name)),
+  );
+}
+
 if (!fs.existsSync(viteBin)) {
   console.warn('[propuestas-vercel] no hay vite en node_modules, se omite el build de demos');
   process.exit(0);
@@ -74,12 +80,28 @@ for (const slug of slugs()) {
     ok += 1;
     continue;
   }
+  const config = configFile(dir);
+  if (!config) {
+    console.warn(`[propuestas-vercel] ${slug} sin vite.config, se omite`);
+    skip += 1;
+    continue;
+  }
 
   console.log(`→ ${slug}`);
   const result = spawnSync(
     process.execPath,
-    [viteBin, 'build', '--root', path.join('propuestas', slug), '--base', `/propuestas/${slug}/`, '--outDir', 'dist'],
-    { cwd: repo, stdio: 'inherit', env: process.env, timeout: 120000 },
+    [
+      viteBin,
+      'build',
+      '--config',
+      config,
+      '--base',
+      `/propuestas/${slug}/`,
+      '--outDir',
+      path.join(dir, 'dist'),
+      '--emptyOutDir',
+    ],
+    { cwd: dir, stdio: 'inherit', env: process.env, timeout: 120000 },
   );
   if (result.status === 0 && hasDist(dir)) {
     ok += 1;

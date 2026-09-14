@@ -5,6 +5,8 @@ build/
 dist/
 propuestas/**/node_modules
 propuestas/**/dist
+propuestas/**/.next
+propuestas/**/out
 coverage/
 .DS_Store
 *.log

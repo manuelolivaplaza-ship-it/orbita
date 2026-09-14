@@ -508,6 +508,7 @@ function propuestasPlugin(): Plugin {
       if (!fs.existsSync(root)) return;
       const destRoot = path.resolve(__dirname, 'dist/propuestas');
       fs.mkdirSync(destRoot, { recursive: true });
+      let copied = 0;
       for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
         if (
           !entry.isDirectory() ||
@@ -529,11 +530,13 @@ function propuestasPlugin(): Plugin {
               fs.mkdirSync(dest, { recursive: true });
               fs.copyFileSync(meta, path.join(dest, 'meta.json'));
             }
+            copied += 1;
           } else {
             fs.cpSync(folder, dest, {
               recursive: true,
               filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
             });
+            copied += 1;
           }
         } catch (err) {
           console.warn(`[closeBundle] Advertencia al copiar ${entry.name}:`, (err as Error).message);
@@ -545,6 +548,7 @@ function propuestasPlugin(): Plugin {
           console.warn(`[closeBundle] no se reescribieron URLs de ${entry.name}:`, (err as Error).message);
         }
       }
+      console.log(`[propuestas] copiadas a dist: ${copied}`);
     },
   };
 }

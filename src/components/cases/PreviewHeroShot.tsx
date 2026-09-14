@@ -61,7 +61,7 @@ export function PreviewHeroShot({
       try {
         const res = await fetch(src, { method: 'HEAD', cache: 'no-store' });
         let ok = res.ok;
-        if (res.status === 405 || res.status === 501) {
+        if (!ok) {
           const get = await fetch(src, { method: 'GET', cache: 'no-store' });
           ok = get.ok;
         }
