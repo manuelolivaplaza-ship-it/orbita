@@ -656,6 +656,10 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    // Solo el index del sitio. Sin esto Vite globs **/*.html y mete demos/crm en el bundle.
+    optimizeDeps: {
+      entries: ['index.html'],
+    },
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: {
@@ -670,6 +674,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rollupOptions: {
+        input: path.resolve(__dirname, 'index.html'),
         output: {
           manualChunks: {
             vendor: ['react', 'react-dom', 'react-router-dom'],
