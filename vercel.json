@@ -1,5 +1,7 @@
 {
-  "buildCommand": "SKIP_PROPUESTAS=1 npm run build:marketing",
+  "framework": "vite",
+  "installCommand": "npm install --include=dev",
+  "buildCommand": "npm run build:vercel",
   "outputDirectory": "dist",
   "trailingSlash": false,
   "redirects": [
