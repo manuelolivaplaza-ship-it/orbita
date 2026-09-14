@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
-
+import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
 import { HoneypotField } from './HoneypotField';
 import { site, sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
@@ -26,7 +26,6 @@ export const Footer: React.FC = () => {
     setSending(true);
     setError(null);
     try {
-      const { submitLead } = await import('../lib/leads');
       await submitLead({ source: 'newsletter', email: email.trim(), honey });
       setSubmitted(true);
       setEmail('');
@@ -58,7 +57,7 @@ export const Footer: React.FC = () => {
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <Link
-                  to="/contacto"
+                  to="/#contacto"
                   className="inline-flex items-center gap-2.5 rounded-full bg-[#0B0B12] text-white hover:bg-zinc-800 px-6 py-2.5 text-sm font-medium transition-all shadow-sm active:scale-[0.99]"
                 >
                   <span>Cotizar proyecto</span>
@@ -90,19 +89,14 @@ export const Footer: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <HoneypotField value={honey} onChange={setHoney} />
                   <div className="flex flex-col sm:flex-row gap-2">
-                    <label htmlFor="footer-newsletter-email" className="sr-only">
-                      Correo electrónico
-                    </label>
                     <input
-                      id="footer-newsletter-email"
                       type="email"
                       value={email}
                       maxLength={FIELD_MAX.email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="tu@empresa.com"
-                      autoComplete="email"
                       required
-                      className="flex-1 bg-[#F7F8FC] border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-[#0B0B12] placeholder-zinc-500 focus:outline-none focus:border-zinc-500 focus:bg-white transition-colors"
+                      className="flex-1 bg-[#F7F8FC] border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-[#0B0B12] placeholder-zinc-400 focus:outline-none focus:border-zinc-500 focus:bg-white transition-colors"
                     />
                     <button
                       type="submit"
@@ -114,7 +108,7 @@ export const Footer: React.FC = () => {
                     </button>
                   </div>
                   {!consent && (
-                    <p className="text-[11px] text-zinc-600">
+                    <p className="text-[11px] text-zinc-400">
                       El botón se habilita cuando aceptas el contacto por correo.
                     </p>
                   )}
@@ -152,17 +146,17 @@ export const Footer: React.FC = () => {
             </p>
             <div className="pt-2 space-y-2 text-xs text-zinc-500">
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                 <span>Santiago, Chile · Cobertura internacional</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                 <a href={siteTelHref} className="hover:text-[#0B0B12] transition-colors">
                   {sitePhoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                 <a href={`mailto:${site.email}`} className="hover:text-[#0B0B12] transition-colors">
                   {site.email}
                 </a>
@@ -172,7 +166,7 @@ export const Footer: React.FC = () => {
 
           {/* Soluciones */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Soluciones</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Soluciones</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
               <li><Link to="/servicios" className="hover:text-[#0B0B12] transition-colors">Sitios Web & Landings</Link></li>
               <li><Link to="/crm" className="hover:text-[#0B0B12] transition-colors">Panel CRM con WhatsApp</Link></li>
@@ -184,7 +178,7 @@ export const Footer: React.FC = () => {
 
           {/* Explorar */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Explorar</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Explorar</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
               <li><Link to="/creaciones" className="hover:text-[#0B0B12] transition-colors">Creaciones en vivo</Link></li>
               <li><Link to="/galeria" className="hover:text-[#0B0B12] transition-colors">Propuestas por rubro</Link></li>
@@ -196,9 +190,9 @@ export const Footer: React.FC = () => {
 
           {/* Contacto & Legal */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Contacto & Legal</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Contacto & Legal</p>
             <ul className="space-y-2.5 text-sm text-zinc-600">
-              <li><Link to="/contacto" className="hover:text-[#0B0B12] transition-colors">Pedir cotización</Link></li>
+              <li><Link to="/#contacto" className="hover:text-[#0B0B12] transition-colors">Pedir cotización</Link></li>
               <li><Link to="/?agendar=1" className="hover:text-[#0B0B12] transition-colors">Agendar reunión</Link></li>
               <li>
                 <a

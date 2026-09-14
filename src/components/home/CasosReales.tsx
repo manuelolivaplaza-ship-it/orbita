@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { CoverImage } from '../CoverImage';
 import { getFeaturedCases } from '../../data/cases';
 
 const RESULTADO: Record<string, string> = {
@@ -56,12 +55,10 @@ export const CasosReales: React.FC = () => {
               className="group flex gap-4 rounded-2xl border border-zinc-200/90 bg-white p-4 shadow-xs transition-colors hover:border-zinc-300 sm:p-5"
             >
               <div className="h-24 w-32 shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:h-28 sm:w-40">
-                <CoverImage
+                <img
                   src={c.cover}
-                  alt={`Sitio de ${c.name}`}
+                  alt=""
                   className="h-full w-full object-cover object-top"
-                  width={160}
-                  height={112}
                   loading="lazy"
                 />
               </div>
@@ -79,7 +76,7 @@ export const CasosReales: React.FC = () => {
                   {RESULTADO[c.slug] ?? c.result}
                 </p>
                 {c.url && (
-                  <p className="mt-2 text-xs text-zinc-600">
+                  <p className="mt-2 text-xs text-zinc-400">
                     {c.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                   </p>
                 )}

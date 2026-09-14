@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 import { Contacto } from '../components/Contacto';
 import { PageMeta } from '../components/PageMeta';
 import { siteUrl } from '../data/site';
-import { breadcrumbJsonLd, webPageJsonLd } from '../seo/schema';
+import { professionalServiceJsonLd } from '../seo/schema';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
 export default function ContactoPage() {
@@ -13,19 +13,7 @@ export default function ContactoPage() {
       <PageMeta
         title="Contacto | Reclu"
         description="Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión. WhatsApp +56 9 3540 9699. Santiago, Chile."
-        jsonLd={[
-          webPageJsonLd({
-            title: 'Contacto | Reclu',
-            description:
-              'Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión. WhatsApp +56 9 3540 9699. Santiago, Chile.',
-            url: siteUrl('/contacto'),
-            type: 'ContactPage',
-          }),
-          breadcrumbJsonLd([
-            { name: 'Reclu', path: '/' },
-            { name: 'Contacto', path: '/contacto' },
-          ]),
-        ]}
+        jsonLd={professionalServiceJsonLd(siteUrl('/contacto'))}
       />
       <div className="pt-12 sm:pt-16">
         <Contacto

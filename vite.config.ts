@@ -611,8 +611,28 @@ function orbApiPlugin(): Plugin {
   };
 }
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const supabaseUrl =
+    env.VITE_SUPABASE_URL ||
+    env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.VITE_SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    '';
+  const supabaseAnon =
+    env.VITE_SUPABASE_ANON_KEY ||
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    '';
+  if (mode === 'production') {
+    console.log(
+      `[vite] supabase url: ${supabaseUrl ? 'ok' : 'MISSING'} · anon: ${supabaseAnon ? 'ok' : 'MISSING'}`,
+    );
+  }
+
   return {
+    envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
     plugins: [orbApiPlugin(), react(), tailwindcss(), propuestasPlugin()],
     resolve: {
       alias: {

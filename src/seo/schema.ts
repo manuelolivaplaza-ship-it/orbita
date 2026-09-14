@@ -1,13 +1,12 @@
 import { site, siteUrl } from '../data/site';
 import type { FaqItem } from '../types';
 
-/** Organización del estudio. URL canónica del home; no repetir en cada ruta. */
-export function professionalServiceJsonLd() {
+export function professionalServiceJsonLd(pageUrl = siteUrl('/')) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: site.name,
-    url: siteUrl('/'),
+    url: pageUrl,
     image: siteUrl('/og-image.jpg'),
     description:
       'Estudio web en Santiago de Chile. Sitios claros y rápidos en 7–14 días, con WhatsApp para que te escriban.',
@@ -20,59 +19,6 @@ export function professionalServiceJsonLd() {
     email: site.email,
     telephone: '+56935409699',
     priceRange: '$420.000–$1.490.000 CLP',
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+56935409699',
-      contactType: 'sales',
-      areaServed: 'CL',
-      availableLanguage: 'es-CL',
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Planes web Reclu',
-      url: siteUrl('/precios'),
-    },
-  };
-}
-
-export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.name,
-      item: siteUrl(item.path),
-    })),
-  };
-}
-
-export function webSiteJsonLd() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: site.name,
-    url: siteUrl('/'),
-    inLanguage: 'es-CL',
-    publisher: { '@type': 'Organization', name: site.name, url: siteUrl('/') },
-  };
-}
-
-export function webPageJsonLd(opts: {
-  title: string;
-  description?: string;
-  url: string;
-  type?: 'WebPage' | 'ContactPage' | 'CollectionPage' | 'AboutPage';
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': opts.type ?? 'WebPage',
-    name: opts.title,
-    description: opts.description,
-    url: opts.url,
-    isPartOf: { '@type': 'WebSite', name: site.name, url: siteUrl('/') },
-    inLanguage: 'es-CL',
   };
 }
 

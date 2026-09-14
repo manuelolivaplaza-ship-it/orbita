@@ -1,45 +1,6 @@
 /** Rutas de marketing indexables. Fuente para sitemap + prerender. */
 export const ORIGIN = 'https://www.reclu.cl';
 
-/** Copia del FAQ del home para JSON-LD en el HTML prerenderizado. */
-export const HOME_FAQS = [
-  {
-    question: '¿Cuánto tarda un proyecto típico?',
-    answer:
-      'Un proyecto promedio toma entre 2 y 4 semanas según el nivel de complejidad y el plan seleccionado. Definimos un calendario estricto desde el día 1.',
-  },
-  {
-    question: '¿Los textos los escriben ustedes?',
-    answer:
-      'Sí, escribimos el copywriting en español orientado a conversión a partir de tu brief inicial. Tú revisas y validas el tono antes de publicar.',
-  },
-  {
-    question: '¿Incluye hosting y dominio?',
-    answer:
-      'El desarrollo es compra única: el código es tuyo. Hosting y dominio no van en el plan base. Si quieres que nosotros nos encarguemos después de publicar, está Reclu Care ($60.000/mes): hosting, SSL, backups y soporte.',
-  },
-  {
-    question: '¿Solo trabajan en Chile?',
-    answer:
-      'No. Trabajamos 100% online con clientes en todo Chile y Latinoamérica. Mantenemos coordinación fluida por Google Meet y WhatsApp.',
-  },
-  {
-    question: '¿Puedo usar mi logo actual?',
-    answer:
-      'Totalmente. Si ya tienes identidad de marca, la integramos respetando sus guías. Si no tienes logo, creamos un wordmark tipográfico limpio y moderno para la web.',
-  },
-  {
-    question: '¿Qué necesito para empezar?',
-    answer:
-      'Solo 3 cosas: claridad sobre qué vendes y a quién, 2 o 3 páginas web de referencia que te gusten visualmente, y el objetivo principal que quieres lograr.',
-  },
-  {
-    question: '¿Puedo agendar una reunión?',
-    answer:
-      'Sí. En Agendar eliges un día hábil (lunes a viernes) entre 8:00 y 19:00, hora de Santiago. La llamada dura 30 minutos y te confirmamos el link.',
-  },
-];
-
 export const NAV = [
   { href: '/', label: 'Inicio' },
   { href: '/creaciones', label: 'Creaciones' },
@@ -108,7 +69,6 @@ export const ROUTES = [
       'Rediseñamos tu web en 7–14 días: clara, rápida y con WhatsApp para que te escriban. Demos de rubro en vivo. Santiago, Chile.',
     h1: 'Creamos sitios que venden.',
     lead: 'Claros, rápidos y listos en 7–14 días, con WhatsApp para que te escriban. Recorre una demo de tu rubro antes de partir.',
-    schemaType: 'WebPage',
     changefreq: 'weekly',
     priority: '1.0',
   },
@@ -119,7 +79,6 @@ export const ROUTES = [
       'Casos reales en producción: ProgramBI (web + CRM / leads a WhatsApp) y Maverlang. Las demos de rubro están en la galería.',
     h1: 'Creaciones.',
     lead: 'Sitios de clientes en producción: ProgramBI y Maverlang. Las demos de rubro están en la galería.',
-    schemaType: 'CollectionPage',
     changefreq: 'weekly',
     priority: '0.8',
   },
@@ -130,7 +89,6 @@ export const ROUTES = [
       'Demos y propuestas de rubro para recorrer en vivo. No son sitios de clientes — esos están en Creaciones.',
     h1: 'Galería de propuestas',
     lead: 'Demos y propuestas de rubro para recorrer en vivo. Elige una dirección de diseño y la adaptamos a tu marca.',
-    schemaType: 'CollectionPage',
     changefreq: 'weekly',
     priority: '0.8',
   },
@@ -141,7 +99,6 @@ export const ROUTES = [
       'Landings de conversión, sitios multi-sección, rediseños y campañas. Productos digitales que venden.',
     h1: 'No plantillas. Sistemas que venden.',
     lead: 'Cada entregable tiene un trabajo concreto: frenar el scroll, explicar la oferta y convertir la visita en un mensaje.',
-    schemaType: 'WebPage',
     changefreq: 'monthly',
     priority: '0.8',
   },
@@ -152,7 +109,6 @@ export const ROUTES = [
       'Compra única o plan mensual con sitio incluido, CRM y Orbit. Valores netos + 19% IVA. Turbo gratis hasta el 31/10.',
     h1: 'Inversión clara. Compra única.',
     lead: 'Planes Sonda, Estación y Constelación. Compra única o mensual con sitio, CRM y Orbit.',
-    schemaType: 'WebPage',
     changefreq: 'weekly',
     priority: '0.9',
   },
@@ -163,7 +119,6 @@ export const ROUTES = [
       'Cada sitio Reclu incluye panel de administración: catálogo, prospectos, agenda, pedidos y WhatsApp. Sin HubSpot ni cuota extra.',
     h1: 'Tu web no es un folleto. Viene con panel de control.',
     lead: 'Cada propuesta incluye su propio admin: catálogo, prospectos, agenda, pedidos y WhatsApp. Sin HubSpot ni cuota extra.',
-    schemaType: 'WebPage',
     changefreq: 'monthly',
     priority: '0.8',
   },
@@ -174,7 +129,6 @@ export const ROUTES = [
       'Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión. WhatsApp +56 9 3540 9699. Santiago, Chile.',
     h1: 'Impulsa tu marca con Reclu.',
     lead: 'Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión — sin una propuesta de 40 páginas.',
-    schemaType: 'ContactPage',
     changefreq: 'monthly',
     priority: '0.7',
   },
@@ -211,7 +165,6 @@ export const ROUTES = [
     description: `${s.title}. ${s.description}`,
     h1: s.title,
     lead: s.description,
-    schemaType: 'CollectionPage',
     changefreq: 'monthly',
     priority: '0.6',
   })),

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle2, MessageCircle, Sparkles, CalendarDays, ArrowRight } from 'lucide-react';
 import { ContactFormData } from '../types';
-
+import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
 import { sitePhoneDisplay, siteTelHref, whatsappUrl } from '../data/site';
 import { HoneypotField } from './HoneypotField';
@@ -10,14 +10,9 @@ import { PlanSelect, normalizeContactPlan } from './PlanSelect';
 interface ContactoProps {
   preselectedPlan?: string;
   onOpenSchedule?: () => void;
-  headingAs?: 'h1' | 'h2';
 }
 
-export const Contacto: React.FC<ContactoProps> = ({
-  preselectedPlan,
-  onOpenSchedule,
-  headingAs = 'h2',
-}) => {
+export const Contacto: React.FC<ContactoProps> = ({ preselectedPlan, onOpenSchedule }) => {
   const [formData, setFormData] = useState<ContactFormData>({
     nombre: '',
     email: '',
@@ -43,7 +38,6 @@ export const Contacto: React.FC<ContactoProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const { submitLead } = await import('../lib/leads');
       await submitLead({
         source: 'contacto',
         nombre: formData.nombre,
@@ -77,27 +71,17 @@ export const Contacto: React.FC<ContactoProps> = ({
           <div className="absolute top-48 left-36 w-60 h-60 bg-zinc-300/30 rounded-full blur-3xl pointer-events-none animate-float-y-delayed" />
 
           <div className="relative z-10">
-            <span className="text-xs font-semibold uppercase tracking-widest text-zinc-700 bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-4 inline-block">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#6B7280] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200 mb-4 inline-block">
               Contacto Directo
             </span>
 
-            {headingAs === 'h1' ? (
-              <h1
-                className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
-                style={{ letterSpacing: '-0.04em' }}
-              >
-                Impulsa tu marca<br />
-                con Reclu.
-              </h1>
-            ) : (
-              <h2
-                className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
-                style={{ letterSpacing: '-0.04em' }}
-              >
-                Impulsa tu marca<br />
-                con Reclu.
-              </h2>
-            )}
+            <h2 
+              className="mb-6 text-[1.85rem] font-medium leading-[1.08] tracking-tight text-[#0B0B12] sm:text-5xl lg:text-6xl"
+              style={{ letterSpacing: '-0.04em' }}
+            >
+              Impulsa tu marca<br />
+              con Reclu.
+            </h2>
 
             <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-sm mb-4">
               Cuéntanos qué vendes. Te respondemos con enfoque y rango de inversión — sin una propuesta de 40 páginas.
@@ -224,22 +208,16 @@ export const Contacto: React.FC<ContactoProps> = ({
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="contacto-telefono"
-                    className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5"
-                  >
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
                     Teléfono (Opcional)
                   </label>
                   <input
-                    id="contacto-telefono"
                     type="tel"
-                    name="telefono"
-                    autoComplete="tel"
                     maxLength={FIELD_MAX.telefono}
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                     placeholder="+56 9 1234 5678"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] placeholder:text-zinc-500 focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-zinc-200 bg-white text-base sm:text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all"
                   />
                 </div>
               </div>
@@ -259,22 +237,17 @@ export const Contacto: React.FC<ContactoProps> = ({
               </div>
 
               <div>
-                <label
-                  htmlFor="contacto-mensaje"
-                  className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5"
-                >
+                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-1.5">
                   Cuéntanos sobre tu negocio y proyecto *
                 </label>
                 <textarea
-                  id="contacto-mensaje"
-                  name="mensaje"
                   required
                   rows={4}
                   maxLength={FIELD_MAX.mensaje}
                   value={formData.mensaje}
                   onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
                   placeholder="¿Qué vendes, cuál es tu objetivo y para cuándo quieres lanzar?"
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] placeholder:text-zinc-500 focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-sm text-[#0B0B12] focus:ring-2 focus:ring-[#6B7280]/30 focus:border-[#6B7280] outline-none transition-all resize-none"
                 />
               </div>
 

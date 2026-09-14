@@ -14,7 +14,6 @@ export function PreviewHeroShot({
   shotHeight = 980,
   iframeSandbox,
   eager = false,
-  live = true,
   scale: scaleProp,
 }: {
   src: string;
@@ -26,8 +25,6 @@ export function PreviewHeroShot({
   iframeSandbox?: string;
   /** Carga el iframe de inmediato, sin esperar IntersectionObserver. */
   eager?: boolean;
-  /** Si es false, solo se muestra el poster/fallback (home móvil: sin iframes Next). */
-  live?: boolean;
   /** Si viene de afuera, no hace falta ResizeObserver. */
   scale?: number;
 }) {
@@ -51,10 +48,6 @@ export function PreviewHeroShot({
       ro.observe(el);
     }
 
-    if (!live) {
-      return () => ro?.disconnect();
-    }
-
     if (eager) {
       setActive(true);
       return () => ro?.disconnect();
@@ -64,7 +57,7 @@ export function PreviewHeroShot({
       ([entry]) => {
         if (entry.isIntersecting) setActive(true);
       },
-      { rootMargin: '80px 0px' },
+      { rootMargin: '720px 0px' },
     );
     io.observe(el);
 
@@ -72,7 +65,7 @@ export function PreviewHeroShot({
       ro?.disconnect();
       io.disconnect();
     };
-  }, [shotWidth, eager, scaleProp, live]);
+  }, [shotWidth, eager, scaleProp]);
 
   return (
     <div ref={hostRef} className="absolute inset-0 overflow-hidden bg-zinc-100">
@@ -93,11 +86,10 @@ export function PreviewHeroShot({
           {fallbackNode}
         </div>
       )}
-      {live && active && (
+      {active && (
         <iframe
           src={src}
-          title=""
-          aria-hidden
+          title={`Hero de ${name}`}
           tabIndex={-1}
           loading={eager ? 'eager' : 'lazy'}
           onLoad={() => setReady(true)}
