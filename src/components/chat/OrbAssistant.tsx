@@ -569,6 +569,12 @@ function generateOrbResponse(query: string): {
   const matchingSector = SECTORES.find((s) => q.includes(s.slug) || q.includes(s.label.toLowerCase()));
   if (matchingSector) {
     const proposal = catalogo.find((p) => p.sector === matchingSector.slug) || catalogo[0];
+    if (!proposal) {
+      return {
+        text: `Sí, hacemos sitios para **${matchingSector.label}**. Mirá la galería o pedí una cotización.`,
+        state: 'happy',
+      };
+    }
     return {
       text: `¡Sí, tenemos propuestas especializadas para el rubro **${matchingSector.label}**! 🎯\n\nNuestros diseños para este sector están optimizados con llamados a la acción claros, botones de WhatsApp y catálogo de servicios listos para tu marca.`,
       state: 'happy',
@@ -608,6 +614,12 @@ function generateOrbResponse(query: string): {
   for (const [key, sectorSlug] of Object.entries(keywordsMap)) {
     if (q.includes(key)) {
       const proposal = catalogo.find((p) => p.sector === sectorSlug || p.slug.includes(key)) || catalogo[0];
+      if (!proposal) {
+        return {
+          text: 'Tenemos demos de rubro en la galería. Si me decís el giro, te oriento a un plan.',
+          state: 'happy',
+        };
+      }
       const sectorObj = SECTORES.find((s) => s.slug === proposal.sector);
       return {
         text: `Tenemos justamente propuestas diseñadas para ese rubro. Mira este ejemplo en vivo de **${proposal.brand}** con arquitectura enfocada en conseguir pacientes o clientes:`,

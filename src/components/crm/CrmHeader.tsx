@@ -38,7 +38,7 @@ export const CrmHeader: React.FC<CrmHeaderProps> = ({
   onSelectCompany,
 }) => {
   const navigate = useNavigate();
-  const currentProposal = catalogo.find((p) => p.slug === currentSlug) || catalogo[0];
+  const currentProposal = catalogo.find((p) => p.slug === currentSlug) || catalogo[0] || null;
 
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur-md">

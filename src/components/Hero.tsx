@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Compass } from 'lucide-react';
-import { OrbitCarousel } from './home/OrbitCarousel';
-import { MobileHeroCarousel } from './home/MobileHeroCarousel';
+import { SoftBoundary } from './SoftBoundary';
+
+const MobileHeroCarousel = lazy(() =>
+  import('./home/MobileHeroCarousel').then((m) => ({ default: m.MobileHeroCarousel })),
+);
+const OrbitCarousel = lazy(() =>
+  import('./home/OrbitCarousel').then((m) => ({ default: m.OrbitCarousel })),
+);
 
 interface HeroProps {
   onOpenQuoteModal: (planName?: string) => void;
   onOpenSchedule: () => void;
 }
 
+function useIsLg() {
+  const [lg, setLg] = useState<boolean | null>(null);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const apply = () => setLg(mq.matches);
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
+  return lg;
+}
+
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
+  const isLg = useIsLg();
+
   return (
     <section
       id="hero"
@@ -31,14 +51,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
             className="mb-3.5 text-[2.05rem] font-medium leading-[1.04] tracking-tight text-[#0B0B12] sm:mb-6 sm:text-6xl lg:text-7xl"
             style={{ letterSpacing: '-0.045em' }}
           >
-            <span className="block overflow-hidden py-0.5">
-              <span className="block animate-clip-reveal">Creamos sitios</span>
-            </span>
-            <span className="block overflow-hidden py-0.5">
-              <span className="block animate-clip-reveal" style={{ animationDelay: '0.12s' }}>
-                que venden.
-              </span>
-            </span>
+            Creamos sitios
+            <span className="block">que venden.</span>
           </h1>
 
           <p
@@ -74,17 +88,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
         </div>
       </div>
 
-      <div
-        className="relative mt-8 w-full max-w-full overflow-x-clip lg:hidden"
-      >
-        <MobileHeroCarousel />
+      <div className="relative mt-8 min-h-[16.5rem] w-full max-w-full overflow-x-clip lg:hidden">
+        {isLg === false && (
+          <Suspense fallback={<div className="h-[16.5rem]" aria-hidden />}>
+            <SoftBoundary>
+              <MobileHeroCarousel />
+            </SoftBoundary>
+          </Suspense>
+        )}
       </div>
 
       <div
         className="pointer-events-auto hidden animate-fade-in-up lg:absolute lg:inset-0 lg:left-[50%] lg:block lg:h-full lg:w-auto xl:left-[42%] 2xl:left-[38%]"
         style={{ animationDelay: '0.2s' }}
       >
-        <OrbitCarousel />
+        {isLg === true && (
+          <Suspense fallback={null}>
+            <SoftBoundary>
+              <OrbitCarousel />
+            </SoftBoundary>
+          </Suspense>
+        )}
       </div>
     </section>
   );

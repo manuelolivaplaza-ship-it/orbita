@@ -35,6 +35,8 @@ export const CompanySelectorDropdown: React.FC<CompanySelectorDropdownProps> = (
   const navigate = useNavigate();
 
   const currentProposal = catalogo.find((p) => p.slug === currentSlug) || catalogo[0];
+  const label = currentProposal?.brand || currentSlug || 'Demo';
+  const sectorLabel = currentProposal?.sector;
 
   // Close on outside click
   useEffect(() => {
@@ -92,10 +94,12 @@ export const CompanySelectorDropdown: React.FC<CompanySelectorDropdownProps> = (
         }`}
       >
         <Building2 className="h-3.5 w-3.5 text-zinc-500 group-hover:text-zinc-900 transition-colors" />
-        <span className="min-w-0 flex-1 truncate text-left font-semibold tracking-tight text-zinc-950">{currentProposal.brand}</span>
-        <span className="hidden sm:inline-block rounded bg-zinc-200/70 px-1.5 py-0.2 font-mono text-[10px] text-zinc-600 uppercase">
-          {currentProposal.sector}
-        </span>
+        <span className="min-w-0 flex-1 truncate text-left font-semibold tracking-tight text-zinc-950">{label}</span>
+        {sectorLabel ? (
+          <span className="hidden sm:inline-block rounded bg-zinc-200/70 px-1.5 py-0.2 font-mono text-[10px] text-zinc-600 uppercase">
+            {sectorLabel}
+          </span>
+        ) : null}
         <ChevronDown
           className={`h-3.5 w-3.5 text-zinc-400 transition-transform duration-200 ${
             isOpen ? 'rotate-180 text-zinc-900' : 'group-hover:text-zinc-600'

@@ -15,11 +15,23 @@ export default function CrmPage() {
     return catalogo.find((p) => p.slug === 'dentista-b-oscuro-premium') || catalogo[0];
   }, [slug]);
 
+  if (!current) {
+    return (
+      <>
+        <PageMeta title="Panel" description="Demo del panel Reclu." noIndex />
+        <div className="flex min-h-screen items-center justify-center bg-[#F7F8FC] px-6 text-center">
+          <p className="text-sm text-zinc-600">No hay una demo de panel para mostrar.</p>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <PageMeta
         title={`Panel · ${current.brand}`}
         description="Administra catálogo, prospectos, agenda y el sitio desde un solo panel."
+        noIndex
       />
       <CrmWorkspace
         key={current.slug}

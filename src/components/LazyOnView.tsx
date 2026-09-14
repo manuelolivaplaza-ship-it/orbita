@@ -1,9 +1,10 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { SoftBoundary } from './SoftBoundary';
 
 /** Monta children al acercarse al viewport. Evita JS/media pesado en el primer paint. */
 export function LazyOnView({
   children,
-  rootMargin = '480px',
+  rootMargin = '120px',
   minHeight,
 }: {
   children: ReactNode;
@@ -30,8 +31,8 @@ export function LazyOnView({
   }, [rootMargin]);
 
   return (
-    <div ref={ref} style={!show && minHeight != null ? { minHeight } : undefined}>
-      {show ? children : null}
+    <div ref={ref} style={minHeight != null ? { minHeight } : undefined}>
+      {show ? <SoftBoundary>{children}</SoftBoundary> : null}
     </div>
   );
 }
