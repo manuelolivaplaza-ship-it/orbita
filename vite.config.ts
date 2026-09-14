@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { completeOrbChat, type ChatTurn } from './lib/complete-orb';
 
-const SKIP_PROPUESTAS = process.env.SKIP_PROPUESTAS === '1';
+const SKIP_PROPUESTAS = process.env.SKIP_PROPUESTAS === '1' || process.env.VERCEL === '1';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -261,8 +261,15 @@ type CatalogEntry = {
 function readCatalogo(root: string): CatalogEntry[] {
   if (SKIP_PROPUESTAS) return [];
   if (!fs.existsSync(root)) return [];
+  let dirents: fs.Dirent[];
+  try {
+    dirents = fs.readdirSync(root, { withFileTypes: true });
+  } catch (err) {
+    console.warn('[propuestas] no se pudo leer el catálogo:', (err as Error).message);
+    return [];
+  }
   const entries: CatalogEntry[] = [];
-  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+  for (const entry of dirents) {
     if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.') || OFFLINE_SLUGS.has(entry.name)) continue;
     const slug = entry.name;
     if (!hasPublishedArtifact(path.join(root, slug))) continue;
@@ -535,7 +542,11 @@ function propuestasPlugin(): Plugin {
           console.warn(`[closeBundle] Advertencia al copiar ${entry.name}:`, (err as Error).message);
           continue;
         }
-        if (fs.existsSync(dest)) rewriteNextUrlsInTree(dest, entry.name);
+        try {
+          if (fs.existsSync(dest)) rewriteNextUrlsInTree(dest, entry.name);
+        } catch (err) {
+          console.warn(`[closeBundle] no se reescribieron URLs de ${entry.name}:`, (err as Error).message);
+        }
       }
     },
   };
