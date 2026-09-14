@@ -1,4 +1,5 @@
 {
+  "buildCommand": "npm run build:marketing",
   "trailingSlash": false,
   "redirects": [
     { "source": "/trabajo", "destination": "/creaciones", "permanent": true },

@@ -25,6 +25,10 @@ function run(bin, args, cwd) {
 }
 
 if (cmd === 'build') {
+  if (process.env.VERCEL === '1') {
+    console.log('[propuestas] Vercel: no se reconstruyen las demos (ya van en el repo o se copian si hay dist)');
+    process.exit(0);
+  }
   const list = slugs().filter((slug) => !only || only === slug);
   for (const slug of list) {
     const dir = path.join(root, slug);
