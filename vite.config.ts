@@ -54,7 +54,7 @@ function isReadableFile(file: string): boolean {
 
 function hasPublishedArtifact(folder: string): boolean {
   const names = ['index.html', 'index.pdf', 'propuesta.pdf'];
-  const bases = isAppFolder(folder) ? [path.join(folder, 'dist')] : [folder];
+  const bases = [path.join(folder, 'dist'), folder];
   return bases.some((base) => names.some((name) => isReadableFile(path.join(base, name))));
 }
 
@@ -522,22 +522,26 @@ function propuestasPlugin(): Plugin {
         if (!hasPublishedArtifact(folder)) continue;
         const dest = path.join(destRoot, entry.name);
         try {
-          if (isAppFolder(folder)) {
-            const built = path.join(folder, 'dist');
-            if (fs.existsSync(built)) fs.cpSync(built, dest, { recursive: true });
-            const meta = path.join(folder, 'meta.json');
-            if (fs.existsSync(meta)) {
-              fs.mkdirSync(dest, { recursive: true });
-              fs.copyFileSync(meta, path.join(dest, 'meta.json'));
-            }
-            copied += 1;
+          const built = path.join(folder, 'dist');
+          const builtIndex = path.join(built, 'index.html');
+          const meta = path.join(folder, 'meta.json');
+          if (fs.existsSync(builtIndex)) {
+            fs.cpSync(built, dest, { recursive: true });
           } else {
             fs.cpSync(folder, dest, {
               recursive: true,
-              filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
+              filter: (src) =>
+                !src.includes(`${path.sep}node_modules${path.sep}`) &&
+                !src.endsWith(`${path.sep}node_modules`) &&
+                !src.includes(`${path.sep}dist${path.sep}`) &&
+                !src.endsWith(`${path.sep}dist`),
             });
-            copied += 1;
           }
+          if (fs.existsSync(meta)) {
+            fs.mkdirSync(dest, { recursive: true });
+            fs.copyFileSync(meta, path.join(dest, 'meta.json'));
+          }
+          copied += 1;
         } catch (err) {
           console.warn(`[closeBundle] Advertencia al copiar ${entry.name}:`, (err as Error).message);
           continue;
