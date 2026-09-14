@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
   Check,
@@ -570,7 +570,7 @@ export default function PreciosPage() {
                 </thead>
                 <tbody className="divide-y divide-zinc-100">
                   {categories.map((cat) => (
-                    <React.Fragment key={cat}>
+                    <Fragment key={cat}>
                       <tr className="bg-zinc-100/40">
                         <td
                           colSpan={4}
@@ -619,7 +619,7 @@ export default function PreciosPage() {
                           </td>
                         </tr>
                       ))}
-                    </React.Fragment>
+                    </Fragment>
                   ))}
                 </tbody>
               </table>
