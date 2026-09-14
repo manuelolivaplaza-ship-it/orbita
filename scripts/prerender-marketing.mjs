@@ -287,14 +287,6 @@ function applyMeta(html, route, { noIndex = false } = {}) {
     }
   }
   out = injectFontPreloads(out);
-  const rootAt = out.indexOf('<div id="root">');
-  const bodyClose = out.lastIndexOf('</body>');
-  if (rootAt !== -1 && bodyClose !== -1 && rootAt < bodyClose) {
-    out =
-      out.slice(0, rootAt) +
-      `<div id="root">\n    ${shellHtml(route)}\n    </div>\n  ` +
-      out.slice(bodyClose);
-  }
   return out;
 }
 

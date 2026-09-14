@@ -260,7 +260,6 @@ type CatalogEntry = {
 };
 
 function readCatalogo(root: string): CatalogEntry[] {
-  if (SKIP_PROPUESTAS) return [];
   if (!fs.existsSync(root)) return [];
   let dirents: fs.Dirent[];
   try {
@@ -273,9 +272,11 @@ function readCatalogo(root: string): CatalogEntry[] {
   for (const entry of dirents) {
     if (!entry.isDirectory() || entry.name.startsWith('_') || entry.name.startsWith('.') || OFFLINE_SLUGS.has(entry.name)) continue;
     const slug = entry.name;
-    if (!hasPublishedArtifact(path.join(root, slug))) continue;
+    const folder = path.join(root, slug);
+    const metaFile = path.join(folder, 'meta.json');
+    // En Vercel no hay dist/ de cada demo (gitignore). El catálogo sale de meta.json.
+    if (!hasPublishedArtifact(folder) && !fs.existsSync(metaFile)) continue;
     let meta: Record<string, unknown> = {};
-    const metaFile = path.join(root, slug, 'meta.json');
     if (fs.existsSync(metaFile)) {
       try {
         meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
@@ -301,6 +302,7 @@ function readCatalogo(root: string): CatalogEntry[] {
     });
   }
   entries.sort((a, b) => a.slug.localeCompare(b.slug));
+  console.log(`[propuestas] catálogo: ${entries.length} entradas`);
 
   // Si dos propuestas del mismo sector quedan con la misma marca (p. ej. UMBRAL
   // y su variante B), se distinguen por familia de diseño A/B.
