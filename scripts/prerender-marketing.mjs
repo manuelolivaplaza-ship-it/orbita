@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ORIGIN, NAV, ROUTES, absoluteUrl, HOME_FAQS } from './marketing-routes.mjs';
+import { ORIGIN, NAV, ROUTES, absoluteUrl } from './marketing-routes.mjs';
+import * as marketing from './marketing-routes.mjs';
+
+const HOME_FAQS = Array.isArray(marketing.HOME_FAQS) ? marketing.HOME_FAQS : [];
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
