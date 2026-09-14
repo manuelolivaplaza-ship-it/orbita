@@ -3,7 +3,8 @@ import path from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
-import { completeOrbChat, type ChatTurn } from './lib/complete-orb';
+
+type ChatTurn = { role: 'user' | 'assistant'; content: string };
 
 const SKIP_PROPUESTAS = process.env.SKIP_PROPUESTAS === '1' || process.env.VERCEL === '1';
 
@@ -601,6 +602,7 @@ function orbApiPlugin(): Plugin {
         try {
           const raw = await readNodeBody(req);
           const payload = JSON.parse(raw || '{}') as { messages?: ChatTurn[] };
+          const { completeOrbChat } = await import('./lib/complete-orb');
           const reply = await completeOrbChat({
             messages: Array.isArray(payload.messages) ? payload.messages : [],
             apiKey,
