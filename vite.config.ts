@@ -6,8 +6,6 @@ import { defineConfig, loadEnv, type Plugin } from 'vite';
 
 type ChatTurn = { role: 'user' | 'assistant'; content: string };
 
-const SKIP_PROPUESTAS = process.env.SKIP_PROPUESTAS === '1' || process.env.VERCEL === '1';
-
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -507,10 +505,6 @@ function propuestasPlugin(): Plugin {
     },
     closeBundle() {
       removePublicPropuestasIndex();
-      if (SKIP_PROPUESTAS) {
-        console.log('[propuestas] SKIP_PROPUESTAS=1 — no se copian demos a dist');
-        return;
-      }
       if (!fs.existsSync(root)) return;
       const destRoot = path.resolve(__dirname, 'dist/propuestas');
       fs.mkdirSync(destRoot, { recursive: true });

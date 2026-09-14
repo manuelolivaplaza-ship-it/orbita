@@ -14,6 +14,7 @@ export function PreviewHeroShot({
   shotHeight = 980,
   iframeSandbox,
   eager = false,
+  live = true,
   scale: scaleProp,
 }: {
   src: string;
@@ -25,6 +26,8 @@ export function PreviewHeroShot({
   iframeSandbox?: string;
   /** Carga el iframe de inmediato, sin esperar IntersectionObserver. */
   eager?: boolean;
+  /** Si es false, solo se muestra el poster/fallback (home móvil: sin iframes Next). */
+  live?: boolean;
   /** Si viene de afuera, no hace falta ResizeObserver. */
   scale?: number;
 }) {
@@ -32,6 +35,7 @@ export function PreviewHeroShot({
   const [scaleState, setScaleState] = useState(0.4);
   const [active, setActive] = useState(eager);
   const [ready, setReady] = useState(false);
+  const [available, setAvailable] = useState(!live);
   /** Un poco más grande que el marco: recorta la scrollbar nativa del iframe. */
   const CLIP = 1.045;
   const scale = (scaleProp ?? scaleState) * CLIP;
@@ -48,24 +52,47 @@ export function PreviewHeroShot({
       ro.observe(el);
     }
 
+    if (!live) {
+      return () => ro?.disconnect();
+    }
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(src, { method: 'HEAD', cache: 'no-store' });
+        let ok = res.ok;
+        if (res.status === 405 || res.status === 501) {
+          const get = await fetch(src, { method: 'GET', cache: 'no-store' });
+          ok = get.ok;
+        }
+        if (!cancelled) setAvailable(ok);
+      } catch {
+        if (!cancelled) setAvailable(false);
+      }
+    })();
+
     if (eager) {
       setActive(true);
-      return () => ro?.disconnect();
+      return () => {
+        cancelled = true;
+        ro?.disconnect();
+      };
     }
 
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setActive(true);
       },
-      { rootMargin: '720px 0px' },
+      { rootMargin: '80px 0px' },
     );
     io.observe(el);
 
     return () => {
+      cancelled = true;
       ro?.disconnect();
       io.disconnect();
     };
-  }, [shotWidth, eager, scaleProp]);
+  }, [shotWidth, eager, scaleProp, live, src]);
 
   return (
     <div ref={hostRef} className="absolute inset-0 overflow-hidden bg-zinc-100">
@@ -86,10 +113,11 @@ export function PreviewHeroShot({
           {fallbackNode}
         </div>
       )}
-      {active && (
+      {live && active && available && (
         <iframe
           src={src}
-          title={`Hero de ${name}`}
+          title=""
+          aria-hidden
           tabIndex={-1}
           loading={eager ? 'eager' : 'lazy'}
           onLoad={() => setReady(true)}

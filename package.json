@@ -7,7 +7,7 @@
     "dev": "vite --port=3000",
     "build": "tsc --noEmit && node scripts/propuestas.mjs build && vite build && node scripts/prerender-marketing.mjs",
     "build:marketing": "tsc --noEmit && vite build && node scripts/prerender-marketing.mjs",
-    "build:vercel": "vite build && node scripts/prerender-marketing.mjs",
+    "build:vercel": "node scripts/propuestas-vercel.mjs && vite build && node scripts/prerender-marketing.mjs",
     "prerender": "node scripts/prerender-marketing.mjs",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
@@ -26,7 +26,8 @@
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "react-router-dom": "^7.18.2",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
