@@ -222,6 +222,10 @@ export default function AdminPage() {
           <h1 className="text-3xl font-medium tracking-tight" style={{ letterSpacing: '-0.03em' }}>
             Actividad
           </h1>
+          <p className="text-sm text-zinc-500 mt-2 max-w-xl">
+            Las cotizaciones y contactos nuevos llegan al CRM (Hoy → Entrantes web) y se guardan en
+            Supabase. Este panel queda para agenda y demos internas.
+          </p>
         </div>
         <div className="flex flex-wrap gap-2 text-xs">
           <Stat label="Reuniones pendientes" value={pendingCount} />
@@ -319,6 +323,9 @@ export default function AdminPage() {
 
       {tab === 'consultas' && (
         <Card>
+          <p className="text-sm text-zinc-500 mb-4">
+            Archivo del sitio. Las propuestas nuevas míralas en el CRM, pestaña Hoy.
+          </p>
           {leads.length === 0 ? (
             <Empty text="Nadie ha escrito todavía." />
           ) : (
@@ -464,7 +471,7 @@ function Shell({
 }) {
   return (
     <div className="min-h-svh bg-[#F7F8FC] text-[#0B0B12]">
-      <PageMeta title={title} description="Panel interno de Reclu." />
+      <PageMeta title={title} description="Panel interno de Reclu." noIndex />
       <header className="border-b border-zinc-200/80 bg-white">
         <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-3">
           <Link to="/" className="text-sm font-medium tracking-tight">

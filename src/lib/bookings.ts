@@ -80,6 +80,23 @@ export async function createBooking(input: {
     p_slot_label: formatAppointment(input.ymd, input.minutes).slice(0, 160),
   });
   if (error) throw publicBookingError(error.message);
+
+  const hh = String(Math.floor(input.minutes / 60)).padStart(2, '0');
+  const mm = String(input.minutes % 60).padStart(2, '0');
+  void import('./leads')
+    .then(({ submitLead }) =>
+      submitLead({
+        source: 'reunion',
+        nombre: clip(input.nombre, FIELD_MAX.nombre),
+        email: clip(input.email, FIELD_MAX.email).toLowerCase(),
+        telefono: clip(input.telefono, FIELD_MAX.telefono),
+        mensaje: clip(input.nota, FIELD_MAX.nota),
+        objetivo: clip(input.tema, FIELD_MAX.tema),
+        fecha: `${input.ymd}T${hh}:${mm}:00-03:00`,
+      }),
+    )
+    .catch(() => undefined);
+
   return data as string;
 }
 

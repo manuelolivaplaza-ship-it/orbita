@@ -4,7 +4,6 @@ import {
   Check,
   ArrowRight,
   Sparkles,
-  MessageCircle,
   Zap,
   Image,
   Film,
@@ -28,7 +27,6 @@ import {
 } from '../data/pricing';
 import { submitLead } from '../lib/leads';
 import { FIELD_MAX } from '../lib/formLimits';
-import { whatsappUrl } from '../data/site';
 import { HoneypotField } from './HoneypotField';
 
 interface BudgetModalProps {
@@ -257,25 +255,6 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
 
   const selectedAddonList = ADDONS.filter((a) => addons[a.id]);
 
-  const buildSummaryText = () => {
-    const extras = selectedAddonList.map((a) => a.name).join(', ') || 'Sin extras';
-    return [
-      `Plan: ${selectedPlan}`,
-      `Estimación: ${formatCLP(calculateTotal())}`,
-      `Modo Turbo: ${addons.turbo ? 'Sí (7 días) — GRATIS promo' : 'No'}`,
-      `Extras: ${extras}`,
-      `Ahorro promo: ${formatCLP(promoSavings())}`,
-      `Empresa: ${empresa || '—'}`,
-      `Rubro: ${rubro || '—'}`,
-      `Plazo deseado: ${plazo}`,
-      `Objetivo: ${objetivo || '—'}`,
-      `Detalle: ${mensaje || '—'}`,
-      `Nombre: ${nombre || '—'}`,
-      `Email: ${email || '—'}`,
-      `Tel: ${telefono || '—'}`,
-    ].join('\n');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
@@ -298,14 +277,10 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
       });
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo enviar. Prueba el botón de WhatsApp.');
+      setError(err instanceof Error ? err.message : 'No se pudo enviar. Prueba de nuevo en un momento.');
     } finally {
       setSending(false);
     }
-  };
-
-  const handleWhatsAppDirect = () => {
-    window.open(whatsappUrl(`Hola Reclu — quiero cotizar.\n\n${buildSummaryText()}`), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -358,25 +333,15 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
               {addons.turbo ? ' con Modo Turbo (7 días)' : ''}.
             </p>
             <p className="text-zinc-500 text-xs max-w-sm mx-auto mb-8">
-              Estimación de referencia: {formatCLP(calculateTotal())} {IVA_SHORT}. Te contactamos con la propuesta exacta.
+              Estimación de referencia: {formatCLP(calculateTotal())} {IVA_SHORT}. Quedó en nuestro CRM y te contactamos con la propuesta exacta.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={handleWhatsAppDirect}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#20bd5a] transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Confirmar por WhatsApp
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-full sm:w-auto px-6 py-3 rounded-full text-sm font-medium border border-zinc-200 text-zinc-700 hover:bg-zinc-50"
-              >
-                Cerrar
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-medium bg-[#0B0B12] text-white hover:bg-zinc-800"
+            >
+              Cerrar
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
@@ -696,24 +661,14 @@ export const BudgetModal: React.FC<BudgetModalProps> = ({ isOpen, onClose, defau
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <button
-                    type="button"
-                    onClick={handleWhatsAppDirect}
-                    className="p-3.5 rounded-full bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors shrink-0"
-                    title="Enviar por WhatsApp"
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-[#0B0B12] text-white px-7 py-3.5 rounded-full text-sm font-medium hover:bg-zinc-800 transition-all disabled:opacity-70"
-                  >
-                    <span>{sending ? 'Enviando…' : 'Enviar cotización'}</span>
-                    <ArrowRight className="w-4 h-4 text-zinc-400" />
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0B0B12] text-white px-7 py-3.5 rounded-full text-sm font-medium hover:bg-zinc-800 transition-all disabled:opacity-70"
+                >
+                  <span>{sending ? 'Enviando…' : 'Enviar cotización'}</span>
+                  <ArrowRight className="w-4 h-4 text-zinc-400" />
+                </button>
               </div>
             </div>
           </form>

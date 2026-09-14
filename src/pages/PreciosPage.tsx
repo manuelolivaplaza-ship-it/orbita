@@ -6,10 +6,11 @@ import {
   Sparkles,
   Rocket,
   ArrowRight,
-  MessageCircle,
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
+import { breadcrumbJsonLd, faqPageJsonLd, offerCatalogJsonLd, webPageJsonLd } from '../seo/schema';
+import { siteUrl } from '../data/site';
 import { Orb } from '../components/orb';
 import {
   plans,
@@ -28,7 +29,6 @@ import {
   TURBO_PROMO_UNTIL_SHORT,
 } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
-import { whatsappUrl } from '../data/site';
 
 export default function PreciosPage() {
   const { onOpenQuoteModal, onOpenSchedule } = useOutletContext<LayoutOutletContext>();
@@ -75,16 +75,30 @@ export default function PreciosPage() {
   // Group comparison table by category
   const categories = Array.from(new Set(COMPARISON_TABLE.map((row) => row.category)));
 
-  const handleWhatsAppConsult = () => {
-    const text = 'Hola Reclu! Estuve revisando los planes de precios y me gustaría hacer unas consultas sobre mi proyecto web.';
-    window.open(whatsappUrl(text), '_blank', 'noopener,noreferrer');
-  };
-
   return (
     <>
       <PageMeta
         title="Precios web | Reclu"
         description={`Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
+        jsonLd={[
+          webPageJsonLd({
+            title: 'Precios web | Reclu',
+            description: `Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`,
+            url: siteUrl('/precios'),
+          }),
+          offerCatalogJsonLd(
+            plans.map((p) => ({
+              name: p.name,
+              price: p.priceRaw,
+              description: p.description,
+            })),
+          ),
+          faqPageJsonLd(PRICING_FAQS),
+          breadcrumbJsonLd([
+            { name: 'Reclu', path: '/' },
+            { name: 'Precios', path: '/precios' },
+          ]),
+        ]}
       />
 
       <div className="relative isolate min-h-screen bg-[#F7F8FC] pb-24 sm:pb-32 overflow-hidden">
@@ -96,7 +110,7 @@ export default function PreciosPage() {
             autoPlay
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="w-full h-full object-cover opacity-90"
           />
           {/* Subtle bottom fade only at the lower edge so the video is crisp and visible */}
@@ -166,9 +180,9 @@ export default function PreciosPage() {
                           Pago único
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
+                      <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
                         {plan.name}
-                      </h3>
+                      </h2>
 
                       <div className="mt-4 mb-2">
                         <div className="flex items-baseline gap-1.5">
@@ -177,7 +191,7 @@ export default function PreciosPage() {
                             {plan.price}
                           </span>
                         </div>
-                        <span className="font-mono text-[11px] text-zinc-400 block">
+                        <span className="font-mono text-[11px] text-zinc-600 block">
                           o {plan.priceUf} · 50% al partir / 50% al publicar
                         </span>
                         <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
@@ -189,7 +203,7 @@ export default function PreciosPage() {
                     </div>
 
                     <div className="mb-8">
-                      <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">
+                      <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 font-semibold mb-3">
                         Qué incluye este plan:
                       </p>
 
@@ -216,7 +230,7 @@ export default function PreciosPage() {
                           >
                             <span>{showAllDetails ? 'Ver menos detalles' : 'Ver más detalles'}</span>
                             <ChevronDown
-                              className={`h-4 w-4 text-zinc-400 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
+                              className={`h-4 w-4 text-zinc-600 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
                                 showAllDetails ? 'rotate-180' : 'group-hover/btn:translate-y-0.5'
                               }`}
                             />
@@ -239,7 +253,7 @@ export default function PreciosPage() {
                       <span>Cotizar {plan.name}</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </button>
-                    <p className="mt-2 text-center text-[10px] text-zinc-400 font-mono">
+                    <p className="mt-2 text-center text-[10px] text-zinc-600 font-mono">
                       Pago 50% al partir · 50% al publicar
                     </p>
                   </div>
@@ -256,13 +270,13 @@ export default function PreciosPage() {
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <h4 className="text-lg font-semibold text-zinc-950">
+                  <p className="text-lg font-semibold text-zinc-950">
                     Modo Turbo: Tu sitio listo en 7 días hábiles
-                  </h4>
-                  <span className="rounded-full bg-emerald-600 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                  </p>
+                  <span className="rounded-full bg-emerald-700 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                     Gratis hasta el {TURBO_PROMO_UNTIL_SHORT}
                   </span>
-                  <span className="font-mono text-xs text-zinc-400 line-through">
+                  <span className="font-mono text-xs text-zinc-600 line-through">
                     $280.000 / 7 UF
                   </span>
                 </div>
@@ -355,9 +369,9 @@ export default function PreciosPage() {
                         Mensual
                       </span>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
+                    <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
                       {plan.name}
-                    </h3>
+                    </h2>
 
                     <div className="mt-4 mb-2">
                       <div className="flex items-baseline gap-1.5">
@@ -366,7 +380,7 @@ export default function PreciosPage() {
                         </span>
                         <span className="text-xs font-semibold text-zinc-500 font-mono">/ mes</span>
                       </div>
-                      <span className="font-mono text-[11px] text-zinc-400 block">
+                      <span className="font-mono text-[11px] text-zinc-600 block">
                         {plan.priceClp} CLP · sitio web incluido
                       </span>
                       <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
@@ -398,7 +412,7 @@ export default function PreciosPage() {
                   </div>
 
                   <div className="mb-8">
-                    <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">
+                    <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 font-semibold mb-3">
                       Qué incluye:
                     </p>
                     <ul className="space-y-3">
@@ -422,7 +436,7 @@ export default function PreciosPage() {
                         >
                           <span>{showMonthlyDetails ? 'Ver menos detalles' : 'Ver más detalles'}</span>
                           <ChevronDown
-                            className={`h-4 w-4 text-zinc-400 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
+                            className={`h-4 w-4 text-zinc-600 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
                               showMonthlyDetails ? 'rotate-180' : 'group-hover/btn:translate-y-0.5'
                             }`}
                           />
@@ -445,7 +459,7 @@ export default function PreciosPage() {
                     <span>{plan.ctaText}</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </button>
-                  <p className="mt-2 text-center text-[10px] text-zinc-400 font-mono">
+                  <p className="mt-2 text-center text-[10px] text-zinc-600 font-mono">
                     Sitio incluido · Sin permanencia
                   </p>
                 </div>
@@ -507,14 +521,14 @@ export default function PreciosPage() {
                         {extra.tag}
                       </span>
                     )}
-                    <h4 className="text-base font-semibold text-zinc-900 mb-1">{extra.name}</h4>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">{extra.name}</h3>
                     <p className="text-xs text-zinc-500 leading-relaxed mb-4">{extra.description}</p>
                   </div>
                   <div className="border-t border-zinc-100 pt-3">
                     <span className="font-mono text-base font-bold text-zinc-950">
                       {displayExtraPrice}
                     </span>
-                    <span className="block text-[10px] text-zinc-400 mt-0.5">{IVA_SHORT}</span>
+                    <span className="block text-[10px] text-zinc-600 mt-0.5">{IVA_SHORT}</span>
                   </div>
                 </div>
               );
@@ -537,7 +551,7 @@ export default function PreciosPage() {
           </div>
 
           <div className="rounded-3xl border border-zinc-200/90 bg-white shadow-xs overflow-hidden">
-            <p className="sm:hidden text-center text-zinc-400 text-[11px] py-2 bg-zinc-50 border-b border-zinc-100 font-mono">
+            <p className="sm:hidden text-center text-zinc-600 text-[11px] py-2 bg-zinc-50 border-b border-zinc-100 font-mono">
               ← Desliza para comparar todos los planes →
             </p>
             <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -588,7 +602,7 @@ export default function PreciosPage() {
                               row.sonda ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <X className="h-4 w-4 text-zinc-300 mx-auto" />
+                                <X className="h-4 w-4 text-zinc-500 mx-auto" aria-hidden />
                               )
                             ) : (
                               row.sonda
@@ -599,7 +613,7 @@ export default function PreciosPage() {
                               row.estacion ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <X className="h-4 w-4 text-zinc-300 mx-auto" />
+                                <X className="h-4 w-4 text-zinc-500 mx-auto" aria-hidden />
                               )
                             ) : (
                               row.estacion
@@ -610,7 +624,7 @@ export default function PreciosPage() {
                               row.constelacion ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <X className="h-4 w-4 text-zinc-300 mx-auto" />
+                                <X className="h-4 w-4 text-zinc-500 mx-auto" aria-hidden />
                               )
                             ) : (
                               row.constelacion
@@ -635,24 +649,24 @@ export default function PreciosPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-300 mb-2">01</span>
-                <h4 className="text-base font-semibold text-zinc-900 mb-1">50% Anticipo</h4>
+                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">01</span>
+                <h3 className="text-base font-semibold text-zinc-900 mb-1">50% Anticipo</h3>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                   Para reservar el cupo en el calendario de estudio e iniciar la arquitectura, redacción y diseño interactivo.
                 </p>
               </div>
 
               <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-300 mb-2">02</span>
-                <h4 className="text-base font-semibold text-zinc-900 mb-1">Pruebas en Vivo</h4>
+                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">02</span>
+                <h3 className="text-base font-semibold text-zinc-900 mb-1">Pruebas en Vivo</h3>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                   Te entregamos un enlace privado para que recorras el sitio como lo haría tu cliente, pruebes los formularios y WhatsApp, y hagamos ajustes.
                 </p>
               </div>
 
               <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-300 mb-2">03</span>
-                <h4 className="text-base font-semibold text-zinc-900 mb-1">50% al Publicar</h4>
+                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">03</span>
+                <h3 className="text-base font-semibold text-zinc-900 mb-1">50% al Publicar</h3>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                   Solo cuando estés 100% conforme, abonas el saldo restante y conectamos el sitio a tu dominio con certificado SSL y accesos completos.
                 </p>
@@ -718,11 +732,10 @@ export default function PreciosPage() {
             <div className="flex flex-col items-center gap-3">
               <button
                 type="button"
-                onClick={handleWhatsAppConsult}
+                onClick={() => onOpenQuoteModal('Estación')}
                 className="inline-flex items-center gap-2 rounded-full bg-white text-zinc-950 px-6 py-3 text-sm font-semibold hover:bg-zinc-100 transition-colors shadow-sm"
               >
-                <MessageCircle className="h-4 w-4 text-emerald-600 fill-emerald-600" />
-                <span>Consultar por WhatsApp</span>
+                <span>Pedir cotización</span>
               </button>
               <button
                 type="button"

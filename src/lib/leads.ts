@@ -1,4 +1,4 @@
-import { site, whatsappUrl } from '../data/site';
+import { site } from '../data/site';
 import { clip, FIELD_MAX, isHoneyFilled } from './formLimits';
 import { getSupabase, isSupabaseConfigured } from './supabase';
 
@@ -92,39 +92,63 @@ function clipped(data: LeadPayload): LeadPayload {
   };
 }
 
+function inboundRpcArgs(payload: LeadPayload) {
+  return {
+    p_source: payload.source,
+    p_nombre: payload.nombre || '',
+    p_email: payload.email,
+    p_telefono: payload.telefono || '',
+    p_mensaje: payload.mensaje || '',
+    p_plan: payload.plan || '',
+    p_extras: payload.extras || '',
+    p_total: payload.total || '',
+    p_empresa: payload.empresa || '',
+    p_rubro: payload.rubro || '',
+    p_plazo: payload.plazo || '',
+    p_objetivo: payload.objetivo || '',
+    p_fecha: payload.fecha || '',
+  };
+}
+
+function isMissingCrmFunction(message: string | undefined): boolean {
+  if (!message) return false;
+  const m = message.toLowerCase();
+  return m.includes('submit_crm_inbound') || m.includes('pgrst202') || m.includes('schema cache');
+}
+
 export async function submitLead(
   data: LeadPayload,
-): Promise<{ via: 'supabase' | 'endpoint' | 'whatsapp' | 'mailto' }> {
+): Promise<{ via: 'crm' | 'supabase' | 'endpoint' }> {
   if (isHoneyFilled(data.honey)) {
     await new Promise((r) => setTimeout(r, 400));
-    return { via: 'supabase' };
+    return { via: 'crm' };
   }
 
   if (typeof sessionStorage !== 'undefined') {
     const last = Number(sessionStorage.getItem(COOLDOWN_KEY) || 0);
     if (Date.now() - last < COOLDOWN_MS) {
-      throw new Error('Esperá unos segundos antes de enviar de nuevo.');
+      throw new Error('Espera unos segundos antes de enviar de nuevo.');
     }
   }
 
   const payload = clipped(data);
+  const args = inboundRpcArgs(payload);
 
   if (isSupabaseConfigured()) {
-    const { error } = await getSupabase().rpc('submit_lead', {
-      p_source: payload.source,
-      p_nombre: payload.nombre || '',
-      p_email: payload.email,
-      p_telefono: payload.telefono || '',
-      p_mensaje: payload.mensaje || '',
-      p_plan: payload.plan || '',
-      p_extras: payload.extras || '',
-      p_total: payload.total || '',
-      p_empresa: payload.empresa || '',
-      p_rubro: payload.rubro || '',
-      p_plazo: payload.plazo || '',
-      p_objetivo: payload.objetivo || '',
-      p_fecha: payload.fecha || '',
-    });
+    const sb = getSupabase();
+    if (payload.source !== 'newsletter') {
+      const crm = await sb.rpc('submit_crm_inbound', args);
+      if (!crm.error) {
+        void sb.rpc('submit_lead', args);
+        sessionStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+        return { via: 'crm' };
+      }
+      if (!isMissingCrmFunction(crm.error.message)) {
+        throw publicLeadError(crm.error.message);
+      }
+    }
+
+    const { error } = await sb.rpc('submit_lead', args);
     if (error) throw publicLeadError(error.message);
     sessionStorage.setItem(COOLDOWN_KEY, String(Date.now()));
     return { via: 'supabase' };
@@ -141,19 +165,5 @@ export async function submitLead(
     return { via: 'endpoint' };
   }
 
-  if (site.whatsapp) {
-    window.open(whatsappUrl(leadSummary(payload)), '_blank', 'noopener,noreferrer');
-    return { via: 'whatsapp' };
-  }
-
-  const subject = encodeURIComponent(
-    payload.source === 'newsletter'
-      ? 'Newsletter Reclu'
-      : payload.source === 'reunion'
-        ? `Reunión Reclu — ${payload.fecha || 'nueva'}`
-        : `Cotización Reclu — ${payload.plan || 'nuevo proyecto'}`,
-  );
-  const body = encodeURIComponent(leadSummary(payload));
-  window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-  return { via: 'mailto' };
+  throw new Error('No se pudo enviar. Prueba de nuevo en un momento.');
 }

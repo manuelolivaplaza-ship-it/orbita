@@ -1,0 +1,5 @@
+id,nombre_negocio,rubro,comuna,Teléfono,website,CONTROL_PIPELINE,por_dia,buy_score,plan,insight,mensaje_wa,clase,motivo
+den-21,Clínica Dental Los Leones,dentista,Providencia,56991112221,https://dentalleones.cl,Nuevo,1,80,estacion,Sin web propia — solo Instagram,Hola soy Manuel de Reclu. Vi Clínica Dental Los Leones y armé un ejemplo: https://reclu.cl/creaciones/dentista-b-claro,A
+den-22,Sonrisa Ñuñoa,dentista,Ñuñoa,+56 9 9111 2222,,Respondió,1,77,sonda,Contestó pidiendo precio,Hola Manuel de Reclu — el plan Sonda queda en $420.000,B
+den-23,Implantes La Dehesa,dentista,Lo Barnechea,9 9111 2223,,Interesado,2,91,constelacion,Ticket alto. Pedir reunión,Hola Manuel de Reclu. ¿Agendamos 20 min para Implantes La Dehesa?,A
+den-24,Dental Express Maipú,dentista,Maipú,56991112224,,Perdido,3,44,sonda,Dijeron que no es el momento,Gracias igual — si cambia el timing me escriben,B,timing
