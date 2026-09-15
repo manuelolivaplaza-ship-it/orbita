@@ -180,8 +180,6 @@ export default function PreciosPage() {
 
         {/* 2. PLAN CARDS — unique or monthly */}
         <section className="px-4 sm:px-6 max-w-7xl mx-auto">
-          {billing === 'mensual' && <AiAssistantsMarquee />}
-
           <div key={billing} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch animate-fade-in">
             {billing === 'unico'
               ? plans.map((plan) => (
@@ -420,6 +418,8 @@ export default function PreciosPage() {
                 </div>
               ))}
           </div>
+
+          {billing === 'mensual' && <AiAssistantsMarquee />}
 
           {billing === 'unico' && (
           <div className="mt-12 rounded-3xl border border-emerald-200/90 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">

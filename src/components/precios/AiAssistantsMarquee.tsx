@@ -87,7 +87,7 @@ function MarqueeTrack({
 
 export function AiAssistantsMarquee() {
   return (
-    <div className="mb-10 overflow-hidden rounded-3xl border border-zinc-200/90 bg-white p-5 sm:p-7 shadow-xs">
+    <div className="mt-12 overflow-hidden rounded-3xl border border-zinc-200/90 bg-white p-5 sm:p-7 shadow-xs">
       <div className="mb-5 max-w-2xl">
         <p className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500 mb-2">
           Asistente con IA, a medida
