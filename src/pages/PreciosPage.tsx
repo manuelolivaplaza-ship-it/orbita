@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useOutletContext } from 'react-router-dom';
 import {
   Check,
   X,
@@ -9,9 +9,9 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { PageMeta } from '../components/PageMeta';
+import { AiAssistantsMarquee, AiHelpChips, ASSISTANTS } from '../components/precios/AiAssistantsMarquee';
 import { breadcrumbJsonLd, faqPageJsonLd, offerCatalogJsonLd, webPageJsonLd } from '../seo/schema';
 import { siteUrl } from '../data/site';
-import { Orb } from '../components/orb';
 import {
   plans,
   EXTRAS_PRICING,
@@ -30,11 +30,19 @@ import {
 } from '../data/pricing';
 import type { LayoutOutletContext } from '../layouts/MainLayout';
 
+type Billing = 'unico' | 'mensual';
+
 export default function PreciosPage() {
   const { onOpenQuoteModal, onOpenSchedule } = useOutletContext<LayoutOutletContext>();
+  const { hash } = useLocation();
+  const [billing, setBilling] = useState<Billing>(hash.includes('mensual') ? 'mensual' : 'unico');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [showAllDetails, setShowAllDetails] = useState<boolean>(false);
   const [showMonthlyDetails, setShowMonthlyDetails] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (hash.includes('mensual')) setBilling('mensual');
+  }, [hash]);
 
   const renderFeatureBullet = (feat: string, isPopular: boolean) => {
     const parts = feat.split(': ');
@@ -68,11 +76,11 @@ export default function PreciosPage() {
     <>
       <PageMeta
         title="Precios web | Reclu"
-        description={`Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
+        description={`Compra única o plan mensual con sitio incluido, CRM y asistente con IA a medida. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`}
         jsonLd={[
           webPageJsonLd({
             title: 'Precios web | Reclu',
-            description: `Compra única o plan mensual con sitio incluido, CRM y Orbit. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`,
+            description: `Compra única o plan mensual con sitio incluido, CRM y asistente con IA a medida. ${IVA_NOTE}. Turbo gratis hasta el ${TURBO_PROMO_UNTIL_SHORT}.`,
             url: siteUrl('/precios'),
           }),
           offerCatalogJsonLd(
@@ -110,33 +118,73 @@ export default function PreciosPage() {
           />
         </div>
 
-        {/* 1. HERO & BILLING MODEL TOGGLE (WHITE TITLE, GENEROUS SPACING, NO HELPER TEXT) */}
-        <section className="px-4 pt-28 sm:px-6 sm:pt-36 pb-20 sm:pb-28 text-center max-w-4xl mx-auto relative z-10">
+        {/* 1. HERO + BILLING TOGGLE */}
+        <section id="planes-mensuales" className="px-4 pt-28 sm:px-6 sm:pt-36 pb-16 sm:pb-24 text-center max-w-4xl mx-auto relative z-10 scroll-mt-24">
           <h1
-            className="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-white leading-[1.0] mb-12 sm:mb-16 drop-shadow-md"
+            key={billing}
+            className="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-white leading-[1.0] mb-10 sm:mb-12 drop-shadow-md animate-fade-in"
             style={{ letterSpacing: '-0.045em' }}
           >
-            Inversión clara.<br />
-            Compra única.
+            {billing === 'unico' ? (
+              <>
+                Inversión clara.<br />
+                Compra única.
+              </>
+            ) : (
+              <>
+                Sitio incluido.<br />
+                Plan mensual.
+              </>
+            )}
           </h1>
 
-          <p className="text-white/85 text-sm sm:text-base drop-shadow-sm mb-8">
-            {IVA_NOTE.charAt(0).toUpperCase() + IVA_NOTE.slice(1)}. El código es tuyo.
-          </p>
-
-          <a
-            href="#planes-mensuales"
-            className="text-sm font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white"
+          <div
+            role="tablist"
+            aria-label="Tipo de plan"
+            className="inline-flex p-1 rounded-full bg-white/15 backdrop-blur-md border border-white/30 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.45)]"
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                event.preventDefault();
+                setBilling((prev) => (prev === 'unico' ? 'mensual' : 'unico'));
+              }
+            }}
           >
-            ¿Prefieres un plan mensual? Sitio web incluido
-          </a>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={billing === 'unico'}
+              onClick={() => setBilling('unico')}
+              className={`px-5 sm:px-7 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                billing === 'unico'
+                  ? 'bg-white text-[#0B0B12] shadow-sm'
+                  : 'text-white/85 hover:text-white'
+              }`}
+            >
+              Planes
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={billing === 'mensual'}
+              onClick={() => setBilling('mensual')}
+              className={`px-5 sm:px-7 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                billing === 'mensual'
+                  ? 'bg-white text-[#0B0B12] shadow-sm'
+                  : 'text-white/85 hover:text-white'
+              }`}
+            >
+              Planes mensuales
+            </button>
+          </div>
         </section>
 
-        {/* 2. THE 3 CORE PLANS GRID */}
+        {/* 2. PLAN CARDS — unique or monthly */}
         <section className="px-4 sm:px-6 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {plans.map((plan) => {
-              return (
+          {billing === 'mensual' && <AiAssistantsMarquee />}
+
+          <div key={billing} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch animate-fade-in">
+            {billing === 'unico'
+              ? plans.map((plan) => (
                 <div
                   key={plan.id}
                   className={`relative flex flex-col justify-between rounded-3xl bg-white p-5 sm:p-7 md:p-9 transition-all duration-300 ${
@@ -245,11 +293,135 @@ export default function PreciosPage() {
                     </p>
                   </div>
                 </div>
-              );
-            })}
+              ))
+              : MONTHLY_PLANS.map((plan, planIndex) => (
+                <div
+                  key={plan.id}
+                  className={`relative flex flex-col justify-between rounded-3xl bg-white p-5 sm:p-7 md:p-9 transition-all duration-300 ${
+                    plan.popular
+                      ? 'border-2 border-zinc-950 shadow-xl lg:-translate-y-2'
+                      : 'border border-zinc-200/80 shadow-xs hover:border-zinc-300 hover:shadow-md'
+                  }`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0B0B12] px-4 py-1 text-xs font-semibold tracking-wide text-white shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                      <Sparkles className="h-3 w-3 text-amber-400 fill-amber-400" />
+                      <span>Recomendado</span>
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="border-b border-zinc-100 pb-6 mb-6">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                          {plan.subtitle}
+                        </span>
+                        <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
+                          Mensual
+                        </span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
+                        {plan.name}
+                      </h2>
+
+                      <div className="mt-4 mb-2">
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
+                            {plan.priceClp}
+                          </span>
+                          <span className="text-xs font-semibold text-zinc-500 font-mono">/ mes</span>
+                        </div>
+                        <span className="font-mono text-[11px] text-zinc-600 block">
+                          sitio web incluido
+                        </span>
+                        <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mt-3">
+                        {plan.description}
+                      </p>
+                    </div>
+
+                    <div className="mb-6 overflow-hidden rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5">
+                      <div className="flex items-center justify-between gap-2 mb-2.5">
+                        <span className="text-xs font-semibold text-zinc-900 tracking-tight">
+                          Asistente con IA a medida
+                        </span>
+                        <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
+                          {plan.chatsLabel}
+                        </span>
+                      </div>
+                      <AiHelpChips
+                        items={[
+                          ASSISTANTS[planIndex % ASSISTANTS.length],
+                          ASSISTANTS[(planIndex + 2) % ASSISTANTS.length],
+                          ASSISTANTS[(planIndex + 4) % ASSISTANTS.length],
+                          ASSISTANTS[(planIndex + 6) % ASSISTANTS.length],
+                        ]}
+                        duration={22 + planIndex * 6}
+                      />
+                      <p className="mt-2.5 text-[11px] text-zinc-600 leading-relaxed">
+                        Entrenado con tu marca y tu oferta. No es el mismo chat de esta página.
+                      </p>
+                    </div>
+
+                    <div className="mb-8">
+                      <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 font-semibold mb-3">
+                        Qué incluye:
+                      </p>
+                      <ul className="space-y-3">
+                        {plan.features.slice(0, 3).map((feat) =>
+                          renderFeatureBullet(feat, !!plan.popular)
+                        )}
+                      </ul>
+                      {plan.features.length > 3 && (
+                        <div className="mt-4 pt-3 border-t border-zinc-100">
+                          {showMonthlyDetails && (
+                            <ul className="mb-4 space-y-3 pt-1 border-b border-zinc-100 pb-4 animate-in fade-in slide-in-from-top-1 duration-200">
+                              {plan.features.slice(3).map((feat) =>
+                                renderFeatureBullet(feat, !!plan.popular)
+                              )}
+                            </ul>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => setShowMonthlyDetails((prev) => !prev)}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors group/btn py-1"
+                          >
+                            <span>{showMonthlyDetails ? 'Ver menos detalles' : 'Ver más detalles'}</span>
+                            <ChevronDown
+                              className={`h-4 w-4 text-zinc-600 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
+                                showMonthlyDetails ? 'rotate-180' : 'group-hover/btn:translate-y-0.5'
+                              }`}
+                            />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => onOpenQuoteModal(`Mensual ${plan.name}`)}
+                      className={`group flex w-full items-center justify-center gap-2 rounded-full py-3.5 px-6 text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
+                        plan.popular
+                          ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md'
+                          : 'border border-zinc-900 bg-white text-zinc-900 hover:bg-zinc-950 hover:text-white'
+                      }`}
+                    >
+                      <span>{plan.ctaText}</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                    <p className="mt-2 text-center text-[10px] text-zinc-600 font-mono">
+                      Sitio incluido · Sin permanencia
+                    </p>
+                  </div>
+                </div>
+              ))}
           </div>
 
-          {/* 3. MODO TURBO PROMO BANNER */}
+          {billing === 'unico' && (
           <div className="mt-12 rounded-3xl border border-emerald-200/90 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0B0B12] text-white shadow-md">
@@ -282,180 +454,11 @@ export default function PreciosPage() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
-        </section>
-
-        {/* PLANES MENSUALES — extra: sitio incluido + CRM + Orbit */}
-        <section id="planes-mensuales" className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-28">
-          <div className="max-w-2xl mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
-              Extra · Suscripción
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
-              Planes mensuales. Sitio web incluido.
-            </h2>
-            <p className="text-sm sm:text-base text-zinc-600 leading-relaxed">
-              No son cuotas del desarrollo. Pagas UF al mes y viene el sitio, el CRM y{' '}
-              <strong className="font-semibold text-zinc-900">Orbit</strong>: el mismo chat con IA
-              de esta plataforma. Un chat = una conversación de un visitante con Orbit.
-            </p>
-          </div>
-
-          <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-6 rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-xs">
-            <div className="shrink-0 flex items-center justify-center sm:justify-start">
-              <Orb
-                size={68}
-                tone="ink"
-                state="idle"
-                playful
-                hop
-                shadow
-                trackPointer
-                appear
-                appearDuration={1600}
-              />
-            </div>
-            <div>
-              <p className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500 mb-2">
-                El chat con IA de Reclu
-              </p>
-              <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-[#0B0B12] mb-2">
-                Orbit en tu sitio es el mismo de esta página.
-              </h3>
-              <p className="text-sm text-zinc-600 leading-relaxed max-w-2xl">
-                El globo de la esquina inferior derecha es Orbit. En tu plan mensual ese mismo
-                asistente vive en tu web, responde 24/7 con tu oferta y deja el lead en el CRM o
-                te lo manda a WhatsApp. Un chat = una conversación completa de un visitante con Orbit.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {MONTHLY_PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className={`relative flex flex-col justify-between rounded-3xl bg-white p-5 sm:p-7 md:p-9 transition-all duration-300 ${
-                  plan.popular
-                    ? 'border-2 border-zinc-950 shadow-xl lg:-translate-y-2'
-                    : 'border border-zinc-200/80 shadow-xs hover:border-zinc-300 hover:shadow-md'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#0B0B12] px-4 py-1 text-xs font-semibold tracking-wide text-white shadow-md flex items-center gap-1.5 whitespace-nowrap">
-                    <Sparkles className="h-3 w-3 text-amber-400 fill-amber-400" />
-                    <span>Recomendado</span>
-                  </div>
-                )}
-
-                <div>
-                  <div className="border-b border-zinc-100 pb-6 mb-6">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500">
-                        {plan.subtitle}
-                      </span>
-                      <span className="text-[10px] font-mono font-semibold rounded bg-zinc-100 px-2 py-0.5 text-zinc-600">
-                        Mensual
-                      </span>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mt-1 mb-3">
-                      {plan.name}
-                    </h2>
-
-                    <div className="mt-4 mb-2">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="font-mono text-3xl sm:text-4xl font-bold tracking-tight text-[#0B0B12]">
-                          {plan.priceUf}
-                        </span>
-                        <span className="text-xs font-semibold text-zinc-500 font-mono">/ mes</span>
-                      </div>
-                      <span className="font-mono text-[11px] text-zinc-600 block">
-                        {plan.priceClp} CLP · sitio web incluido
-                      </span>
-                      <span className="text-[11px] text-zinc-500 block mt-0.5">{IVA_SHORT}</span>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mt-3">
-                      {plan.description}
-                    </p>
-                  </div>
-
-                  <div className="mb-6 rounded-xl border border-zinc-200/80 bg-zinc-50/70 p-3.5">
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden">
-                          <Orb size={22} state="idle" tone="ink" playful shadow={false} />
-                        </div>
-                        <span className="text-xs font-semibold text-zinc-900 tracking-tight">
-                          Orbit · chat con IA
-                        </span>
-                      </div>
-                      <span className="rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] font-mono font-medium text-emerald-700 whitespace-nowrap">
-                        {plan.chatsLabel}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-zinc-600 leading-relaxed sm:pl-8">
-                      El mismo Orbit de esta página, en tu sitio. Un chat es una conversación
-                      completa con un visitante.
-                    </p>
-                  </div>
-
-                  <div className="mb-8">
-                    <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-600 font-semibold mb-3">
-                      Qué incluye:
-                    </p>
-                    <ul className="space-y-3">
-                      {plan.features.slice(0, 3).map((feat) =>
-                        renderFeatureBullet(feat, !!plan.popular)
-                      )}
-                    </ul>
-                    {plan.features.length > 3 && (
-                      <div className="mt-4 pt-3 border-t border-zinc-100">
-                        {showMonthlyDetails && (
-                          <ul className="mb-4 space-y-3 pt-1 border-b border-zinc-100 pb-4 animate-in fade-in slide-in-from-top-1 duration-200">
-                            {plan.features.slice(3).map((feat) =>
-                              renderFeatureBullet(feat, !!plan.popular)
-                            )}
-                          </ul>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => setShowMonthlyDetails((prev) => !prev)}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors group/btn py-1"
-                        >
-                          <span>{showMonthlyDetails ? 'Ver menos detalles' : 'Ver más detalles'}</span>
-                          <ChevronDown
-                            className={`h-4 w-4 text-zinc-600 group-hover/btn:text-zinc-950 transition-transform duration-200 ${
-                              showMonthlyDetails ? 'rotate-180' : 'group-hover/btn:translate-y-0.5'
-                            }`}
-                          />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => onOpenQuoteModal(`Mensual ${plan.name}`)}
-                    className={`group flex w-full items-center justify-center gap-2 rounded-full py-3.5 px-6 text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
-                      plan.popular
-                        ? 'bg-[#0B0B12] text-white hover:bg-zinc-800 shadow-md'
-                        : 'border border-zinc-900 bg-white text-zinc-900 hover:bg-zinc-950 hover:text-white'
-                    }`}
-                  >
-                    <span>{plan.ctaText}</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </button>
-                  <p className="mt-2 text-center text-[10px] text-zinc-600 font-mono">
-                    Sitio incluido · Sin permanencia
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          )}
         </section>
 
         {/* 3b. RECLU CARE — post-venta, no un plan gemelo */}
+        {billing === 'unico' && (
         <section className="mt-16 px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
@@ -478,6 +481,7 @@ export default function PreciosPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* 4. OPTIONAL EXTRAS */}
         <section className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto">
@@ -524,6 +528,7 @@ export default function PreciosPage() {
         </section>
 
         {/* 5. FULL COMPARISON MATRIX */}
+        {billing === 'unico' && (
         <section className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#6B7280]">
@@ -626,38 +631,71 @@ export default function PreciosPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* 6. TRANSPARENCY & METHOD SUMMARY */}
         <section className="mt-24 px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="rounded-3xl border border-zinc-200/90 bg-white p-8 sm:p-12 shadow-xs">
             <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#0B0B12] mb-8 text-center">
-              Cómo trabajamos los pagos y la entrega
+              {billing === 'unico'
+                ? 'Cómo trabajamos los pagos y la entrega'
+                : 'Cómo funciona el plan mensual'}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">01</span>
-                <h3 className="text-base font-semibold text-zinc-900 mb-1">50% Anticipo</h3>
-                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                  Para reservar el cupo en el calendario de estudio e iniciar la arquitectura, redacción y diseño interactivo.
-                </p>
-              </div>
+              {billing === 'unico' ? (
+                <>
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">01</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">50% Anticipo</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Para reservar el cupo en el calendario de estudio e iniciar la arquitectura, redacción y diseño interactivo.
+                    </p>
+                  </div>
 
-              <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">02</span>
-                <h3 className="text-base font-semibold text-zinc-900 mb-1">Pruebas en Vivo</h3>
-                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                  Te entregamos un enlace privado para que recorras el sitio como lo haría tu cliente, pruebes los formularios y WhatsApp, y hagamos ajustes.
-                </p>
-              </div>
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">02</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">Pruebas en Vivo</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Te entregamos un enlace privado para que recorras el sitio como lo haría tu cliente, pruebes los formularios y WhatsApp, y hagamos ajustes.
+                    </p>
+                  </div>
 
-              <div className="flex flex-col items-start">
-                <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">03</span>
-                <h3 className="text-base font-semibold text-zinc-900 mb-1">50% al Publicar</h3>
-                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                  Solo cuando estés 100% conforme, abonas el saldo restante y conectamos el sitio a tu dominio con certificado SSL y accesos completos.
-                </p>
-              </div>
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">03</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">50% al Publicar</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Solo cuando estés 100% conforme, abonas el saldo restante y conectamos el sitio a tu dominio con certificado SSL y accesos completos.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">01</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">Sitio incluido</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      El desarrollo no se cobra aparte. Publicamos tu web, el CRM y un asistente con IA diseñado para tu negocio.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">02</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">Pago mensual en CLP</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Cuota predecible en pesos. Los valores publicados son netos; se suma el 19% de IVA al facturar.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-start">
+                    <span className="font-mono text-2xl font-bold text-zinc-500 mb-2">03</span>
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">Sin permanencia</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Cancelas cuando quieras. El código del sitio sigue siendo tuyo; el asistente y el hosting se desactivan con el plan.
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </section>

@@ -1,4 +1,14 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "./**/*.{tsx,ts,css}";
+@source "../index.html";
+@source not "../../propuestas";
+@source not "../../crm";
+@source not "../../dist";
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/outfit/latin-500.css";
 @import "./components/orb/orb.css";
 
 @layer base {
@@ -7,8 +17,16 @@
     overflow-x: clip;
     max-width: 100%;
   }
+  @font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial');
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 22%;
+    line-gap-override: 0%;
+  }
   body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Inter, 'Inter Fallback', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: clip;
     max-width: 100%;
   }
@@ -505,6 +523,31 @@
   transform-origin: top center;
 }
 
+@keyframes assistant-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.assistant-marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.assistant-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  animation: assistant-marquee 38s linear infinite;
+}
+
+.assistant-marquee:hover .assistant-marquee-track,
+.assistant-marquee:focus-within .assistant-marquee-track {
+  animation-play-state: paused;
+}
+
 /* Miniatura de portfolio: solo el hero, sin botones flotantes */
 .preview-card-shot .fixed {
   display: none !important;
@@ -537,10 +580,21 @@ html.preview-scroll::-webkit-scrollbar-thumb:hover {
   .animate-float-y,
   .animate-float-y-delayed,
   .animate-pulse-glow,
-  .animate-plan-menu {
+  .animate-plan-menu,
+  .assistant-marquee-track {
     animation: none !important;
     opacity: 1;
     transform: none;
+  }
+
+  .assistant-marquee-track {
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+
+  .assistant-marquee-track .assistant-chip:nth-child(n + 9) {
+    display: none;
   }
 }
 
